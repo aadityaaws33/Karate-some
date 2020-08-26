@@ -1,0 +1,11 @@
+{
+  getLeagues(leagueId:<LEAGUEID>)   {
+    updatedTimeStamp
+    id
+    name
+    rank
+    url
+    svgUrl
+    season
+  }
+}

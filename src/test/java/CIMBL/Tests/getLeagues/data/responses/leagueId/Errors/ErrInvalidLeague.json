@@ -1,0 +1,23 @@
+{
+  "data": {
+    "getLeagues": null
+  },
+  "errors": [
+    {
+      "path": [
+        "getLeagues"
+      ],
+      "data": null,
+      "errorType": "0x0101",
+      "errorInfo": null,
+      "locations": [
+        {
+          "line": 2,
+          "column": 3,
+          "sourceName": null
+        }
+      ],
+      "message": "Invalid league id"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  getTeams(leagueId: <LEAGUEID>){
+    id
+    name
+  }
+}

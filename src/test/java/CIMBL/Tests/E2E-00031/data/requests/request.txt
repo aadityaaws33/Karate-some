@@ -1,0 +1,12 @@
+{
+	getFixtures(
+		fromDate: "2020-06-14", 
+		toDate: "2021-04-06", 
+		filter: {league : {id: {eq: ""}}}) {
+      id
+      dateTime {
+        date
+      }
+		  league{id}
+  }
+}

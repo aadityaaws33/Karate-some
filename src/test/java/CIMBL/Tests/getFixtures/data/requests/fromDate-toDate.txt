@@ -1,0 +1,44 @@
+{
+  getFixtures(fromDate: "<FROMDATE>", toDate: "<TODATE>") {
+    id
+    league{
+        id
+	    name
+	    rank
+	    url
+	    svgUrl
+	    season
+	    teams {
+	        id
+	        name
+	        shortName
+	        url
+	        svgUrl
+	    }
+    }
+    date
+		dateTime {
+				date
+				time
+				ISOString
+		}
+		homeTeam {
+				id
+				name
+				shortName
+				url
+				svgUrl
+		}
+		awayTeam {
+				id
+				name
+				shortName
+				url
+				svgUrl
+		}
+		location {
+				id
+				name
+		}
+  }
+}

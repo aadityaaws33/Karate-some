@@ -1,0 +1,106 @@
+{
+  "dev": {
+    "Common": {
+      "SecretsManager": {
+        "secretName": "cimbl-CodeBuild-Keys",
+        "region": "ap-southeast-1"
+      }
+    },
+    "CIMBL": {
+      "baseUrl": "https://i5pbvuq6cfa2vb2yoxtkuqt33i.appsync-api.eu-west-1.amazonaws.com/graphql",
+      "imgS3Bucket": "cdn-cimbl-image-library-website",
+      "smcRespS3Bucket": "test-allsvenskan-api-data",
+      "imgS3BucketRegion": "eu-west-1",
+      "qaBucket": "cimbl-qa-dev",
+      "qaBucketRegion": "ap-southeast-1",
+      "apiId": "jk2n2uvxt5bafn4h5ikwqpepxa",
+      "apiRegion": "eu-west-1"
+    },
+    "SMC": {
+      "baseUrl": "https://api-connect-sb.norkring.net/norkring-as/part2/smc/v1/leagues/",
+    }
+  },"qa": {
+    "Common": {
+      "SecretsManager": {
+        "secretName": "cimbl-CodeBuild-Keys",
+        "region": "ap-southeast-1"
+      }
+    },
+    "CIMBL": {
+      "baseUrl": "https://p6yrpia25rhavesvcqex2xd7oa.appsync-api.eu-west-1.amazonaws.com/graphql",
+      "imgS3Bucket": "cdn-cimbl-image-library-website",
+      "smcRespS3Bucket": "test-allsvenskan-api-data",
+      "imgS3BucketRegion": "eu-west-1",
+      "qaBucket": "cimbl-qa-dev",
+      "qaBucketRegion": "ap-southeast-1",
+      "apiId": "fafsuxje4ffdfhqta2v6ls7pny",
+      "apiRegion": "eu-west-1"
+    },
+    "SMC": {
+      "baseUrl": "https://api-connect-sb.norkring.net/norkring-as/part2/smc/v1/leagues/",
+    }
+  },
+  "staging": {
+    "Common": {
+      "SecretsManager": {
+        "secretName": "cimbl-CodeBuild-variables",
+        "region": "ap-southeast-1"
+      }
+    },
+    "CIMBL": {
+      "baseUrl": "https://zbedscuf3vdk3gg27gusaoebba.appsync-api.eu-west-1.amazonaws.com/graphql",
+      "imgS3Bucket": "cimbl-image-library-eu-prod",
+      "smcRespS3Bucket": "allsvenskan-api-data-stage",
+      "imgS3BucketRegion": "eu-west-1",
+      "qaBucket": "cimbl-qa-prod",
+      "qaBucketRegion": "eu-west-1",
+      "apiId": "6znhknvvkngivo5sjscdngriiu",
+      "apiRegion": "eu-west-1"
+    },
+    "SMC": {
+      "baseUrl": "https://api-connect.norkring.net/norkring-as/part2/smc/v1/leagues/",
+    }
+  },
+  "prod": {
+    "Common": {
+      "SecretsManager": {
+        "secretName": "cimbl-CodeBuild-variables",
+        "region": "ap-southeast-1"
+      }
+    },
+    "CIMBL": {
+      "baseUrl": "https://f7widlxye5drjkfvs2ehnnrora.appsync-api.eu-west-1.amazonaws.com/graphql",
+      "imgS3Bucket": "cimbl-image-library-eu-prod",
+      "smcRespS3Bucket": "allsvenskan-api-data",
+      "imgS3BucketRegion": "eu-west-1",
+      "qaBucket": "cimbl-qa-prod",
+      "qaBucketRegion": "eu-west-1",
+      "apiId": "p5hdxwopc5hlrlgutywzb7jmy4",
+      "apiRegion": "eu-west-1"
+    },
+    "SMC": {
+      "baseUrl": "https://api-connect.norkring.net/norkring-as/part2/smc/v1/leagues/",
+    }
+  },
+  "prodGreen": {
+    "Common": {
+      "SecretsManager": {
+        "secretName": "cimbl-CodeBuild-variables",
+        "region": "ap-southeast-1"
+      }
+    },
+    "CIMBL": {
+      "baseUrl": "https://d2ttvemcbzbg7l23kifnt77qpi.appsync-api.eu-west-1.amazonaws.com/graphql",
+      "imgS3Bucket": "cimbl-image-library-eu-prod",
+      "smcRespS3Bucket": "allsvenskan-api-data",
+      "imgS3BucketRegion": "eu-west-1",
+      "qaBucket": "cimbl-qa-prod",
+      "qaBucketRegion": "eu-west-1",
+      "apiId": "p3mkwedcdbenlaj5htlvzwngyi",
+      "apiRegion": "eu-west-1"
+    },
+    "SMC": {
+      "baseUrl": "https://api-connect.norkring.net/norkring-as/part2/smc/v1/leagues/",
+    }
+  }
+}

@@ -1,0 +1,53 @@
+#!/bin/bash
+
+function show_help {
+    echo "Usage: ./run-test 
+        <-r|-runTag> [E2E|SchemaValidation] 
+        <-e|-env> [qa|staging|prod] 
+        [ONLY FOR E2E]
+        <-a|-authType> [apiKey|IAM]"
+}
+
+while [ -n "$1" ];
+do
+    case "$1"
+    in
+        -r | -runTag)               shift; TAG=${1};;
+        -e | -env)                  shift; TARGETENV=${1};;
+        -a | -authType)             shift; AUTHTYPE=${1};;
+    esac
+    shift
+done    
+
+# CHECK ARGS
+if [ -z "${TAG}" ] || [ -z "${TARGETENV}" ]; then
+    show_help
+    exit 1
+fi
+
+if [[ "$TAG" == *"E2E"* ]]; then
+    if [ -z "${AUTHTYPE}" ]; then
+        show_help
+        exit 1
+    fi
+fi
+
+# EXECUTE
+TARGETENV=`echo ${TARGETENV}|tr "," "\n"`
+for env in $TARGETENV; do
+    echo "======================= ENV: ${env} ======================="
+    THIS_CWD=`pwd`
+    while [[ "$PWD" = *"bin"* ]];
+    do
+        cd ..
+    done
+    if [[ "${TAG}" == *"SchemaValidation"* ]]; then
+        mvn clean test -Dkarate.options="-t @${TAG}" -Dkarate.targetEnv="${env}"
+    else 
+        mvn clean test -Dkarate.options="-t @${TAG}" -Dkarate.targetEnv="${env}" -Dkarate.authType="${AUTHTYPE}"
+    fi
+    read -p "Press enter to continue..."
+done
+cd "$THIS_CWD"
+
+

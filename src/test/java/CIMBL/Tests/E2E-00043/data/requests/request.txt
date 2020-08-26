@@ -1,0 +1,15 @@
+{
+  getLeaguesStandings(leagueId: null){
+      id
+      position
+      team {id}
+      points
+      played
+      won
+      drawn
+      lost
+      goalsFor
+      goalsAgainst
+      goalsDifference
+  }
+}

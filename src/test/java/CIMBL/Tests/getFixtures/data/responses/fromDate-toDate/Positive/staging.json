@@ -1,0 +1,1214 @@
+{
+  "data": {
+    "getFixtures": [
+      {
+        "date": "2020-06-14T10:00:00.000Z",
+        "dateTime": {
+          "date": "2020-06-14",
+          "time": "10:00:00.000Z",
+          "ISOString": "2020-06-14T10:00:00.000Z"
+        },
+        "awayTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.svg",
+          "name": "Djurgårdens IF",
+          "id": "11",
+          "shortName": "DIF",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.png"
+        },
+        "league": {
+          "teams": [
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.svg",
+              "name": "IK Sirius",
+              "id": "1",
+              "shortName": "SIR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.svg",
+              "name": "Hammarby IF",
+              "id": "2",
+              "shortName": "HAM",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.svg",
+              "name": "IFK Norrköping",
+              "id": "4",
+              "shortName": "NOR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.svg",
+              "name": "BK Häcken",
+              "id": "5",
+              "shortName": "HÄC",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.svg",
+              "name": "IFK Göteborg",
+              "id": "6",
+              "shortName": "GÖT",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.svg",
+              "name": "IF Elfsborg",
+              "id": "7",
+              "shortName": "ELF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.svg",
+              "name": "Malmö FF",
+              "id": "8",
+              "shortName": "MFF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.svg",
+              "name": "Kalmar FF",
+              "id": "9",
+              "shortName": "KAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.svg",
+              "name": "AIK",
+              "id": "10",
+              "shortName": "AIK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.svg",
+              "name": "Djurgårdens IF",
+              "id": "11",
+              "shortName": "DIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.svg",
+              "name": "Örebro SK",
+              "id": "12",
+              "shortName": "ÖRE",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.svg",
+              "name": "Östersunds FK",
+              "id": "13",
+              "shortName": "ÖFK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.svg",
+              "name": "Varbergs BoIS FC",
+              "id": "20",
+              "shortName": "VAR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.svg",
+              "name": "Helsingborgs IF",
+              "id": "25",
+              "shortName": "HEL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.svg",
+              "name": "Falkenbergs FF",
+              "id": "27",
+              "shortName": "FAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.svg",
+              "name": "Mjällby AIF",
+              "id": "51",
+              "shortName": "MAIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.png"
+            }
+          ],
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/25.svg",
+          "name": "Allsvenskan",
+          "rank": 1,
+          "season": "2020/2021",
+          "id": "25",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/25.png"
+        },
+        "homeTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.svg",
+          "name": "IK Sirius",
+          "id": "1",
+          "shortName": "SIR",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.png"
+        },
+        "location": [
+          {
+            "name": "Studenternas",
+            "id": "67"
+          }
+        ],
+        "id": "6066"
+      },
+      {
+        "date": "2020-06-14T12:30:00.000Z",
+        "dateTime": {
+          "date": "2020-06-14",
+          "time": "12:30:00.000Z",
+          "ISOString": "2020-06-14T12:30:00.000Z"
+        },
+        "awayTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.svg",
+          "name": "Kalmar FF",
+          "id": "9",
+          "shortName": "KAL",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.png"
+        },
+        "league": {
+          "teams": [
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.svg",
+              "name": "IK Sirius",
+              "id": "1",
+              "shortName": "SIR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.svg",
+              "name": "Hammarby IF",
+              "id": "2",
+              "shortName": "HAM",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.svg",
+              "name": "IFK Norrköping",
+              "id": "4",
+              "shortName": "NOR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.svg",
+              "name": "BK Häcken",
+              "id": "5",
+              "shortName": "HÄC",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.svg",
+              "name": "IFK Göteborg",
+              "id": "6",
+              "shortName": "GÖT",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.svg",
+              "name": "IF Elfsborg",
+              "id": "7",
+              "shortName": "ELF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.svg",
+              "name": "Malmö FF",
+              "id": "8",
+              "shortName": "MFF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.svg",
+              "name": "Kalmar FF",
+              "id": "9",
+              "shortName": "KAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.svg",
+              "name": "AIK",
+              "id": "10",
+              "shortName": "AIK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.svg",
+              "name": "Djurgårdens IF",
+              "id": "11",
+              "shortName": "DIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.svg",
+              "name": "Örebro SK",
+              "id": "12",
+              "shortName": "ÖRE",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.svg",
+              "name": "Östersunds FK",
+              "id": "13",
+              "shortName": "ÖFK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.svg",
+              "name": "Varbergs BoIS FC",
+              "id": "20",
+              "shortName": "VAR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.svg",
+              "name": "Helsingborgs IF",
+              "id": "25",
+              "shortName": "HEL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.svg",
+              "name": "Falkenbergs FF",
+              "id": "27",
+              "shortName": "FAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.svg",
+              "name": "Mjällby AIF",
+              "id": "51",
+              "shortName": "MAIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.png"
+            }
+          ],
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/25.svg",
+          "name": "Allsvenskan",
+          "rank": 1,
+          "season": "2020/2021",
+          "id": "25",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/25.png"
+        },
+        "homeTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.svg",
+          "name": "IFK Norrköping",
+          "id": "4",
+          "shortName": "NOR",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.png"
+        },
+        "location": [
+          {
+            "name": "Östgötaporten",
+            "id": "61"
+          }
+        ],
+        "id": "6067"
+      },
+      {
+        "date": "2020-06-14T12:30:00.000Z",
+        "dateTime": {
+          "date": "2020-06-14",
+          "time": "12:30:00.000Z",
+          "ISOString": "2020-06-14T12:30:00.000Z"
+        },
+        "awayTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.svg",
+          "name": "IF Elfsborg",
+          "id": "7",
+          "shortName": "ELF",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.png"
+        },
+        "league": {
+          "teams": [
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.svg",
+              "name": "IK Sirius",
+              "id": "1",
+              "shortName": "SIR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.svg",
+              "name": "Hammarby IF",
+              "id": "2",
+              "shortName": "HAM",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.svg",
+              "name": "IFK Norrköping",
+              "id": "4",
+              "shortName": "NOR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.svg",
+              "name": "BK Häcken",
+              "id": "5",
+              "shortName": "HÄC",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.svg",
+              "name": "IFK Göteborg",
+              "id": "6",
+              "shortName": "GÖT",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.svg",
+              "name": "IF Elfsborg",
+              "id": "7",
+              "shortName": "ELF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.svg",
+              "name": "Malmö FF",
+              "id": "8",
+              "shortName": "MFF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.svg",
+              "name": "Kalmar FF",
+              "id": "9",
+              "shortName": "KAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.svg",
+              "name": "AIK",
+              "id": "10",
+              "shortName": "AIK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.svg",
+              "name": "Djurgårdens IF",
+              "id": "11",
+              "shortName": "DIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.svg",
+              "name": "Örebro SK",
+              "id": "12",
+              "shortName": "ÖRE",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.svg",
+              "name": "Östersunds FK",
+              "id": "13",
+              "shortName": "ÖFK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.svg",
+              "name": "Varbergs BoIS FC",
+              "id": "20",
+              "shortName": "VAR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.svg",
+              "name": "Helsingborgs IF",
+              "id": "25",
+              "shortName": "HEL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.svg",
+              "name": "Falkenbergs FF",
+              "id": "27",
+              "shortName": "FAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.svg",
+              "name": "Mjällby AIF",
+              "id": "51",
+              "shortName": "MAIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.png"
+            }
+          ],
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/25.svg",
+          "name": "Allsvenskan",
+          "rank": 1,
+          "season": "2020/2021",
+          "id": "25",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/25.png"
+        },
+        "homeTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.svg",
+          "name": "IFK Göteborg",
+          "id": "6",
+          "shortName": "GÖT",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.png"
+        },
+        "location": [
+          {
+            "name": "Gamla Ullevi",
+            "id": "72"
+          }
+        ],
+        "id": "6068"
+      },
+      {
+        "date": "2020-06-14T15:30:00.000Z",
+        "dateTime": {
+          "date": "2020-06-14",
+          "time": "15:30:00.000Z",
+          "ISOString": "2020-06-14T15:30:00.000Z"
+        },
+        "awayTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.svg",
+          "name": "AIK",
+          "id": "10",
+          "shortName": "AIK",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.png"
+        },
+        "league": {
+          "teams": [
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.svg",
+              "name": "IK Sirius",
+              "id": "1",
+              "shortName": "SIR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.svg",
+              "name": "Hammarby IF",
+              "id": "2",
+              "shortName": "HAM",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.svg",
+              "name": "IFK Norrköping",
+              "id": "4",
+              "shortName": "NOR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.svg",
+              "name": "BK Häcken",
+              "id": "5",
+              "shortName": "HÄC",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.svg",
+              "name": "IFK Göteborg",
+              "id": "6",
+              "shortName": "GÖT",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.svg",
+              "name": "IF Elfsborg",
+              "id": "7",
+              "shortName": "ELF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.svg",
+              "name": "Malmö FF",
+              "id": "8",
+              "shortName": "MFF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.svg",
+              "name": "Kalmar FF",
+              "id": "9",
+              "shortName": "KAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.svg",
+              "name": "AIK",
+              "id": "10",
+              "shortName": "AIK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.svg",
+              "name": "Djurgårdens IF",
+              "id": "11",
+              "shortName": "DIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.svg",
+              "name": "Örebro SK",
+              "id": "12",
+              "shortName": "ÖRE",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.svg",
+              "name": "Östersunds FK",
+              "id": "13",
+              "shortName": "ÖFK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.svg",
+              "name": "Varbergs BoIS FC",
+              "id": "20",
+              "shortName": "VAR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.svg",
+              "name": "Helsingborgs IF",
+              "id": "25",
+              "shortName": "HEL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.svg",
+              "name": "Falkenbergs FF",
+              "id": "27",
+              "shortName": "FAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.svg",
+              "name": "Mjällby AIF",
+              "id": "51",
+              "shortName": "MAIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.png"
+            }
+          ],
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/25.svg",
+          "name": "Allsvenskan",
+          "rank": 1,
+          "season": "2020/2021",
+          "id": "25",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/25.png"
+        },
+        "homeTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.svg",
+          "name": "Örebro SK",
+          "id": "12",
+          "shortName": "ÖRE",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.png"
+        },
+        "location": [
+          {
+            "name": "Behrn Arena",
+            "id": "64"
+          }
+        ],
+        "id": "6070"
+      },
+      {
+        "date": "2020-06-14T15:30:00.000Z",
+        "dateTime": {
+          "date": "2020-06-14",
+          "time": "15:30:00.000Z",
+          "ISOString": "2020-06-14T15:30:00.000Z"
+        },
+        "awayTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.svg",
+          "name": "Östersunds FK",
+          "id": "13",
+          "shortName": "ÖFK",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.png"
+        },
+        "league": {
+          "teams": [
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.svg",
+              "name": "IK Sirius",
+              "id": "1",
+              "shortName": "SIR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.svg",
+              "name": "Hammarby IF",
+              "id": "2",
+              "shortName": "HAM",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.svg",
+              "name": "IFK Norrköping",
+              "id": "4",
+              "shortName": "NOR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.svg",
+              "name": "BK Häcken",
+              "id": "5",
+              "shortName": "HÄC",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.svg",
+              "name": "IFK Göteborg",
+              "id": "6",
+              "shortName": "GÖT",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.svg",
+              "name": "IF Elfsborg",
+              "id": "7",
+              "shortName": "ELF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.svg",
+              "name": "Malmö FF",
+              "id": "8",
+              "shortName": "MFF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.svg",
+              "name": "Kalmar FF",
+              "id": "9",
+              "shortName": "KAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.svg",
+              "name": "AIK",
+              "id": "10",
+              "shortName": "AIK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.svg",
+              "name": "Djurgårdens IF",
+              "id": "11",
+              "shortName": "DIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.svg",
+              "name": "Örebro SK",
+              "id": "12",
+              "shortName": "ÖRE",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.svg",
+              "name": "Östersunds FK",
+              "id": "13",
+              "shortName": "ÖFK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.svg",
+              "name": "Varbergs BoIS FC",
+              "id": "20",
+              "shortName": "VAR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.svg",
+              "name": "Helsingborgs IF",
+              "id": "25",
+              "shortName": "HEL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.svg",
+              "name": "Falkenbergs FF",
+              "id": "27",
+              "shortName": "FAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.svg",
+              "name": "Mjällby AIF",
+              "id": "51",
+              "shortName": "MAIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.png"
+            }
+          ],
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/25.svg",
+          "name": "Allsvenskan",
+          "rank": 1,
+          "season": "2020/2021",
+          "id": "25",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/25.png"
+        },
+        "homeTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.svg",
+          "name": "Hammarby IF",
+          "id": "2",
+          "shortName": "HAM",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.png"
+        },
+        "location": [
+          {
+            "name": "Tele2 Arena",
+            "id": "63"
+          }
+        ],
+        "id": "6069"
+      },
+      {
+        "date": "2020-06-15T17:00:00.000Z",
+        "dateTime": {
+          "date": "2020-06-15",
+          "time": "17:00:00.000Z",
+          "ISOString": "2020-06-15T17:00:00.000Z"
+        },
+        "awayTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.svg",
+          "name": "Varbergs BoIS FC",
+          "id": "20",
+          "shortName": "VAR",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.png"
+        },
+        "league": {
+          "teams": [
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.svg",
+              "name": "IK Sirius",
+              "id": "1",
+              "shortName": "SIR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.svg",
+              "name": "Hammarby IF",
+              "id": "2",
+              "shortName": "HAM",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.svg",
+              "name": "IFK Norrköping",
+              "id": "4",
+              "shortName": "NOR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.svg",
+              "name": "BK Häcken",
+              "id": "5",
+              "shortName": "HÄC",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.svg",
+              "name": "IFK Göteborg",
+              "id": "6",
+              "shortName": "GÖT",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.svg",
+              "name": "IF Elfsborg",
+              "id": "7",
+              "shortName": "ELF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.svg",
+              "name": "Malmö FF",
+              "id": "8",
+              "shortName": "MFF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.svg",
+              "name": "Kalmar FF",
+              "id": "9",
+              "shortName": "KAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.svg",
+              "name": "AIK",
+              "id": "10",
+              "shortName": "AIK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.svg",
+              "name": "Djurgårdens IF",
+              "id": "11",
+              "shortName": "DIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.svg",
+              "name": "Örebro SK",
+              "id": "12",
+              "shortName": "ÖRE",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.svg",
+              "name": "Östersunds FK",
+              "id": "13",
+              "shortName": "ÖFK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.svg",
+              "name": "Varbergs BoIS FC",
+              "id": "20",
+              "shortName": "VAR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.svg",
+              "name": "Helsingborgs IF",
+              "id": "25",
+              "shortName": "HEL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.svg",
+              "name": "Falkenbergs FF",
+              "id": "27",
+              "shortName": "FAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.svg",
+              "name": "Mjällby AIF",
+              "id": "51",
+              "shortName": "MAIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.png"
+            }
+          ],
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/25.svg",
+          "name": "Allsvenskan",
+          "rank": 1,
+          "season": "2020/2021",
+          "id": "25",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/25.png"
+        },
+        "homeTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.svg",
+          "name": "Helsingborgs IF",
+          "id": "25",
+          "shortName": "HEL",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.png"
+        },
+        "location": [
+          {
+            "name": "Olympia, Helsingborg",
+            "id": "74"
+          }
+        ],
+        "id": "6072"
+      },
+      {
+        "date": "2020-06-15T17:00:00.000Z",
+        "dateTime": {
+          "date": "2020-06-15",
+          "time": "17:00:00.000Z",
+          "ISOString": "2020-06-15T17:00:00.000Z"
+        },
+        "awayTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.svg",
+          "name": "BK Häcken",
+          "id": "5",
+          "shortName": "HÄC",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.png"
+        },
+        "league": {
+          "teams": [
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.svg",
+              "name": "IK Sirius",
+              "id": "1",
+              "shortName": "SIR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.svg",
+              "name": "Hammarby IF",
+              "id": "2",
+              "shortName": "HAM",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.svg",
+              "name": "IFK Norrköping",
+              "id": "4",
+              "shortName": "NOR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.svg",
+              "name": "BK Häcken",
+              "id": "5",
+              "shortName": "HÄC",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.svg",
+              "name": "IFK Göteborg",
+              "id": "6",
+              "shortName": "GÖT",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.svg",
+              "name": "IF Elfsborg",
+              "id": "7",
+              "shortName": "ELF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.svg",
+              "name": "Malmö FF",
+              "id": "8",
+              "shortName": "MFF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.svg",
+              "name": "Kalmar FF",
+              "id": "9",
+              "shortName": "KAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.svg",
+              "name": "AIK",
+              "id": "10",
+              "shortName": "AIK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.svg",
+              "name": "Djurgårdens IF",
+              "id": "11",
+              "shortName": "DIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.svg",
+              "name": "Örebro SK",
+              "id": "12",
+              "shortName": "ÖRE",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.svg",
+              "name": "Östersunds FK",
+              "id": "13",
+              "shortName": "ÖFK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.svg",
+              "name": "Varbergs BoIS FC",
+              "id": "20",
+              "shortName": "VAR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.svg",
+              "name": "Helsingborgs IF",
+              "id": "25",
+              "shortName": "HEL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.svg",
+              "name": "Falkenbergs FF",
+              "id": "27",
+              "shortName": "FAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.svg",
+              "name": "Mjällby AIF",
+              "id": "51",
+              "shortName": "MAIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.png"
+            }
+          ],
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/25.svg",
+          "name": "Allsvenskan",
+          "rank": 1,
+          "season": "2020/2021",
+          "id": "25",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/25.png"
+        },
+        "homeTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.svg",
+          "name": "Falkenbergs FF",
+          "id": "27",
+          "shortName": "FAL",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.png"
+        },
+        "location": [
+          {
+            "name": "Falcon Alkoholfri Arena",
+            "id": "77"
+          }
+        ],
+        "id": "6071"
+      },
+      {
+        "date": "2020-06-15T17:00:00.000Z",
+        "dateTime": {
+          "date": "2020-06-15",
+          "time": "17:00:00.000Z",
+          "ISOString": "2020-06-15T17:00:00.000Z"
+        },
+        "awayTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.svg",
+          "name": "Mjällby AIF",
+          "id": "51",
+          "shortName": "MAIF",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.png"
+        },
+        "league": {
+          "teams": [
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.svg",
+              "name": "IK Sirius",
+              "id": "1",
+              "shortName": "SIR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/108445_1.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.svg",
+              "name": "Hammarby IF",
+              "id": "2",
+              "shortName": "HAM",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66592_2.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.svg",
+              "name": "IFK Norrköping",
+              "id": "4",
+              "shortName": "NOR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26935_4.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.svg",
+              "name": "BK Häcken",
+              "id": "5",
+              "shortName": "HÄC",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25509_5.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.svg",
+              "name": "IFK Göteborg",
+              "id": "6",
+              "shortName": "GÖT",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25508_6.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.svg",
+              "name": "IF Elfsborg",
+              "id": "7",
+              "shortName": "ELF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25504_7.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.svg",
+              "name": "Malmö FF",
+              "id": "8",
+              "shortName": "MFF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.svg",
+              "name": "Kalmar FF",
+              "id": "9",
+              "shortName": "KAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25521_9.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.svg",
+              "name": "AIK",
+              "id": "10",
+              "shortName": "AIK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/66036_10.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.svg",
+              "name": "Djurgårdens IF",
+              "id": "11",
+              "shortName": "DIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89483_11.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.svg",
+              "name": "Örebro SK",
+              "id": "12",
+              "shortName": "ÖRE",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/89484_12.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.svg",
+              "name": "Östersunds FK",
+              "id": "13",
+              "shortName": "ÖFK",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/214472_13.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.svg",
+              "name": "Varbergs BoIS FC",
+              "id": "20",
+              "shortName": "VAR",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/26111_20.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.svg",
+              "name": "Helsingborgs IF",
+              "id": "25",
+              "shortName": "HEL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25511_25.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.svg",
+              "name": "Falkenbergs FF",
+              "id": "27",
+              "shortName": "FAL",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25686_27.png"
+            },
+            {
+              "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.svg",
+              "name": "Mjällby AIF",
+              "id": "51",
+              "shortName": "MAIF",
+              "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25506_51.png"
+            }
+          ],
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/25.svg",
+          "name": "Allsvenskan",
+          "rank": 1,
+          "season": "2020/2021",
+          "id": "25",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/25.png"
+        },
+        "homeTeam": {
+          "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.svg",
+          "name": "Malmö FF",
+          "id": "8",
+          "shortName": "MFF",
+          "url": "https://img.dplaysportapi.com/leagues/allsvenskan/teams/25517_8.png"
+        },
+        "location": [
+          {
+            "name": "Eleda Stadion",
+            "id": "71"
+          }
+        ],
+        "id": "6073"
+      }
+    ]
+  }
+}

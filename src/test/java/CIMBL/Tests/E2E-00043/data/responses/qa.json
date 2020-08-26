@@ -1,0 +1,23 @@
+{
+  "data": {
+    "getLeaguesStandings": null
+  },
+  "errors": [
+    {
+      "path": [
+        "getLeaguesStandings"
+      ],
+      "data": null,
+      "errorType": "0x0101",
+      "errorInfo": null,
+      "locations": [
+        {
+          "line": 2,
+          "column": 3,
+          "sourceName": null
+        }
+      ],
+      "message": "Bad input: leagueId cannot be null or empty"
+    }
+  ]
+}

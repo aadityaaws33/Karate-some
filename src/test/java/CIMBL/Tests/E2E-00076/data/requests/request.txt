@@ -1,0 +1,8 @@
+{
+  getLeagues {
+    id
+    name
+    url
+    svgUrl
+  }
+}

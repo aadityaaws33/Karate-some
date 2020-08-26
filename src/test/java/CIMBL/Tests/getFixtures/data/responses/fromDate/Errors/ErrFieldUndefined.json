@@ -1,0 +1,27 @@
+{
+  "data": null,
+  "errors": [
+    {
+      "path": null,
+      "locations": [
+        {
+          "line": 2,
+          "column": 15,
+          "sourceName": null
+        }
+      ],
+      "message": "Validation error of type UnknownArgument: Unknown field argument unknownParameter @ 'getFixtures'"
+    },
+    {
+      "path": null,
+      "locations": [
+        {
+          "line": 3,
+          "column": 5,
+          "sourceName": null
+        }
+      ],
+      "message": "Validation error of type FieldUndefined: Field 'unknownField' in type 'Fixture' is undefined @ 'getFixtures/unknownField'"
+    }
+  ]
+}

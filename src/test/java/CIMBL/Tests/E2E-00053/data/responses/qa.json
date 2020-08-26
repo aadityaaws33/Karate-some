@@ -1,0 +1,20 @@
+{
+  "data": {
+    "getFixtures": [
+      {
+        "id": "6069",
+        "date": "2020-06-14T15:30:00.000Z",
+        "status": "FULLTIME",
+        "league": {
+          "id": "25"
+        },
+        "homeTeam": {
+          "id": "2"
+        },
+        "awayTeam": {
+          "id": "13"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  getFixtures(
+    fromDate: "<FROMDATE>", 
+    toDate: "<TODATE>",
+    leagueShortCode :<LEAGUESHORTCODE>) {
+      id,
+      league { 
+        id, 
+        leagueShortCode
+      }
+      homeTeam {
+        id
+      }
+      awayTeam {
+        id
+      }
+  }
+}

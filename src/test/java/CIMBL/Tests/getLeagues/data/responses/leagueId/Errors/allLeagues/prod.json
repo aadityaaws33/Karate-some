@@ -1,0 +1,22 @@
+{
+  "data": {
+    "getLeagues": [
+      {
+        "svgUrl": "https://img.dplaysportapi.com/leagues/allsvenskan/25.svg",
+        "name": "Allsvenskan",
+        "rank": 1,
+        "season": "2020/2021",
+        "id": "25",
+        "url": "https://img.dplaysportapi.com/leagues/allsvenskan/25.png"
+      },
+      {
+        "svgUrl": "https://img.dplaysportapi.com/leagues/superettan/26.svg",
+        "name": "Superettan",
+        "rank": 2,
+        "season": "2020/2021",
+        "id": "26",
+        "url": "https://img.dplaysportapi.com/leagues/superettan/26.png"
+      }
+    ]
+  }
+}

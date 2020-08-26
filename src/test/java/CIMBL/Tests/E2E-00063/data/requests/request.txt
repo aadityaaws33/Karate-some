@@ -1,0 +1,9 @@
+{
+  getFixtures(fromDate: "2020-06-14", toDate: "2020-06-15",
+    filter: { league: { id: { eq: <LEAGUEID> }}}) {
+    updatedTimeStamp
+    id
+    status
+    date
+  }
+}

@@ -1,0 +1,6 @@
+version: '3.6'
+services:
+  ilexapitestcode:
+    build: .
+    volumes:
+      - "~/.m2:/root/.m2"

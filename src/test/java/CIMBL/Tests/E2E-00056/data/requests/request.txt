@@ -1,0 +1,12 @@
+{
+	getFixtures(
+		fromDate: "2020-06-14", 
+		toDate: "2020-06-15", 
+		filter: {
+      date: {eq: ""}
+      }) {
+      id
+      date
+      status
+  }
+}

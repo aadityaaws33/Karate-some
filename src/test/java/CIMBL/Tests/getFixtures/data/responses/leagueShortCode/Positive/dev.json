@@ -1,0 +1,201 @@
+{
+  "data": {
+    "getFixtures": [
+      {
+        "awayTeam": {
+          "id": "31"
+        },
+        "league": {
+          "leagueShortCode": "SET",
+          "id": "26"
+        },
+        "homeTeam": {
+          "id": "14"
+        },
+        "id": "6436"
+      },
+      {
+        "awayTeam": {
+          "id": "55"
+        },
+        "league": {
+          "leagueShortCode": "SET",
+          "id": "26"
+        },
+        "homeTeam": {
+          "id": "24"
+        },
+        "id": "6441"
+      },
+      {
+        "awayTeam": {
+          "id": "19"
+        },
+        "league": {
+          "leagueShortCode": "SET",
+          "id": "26"
+        },
+        "homeTeam": {
+          "id": "53"
+        },
+        "id": "6434"
+      },
+      {
+        "awayTeam": {
+          "id": "54"
+        },
+        "league": {
+          "leagueShortCode": "SET",
+          "id": "26"
+        },
+        "homeTeam": {
+          "id": "16"
+        },
+        "id": "6437"
+      },
+      {
+        "awayTeam": {
+          "id": "3"
+        },
+        "league": {
+          "leagueShortCode": "SET",
+          "id": "26"
+        },
+        "homeTeam": {
+          "id": "23"
+        },
+        "id": "6438"
+      },
+      {
+        "awayTeam": {
+          "id": "7"
+        },
+        "league": {
+          "leagueShortCode": "ASE",
+          "id": "25"
+        },
+        "homeTeam": {
+          "id": "11"
+        },
+        "id": "6268"
+      },
+      {
+        "awayTeam": {
+          "id": "29"
+        },
+        "league": {
+          "leagueShortCode": "SET",
+          "id": "26"
+        },
+        "homeTeam": {
+          "id": "30"
+        },
+        "id": "6435"
+      },
+      {
+        "awayTeam": {
+          "id": "17"
+        },
+        "league": {
+          "leagueShortCode": "SET",
+          "id": "26"
+        },
+        "homeTeam": {
+          "id": "22"
+        },
+        "id": "6440"
+      },
+      {
+        "awayTeam": {
+          "id": "50"
+        },
+        "league": {
+          "leagueShortCode": "SET",
+          "id": "26"
+        },
+        "homeTeam": {
+          "id": "18"
+        },
+        "id": "6439"
+      },
+      {
+        "awayTeam": {
+          "id": "6"
+        },
+        "league": {
+          "leagueShortCode": "ASE",
+          "id": "25"
+        },
+        "homeTeam": {
+          "id": "27"
+        },
+        "id": "6270"
+      },
+      {
+        "awayTeam": {
+          "id": "25"
+        },
+        "league": {
+          "leagueShortCode": "ASE",
+          "id": "25"
+        },
+        "homeTeam": {
+          "id": "2"
+        },
+        "id": "6266"
+      },
+      {
+        "awayTeam": {
+          "id": "7973"
+        },
+        "league": {
+          "leagueShortCode": "SLG",
+          "id": "218620"
+        },
+        "homeTeam": {
+          "id": "7977"
+        },
+        "id": "36278083"
+      },
+      {
+        "awayTeam": {
+          "id": "10"
+        },
+        "league": {
+          "leagueShortCode": "ASE",
+          "id": "25"
+        },
+        "homeTeam": {
+          "id": "8"
+        },
+        "id": "6272"
+      },
+      {
+        "awayTeam": {
+          "id": "20"
+        },
+        "league": {
+          "leagueShortCode": "ASE",
+          "id": "25"
+        },
+        "homeTeam": {
+          "id": "51"
+        },
+        "id": "6273"
+      },
+      {
+        "awayTeam": {
+          "id": "7978"
+        },
+        "league": {
+          "leagueShortCode": "SLG",
+          "id": "218620"
+        },
+        "homeTeam": {
+          "id": "7975"
+        },
+        "id": "36278084"
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "data": {
+    "getFixtures": null
+  },
+  "errors": [
+    {
+      "path": [
+        "getFixtures"
+      ],
+      "data": null,
+      "errorType": "0x0105",
+      "errorInfo": null,
+      "locations": [
+        {
+          "line": 2,
+          "column": 2,
+          "sourceName": null
+        }
+      ],
+      "message": "Invalid filter"
+    }
+  ]
+}

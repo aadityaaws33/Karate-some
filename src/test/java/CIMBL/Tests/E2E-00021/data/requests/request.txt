@@ -1,0 +1,13 @@
+{
+	getFixtures(
+		fromDate: "2020-06-14", 
+		toDate: "2020-06-15", 
+		filter: {team : {id: {eq: 13}}}) {
+      id
+      date
+		  league{id}
+		  homeTeam{id}
+		  awayTeam{id}
+      goal
+  }
+}

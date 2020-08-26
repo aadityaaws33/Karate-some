@@ -1,0 +1,73 @@
+#!/bin/bash
+
+function show_help {
+    echo "Usage: ./generate-new [feature|test]"
+}
+
+TEMPLATES_DIR="Templates"
+FEATURES_DIR="src/test/java/CIMBL/Features"
+TESTS_DIR="src/test/java/CIMBL/Tests"
+
+THIS_CWD=`pwd`
+while [[ "$PWD" = *"bin"* ]];
+do
+    cd ..
+done
+
+if [ -z "$1" ]; then
+    show_help
+else
+    if [ "$1" == "feature" ]; then
+        response="no"
+        while [[ "$response" = *"n"* ]]; do
+            clear
+            echo "Creating a new feature"
+            echo "Enter Feature ID [e.g. DPAS-123]: "
+            read FEATURE_ID
+            echo "Enter Jira Ticket URL: [e.g. https://discoveryinc.atlassian.net/browse/DPAS-89]: "
+            read JIRA_TICKET_URL
+            echo "Enter Jira Ticket Title: [e.g. This feature name]: "
+            read JIRA_TICKET_TITLE
+            clear
+            echo "Feature ID: $FEATURE_ID"
+            echo "JIRA Ticket URL: $JIRA_TICKET_URL"
+            echo "JIRA Ticket Title: $JIRA_TICKET_TITLE"
+            echo "Are these correct?[yes/no]: "
+            read response
+        done
+        
+        DESTINATION_PATH="$FEATURES_DIR/$FEATURE_ID.feature"
+        cp "$TEMPLATES_DIR/$1/FEATURE_ID.feature" "$DESTINATION_PATH"
+        sed -i s,JIRA_TICKET_URL,"$JIRA_TICKET_URL",g "$DESTINATION_PATH"
+        sed -i s,JIRA_TICKET_TITLE,"$JIRA_TICKET_TITLE",g "$DESTINATION_PATH"
+        echo "$DESTINATION_PATH created."
+
+    elif [ "$1" == "test" ]; then
+        response="no"
+        while [[ "$response" = *"n"* ]]; do
+            clear
+            echo "Creating a new test"
+            echo "Enter Test ID [e.g. E2E-00001]: "
+            read TEST_ID
+            echo "Enter Description [e.g. Querying This]:"
+            read DESCRIPTION
+            clear
+            echo "Test ID: $TEST_ID"
+            echo "Description: $DESCRIPTION"
+            echo "Are these correct?[yes/no]: "
+            read response
+        done
+
+        DESTINATION_PATH="$TESTS_DIR/$TEST_ID"
+        TEST_FILE_PATH="$DESTINATION_PATH/$TEST_ID.feature"
+        cp -r "$TEMPLATES_DIR/$1" "$DESTINATION_PATH"
+        mv "$DESTINATION_PATH/TEST_ID.feature" "$TEST_FILE_PATH"
+        sed -i s,TEST_ID,"$TEST_ID",g "$TEST_FILE_PATH"
+        sed -i s,DESCRIPTION,"$DESCRIPTION",g "$TEST_FILE_PATH"
+        echo "$DESTINATION_PATH created."
+    else
+        show_help
+    fi
+fi
+
+cd "$THIS_CWD"

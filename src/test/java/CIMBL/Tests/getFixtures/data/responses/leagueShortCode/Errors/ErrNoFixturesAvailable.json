@@ -1,0 +1,23 @@
+{
+  "data": {
+    "getFixtures": null
+  },
+  "errors": [
+    {
+      "path": [
+        "getFixtures"
+      ],
+      "data": null,
+      "errorType": "0x0103",
+      "errorInfo": null,
+      "locations": [
+        {
+          "line": 2,
+          "column": 3,
+          "sourceName": null
+        }
+      ],
+      "message": "No fixtures between 2099-09-11 and 2099-09-13"
+    }
+  ]
+}

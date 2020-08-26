@@ -1,0 +1,17 @@
+{
+	getFixtures(
+		fromDate: "2020-06-14", 
+		toDate: "2021-04-06", 
+		filter: {
+      team : {id: {eq: 31}},
+      league: {id: {eq: 123456789}}
+      }) {
+      id
+      dateTime {
+        date
+      }
+		  league{id}
+		  homeTeam{id}
+		  awayTeam{id}
+  }
+}

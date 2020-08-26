@@ -1,0 +1,16 @@
+{
+  "data": null,
+  "errors": [
+    {
+      "path": null,
+      "locations": [
+        {
+          "line": 2,
+          "column": 23,
+          "sourceName": null
+        }
+      ],
+      "message": "Validation error of type WrongType: argument 'leagueId' with value 'StringValue{value=''}' is not a valid 'Int' @ 'getLeaguesStandings'"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  getTeams(leagueId:<LEAGUEID>) {
+    id
+    name
+    shortName
+    url
+    svgUrl
+  }
+}

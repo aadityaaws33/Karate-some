@@ -1,0 +1,17 @@
+{
+  getLeagues(leagueId:<LEAGUEID>) {
+    id
+    name
+    rank
+    url
+    svgUrl
+    season
+    teams {
+      id
+      name
+      shortName
+      url
+      svgUrl
+    }
+  }
+}
