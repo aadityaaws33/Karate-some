@@ -1,5 +1,0 @@
-{
-  getFixtures(fromDate: "<FROMDATE>", toDate:"<TODATE>") {
-    location
-  }
-}

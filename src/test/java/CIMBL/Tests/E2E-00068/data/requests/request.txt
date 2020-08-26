@@ -1,6 +1,0 @@
-{
-  getLeagues {
-    id
-    name
-  }
-}

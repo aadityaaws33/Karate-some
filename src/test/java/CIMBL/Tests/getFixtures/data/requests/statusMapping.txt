@@ -1,8 +1,0 @@
-{
-  getFixtures(fromDate: "<FROMDATE>", toDate:"<TODATE>") {
-    id
-    status
-    goal
-    date
-  }
-}

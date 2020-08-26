@@ -1,5 +1,0 @@
-{
-  getFixtures(unknownParameter: 123) {
-    unknownField
-  }
-}

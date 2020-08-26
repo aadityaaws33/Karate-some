@@ -1,8 +1,0 @@
-{
-  "errors": [
-    {
-      "errorType": "UnauthorizedException",
-      "message": "You are not authorized to make this call."
-    }
-  ]
-}

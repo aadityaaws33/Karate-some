@@ -1,6 +1,0 @@
-{
-  getFixtures(fromDate: "<FROMDATE>") {
-    id
-    date
-  }
-}
