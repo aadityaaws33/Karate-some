@@ -36,3 +36,17 @@ Scenario: PractiseNew
 * def temp =  GetTableCount.Add(1,2)
 * print 'Count in Matching Engine Result Table----------------->', temp
 * assert temp == '3'
+
+
+* print '--------expectedResponse before Json format convert------'+expectedResponse
+* def ReplaceJson =
+    """
+    function(expectedResponse)
+    {
+        var DataStorage = Java.type('CA.utils.java.MiscUtils');
+        var dS = new DataStorage();
+        return dS.ConverttoJSON(expectedResponse);
+    }
+    """
+* def ReplacedJson =  ReplaceJson(expectedResponse)
+* print '----------Replaced Json-----------'+ReplacedJson

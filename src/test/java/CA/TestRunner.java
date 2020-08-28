@@ -1,4 +1,4 @@
-package CIMBL;
+package CA;
 
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -32,7 +32,7 @@ public class TestRunner {
     String karateOutputPath = "target/cucumber-html-reports";
     //Results results = Runner.path("classpath:ilex").parallel(5);
     
-    Results results = Runner.parallel(getClass(), 20, karateOutputPath);
+    Results results = Runner.parallel(getClass(), 2, karateOutputPath);
     generateReport(results.getReportDir());
     assertTrue(results.getErrorMessages(), results.getFailCount() == 0);
   }
