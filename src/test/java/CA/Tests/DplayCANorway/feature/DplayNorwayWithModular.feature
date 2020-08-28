@@ -15,20 +15,31 @@ Examples:
 
 
 @Module
-Scenario: Sample POC for Dplay CA 
+Scenario Outline: <TestCaseID> Sample POC for Dplay CA 
 * def Random_String_Generator = function(){ return java.lang.System.currentTimeMillis() }
 * def RandomString = 'Test-' + Random_String_Generator()
 * print '---------------Random Text----------'+RandomString
 
-* def UpdateSeasonquery = read('classpath:CA/Tests/DplayCANorway/E2E00001/data/SeasonRequest.json')
+* def UpdateSeasonquery = read('classpath:CA/Tests/DplayCANorway/' + <TestCaseID> + '/data/Input/SeasonRequest.json')
 * replace UpdateSeasonquery.SeriesTitle = RandomString
 * print '-----------------Query After Replace------------'+UpdateSeasonquery
-* def Season_expectedResponse = read('classpath:CA/Tests/DplayCANorway/E2E00001/data/ExpectedSeasonResponse.json')
+* def Season_expectedResponse = read('classpath:CA/Tests/DplayCANorway/' + <TestCaseID> + '/data/Output/ExpectedSeasonResponse.json')
 * def result = call read('classpath:CA/Tests/UpdateSeason/UpdateSeason.feature') {SeasonQuery: '#(UpdateSeasonquery)',SeasonExpectedResponse: '#(Season_expectedResponse)',ExpectedSeriesTitle: '#(RandomString)'}
 
-* def UpdateEpisodequery = read('classpath:CA/Tests/DplayCANorway/E2E00001/data/EpisodeRequest.json')
+* def UpdateEpisodequery = read('classpath:CA/Tests/DplayCANorway/' + <TestCaseID> + '/data/Input/EpisodeRequest.json')
 * replace UpdateEpisodequery.SeriesTitle = RandomString
 * print '-----------------Query After Replace------------'+UpdateEpisodequery
-* def Episode_ExpectedResponse = read('classpath:CA/Tests/DplayCANorway/E2E00001/data/ExpectedEpisodeResponse.json')
+* def Episode_ExpectedResponse = read('classpath:CA/Tests/DplayCANorway/' + <TestCaseID> + '/data/Output/ExpectedEpisodeResponse.json')
 * def result = call read('classpath:CA/Tests/UpdateEpisode/UpdateEpisode.feature') {EpisodeQuery: '#(UpdateEpisodequery)',EpisodeExpectedResponse: '#(Episode_ExpectedResponse)',RandomText: '#(RandomString)'}
+
+* def Renditionquery = read('classpath:CA/Tests/DplayCANorway/' + <TestCaseID> + '/data/Input/RenditionRequest.json')
+#* replace UpdateEpisodequery.SeriesTitle = RandomString
+#* print '-----------------Query After Replace------------'+UpdateEpisodequery
+* def Rendition_ExpectedResponse = read('classpath:CA/Tests/DplayCANorway/' + <TestCaseID> + '/data/Output/ExpectedRenditionResponse.json')
+* def result = call read('classpath:CA/Tests/APIGateway/Rendition.feature') {RenditionQuery: '#(Renditionquery)',RenditionExpectedResponse: '#(Rendition_ExpectedResponse)',RandomText: '#(RandomString)'}
+
+
 * print '-------Executed--------'
+Examples:
+    | TestCaseID   |
+    | 'E2E00001'   |
