@@ -27,7 +27,7 @@
               "field_values": [
                   {
                       "score": 1,
-                      "value": "QA Callout Text 27_8_0004"
+                      "value": "<SeriesTitle>" 
                   }
               ]
           },
@@ -35,7 +35,7 @@
               "field_values": [
                   {
                       "score": 1,
-                      "value": "QA CTA Text 27_8_0004"
+                      "value": "<SeriesTitle>"
                   }
               ]
           }
