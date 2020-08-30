@@ -32,7 +32,7 @@ public class TestRunner {
     String karateOutputPath = "target/cucumber-html-reports";
     //Results results = Runner.path("classpath:ilex").parallel(5);
     
-    Results results = Runner.parallel(getClass(), 2, karateOutputPath);
+    Results results = Runner.parallel(getClass(), 1, karateOutputPath);
     generateReport(results.getReportDir());
     assertTrue(results.getErrorMessages(), results.getFailCount() == 0);
   }
