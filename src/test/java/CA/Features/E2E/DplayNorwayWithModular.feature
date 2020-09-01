@@ -44,13 +44,15 @@ Scenario Outline: <TestCaseID> ---- <TestcaseDescription> ------Sample POC for D
 * def Rendition_ExpectedResponse = read('classpath:CA/Tests/E2ECases/Nordic_Region/Norway/' + <TestCaseID> + '/Output/ExpectedRenditionResponse.json')
 * def result = call read('classpath:CA/Features/ReUsable/Rendition.feature') {RenditionQuery: '#(Renditionquery)',RenditionExpectedResponse: '#(Rendition_ExpectedResponse)',RandomText: '#(RandomString)',JsonValidation1:<JsonPath1>,JsonValidation2:<JsonPath2>,JsonValidation3:<JsonPath3>}
 
-* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ItemCount') {Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',Param_KeyType: 'Composite',Param_Atr1: 'assetId',Param_Atr2: 'compositeViewsId',Param_Atrvalue1: 'd03eedd4-e345-11ea-9814-0a580a3f06a0',Param_Atrvalue2: '6be501e6-890b-11ea-958b-0a580a3c10cd|4cf68d80-890c-11ea-bdcd-0a580a3c35b3'}    
+* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ItemCount') {Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',Param_KeyType: 'Single',Param_Atr1: 'assetId',Param_Atr2: '',Param_Atrvalue1: 'd03eedd4-e345-11ea-9814-0a580a3f06a0',Param_Atrvalue2: '',Param_ExpectedMAMAssetInfoItemCount: <ExpectedMAMAssetInfoCount>}    
+* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ItemCount') {Param_TableName: 'CA_WOCHIT_MAPPING_EU-qa',Param_KeyType: 'Single',Param_Atr1: 'ID',Param_Atr2: '',Param_Atrvalue1: 'd03eedd4-e345-11ea-9814-0a580a3f06a0',Param_Atrvalue2: '',Param_ExpectedMAMAssetInfoItemCount: <ExpectedMAMAssetInfoCount>}    
+* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ItemCount') {Param_TableName: 'A_WOCHIT_RENDITIONS_EU-qa',Param_KeyType: 'Single',Param_Atr1: 'ID',Param_Atr2: '',Param_Atrvalue1: 'd03eedd4-e345-11ea-9814-0a580a3f06a0',Param_Atrvalue2: '',Param_ExpectedMAMAssetInfoItemCount: <ExpectedMAMAssetInfoCount>}    
 
 
 * print '-------Executed--------'
 Examples:
-    | TestCaseID   | TestcaseDescription | JsonPath1                                                    | JsonPath2                                                     |        JsonPath3                                              |
-    | 'E2E00001'   | Combination1        |"$.mamAssetInfo[0].seasonMetadata.data.no-dplay-SeriesTitle"  |"$.mamAssetInfo[1].seasonMetadata.data.no-dplay-SeriesTitle"   |"$.mamAssetInfo[2].seasonMetadata.data.no-dplay-SeriesTitle"   |
+    | TestCaseID   | TestcaseDescription | JsonPath1                                                    | JsonPath2                                                     |        JsonPath3                                              | ExpectedMAMAssetInfoCount|ExpectedWocRenditionCount|ExpectedWochitMappingCount|
+    | 'E2E00001'   | Combination1        |"$.mamAssetInfo[0].seasonMetadata.data.no-dplay-SeriesTitle"  |"$.mamAssetInfo[1].seasonMetadata.data.no-dplay-SeriesTitle"   |"$.mamAssetInfo[2].seasonMetadata.data.no-dplay-SeriesTitle"   |       5                  |  3                      |     3                    |
 
 
 

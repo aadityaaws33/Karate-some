@@ -23,15 +23,15 @@ import com.amazonaws.services.dynamodbv2.model.ScanResult;
 
 public class DynamoDBUtils {
 
-    public static void main(final String[] args) {
+    //public static void main(final String[] args) {
         //Scan_DB("CA_MAM_ASSETS_INFO_EU-qa","d03eedd4-e345-11ea-9814-0a580a3f06a0","6be501e6-890b-11ea-958b-0a580a3c10cd|4cf68d80-890c-11ea-bdcd-0a580a3c35b3");
         // Query_DB("CA_MAM_ASSETS_INFO_EU-qa","d03eedd4-e345-11ea-9814-0a580a3f06a0","6be501e6-890b-11ea-958b-0a580a3c10cd|4cf68d80-890c-11ea-bdcd-0a580a3c35b3");
         //TruncateTable("CA_WOCHIT_MAPPING_EU-qa","ID");
         //TruncateTable("CA_WOCHIT_RENDITIONS_EU-qa","ID");
        // GetTableItemCount_Old("CA_MAM_ASSETS_INFO_EU-qa","d03eedd4-e345-11ea-9814-0a580a3f06a0","6be501e6-890b-11ea-958b-0a580a3c10cd|4cf68d80-890c-11ea-bdcd-0a580a3c35b3");
-       GetTableItemCount("CA_MAM_ASSETS_INFO_EU-qa","Single","assetId","","d03eedd4-e345-11ea-9814-0a580a3f06a0","");
+      // GetTableItemCount("CA_MAM_ASSETS_INFO_EU-qa","Single","assetId","","d03eedd4-e345-11ea-9814-0a580a3f06a0","");
         
-    }
+    //}
 
     public static void Call_DB_old() {
         final AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
@@ -165,7 +165,7 @@ public class DynamoDBUtils {
 
     }
 
-    public static void GetTableItemCount(String TableName,String KeyType,String AtrName1,String AtrName2,String AtrVal1,String AtrVal2)
+    public int GetTableItemCount(String TableName,String KeyType,String AtrName1,String AtrName2,String AtrVal1,String AtrVal2)
     {
         System.out.println("---------Inside GetTableItemCount Function--------------");
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
@@ -215,6 +215,7 @@ public class DynamoDBUtils {
             
             System.out.println("---------Get Query Count---------- "+items.getAccumulatedItemCount());
 
+            return items.getAccumulatedItemCount();
     }
 
 }
