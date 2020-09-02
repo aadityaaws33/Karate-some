@@ -1,0 +1,69 @@
+{
+    "date_modified": null,
+    "object_type": "collections",
+    "date_created": null,
+    "version_id": "b78432bc-e03f-11ea-a22d-0a580a3c35aa",
+    "metadata_values": {
+      "no-dplay-Scribble16x9": {
+        "date_created": '#notnull',
+        "field_values": [
+          {
+            "value": "2"
+          }
+        ]
+      },
+      "__separator__": {
+        "date_created": null,
+        "field_values": []
+      },
+      "no-dplay-Scribble1x1": {
+        "date_created": '#notnull',
+        "field_values": [
+          {
+            "value": "2"
+          }
+        ]
+      },
+      "no-dplay-SeriesTitle": {
+        "date_created": '#notnull',
+        "field_values": [
+          {
+            "value": '#notnull'
+          }
+        ]
+      },
+      "no-dplay-Logo": {
+        "date_created": '#notnull',
+        "field_values": [
+          {
+            "value": "3"
+          }
+        ]
+      },
+      "no-dplay-Scribble4x5": {
+        "date_created": '#notnull',
+        "field_values": [
+          {
+            "value": "2"
+          }
+        ]
+      },
+      "no-dplay-Scribble9x16": {
+        "date_created": '#notnull',
+        "field_values": [
+          {
+            "value": "2"
+          }
+        ]
+      },
+      "no-dplay-ColouredBox": {
+        "date_created": '#notnull',
+        "field_values": [
+          {
+            "value": "Putty"
+          }
+        ]
+      }
+    },
+    "object_id": "b78432bc-e03f-11ea-a22d-0a580a3c35aa"
+  }
