@@ -34,8 +34,8 @@ import org.junit.Assert;
 
 public class DynamoDBUtils {
 
-    //public static void main(final String[] args) {
-        //List<String> resultlist = new ArrayList<>();
+   public static void main(final String[] args) {
+        List<String> resultlist = new ArrayList<>();
         //Scan_DB("CA_MAM_ASSETS_INFO_EU-qa","d03eedd4-e345-11ea-9814-0a580a3f06a0","6be501e6-890b-11ea-958b-0a580a3c10cd|4cf68d80-890c-11ea-bdcd-0a580a3c35b3");
         // Query_DB("CA_MAM_ASSETS_INFO_EU-qa","d03eedd4-e345-11ea-9814-0a580a3f06a0","6be501e6-890b-11ea-958b-0a580a3c10cd|4cf68d80-890c-11ea-bdcd-0a580a3c35b3");
         //TruncateTable("CA_WOCHIT_MAPPING_EU-qa","ID");
@@ -50,8 +50,11 @@ public class DynamoDBUtils {
        //resultlist = getitem("CA_MAM_ASSETS_INFO_EU-qa");
        //System.out.println("Size of list in main--------"+ resultlist.size());
        //System.out.println("Value of list in main -------"+ resultlist.get(0));
+
+       resultlist = Scan_DB_GetItem("CA_WOCHIT_MAPPING_EU-qa");
+       System.out.println("Value of list in main -------"+ resultlist.get(0));
        
-    //}
+    }
 
    
 
@@ -315,10 +318,10 @@ public class DynamoDBUtils {
        // return items.getAccumulatedItemCount();
    }
 
-   public List<String> getitem(String TableName)
+   public List<String> getitem_PartionKey_SortKey(String TableName,String PartKey,String SortKey,String PartkeyVal,String SortKeyVal)
     {
 
-        List<String> moviesJsonList = new ArrayList<>();
+        List<String> getitemJsonList = new ArrayList<>();
          AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
          DynamoDB dynamoDB = new DynamoDB(client);
         Table table = dynamoDB.getTable(TableName);
@@ -326,17 +329,63 @@ public class DynamoDBUtils {
 
         //String replyId = forumName + "#" + threadSubject;
 
-        QuerySpec spec = new QuerySpec().withKeyConditionExpression("assetId = :a_id AND compositeViewsId = :c_id")
-            .withValueMap(new ValueMap().withString(":a_id", "d03eedd4-e345-11ea-9814-0a580a3f06a0").withString(":c_id", "e1706402-934f-11ea-b2e1-0a580a3cb9b9|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b"));
+        QuerySpec spec = new QuerySpec().withKeyConditionExpression(PartKey+" = :p_id AND "+SortKey+" = :s_id")
+            .withValueMap(new ValueMap().withString(":p_id", PartkeyVal).withString(":s_id", SortKeyVal));
 
             IteratorSupport<Item, QueryOutcome> iterator = table.query(spec).iterator();
             while (iterator.hasNext()) {
                 Item movieItem = iterator.next();
                 //System.out.println("MAM Asset Info ====================>" + movieItem.toJSONPretty());
                 //moviesJsonList.add(movieItem.toJSONPretty());
-                moviesJsonList.add(movieItem.toJSONPretty());
+                getitemJsonList.add(movieItem.toJSONPretty());
             }
-            return moviesJsonList;
+            return getitemJsonList;
+    }
+
+    public static List<String> Scan_DB_GetSingleItem(String TableName) {
+    
+        List<String> getitemJsonList = new ArrayList<>();
+        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
+        DynamoDB dynamoDB = new DynamoDB(client);
+        Map<String, Object> expressionAttributeValues = new HashMap<String, Object>();
+        expressionAttributeValues.put(":val", "DAQ CA Test_1-dplay_4x5-Test-1599153181360-Test-1599153181360");
+        Table table = dynamoDB.getTable(TableName);
+
+       // ScanRequest scanRequest = new ScanRequest()
+         //   .withTableName(TableName)
+           // .withFilterExpression("renditionFileName = :val")
+        
+            
+            ItemCollection<ScanOutcome> items = table.scan("renditionFileName = :val","wochitRenditionStatus",null,expressionAttributeValues);
+            Iterator<Item> iterator = items.iterator();
+            while (iterator.hasNext()) {
+                Item movieItem = iterator.next();
+                getitemJsonList.add(movieItem.toJSONPretty());
+                //System.out.println(iterator.next().toJSONPretty());
+            }
+
+        
+            return getitemJsonList;
+            
+    }
+
+    public static List<String> Scan_DBItems(String TableName) {
+        
+        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
+
+        Map<String, AttributeValue> expressionAttributeValues = 
+        new HashMap<String, AttributeValue>();
+    expressionAttributeValues.put(":val", new AttributeValue().withS("DAQ CA Test_1-dplay_4x5-Test-1599153181360-Test-1599153181360")); 
+            
+    ScanRequest scanRequest = new ScanRequest()
+        .withTableName(TableName)
+        .withFilterExpression("renditionFileName = :val")
+        .withExpressionAttributeValues(expressionAttributeValues);
+    
+    
+    ScanResult result = client.scan(scanRequest);
+    for (Map<String, AttributeValue> item : result.getItems()) {
+        printItem(item);
     }
 
 }

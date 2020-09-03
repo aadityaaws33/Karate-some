@@ -41,7 +41,8 @@ Scenario Outline: <TestCaseID> ---- <TestcaseDescription> ------Sample POC for D
 #* replace UpdateEpisodequery.SeriesTitle = RandomString
 #* print '-----------------Query After Replace------------'+UpdateEpisodequery
 * def Rendition_ExpectedResponse = read('classpath:CA/Tests/E2ECases/Nordic_Region/Norway/' + <TestCaseID> + '/Output/ExpectedRenditionResponse.json')
-* def result = call read('classpath:CA/Features/ReUsable/Rendition.feature') {RenditionQuery: '#(Renditionquery)',RenditionExpectedResponse: '#(Rendition_ExpectedResponse)',RandomText: '#(RandomString)',JsonValidation1:<JsonPath1>,JsonValidation2:<JsonPath2>,JsonValidation3:<JsonPath3>}
+#* def result = call read('classpath:CA/Features/ReUsable/Rendition.feature') {RenditionQuery: '#(Renditionquery)',RenditionExpectedResponse: '#(Rendition_ExpectedResponse)',RandomText: '#(RandomString)',JsonValidation1:<JsonPath1>,JsonValidation2:<JsonPath2>,JsonValidation3:<JsonPath3>}
+* def result = call read('classpath:CA/Features/ReUsable/Rendition.feature') {RenditionQuery: '#(Renditionquery)',RenditionExpectedResponse: '#(Rendition_ExpectedResponse)'}
 * Pause(20000)
 * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ItemCountQuery') {Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',Param_KeyType: 'Single',Param_Atr1: 'assetId',Param_Atr2: '',Param_Atrvalue1: 'd03eedd4-e345-11ea-9814-0a580a3f06a0',Param_Atrvalue2: '',Param_ExpectedItemCount: <ExpectedMAMAssetInfoCount>}    
 * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ItemCountScan') {Param_TableName: 'CA_WOCHIT_MAPPING_EU-qa',Param_Atr1: 'mamAssetInfoReferenceId',Param_Atrvalue1: 'd03eedd4-e345-11ea-9814-0a580a3f06a0',Param_ExpectedItemCount: <ExpectedWocRenditionCount>}    
@@ -51,14 +52,20 @@ Scenario Outline: <TestCaseID> ---- <TestcaseDescription> ------Sample POC for D
 #* def TechMetaData_expectedResponse = read('classpath:CA/Tests/E2ECases/Nordic_Region/Norway/' + <TestCaseID> + '/Output/ExpectedTechMetaData.txt')
 #* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ValidatePassedItem') {Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',Param_KeyType: 'Single',Param_Atr1: 'assetId',Param_Atr2: '',Param_Atrvalue1: 'd03eedd4-e345-11ea-9814-0a580a3f06a0',Param_Atrvalue2: '',Param_TechMetaDataExpected: '#(TechMetaData_expectedResponse)'}
 #* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@GetItem') {Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa'}
-* def TechMetaData_expectedResponse = read('classpath:CA/Tests/E2ECases/Nordic_Region/Norway/E2E00001/Output/ExpectedTechMetaData.txt')
+#-----------Tech Meta Data with File Comparison---------
+* def Episode_ExpectedResponse = read('classpath:CA/Tests/E2ECases/Nordic_Region/Norway/' + <TestCaseID> + '/Output/ExpectedTechMetaData.txt')
 * print '----------TechMetaData_expectedResponse in Calling Scenario--------------'+TechMetaData_expectedResponse
-* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@GetItem') {Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',Param_TechMetaData:'#(TechMetaData_expectedResponse)'}
+* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@@GetItemMAMAssetInfo') {Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',Param_PartitionKey: 'assetId', Param_SortKey: 'compositeViewsId',ParamPartionKeyVal: 'd03eedd4-e345-11ea-9814-0a580a3f06a0', ParamSortKeyVal: 'e1706402-934f-11ea-b2e1-0a580a3cb9b9|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b',Param_TechMetaData:'#(TechMetaData_expectedResponse)'}
+* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@@GetItemMAMAssetInfo') {Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',Param_PartitionKey: 'assetId', Param_SortKey: 'compositeViewsId',ParamPartionKeyVal: 'd03eedd4-e345-11ea-9814-0a580a3f06a0', ParamSortKeyVal: 'adb2fec4-934d-11ea-bcbe-0a580a3c65d4|4cf68d80-890c-11ea-bdcd-0a580a3c35b3',Param_TechMetaData:'#(TechMetaData_expectedResponse)'}
+* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@@GetItemMAMAssetInfo') {Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',Param_PartitionKey: 'assetId', Param_SortKey: 'compositeViewsId',ParamPartionKeyVal: 'd03eedd4-e345-11ea-9814-0a580a3f06a0', ParamSortKeyVal: 'becf5274-8908-11ea-8e56-0a580a3c10cd|ec70917e-8909-11ea-95eb-0a580a3f8e05',Param_TechMetaData:'#(TechMetaData_expectedResponse)'}
+* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@@GetItemMAMAssetInfo') {Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',Param_PartitionKey: 'assetId', Param_SortKey: 'compositeViewsId',ParamPartionKeyVal: 'd03eedd4-e345-11ea-9814-0a580a3f06a0', ParamSortKeyVal: 'c7197d98-8907-11ea-983a-0a580a3d1fe6|3a32b7ae-8908-11ea-958b-0a580a3c10cd',Param_TechMetaData:'#(TechMetaData_expectedResponse)'}
+* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@@GetItemMAMAssetInfo') {Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',Param_PartitionKey: 'assetId', Param_SortKey: 'compositeViewsId',ParamPartionKeyVal: 'd03eedd4-e345-11ea-9814-0a580a3f06a0', ParamSortKeyVal: 'e1706402-934f-11ea-b2e1-0a580a3cb9b9|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b',Param_TechMetaData:'#(TechMetaData_expectedResponse)'}
+
 
 * print '-------Executed--------'
 Examples:
-    | TestCaseID   | TestcaseDescription | JsonPath1                                                    | JsonPath2                                                     |        JsonPath3                                              | ExpectedMAMAssetInfoCount|ExpectedWocRenditionCount|ExpectedWochitMappingCount|
-    | 'E2E00001'   | Combination1        |"$.mamAssetInfo[0].seasonMetadata.data.no-dplay-SeriesTitle"  |"$.mamAssetInfo[1].seasonMetadata.data.no-dplay-SeriesTitle"   |"$.mamAssetInfo[2].seasonMetadata.data.no-dplay-SeriesTitle"   |       5                  |  3                      |     3                    |
+    | TestCaseID   | TestcaseDescription | ExpectedMAMAssetInfoCount|ExpectedWocRenditionCount|ExpectedWochitMappingCount|
+    | 'E2E00001'   | Combination1        |       5                  |  3                      |     3                    |
 
 
 

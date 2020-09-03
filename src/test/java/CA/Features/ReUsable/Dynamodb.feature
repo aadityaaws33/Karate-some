@@ -71,7 +71,7 @@ Scenario: Get Item Count of Table with Scan
 #* print '----------------Temp in ValidatePassedItem------------'+temp
 
 
-@GetItem
+@GetItemMAMAssetInfo
 Scenario: Get Item Count of Table with Scan
 * print '-------------------Dynamo DB Get Item-------------'
 * def ItemCount =
@@ -80,7 +80,7 @@ Scenario: Get Item Count of Table with Scan
     {
         var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
         var ItCnt = new ItemCount();
-         return ItCnt.getitem(Param_TableName);
+         return ItCnt.getitem_PartionKey_SortKey(Param_TableName,Param_PartitionKey,Param_SortKey,ParamPartionKeyVal,ParamSortKeyVal);
     }
     """
 * def temp = call ItemCount
