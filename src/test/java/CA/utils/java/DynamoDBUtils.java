@@ -29,13 +29,14 @@ import com.amazonaws.services.s3.model.JSONOutput;
 import com.google.gson.JsonObject;
 import com.intuit.karate.Json;
 
+//import org.graalvm.compiler.core.common.SpeculativeExecutionAttacksMitigations_OptionDescriptors;
 import org.junit.Assert;
 
 
 public class DynamoDBUtils {
 
-   public static void main(final String[] args) {
-        List<String> resultlist = new ArrayList<>();
+   //public static void main(final String[] args) {
+        //List<String> resultlist = new ArrayList<>();
         //Scan_DB("CA_MAM_ASSETS_INFO_EU-qa","d03eedd4-e345-11ea-9814-0a580a3f06a0","6be501e6-890b-11ea-958b-0a580a3c10cd|4cf68d80-890c-11ea-bdcd-0a580a3c35b3");
         // Query_DB("CA_MAM_ASSETS_INFO_EU-qa","d03eedd4-e345-11ea-9814-0a580a3f06a0","6be501e6-890b-11ea-958b-0a580a3c10cd|4cf68d80-890c-11ea-bdcd-0a580a3c35b3");
         //TruncateTable("CA_WOCHIT_MAPPING_EU-qa","ID");
@@ -51,10 +52,10 @@ public class DynamoDBUtils {
        //System.out.println("Size of list in main--------"+ resultlist.size());
        //System.out.println("Value of list in main -------"+ resultlist.get(0));
 
-       resultlist = Scan_DB_GetItem("CA_WOCHIT_MAPPING_EU-qa");
-       System.out.println("Value of list in main -------"+ resultlist.get(0));
+       //resultlist = Scan_DB_GetSingleItem("CA_WOCHIT_MAPPING_EU-qa","renditionFileName","DAQ CA Test_1-dplay_4x5-Test-1599153181360-Test-1599153181360","wochitRenditionStatus");
+       //System.out.println("Value of list in main -------"+ resultlist.get(0));
        
-    }
+    //}
 
    
 
@@ -342,37 +343,39 @@ public class DynamoDBUtils {
             return getitemJsonList;
     }
 
-    public static List<String> Scan_DB_GetSingleItem(String TableName) {
-    
+    public static List<String> Scan_DB_GetSingleItem(String TableName,String ScanAttribute, String ScanValue,
+            String ProjectionExp)
+    {
+        ItemCollection<ScanOutcome> items = null;
         List<String> getitemJsonList = new ArrayList<>();
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
         DynamoDB dynamoDB = new DynamoDB(client);
         Map<String, Object> expressionAttributeValues = new HashMap<String, Object>();
-        expressionAttributeValues.put(":val", "DAQ CA Test_1-dplay_4x5-Test-1599153181360-Test-1599153181360");
+        //expressionAttributeValues.put(":val", "DAQ CA Test_1-dplay_4x5-Test-1599153181360-Test-1599153181360");
+        expressionAttributeValues.put(":val", ScanValue);
         Table table = dynamoDB.getTable(TableName);
-
-       // ScanRequest scanRequest = new ScanRequest()
-         //   .withTableName(TableName)
-           // .withFilterExpression("renditionFileName = :val")
-        
-            
-            ItemCollection<ScanOutcome> items = table.scan("renditionFileName = :val","wochitRenditionStatus",null,expressionAttributeValues);
+        if(ProjectionExp.length()>0)
+        {
+             items = table.scan(ScanAttribute+" = :val",ProjectionExp,null,expressionAttributeValues);
+        }
+        else
+        {
+            items = table.scan(ScanAttribute+" = :val",null,null,expressionAttributeValues);
+        }
+        //ItemCollection<ScanOutcome> items = table.scan("renditionFileName = :val","wochitRenditionStatus",null,expressionAttributeValues);
+            //ItemCollection<ScanOutcome> items = table.scan(ScanAttribute+" = :val",null,expressionAttributeValues);
             Iterator<Item> iterator = items.iterator();
             while (iterator.hasNext()) {
                 Item movieItem = iterator.next();
                 getitemJsonList.add(movieItem.toJSONPretty());
                 //System.out.println(iterator.next().toJSONPretty());
             }
-
-        
             return getitemJsonList;
-            
     }
 
-    public static List<String> Scan_DBItems(String TableName) {
-        
+ public static List<String> Scan_DBItems(String TableName) {
+        List<String> getitemJsonList = new ArrayList<>();
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
-
         Map<String, AttributeValue> expressionAttributeValues = 
         new HashMap<String, AttributeValue>();
     expressionAttributeValues.put(":val", new AttributeValue().withS("DAQ CA Test_1-dplay_4x5-Test-1599153181360-Test-1599153181360")); 
@@ -385,7 +388,12 @@ public class DynamoDBUtils {
     
     ScanResult result = client.scan(scanRequest);
     for (Map<String, AttributeValue> item : result.getItems()) {
-        printItem(item);
+        //Item movieItem = iterator.next();
+                getitemJsonList.add(item.toString());
+        //printItem(item);
+        
     }
+    return getitemJsonList;
 
+}
 }

@@ -83,16 +83,24 @@ Scenario: Get Item Count of Table with Scan
          return ItCnt.getitem_PartionKey_SortKey(Param_TableName,Param_PartitionKey,Param_SortKey,ParamPartionKeyVal,ParamSortKeyVal);
     }
     """
-* def temp = call ItemCount
-* json jsonVar = temp
+* def QueryJson = get[0] call ItemCount
+* def ActualTechMetaData = get[0] QueryJson.technicalMetadata
+* assert ActualTechMetaData == Param_TechMetaData
+#--------Backup------
+#* json jsonVar = temp
+#* def QueryJson = get[0] jsonVar
+#-----To be Replaced-------
+#* def temp = call ItemCount
+#* json jsonVar = temp
+#* def QueryJson = get[0] jsonVar
+#-----To be Replaced-------
 #* print '----------jsonVar---------------'+ jsonVar
-* def QueryJson = get[0] jsonVar
 #* print '------------------Get Json Value----------'+QueryJson
 #* print '---------Country Value-------'+karate.jsonPath(QueryJson,"$.technicalMetadata")
 #* print '---------Country Value--------'+karate.jsonPath(response,"$.metadata_values.no-dplay-SeriesTitle.field_values[0].value")
 # ------Working---------* def kitnums = get[0] QueryJson.technicalMetadata
 # ------Working---------* def kitnums = get[0] QueryJson.technicalMetadata.name
-* def ActualTechMetaData = get[0] QueryJson.technicalMetadata
 #* print '------------Gettng Country-------'+ActualTechMetaData
-* assert ActualTechMetaData == Param_TechMetaData
+#--------Backup------
+
 
