@@ -52,9 +52,10 @@ public class DynamoDBUtils {
        //System.out.println("Size of list in main--------"+ resultlist.size());
        //System.out.println("Value of list in main -------"+ resultlist.get(0));
 
-       //resultlist = Scan_DB_GetSingleItem("CA_WOCHIT_MAPPING_EU-qa","renditionFileName","DAQ CA Test_1-dplay_4x5-Test-1599153181360-Test-1599153181360","wochitRenditionStatus");
+       //resultlist = Scan_DB_GetSingleItem("CA_WOCHIT_RENDITIONS_EU-qa","aspectRatio","ASPECT_16_9","");
+       //System.out.println("Count -------"+ resultlist.size());
+
        //System.out.println("Value of list in main -------"+ resultlist.get(0));
-       
     //}
 
    
@@ -343,8 +344,48 @@ public class DynamoDBUtils {
             return getitemJsonList;
     }
 
-    public static List<String> Scan_DB_GetSingleItem(String TableName,String ScanAttribute, String ScanValue,
+    
+    public String Scan_DB_GetSingleItem_WIP(String TableName, String ScanAttribute, String ScanValue,
             String ProjectionExp)
+    {
+        //ItemCollection<ScanOutcome> items = null;
+        List<String> getitemJsonList = new ArrayList<>();
+        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
+       DynamoDB dynamoDB = new DynamoDB(client);
+       Table table = dynamoDB.getTable(TableName);
+       HashMap<String, String> nameMap = new HashMap<String, String>();
+       HashMap<String, Object> valueMap = new HashMap<String, Object>();
+       nameMap.put("#atr1", ScanAttribute);
+       valueMap.put(":atrv1", ScanValue);
+
+       ScanSpec scanSpec = new ScanSpec().withFilterExpression("#atr1 = :atrv1").withNameMap(nameMap)
+               .withValueMap(valueMap);
+
+       ItemCollection<ScanOutcome> items = null;
+       Iterator<Item> iter = null;
+       Item item = null;
+
+       try {
+           items = table.scan(scanSpec);
+           // System.out.println("-------Get Max Result Size---------"+
+           // items.getMaxResultSize() );
+           iter = items.iterator();
+           while (iter.hasNext()) {
+               item = iter.next();
+               // System.out.println(item.toJSONPretty());
+               // System.out.println("------------------While Loop Ends------------");
+
+           }
+
+       } catch (final Exception e) {
+           System.err.println("Unable to scan the table:");
+           System.err.println(e.getMessage());
+       }
+       return item.toString();
+    }
+
+
+    public List<String> Scan_DB_GetSingleItem(String TableName,String ScanAttribute, String ScanValue,String ProjectionExp)
     {
         ItemCollection<ScanOutcome> items = null;
         List<String> getitemJsonList = new ArrayList<>();
@@ -367,7 +408,8 @@ public class DynamoDBUtils {
             Iterator<Item> iterator = items.iterator();
             while (iterator.hasNext()) {
                 Item movieItem = iterator.next();
-                getitemJsonList.add(movieItem.toJSONPretty());
+                getitemJsonList.add(movieItem.toString());
+                //getitemJsonList.add(movieItem.toString());
                 //System.out.println(iterator.next().toJSONPretty());
             }
             return getitemJsonList;
@@ -389,11 +431,14 @@ public class DynamoDBUtils {
     ScanResult result = client.scan(scanRequest);
     for (Map<String, AttributeValue> item : result.getItems()) {
         //Item movieItem = iterator.next();
-                getitemJsonList.add(item.toString());
+                //getitemJsonList.add(item.);
         //printItem(item);
         
     }
     return getitemJsonList;
 
 }
+
+
+
 }

@@ -104,3 +104,24 @@ Scenario: Get Item Count of Table with Scan
 #--------Backup------
 
 
+@ScanGetItem
+Scenario: Get Item Count of Table with Scan
+* print '-------------------Dynamo DB Get Item-------------'
+* def ItemCount =
+    """
+    function()
+    {
+        var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
+        var ItCnt = new ItemCount();
+        return ItCnt.Scan_DB_GetSingleItem(Param_TableName,Param_ScanAttr,Param_ScanVal,'');
+    }
+    """
+* def QueryJson = call ItemCount
+* def ItemResponse = get[0] QueryJson
+* print '-------------ActualResponse-----------'+ItemResponse
+* print '-------------ExpectedResponse-----------'+QueryJsonExpected
+#* match ItemResponse contains '#(QueryJsonExpected)'
+* match ItemResponse contains QueryJsonExpected
+#* match QueryJsonExpected contains ItemResponse
+
+
