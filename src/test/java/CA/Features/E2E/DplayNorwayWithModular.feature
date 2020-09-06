@@ -2,8 +2,8 @@ Feature:  Dplay Norway CA
 
 Background:
     * def Pause = function(pause){ java.lang.Thread.sleep(pause) }
-    #* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@TruncateTable') {Param_TableName: 'CA_WOCHIT_MAPPING_EU-qa',Param_PrimaryKey: 'ID'}
-    #* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@TruncateTable') {Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',Param_PrimaryKey: 'ID'}  
+    * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@TruncateTable') {Param_TableName: 'CA_WOCHIT_MAPPING_EU-qa',Param_PrimaryKey: 'ID'}
+    * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@TruncateTable') {Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',Param_PrimaryKey: 'ID'}  
     
     
     
@@ -61,6 +61,11 @@ Scenario Outline: <TestCaseID> ---- <TestcaseDescription> ------Sample POC for D
 * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@@GetItemMAMAssetInfo') {Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',Param_PartitionKey: 'assetId', Param_SortKey: 'compositeViewsId',ParamPartionKeyVal: 'd03eedd4-e345-11ea-9814-0a580a3f06a0', ParamSortKeyVal: 'c7197d98-8907-11ea-983a-0a580a3d1fe6|3a32b7ae-8908-11ea-958b-0a580a3c10cd',Param_TechMetaData:'#(TechMetaData_expectedResponse)'}
 * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@@GetItemMAMAssetInfo') {Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',Param_PartitionKey: 'assetId', Param_SortKey: 'compositeViewsId',ParamPartionKeyVal: 'd03eedd4-e345-11ea-9814-0a580a3f06a0', ParamSortKeyVal: 'e1706402-934f-11ea-b2e1-0a580a3cb9b9|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b',Param_TechMetaData:'#(TechMetaData_expectedResponse)'}
 
+* def QueryJsonExpected = read('classpath:CA/Tests/E2ECases/Nordic_Region/Norway/' + <TestCaseID> +'/Output/Expected16_9_Item.txt')
+* replace QueryJsonExpected.TBR = RandomString
+* print '-------QueryJsonExpected After Replace--------'+QueryJsonExpected
+#* print '----------TechMetaData_expectedResponse in Calling Scenario--------------'+QueryJsonExpected
+* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ScanGetItem') {Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',Param_ScanAttr:'aspectRatio',Param_ScanVal:'ASPECT_16_9',QueryJsonExpected:'#(QueryJsonExpected)'}
 
 * print '-------Executed--------'
 Examples:
@@ -72,8 +77,9 @@ Examples:
 @Sample
 Scenario: Sample Scenario
 * print '-----------Sample Scenario-----------'
-* def QueryJsonExpected = read('classpath:CA/Tests/E2ECases/Nordic_Region/Norway/E2E00001/Output/Expected16_9_Item.txt')
-* print '----------TechMetaData_expectedResponse in Calling Scenario--------------'+QueryJsonExpected
-* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ScanGetItem') {Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',Param_ScanAttr:'aspectRatio',Param_ScanVal:'ASPECT_16_9',QueryJsonExpected:'#(QueryJsonExpected)'}
+#* def QueryJsonExpected = read('classpath:CA/Tests/E2ECases/Nordic_Region/Norway/E2E00001/Output/Expected16_9_Item.txt')
+#* replace QueryJsonExpected.TBR = 'Test-1599287152283'
+#* print '----------TechMetaData_expectedResponse in Calling Scenario--------------'+QueryJsonExpected
+#* def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ScanGetItem') {Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',Param_ScanAttr:'aspectRatio',Param_ScanVal:'ASPECT_16_9',QueryJsonExpected:'#(QueryJsonExpected)'}
 
 

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
@@ -15,19 +14,13 @@ import com.amazonaws.services.dynamodbv2.document.PrimaryKey;
 import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
 import com.amazonaws.services.dynamodbv2.document.ScanOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
-import com.amazonaws.services.dynamodbv2.document.api.GetItemApi;
 import com.amazonaws.services.dynamodbv2.document.internal.IteratorSupport;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.document.spec.ScanSpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.GetItemRequest;
-import com.amazonaws.services.dynamodbv2.model.GetItemResult;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
-import com.amazonaws.services.s3.model.JSONOutput;
-import com.google.gson.JsonObject;
-import com.intuit.karate.Json;
 
 //import org.graalvm.compiler.core.common.SpeculativeExecutionAttacksMitigations_OptionDescriptors;
 import org.junit.Assert;
@@ -35,6 +28,22 @@ import org.junit.Assert;
 
 public class DynamoDBUtils {
 
+   String region = System.getProperty("karate.region");
+   public AmazonDynamoDB client;
+   public DynamoDB dynamoDB ;
+   public Table table ;
+   public DynamoDBUtils()
+   {
+       System.out.println("----------Property of Region in DynamoDBUtiuls COnstructoir----------"+ System.getProperty("karate.region"));
+       if(region.contentEquals("Nordic"))
+       {
+        client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
+        
+       }
+       dynamoDB = new DynamoDB(client);
+        
+    
+   }
    //public static void main(final String[] args) {
         //List<String> resultlist = new ArrayList<>();
         //Scan_DB("CA_MAM_ASSETS_INFO_EU-qa","d03eedd4-e345-11ea-9814-0a580a3f06a0","6be501e6-890b-11ea-958b-0a580a3c10cd|4cf68d80-890c-11ea-bdcd-0a580a3c35b3");
@@ -59,132 +68,26 @@ public class DynamoDBUtils {
     //}
 
    
+    //**************Currently Used************ */
+public void TruncateTable(String TableName, String hashKeyName) {
+    table = dynamoDB.getTable(TableName);
+    ScanSpec scanSpec = new ScanSpec();
+    ItemCollection<ScanOutcome> items = table.scan(scanSpec);
+    Iterator<Item> it = items.iterator();
+    while (it.hasNext()) {
+        Item item = it.next();
+        String hashKey = item.getString(hashKeyName);
+        PrimaryKey key = new PrimaryKey(hashKeyName, hashKey);
+        table.deleteItem(key);
+        // System.out.printf("Deleted item with key", hashKey);
+    }
 
-   public static void Call_DB_old() {
-       final AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
-       final ScanRequest scanRequest = new ScanRequest().withTableName("CA_MAM_ASSETS_INFO_EU-qa")
-               .withFilterExpression("assetId > : d03eedd4-e345-11ea-9814-0a580a3f06a0");
-       final ScanResult result = client.scan(scanRequest);
-       for (final Map<String, AttributeValue> item : result.getItems()) {
-           System.out.println(item);
-       }
-   }
+}
 
-   public static void Scan_DB(String TableName, String AssetID, String CompositeViewsID) {
-       AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
-       DynamoDB dynamoDB = new DynamoDB(client);
-       Table table = dynamoDB.getTable(TableName);
-       ScanSpec scanSpec = new ScanSpec().withFilterExpression("assetId = :aid AND compositeViewsId = :cid")
-               .withValueMap(new ValueMap().withString(":aid", AssetID).withString(":cid", CompositeViewsID));
-
-       ItemCollection<ScanOutcome> items = null;
-       Iterator<Item> iter = null;
-       Item item = null;
-
-       try {
-           items = table.scan(scanSpec);
-           iter = items.iterator();
-           while (iter.hasNext()) {
-               item = iter.next();
-               System.out.println(item.toJSONPretty());
-               System.out.println("------------------While Loop Ends------------");
-
-           }
-
-       } catch (final Exception e) {
-           System.err.println("Unable to scan the table:");
-           System.err.println(e.getMessage());
-       }
-
-       System.out.println("--------------Size of Scan---------" + items.getAccumulatedItemCount());
-
-   }
-
-   public static void Query_DB(String TableName, String AssetID, String CompositeViewsID) {
-       AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
-       DynamoDB dynamoDB = new DynamoDB(client);
-       Table table = dynamoDB.getTable(TableName);
-       HashMap<String, String> nameMap = new HashMap<String, String>();
-       nameMap.put("#aid", "assetId");
-       nameMap.put("#cid", "compositeViewsId");
-
-       HashMap<String, Object> valueMap = new HashMap<String, Object>();
-       valueMap.put(":aid", AssetID);
-       valueMap.put(":cid", CompositeViewsID);
-
-       QuerySpec querySpec = new QuerySpec().withKeyConditionExpression("#aid = :aid AND #cid = :cid")
-               .withNameMap(nameMap).withValueMap(valueMap);
-
-       ItemCollection<QueryOutcome> items = null;
-       Iterator<Item> iterator = null;
-       Item item = null;
-
-       try {
-           System.out.println("Result Set");
-           items = table.query(querySpec);
-
-           iterator = items.iterator();
-           while (iterator.hasNext()) {
-               item = iterator.next();
-
-               // System.out.println(item.toJSONPretty());
-               // System.out.println("----------End Loop--------");
-           }
-
-       } catch (Exception e) {
-           System.err.println("Unable to query movies from 1985");
-           System.err.println(e.getMessage());
-       }
-       System.out.println("---------Get Query Count---------- " + items.getAccumulatedItemCount());
-
-   }
-
-   public void TruncateTable(String TableName, String hashKeyName) {
-       AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
-       DynamoDB dynamoDB = new DynamoDB(client);
-       Table table = dynamoDB.getTable(TableName);
-       ScanSpec scanSpec = new ScanSpec();
-       ItemCollection<ScanOutcome> items = table.scan(scanSpec);
-       Iterator<Item> it = items.iterator();
-       while (it.hasNext()) {
-           Item item = it.next();
-           String hashKey = item.getString(hashKeyName);
-           PrimaryKey key = new PrimaryKey(hashKeyName, hashKey);
-           table.deleteItem(key);
-           // System.out.printf("Deleted item with key", hashKey);
-       }
-
-   }
-
-   public static void GetTableItemCount_Old(String TableName, String AssetID, String CompositeViewsID) {
-       AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
-       DynamoDB dynamoDB = new DynamoDB(client);
-       Table table = dynamoDB.getTable(TableName);
-       HashMap<String, String> nameMap = new HashMap<String, String>();
-       nameMap.put("#aid", "assetId");
-       nameMap.put("#cid", "compositeViewsId");
-
-       HashMap<String, Object> valueMap = new HashMap<String, Object>();
-       valueMap.put(":aid", AssetID);
-       valueMap.put(":cid", CompositeViewsID);
-
-       QuerySpec querySpec = new QuerySpec().withKeyConditionExpression("#aid = :aid AND #cid = :cid")
-               .withNameMap(nameMap).withValueMap(valueMap);
-
-       ItemCollection<QueryOutcome> items = null;
-       Iterator<Item> iterator = null;
-       Item item = null;
-       items = table.query(querySpec);
-       System.out.println("---------Get Query Count---------- " + items.getAccumulatedItemCount());
-
-   }
-
-   public int Query_GetTableItemCount(String TableName, String KeyType, String AtrName1, String AtrName2,
+public int Query_GetTableItemCount(String TableName, String KeyType, String AtrName1, String AtrName2,
            String AtrVal1, String AtrVal2) {
        System.out.println("---------Inside GetTableItemCount Function--------------");
-       AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
-       DynamoDB dynamoDB = new DynamoDB(client);
-       Table table = dynamoDB.getTable(TableName);
+        table = dynamoDB.getTable(TableName);
        HashMap<String, String> nameMap = new HashMap<String, String>();
        HashMap<String, Object> valueMap = new HashMap<String, Object>();
        ItemCollection<QueryOutcome> items = null;
@@ -225,108 +128,64 @@ public class DynamoDBUtils {
        return items.getAccumulatedItemCount();
    }
 
-   public int Scan_GetTableItemCount(String TableName, String AtrName1, String AtrVal1) {
-       AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
-       DynamoDB dynamoDB = new DynamoDB(client);
-       Table table = dynamoDB.getTable(TableName);
-       HashMap<String, String> nameMap = new HashMap<String, String>();
-       HashMap<String, Object> valueMap = new HashMap<String, Object>();
-       nameMap.put("#atr1", AtrName1);
-       valueMap.put(":atrv1", AtrVal1);
+public void Scan_ValidateItem(String TableName, String AtrName1, String AtrVal1, String ExpectedText) {
+    System.out.println("-------------Inside Scan_ValidateItem----------");
+     table = dynamoDB.getTable(TableName);
+    HashMap<String, String> nameMap = new HashMap<String, String>();
+    HashMap<String, Object> valueMap = new HashMap<String, Object>();
+    nameMap.put("#atr1", AtrName1);
+    valueMap.put(":atrv1", AtrVal1);
 
-       ScanSpec scanSpec = new ScanSpec().withFilterExpression("#atr1 = :atrv1").withNameMap(nameMap)
-               .withValueMap(valueMap);
+    ScanSpec scanSpec = new ScanSpec().withFilterExpression("#atr1 = :atrv1").withNameMap(nameMap)
+            .withValueMap(valueMap);
+    ItemCollection<ScanOutcome> items = null;
+    Iterator<Item> iter = null;
+    Item item = null;
 
-       ItemCollection<ScanOutcome> items = null;
-       Iterator<Item> iter = null;
-       Item item = null;
+    try {
+        items = table.scan(scanSpec);
+        // System.out.println("-------Get Max Result Size---------"+
+        // items.getMaxResultSize() );
+        iter = items.iterator();
 
-       try {
-           items = table.scan(scanSpec);
-           // System.out.println("-------Get Max Result Size---------"+
-           // items.getMaxResultSize() );
-           iter = items.iterator();
-           while (iter.hasNext()) {
-               item = iter.next();
-               // System.out.println(item.toJSONPretty());
-               // System.out.println("------------------While Loop Ends------------");
+        while (iter.hasNext()) {
 
-           }
+            item = iter.next();
+            System.out.println("-------------Printing Item-----------");
+            System.out.println("-------------Printing Tech metadata Value--------" + item.toString().substring(
+                    item.toString().indexOf("technicalMetadata") + 19, item.toString().indexOf("modifiedAt") - 2));
+            Assert.assertEquals(ExpectedText, item.toString().substring(
+                    item.toString().indexOf("technicalMetadata") + 19, item.toString().indexOf("modifiedAt") - 2));
+            // System.out.println("-------Expected Tech Meta Data from Json--------"+
+            // item.toString().substring(item.toString().indexOf("technicalMetadata")+19,
+            // item.toString().length()));
+            // System.out.println("-------Actual Tech Meta Data from Json--------"+
+            // ExpectedText);
+            // Assert.assertTrue("Contains Expected Value",
+            // item.toString().substring(item.toString().indexOf("technicalMetadata")+4,
+            // item.toString().length()).contains(ExpectedText));
+            // System.out.println();
+            System.out.println("-------------End of Printing Item-----------");
+            // System.out.println("------------------While Loop Ends------------");
 
-       } catch (final Exception e) {
-           System.err.println("Unable to scan the table:");
-           System.err.println(e.getMessage());
-       }
+        }
 
-       // System.out.println("--------------Size of Scan---------" +
-       // items.getAccumulatedItemCount());
-       return items.getAccumulatedItemCount();
+    } catch (final Exception e) {
+        System.err.println("Unable to scan the table:");
+        System.err.println(e.getMessage());
+    }
 
-   }
+    // System.out.println("--------------Size of Scan---------" +
+    // items.getAccumulatedItemCount());
+    // return items.getAccumulatedItemCount();
+}
 
-   public void Scan_ValidateItem(String TableName, String AtrName1, String AtrVal1, String ExpectedText) {
-       System.out.println("-------------Inside Scan_ValidateItem----------");
-       AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
-       DynamoDB dynamoDB = new DynamoDB(client);
+public List<String> getitem_PartionKey_SortKey(String TableName,String PartKey,String SortKey,String PartkeyVal,String SortKeyVal)
 
-       Table table = dynamoDB.getTable(TableName);
-
-       HashMap<String, String> nameMap = new HashMap<String, String>();
-       HashMap<String, Object> valueMap = new HashMap<String, Object>();
-       nameMap.put("#atr1", AtrName1);
-       valueMap.put(":atrv1", AtrVal1);
-
-       ScanSpec scanSpec = new ScanSpec().withFilterExpression("#atr1 = :atrv1").withNameMap(nameMap)
-               .withValueMap(valueMap);
-       ItemCollection<ScanOutcome> items = null;
-       Iterator<Item> iter = null;
-       Item item = null;
-
-       try {
-           items = table.scan(scanSpec);
-           // System.out.println("-------Get Max Result Size---------"+
-           // items.getMaxResultSize() );
-           iter = items.iterator();
-
-           while (iter.hasNext()) {
-
-               item = iter.next();
-               System.out.println("-------------Printing Item-----------");
-               System.out.println("-------------Printing Tech metadata Value--------" + item.toString().substring(
-                       item.toString().indexOf("technicalMetadata") + 19, item.toString().indexOf("modifiedAt") - 2));
-               Assert.assertEquals(ExpectedText, item.toString().substring(
-                       item.toString().indexOf("technicalMetadata") + 19, item.toString().indexOf("modifiedAt") - 2));
-               // System.out.println("-------Expected Tech Meta Data from Json--------"+
-               // item.toString().substring(item.toString().indexOf("technicalMetadata")+19,
-               // item.toString().length()));
-               // System.out.println("-------Actual Tech Meta Data from Json--------"+
-               // ExpectedText);
-               // Assert.assertTrue("Contains Expected Value",
-               // item.toString().substring(item.toString().indexOf("technicalMetadata")+4,
-               // item.toString().length()).contains(ExpectedText));
-               // System.out.println();
-               System.out.println("-------------End of Printing Item-----------");
-               // System.out.println("------------------While Loop Ends------------");
-
-           }
-
-       } catch (final Exception e) {
-           System.err.println("Unable to scan the table:");
-           System.err.println(e.getMessage());
-       }
-
-       // System.out.println("--------------Size of Scan---------" +
-       // items.getAccumulatedItemCount());
-       // return items.getAccumulatedItemCount();
-   }
-
-   public List<String> getitem_PartionKey_SortKey(String TableName,String PartKey,String SortKey,String PartkeyVal,String SortKeyVal)
     {
 
         List<String> getitemJsonList = new ArrayList<>();
-         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
-         DynamoDB dynamoDB = new DynamoDB(client);
-        Table table = dynamoDB.getTable(TableName);
+        table = dynamoDB.getTable(TableName);
         String result = "";
 
         //String replyId = forumName + "#" + threadSubject;
@@ -344,76 +203,217 @@ public class DynamoDBUtils {
             return getitemJsonList;
     }
 
-    
-    public String Scan_DB_GetSingleItem_WIP(String TableName, String ScanAttribute, String ScanValue,
-            String ProjectionExp)
+public List<String> Scan_DB_GetSingleItem(String TableName,String ScanAttribute, String ScanValue,String ProjectionExp)
+{
+    ItemCollection<ScanOutcome> items = null;
+    List<String> getitemJsonList = new ArrayList<>();
+    Map<String, Object> expressionAttributeValues = new HashMap<String, Object>();
+    //expressionAttributeValues.put(":val", "DAQ CA Test_1-dplay_4x5-Test-1599153181360-Test-1599153181360");
+    expressionAttributeValues.put(":val", ScanValue);
+     table = dynamoDB.getTable(TableName);
+    if(ProjectionExp.length()>0)
     {
-        //ItemCollection<ScanOutcome> items = null;
-        List<String> getitemJsonList = new ArrayList<>();
-        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
-       DynamoDB dynamoDB = new DynamoDB(client);
-       Table table = dynamoDB.getTable(TableName);
-       HashMap<String, String> nameMap = new HashMap<String, String>();
-       HashMap<String, Object> valueMap = new HashMap<String, Object>();
-       nameMap.put("#atr1", ScanAttribute);
-       valueMap.put(":atrv1", ScanValue);
+            items = table.scan(ScanAttribute+" = :val",ProjectionExp,null,expressionAttributeValues);
+    }
+    else
+    {
+        items = table.scan(ScanAttribute+" = :val",null,null,expressionAttributeValues);
+    }
+    //ItemCollection<ScanOutcome> items = table.scan("renditionFileName = :val","wochitRenditionStatus",null,expressionAttributeValues);
+        //ItemCollection<ScanOutcome> items = table.scan(ScanAttribute+" = :val",null,expressionAttributeValues);
+        Iterator<Item> iterator = items.iterator();
+        while (iterator.hasNext()) {
+            Item movieItem = iterator.next();
+            getitemJsonList.add(movieItem.toString());
+            //getitemJsonList.add(movieItem.toString());
+            //System.out.println(iterator.next().toJSONPretty());
+        }
+        return getitemJsonList;
+}
 
-       ScanSpec scanSpec = new ScanSpec().withFilterExpression("#atr1 = :atrv1").withNameMap(nameMap)
-               .withValueMap(valueMap);
+//**************Currently Used************ */
 
-       ItemCollection<ScanOutcome> items = null;
-       Iterator<Item> iter = null;
-       Item item = null;
+//**************Backup Functions************ */
 
-       try {
-           items = table.scan(scanSpec);
-           // System.out.println("-------Get Max Result Size---------"+
-           // items.getMaxResultSize() );
-           iter = items.iterator();
-           while (iter.hasNext()) {
-               item = iter.next();
-               // System.out.println(item.toJSONPretty());
-               // System.out.println("------------------While Loop Ends------------");
+public static void Call_DB_old() {
+    final AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
+    final ScanRequest scanRequest = new ScanRequest().withTableName("CA_MAM_ASSETS_INFO_EU-qa")
+            .withFilterExpression("assetId > : d03eedd4-e345-11ea-9814-0a580a3f06a0");
+    final ScanResult result = client.scan(scanRequest);
+    for (final Map<String, AttributeValue> item : result.getItems()) {
+        System.out.println(item);
+    }
+}
 
-           }
+public static void Scan_DB(String TableName, String AssetID, String CompositeViewsID) {
+    AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
+    DynamoDB dynamoDB = new DynamoDB(client);
+    Table table = dynamoDB.getTable(TableName);
+    ScanSpec scanSpec = new ScanSpec().withFilterExpression("assetId = :aid AND compositeViewsId = :cid")
+            .withValueMap(new ValueMap().withString(":aid", AssetID).withString(":cid", CompositeViewsID));
 
-       } catch (final Exception e) {
-           System.err.println("Unable to scan the table:");
-           System.err.println(e.getMessage());
-       }
-       return item.toString();
+    ItemCollection<ScanOutcome> items = null;
+    Iterator<Item> iter = null;
+    Item item = null;
+
+    try {
+        items = table.scan(scanSpec);
+        iter = items.iterator();
+        while (iter.hasNext()) {
+            item = iter.next();
+            System.out.println(item.toJSONPretty());
+            System.out.println("------------------While Loop Ends------------");
+
+        }
+
+    } catch (final Exception e) {
+        System.err.println("Unable to scan the table:");
+        System.err.println(e.getMessage());
     }
 
+    System.out.println("--------------Size of Scan---------" + items.getAccumulatedItemCount());
 
-    public List<String> Scan_DB_GetSingleItem(String TableName,String ScanAttribute, String ScanValue,String ProjectionExp)
-    {
-        ItemCollection<ScanOutcome> items = null;
-        List<String> getitemJsonList = new ArrayList<>();
-        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
-        DynamoDB dynamoDB = new DynamoDB(client);
-        Map<String, Object> expressionAttributeValues = new HashMap<String, Object>();
-        //expressionAttributeValues.put(":val", "DAQ CA Test_1-dplay_4x5-Test-1599153181360-Test-1599153181360");
-        expressionAttributeValues.put(":val", ScanValue);
-        Table table = dynamoDB.getTable(TableName);
-        if(ProjectionExp.length()>0)
-        {
-             items = table.scan(ScanAttribute+" = :val",ProjectionExp,null,expressionAttributeValues);
+}
+
+public static void Query_DB(String TableName, String AssetID, String CompositeViewsID) {
+    AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
+    DynamoDB dynamoDB = new DynamoDB(client);
+    Table table = dynamoDB.getTable(TableName);
+    HashMap<String, String> nameMap = new HashMap<String, String>();
+    nameMap.put("#aid", "assetId");
+    nameMap.put("#cid", "compositeViewsId");
+
+    HashMap<String, Object> valueMap = new HashMap<String, Object>();
+    valueMap.put(":aid", AssetID);
+    valueMap.put(":cid", CompositeViewsID);
+
+    QuerySpec querySpec = new QuerySpec().withKeyConditionExpression("#aid = :aid AND #cid = :cid")
+            .withNameMap(nameMap).withValueMap(valueMap);
+
+    ItemCollection<QueryOutcome> items = null;
+    Iterator<Item> iterator = null;
+    Item item = null;
+
+    try {
+        System.out.println("Result Set");
+        items = table.query(querySpec);
+
+        iterator = items.iterator();
+        while (iterator.hasNext()) {
+            item = iterator.next();
+
+            // System.out.println(item.toJSONPretty());
+            // System.out.println("----------End Loop--------");
         }
-        else
-        {
-            items = table.scan(ScanAttribute+" = :val",null,null,expressionAttributeValues);
-        }
-        //ItemCollection<ScanOutcome> items = table.scan("renditionFileName = :val","wochitRenditionStatus",null,expressionAttributeValues);
-            //ItemCollection<ScanOutcome> items = table.scan(ScanAttribute+" = :val",null,expressionAttributeValues);
-            Iterator<Item> iterator = items.iterator();
-            while (iterator.hasNext()) {
-                Item movieItem = iterator.next();
-                getitemJsonList.add(movieItem.toString());
-                //getitemJsonList.add(movieItem.toString());
-                //System.out.println(iterator.next().toJSONPretty());
-            }
-            return getitemJsonList;
+
+    } catch (Exception e) {
+        System.err.println("Unable to query movies from 1985");
+        System.err.println(e.getMessage());
     }
+    System.out.println("---------Get Query Count---------- " + items.getAccumulatedItemCount());
+
+}
+
+public static void GetTableItemCount_Old(String TableName, String AssetID, String CompositeViewsID) {
+    AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
+    DynamoDB dynamoDB = new DynamoDB(client);
+    Table table = dynamoDB.getTable(TableName);
+    HashMap<String, String> nameMap = new HashMap<String, String>();
+    nameMap.put("#aid", "assetId");
+    nameMap.put("#cid", "compositeViewsId");
+
+    HashMap<String, Object> valueMap = new HashMap<String, Object>();
+    valueMap.put(":aid", AssetID);
+    valueMap.put(":cid", CompositeViewsID);
+
+    QuerySpec querySpec = new QuerySpec().withKeyConditionExpression("#aid = :aid AND #cid = :cid")
+            .withNameMap(nameMap).withValueMap(valueMap);
+
+    ItemCollection<QueryOutcome> items = null;
+    Iterator<Item> iterator = null;
+    Item item = null;
+    items = table.query(querySpec);
+    System.out.println("---------Get Query Count---------- " + items.getAccumulatedItemCount());
+
+}
+
+public int Scan_GetTableItemCount(String TableName, String AtrName1, String AtrVal1) {
+    AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
+    DynamoDB dynamoDB = new DynamoDB(client);
+    Table table = dynamoDB.getTable(TableName);
+    HashMap<String, String> nameMap = new HashMap<String, String>();
+    HashMap<String, Object> valueMap = new HashMap<String, Object>();
+    nameMap.put("#atr1", AtrName1);
+    valueMap.put(":atrv1", AtrVal1);
+
+    ScanSpec scanSpec = new ScanSpec().withFilterExpression("#atr1 = :atrv1").withNameMap(nameMap)
+            .withValueMap(valueMap);
+
+    ItemCollection<ScanOutcome> items = null;
+    Iterator<Item> iter = null;
+    Item item = null;
+
+    try {
+        items = table.scan(scanSpec);
+        // System.out.println("-------Get Max Result Size---------"+
+        // items.getMaxResultSize() );
+        iter = items.iterator();
+        while (iter.hasNext()) {
+            item = iter.next();
+            // System.out.println(item.toJSONPretty());
+            // System.out.println("------------------While Loop Ends------------");
+
+        }
+
+    } catch (final Exception e) {
+        System.err.println("Unable to scan the table:");
+        System.err.println(e.getMessage());
+    }
+
+    // System.out.println("--------------Size of Scan---------" +
+    // items.getAccumulatedItemCount());
+    return items.getAccumulatedItemCount();
+
+}
+
+public String Scan_DB_GetSingleItem_WIP(String TableName, String ScanAttribute, String ScanValue,
+        String ProjectionExp)
+{
+    //ItemCollection<ScanOutcome> items = null;
+    List<String> getitemJsonList = new ArrayList<>();
+    AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
+    DynamoDB dynamoDB = new DynamoDB(client);
+    Table table = dynamoDB.getTable(TableName);
+    HashMap<String, String> nameMap = new HashMap<String, String>();
+    HashMap<String, Object> valueMap = new HashMap<String, Object>();
+    nameMap.put("#atr1", ScanAttribute);
+    valueMap.put(":atrv1", ScanValue);
+
+    ScanSpec scanSpec = new ScanSpec().withFilterExpression("#atr1 = :atrv1").withNameMap(nameMap)
+            .withValueMap(valueMap);
+
+    ItemCollection<ScanOutcome> items = null;
+    Iterator<Item> iter = null;
+    Item item = null;
+
+    try {
+        items = table.scan(scanSpec);
+        // System.out.println("-------Get Max Result Size---------"+
+        // items.getMaxResultSize() );
+        iter = items.iterator();
+        while (iter.hasNext()) {
+            item = iter.next();
+            // System.out.println(item.toJSONPretty());
+            // System.out.println("------------------While Loop Ends------------");
+
+        }
+
+    } catch (final Exception e) {
+        System.err.println("Unable to scan the table:");
+        System.err.println(e.getMessage());
+    }
+    return item.toString();
+}
 
  public static List<String> Scan_DBItems(String TableName) {
         List<String> getitemJsonList = new ArrayList<>();
@@ -438,7 +438,6 @@ public class DynamoDBUtils {
     return getitemJsonList;
 
 }
-
-
+//**************Backup Functions************ */
 
 }
