@@ -1,4 +1,4 @@
-Feature:  Dplay Norway CA
+Feature:  Nordic_Norway_Cmb001
 
 Background:
     * def Pause = function(pause){ java.lang.Thread.sleep(pause) }
