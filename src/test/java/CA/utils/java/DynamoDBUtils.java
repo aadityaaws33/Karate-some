@@ -41,8 +41,6 @@ public class DynamoDBUtils {
         
        }
        dynamoDB = new DynamoDB(client);
-        
-    
    }
    //public static void main(final String[] args) {
         //List<String> resultlist = new ArrayList<>();
@@ -86,6 +84,7 @@ public void TruncateTable(String TableName, String hashKeyName) {
 
 public int Query_GetTableItemCount(String TableName, String KeyType, String AtrName1, String AtrName2,
            String AtrVal1, String AtrVal2) {
+            List<String> getitemJsonList = new ArrayList<>();
        System.out.println("---------Inside GetTableItemCount Function--------------");
         table = dynamoDB.getTable(TableName);
        HashMap<String, String> nameMap = new HashMap<String, String>();
@@ -113,7 +112,9 @@ public int Query_GetTableItemCount(String TableName, String KeyType, String AtrN
            items = table.query(querySpec);
            iterator = items.iterator();
            while (iterator.hasNext()) {
-               item = iterator.next();
+               //item = iterator.next();
+               Item movieItem = iterator.next();
+               getitemJsonList.add(movieItem.toString());
                // System.out.println(item.toJSONPretty());
                // System.out.println("------------------While Loop Ends------------");
 
@@ -124,8 +125,8 @@ public int Query_GetTableItemCount(String TableName, String KeyType, String AtrN
        }
        // System.out.println("---------Get Query Count----------
        // "+items.getAccumulatedItemCount());
-
-       return items.getAccumulatedItemCount();
+       return getitemJsonList.size();
+       //return items.getAccumulatedItemCount();
    }
 
 public void Scan_ValidateItem(String TableName, String AtrName1, String AtrVal1, String ExpectedText) {
@@ -228,6 +229,7 @@ public List<String> Scan_DB_GetSingleItem(String TableName,String ScanAttribute,
             //getitemJsonList.add(movieItem.toString());
             //System.out.println(iterator.next().toJSONPretty());
         }
+    
         return getitemJsonList;
 }
 

@@ -2,8 +2,6 @@ Feature: Dynamo DB Related Features
 
 Background:
     * def Pause = function(pause){ java.lang.Thread.sleep(pause) }
-    * def AWS_Region = AWSRegion
-    * print '----------AWS_Region----------'+AWS_Region
     
 @TruncateTable
 Scenario: Truncate Table

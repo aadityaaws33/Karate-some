@@ -2,8 +2,7 @@
 
 function show_help {
     echo "Usage: ./run-test 
-        <-r|-region> [Nordic|Japan] 
-        <-c|-country> [Norway|Denmark]
+        <-r|-region> [Nordic|Japan]
         <-t|-tag> [E2E|Demo]"
 }
 
@@ -12,13 +11,13 @@ do
     case "$1"
     in
         -r | -region)               shift; REGION=${1};;
-        -c | -country)              shift; COUNTRY=${1};;
         -t | -tag)                  shift; TAG=${1};;
     esac
     shift
 done    
 # EXECUTE
-mvn clean test -Dkarate.options="-t @${TAG}" -Dkarate.region="${REGION}" -Dkarate.country="${COUNTRY}"
+mvn clean test -Dkarate.options="-t @${TAG}" -Dkarate.region="${REGION}"
 cd "$THIS_CWD"
 
-
+#./bin/run-test -r "Nordic" -t "Module"
+#mvn clean test -Dkarate.options="-t @Module" -Dkarate.region="Nordic"
