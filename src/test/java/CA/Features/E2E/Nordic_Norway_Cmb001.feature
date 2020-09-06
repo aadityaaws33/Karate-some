@@ -24,7 +24,8 @@ Scenario Outline: <TestCaseID> ---- <TestcaseDescription> ------Sample POC for D
     * def Renditionquery = read('classpath:CA/Tests/E2ECases/Nordic_Region/Norway/' + <TestCaseID> + '/Input/RenditionRequest.json')
     * def Rendition_ExpectedResponse = read('classpath:CA/Tests/E2ECases/Nordic_Region/Norway/' + <TestCaseID> + '/Output/ExpectedRenditionResponse.json')
     * def result = call read('classpath:CA/Features/ReUsable/Rendition.feature') {RenditionQuery: '#(Renditionquery)',RenditionExpectedResponse: '#(Rendition_ExpectedResponse)'}
-    * Pause(20000)
+    * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@WaitUntilDBUpdate')
+    * Pause(3000)
     * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ItemCountQuery') {Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',Param_KeyType: 'Single',Param_Atr1: 'assetId',Param_Atr2: '',Param_Atrvalue1: 'd03eedd4-e345-11ea-9814-0a580a3f06a0',Param_Atrvalue2: '',Param_ExpectedItemCount: <ExpectedMAMAssetInfoCount>}    
     * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ItemCountScan') {Param_TableName: 'CA_WOCHIT_MAPPING_EU-qa',Param_Atr1: 'mamAssetInfoReferenceId',Param_Atrvalue1: 'd03eedd4-e345-11ea-9814-0a580a3f06a0',Param_ExpectedItemCount: <ExpectedWocRenditionCount>}    
     * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ItemCountScan') {Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',Param_Atr1: 'createdBy',Param_Atrvalue1: 'step-createWochitRenditions-EU-qa',Param_ExpectedItemCount: <ExpectedWochitMappingCount>}
@@ -40,6 +41,6 @@ Scenario Outline: <TestCaseID> ---- <TestcaseDescription> ------Sample POC for D
     * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ScanGetItem') {Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',Param_ScanAttr:'aspectRatio',Param_ScanVal:'ASPECT_16_9',QueryJsonExpected:'#(QueryJsonExpected)'}
     * print '-------Executed--------'
     Examples:
-        | TestCaseID   | TestcaseDescription | ExpectedMAMAssetInfoCount|ExpectedWocRenditionCount|ExpectedWochitMappingCount|
-        | 'E2E00001'   | Combination1        |       5                  |  3                      |     3                    |
+        | TestCaseID               | TestcaseDescription         | ExpectedMAMAssetInfoCount|ExpectedWocRenditionCount|ExpectedWochitMappingCount|
+        | 'Nordic_Norway_Cmb001'   | Nordic_Norway_Cmb001        |       5                  |  3                      |     3                    |
 

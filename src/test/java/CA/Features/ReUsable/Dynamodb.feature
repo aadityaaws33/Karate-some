@@ -125,3 +125,20 @@ Scenario: Get Item Count of Table with Scan
 #* match QueryJsonExpected contains ItemResponse
 
 
+
+@WaitUntilDBUpdate
+Scenario: Wait for DB Update
+* print '-------------------WaitUntilDBUpdate-------------'
+* def ItemCount =
+    """
+    function()
+    {
+        var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
+        var ItCnt = new ItemCount();
+        ItCnt.WaitforDBUpdate();
+    }
+    """
+* def QueryJson = call ItemCount
+
+
+

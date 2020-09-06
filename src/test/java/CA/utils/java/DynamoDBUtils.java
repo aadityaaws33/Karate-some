@@ -21,6 +21,7 @@ import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
+import com.amazonaws.services.dynamodbv2.model.TableDescription;
 
 //import org.graalvm.compiler.core.common.SpeculativeExecutionAttacksMitigations_OptionDescriptors;
 import org.junit.Assert;
@@ -115,16 +116,11 @@ public int Query_GetTableItemCount(String TableName, String KeyType, String AtrN
                //item = iterator.next();
                Item movieItem = iterator.next();
                getitemJsonList.add(movieItem.toString());
-               // System.out.println(item.toJSONPretty());
-               // System.out.println("------------------While Loop Ends------------");
-
            }
        } catch (final Exception e) {
            System.err.println("Unable to Query the table:");
            System.err.println(e.getMessage());
        }
-       // System.out.println("---------Get Query Count----------
-       // "+items.getAccumulatedItemCount());
        return getitemJsonList.size();
        //return items.getAccumulatedItemCount();
    }
@@ -233,6 +229,17 @@ public List<String> Scan_DB_GetSingleItem(String TableName,String ScanAttribute,
         return getitemJsonList;
 }
 
+public void WaitforDBUpdate() throws InterruptedException
+{
+    System.out.println("--------------Waiting for DB Update before While Loop----------"+ Scan_GetTableItemCount("CA_WOCHIT_RENDITIONS_EU-qa","createdBy","step-createWochitRenditions-EU-qa"));
+        while(Scan_GetTableItemCount("CA_WOCHIT_RENDITIONS_EU-qa","createdBy","step-createWochitRenditions-EU-qa") == 0)
+        {
+
+            System.out.println("---------Waiting for DB Update---------");
+            Thread.sleep(1000);
+        }
+
+}
 //**************Currently Used************ */
 
 //**************Backup Functions************ */
@@ -340,6 +347,7 @@ public static void GetTableItemCount_Old(String TableName, String AssetID, Strin
 }
 
 public int Scan_GetTableItemCount(String TableName, String AtrName1, String AtrVal1) {
+    List<String> getitemJsonList = new ArrayList<>();
     AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
     DynamoDB dynamoDB = new DynamoDB(client);
     Table table = dynamoDB.getTable(TableName);
@@ -361,7 +369,9 @@ public int Scan_GetTableItemCount(String TableName, String AtrName1, String AtrV
         // items.getMaxResultSize() );
         iter = items.iterator();
         while (iter.hasNext()) {
-            item = iter.next();
+            Item movieItem = iter.next();
+               getitemJsonList.add(movieItem.toString());
+            //item = iter.next();
             // System.out.println(item.toJSONPretty());
             // System.out.println("------------------While Loop Ends------------");
 
@@ -374,7 +384,7 @@ public int Scan_GetTableItemCount(String TableName, String AtrName1, String AtrV
 
     // System.out.println("--------------Size of Scan---------" +
     // items.getAccumulatedItemCount());
-    return items.getAccumulatedItemCount();
+    return getitemJsonList.size();
 
 }
 
