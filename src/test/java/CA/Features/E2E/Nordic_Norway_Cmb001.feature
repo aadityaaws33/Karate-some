@@ -6,7 +6,7 @@ Background:
     * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@TruncateTable') {Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',Param_PrimaryKey: 'ID'}  
     
 @PoC
-Scenario Outline: <TestCaseID> ---- <TestcaseDescription> ------Sample POC for Dplay CA Modularized 
+Scenario Outline: <TestCaseID>------Sample POC for Dplay CA Modularized 
     * def Random_String_Generator = function(){ return java.lang.System.currentTimeMillis() }
     * def RandomString = 'Test-' + Random_String_Generator()
     * print '---------------Random Text----------'+RandomString
@@ -41,6 +41,6 @@ Scenario Outline: <TestCaseID> ---- <TestcaseDescription> ------Sample POC for D
     * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ScanGetItem') {Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',Param_ScanAttr:'aspectRatio',Param_ScanVal:'ASPECT_16_9',QueryJsonExpected:'#(QueryJsonExpected)'}
     * print '-------Executed--------'
     Examples:
-        | TestCaseID               | TestcaseDescription         | ExpectedMAMAssetInfoCount|ExpectedWocRenditionCount|ExpectedWochitMappingCount|
-        | 'Nordic_Norway_Cmb001'   | Nordic_Norway_Cmb001        |       5                  |  3                      |     3                    |
+        | TestCaseID               | ExpectedMAMAssetInfoCount|ExpectedWocRenditionCount|ExpectedWochitMappingCount|
+        | 'Nordic_Norway_Cmb001'   |       5                  |  3                      |     3                    |
 
