@@ -39,6 +39,9 @@ Scenario Outline: <TestCaseID>------Sample POC for Dplay CA Modularized
     * def QueryJsonExpected = read('classpath:CA/Tests/E2ECases/Nordic_Region/Norway/' + <TestCaseID> +'/Output/Expected16_9_Item.txt')
     * replace QueryJsonExpected.TBR = RandomString
     * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ScanGetItem') {Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',Param_ScanAttr:'aspectRatio',Param_ScanVal:'ASPECT_16_9',QueryJsonExpected:'#(QueryJsonExpected)'}
+
+    * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ScanGetItem') {Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',Param_ScanAttr:'aspectRatio',Param_ScanVal:'ASPECT_16_9',QueryJsonExpected:'#(QueryJsonExpected)'}
+    * def result = call read('classpath:CA/Features/ReUsable/Dynamodb.feature@ScanGetItem') {Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',Param_ScanAttr:'aspectRatio',Param_ScanVal:'ASPECT_16_9',QueryJsonExpected:'#(QueryJsonExpected)'}
     * print '-------Executed--------'
     Examples:
         | TestCaseID               | ExpectedMAMAssetInfoCount|ExpectedWocRenditionCount|ExpectedWochitMappingCount|

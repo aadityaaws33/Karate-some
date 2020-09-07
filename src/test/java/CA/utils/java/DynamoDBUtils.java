@@ -221,7 +221,7 @@ public List<String> Scan_DB_GetSingleItem(String TableName,String ScanAttribute,
             //getitemJsonList.add(movieItem.toString());
             //System.out.println(iterator.next().toJSONPretty());
         }
-    
+        
         return getitemJsonList;
 }
 public void WaitforDBUpdate() throws InterruptedException
