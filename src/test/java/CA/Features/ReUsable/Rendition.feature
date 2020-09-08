@@ -6,10 +6,10 @@ Background:
 * header App-ID = App_ID
 
 Scenario: Rendition
-* print '--------------Season Request-----------'+RenditionQuery
+#* print '--------------Season Request-----------'+RenditionQuery
 When request RenditionQuery
 And method post
-* print '----------Season Response------------->'+RenditionExpectedResponse
+#* print '----------Season Response------------->'+RenditionExpectedResponse
 Then status 200
 #And match response contains RenditionExpectedResponse
 #* print '----------First------------->'+karate.jsonPath(response,"$.mamAssetInfo[0].seasonMetadata.data.no-dplay-SeriesTitle")

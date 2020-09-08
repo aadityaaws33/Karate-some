@@ -12,7 +12,7 @@ Scenario: Modular Update Season
     * print '----------Episode Response------------->'+EpisodeExpectedResponse
     Then status 200
     And match response == EpisodeExpectedResponse
-    And match karate.jsonPath(response,"$.metadata_values['no-dplay-CalloutText-multi'].field_values[0].value") == RandomText
-    And match karate.jsonPath(response,"$.metadata_values['no-dplay-CtaText-multi'].field_values[0].value") == RandomText
+    And match karate.jsonPath(response,"$.metadata_values['no-dplay-CalloutText-multi'].field_values[0].value") == ExpectedCalloutText
+    And match karate.jsonPath(response,"$.metadata_values['no-dplay-CtaText-multi'].field_values[0].value") == ExpectedCTA
 
    

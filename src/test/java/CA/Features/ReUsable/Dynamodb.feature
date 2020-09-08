@@ -5,7 +5,7 @@ Background:
     
 @TruncateTable
 Scenario: Truncate Table
-* print '-------------------Dynamo DB Feature and Truncate Table Scenario-------------'
+#* print '-------------------Dynamo DB Feature and Truncate Table Scenario-------------'
 * def TruncateTable =
     """
     function()
@@ -20,7 +20,7 @@ Scenario: Truncate Table
 
 @ItemCountQuery
 Scenario: Get Item Count of Table with Scan
-* print '-------------------Dynamo DB Feature and Item Count-------------'
+#* print '-------------------Dynamo DB Feature and Item Count-------------'
 * def ItemCount =
     """
     function()
@@ -31,14 +31,14 @@ Scenario: Get Item Count of Table with Scan
     }
     """
 * def temp = call ItemCount
-* print '----------------Actual Item Count------------'+temp
-* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
+#* print '----------------Actual Item Count------------'+temp
+#* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
 * assert temp == Param_ExpectedItemCount
 
 
 @ItemCountScan
 Scenario: Get Item Count of Table with Scan
-* print '-------------------Dynamo DB Feature and Item Count-------------'
+#* print '-------------------Dynamo DB Feature and Item Count-------------'
 * def ItemCount =
     """
     function()
@@ -49,15 +49,15 @@ Scenario: Get Item Count of Table with Scan
     }
     """
 * def temp = call ItemCount
-* print '----------------Actual Item Count------------'+temp
-* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
+#* print '----------------Actual Item Count------------'+temp
+#* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
 * assert temp == Param_ExpectedItemCount
 
 
 @ValidatePassedItem
 Scenario: Get Item Count of Table with Scan
-* print '-------------------Dynamo DB Validate Item-------------'
-* print '-----------------Expected from Json---------------'+Param_TechMetaDataExpected
+#* print '-------------------Dynamo DB Validate Item-------------'
+#* print '-----------------Expected from Json---------------'+Param_TechMetaDataExpected
 * def ItemCount =
     """
     function()
@@ -73,7 +73,7 @@ Scenario: Get Item Count of Table with Scan
 
 @GetItemMAMAssetInfo
 Scenario: Get Item Count of Table with Scan
-* print '-------------------Dynamo DB Get Item-------------'
+#* print '-------------------Dynamo DB Get Item-------------'
 * def ItemCount =
     """
     function()
@@ -106,7 +106,7 @@ Scenario: Get Item Count of Table with Scan
 
 @ScanGetItem
 Scenario: Get Item Count of Table with Scan
-* print '-------------------Dynamo DB Get Item-------------'
+#* print '-------------------Dynamo DB Get Item-------------'
 * def ItemCount =
     """
     function()
@@ -118,15 +118,15 @@ Scenario: Get Item Count of Table with Scan
     """
 * def QueryJson = call ItemCount
 * def ItemResponse = get[0] QueryJson
-* print '-------------ActualResponse-----------'+ItemResponse
-* print '-------------ExpectedResponse-----------'+QueryJsonExpected
+#* print '-------------ActualResponse-----------'+ItemResponse
+#* print '-------------ExpectedResponse-----------'+QueryJsonExpected
 #* match ItemResponse contains '#(QueryJsonExpected)'
 * match ItemResponse contains QueryJsonExpected
 #* match QueryJsonExpected contains ItemResponse
 
 @ValidateWochitPayload
 Scenario: Get Item Count of Table with Scan
-* print '-------------------Dynamo DB Get Item-------------'
+#* print '-------------------Dynamo DB Get Item-------------'
 * def ItemCount =
     """
     function()
@@ -138,7 +138,7 @@ Scenario: Get Item Count of Table with Scan
     """
 * def QueryJson = call ItemCount
 * def ItemResponse = get[0] QueryJson
-* print '-------------ActualResponse-----------'+ItemResponse
+#* print '-------------ActualResponse-----------'+ItemResponse
 #* print '-------------ExpectedResponse-----------'+QueryJsonExpected
 #* match ItemResponse contains '#(QueryJsonExpected)'
 #* match ItemResponse contains Param_Expected_VideoUpdates
@@ -151,7 +151,7 @@ Scenario: Get Item Count of Table with Scan
 
 @WaitUntilDBUpdate
 Scenario: Wait for DB Update
-* print '-------------------WaitUntilDBUpdate-------------'
+#* print '-------------------WaitUntilDBUpdate-------------'
 * def ItemCount =
     """
     function()

@@ -35,7 +35,7 @@ public class DynamoDBUtils {
    public Table table ;
    public DynamoDBUtils()
    {
-       System.out.println("----------Property of Region in DynamoDBUtiuls COnstructoir----------"+ System.getProperty("karate.region"));
+       //System.out.println("----------Property of Region in DynamoDBUtiuls COnstructoir----------"+ System.getProperty("karate.region"));
        if(region.contentEquals("Nordic"))
        {
         client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
@@ -85,7 +85,7 @@ public void TruncateTable(String TableName, String hashKeyName) {
 public int Query_GetTableItemCount(String TableName, String KeyType, String AtrName1, String AtrName2,
            String AtrVal1, String AtrVal2) {
             List<String> getitemJsonList = new ArrayList<>();
-       System.out.println("---------Inside GetTableItemCount Function--------------");
+       //System.out.println("---------Inside GetTableItemCount Function--------------");
         table = dynamoDB.getTable(TableName);
        HashMap<String, String> nameMap = new HashMap<String, String>();
        HashMap<String, Object> valueMap = new HashMap<String, Object>();
@@ -124,7 +124,7 @@ public int Query_GetTableItemCount(String TableName, String KeyType, String AtrN
        //return items.getAccumulatedItemCount();
    }
 public void Scan_ValidateItem(String TableName, String AtrName1, String AtrVal1, String ExpectedText) {
-    System.out.println("-------------Inside Scan_ValidateItem----------");
+   //System.out.println("-------------Inside Scan_ValidateItem----------");
      table = dynamoDB.getTable(TableName);
     HashMap<String, String> nameMap = new HashMap<String, String>();
     HashMap<String, Object> valueMap = new HashMap<String, Object>();
@@ -146,9 +146,9 @@ public void Scan_ValidateItem(String TableName, String AtrName1, String AtrVal1,
         while (iter.hasNext()) {
 
             item = iter.next();
-            System.out.println("-------------Printing Item-----------");
-            System.out.println("-------------Printing Tech metadata Value--------" + item.toString().substring(
-                    item.toString().indexOf("technicalMetadata") + 19, item.toString().indexOf("modifiedAt") - 2));
+            //System.out.println("-------------Printing Item-----------");
+            //System.out.println("-------------Printing Tech metadata Value--------" + item.toString().substring(
+                    //item.toString().indexOf("technicalMetadata") + 19, item.toString().indexOf("modifiedAt") - 2));
             Assert.assertEquals(ExpectedText, item.toString().substring(
                     item.toString().indexOf("technicalMetadata") + 19, item.toString().indexOf("modifiedAt") - 2));
             // System.out.println("-------Expected Tech Meta Data from Json--------"+
@@ -160,7 +160,7 @@ public void Scan_ValidateItem(String TableName, String AtrName1, String AtrVal1,
             // item.toString().substring(item.toString().indexOf("technicalMetadata")+4,
             // item.toString().length()).contains(ExpectedText));
             // System.out.println();
-            System.out.println("-------------End of Printing Item-----------");
+           // System.out.println("-------------End of Printing Item-----------");
             // System.out.println("------------------While Loop Ends------------");
 
         }
@@ -226,13 +226,14 @@ public List<String> Scan_DB_GetSingleItem(String TableName,String ScanAttribute,
 }
 public void WaitforDBUpdate() throws InterruptedException
 {
-    System.out.println("--------------Waiting for DB Update before While Loop----------"+ Scan_GetTableItemCount("CA_WOCHIT_RENDITIONS_EU-qa","createdBy","step-createWochitRenditions-EU-qa"));
+    System.out.println("--------------Count of Item Count from Scan Result ----------"+ Scan_GetTableItemCount("CA_WOCHIT_RENDITIONS_EU-qa","createdBy","step-createWochitRenditions-EU-qa"));
         while(Scan_GetTableItemCount("CA_WOCHIT_RENDITIONS_EU-qa","createdBy","step-createWochitRenditions-EU-qa") == 0)
         {
 
-            System.out.println("---------Waiting for DB Update---------");
+            System.out.println("---------Intentional Wait for DB Update until item count > 0---------");
             Thread.sleep(1000);
         }
+        Thread.sleep(7000);
 
 }
 public int Scan_GetTableItemCount(String TableName, String AtrName1, String AtrVal1) {
@@ -306,7 +307,7 @@ public static void Scan_DB(String TableName, String AssetID, String CompositeVie
         while (iter.hasNext()) {
             item = iter.next();
             System.out.println(item.toJSONPretty());
-            System.out.println("------------------While Loop Ends------------");
+            //System.out.println("------------------While Loop Ends------------");
 
         }
 
@@ -353,7 +354,7 @@ public static void Query_DB(String TableName, String AssetID, String CompositeVi
         System.err.println("Unable to query movies from 1985");
         System.err.println(e.getMessage());
     }
-    System.out.println("---------Get Query Count---------- " + items.getAccumulatedItemCount());
+    //System.out.println("---------Get Query Count---------- " + items.getAccumulatedItemCount());
 
 }
 public static void GetTableItemCount_Old(String TableName, String AssetID, String CompositeViewsID) {
@@ -375,7 +376,7 @@ public static void GetTableItemCount_Old(String TableName, String AssetID, Strin
     Iterator<Item> iterator = null;
     Item item = null;
     items = table.query(querySpec);
-    System.out.println("---------Get Query Count---------- " + items.getAccumulatedItemCount());
+    //System.out.println("---------Get Query Count---------- " + items.getAccumulatedItemCount());
 
 }
 public String Scan_DB_GetSingleItem_WIP(String TableName, String ScanAttribute, String ScanValue,
