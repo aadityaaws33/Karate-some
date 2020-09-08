@@ -192,7 +192,7 @@ public List<String> getitem_PartionKey_SortKey(String TableName,String PartKey,S
                 Item movieItem = iterator.next();
                 //System.out.println("MAM Asset Info ====================>" + movieItem.toJSONPretty());
                 //moviesJsonList.add(movieItem.toJSONPretty());
-                getitemJsonList.add(movieItem.toJSONPretty());
+                getitemJsonList.add(movieItem.toString());
             }
             return getitemJsonList;
     }

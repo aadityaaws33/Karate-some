@@ -73,7 +73,7 @@ Scenario: Get Item Count of Table with Scan
 
 @GetItemMAMAssetInfo
 Scenario: Get Item Count of Table with Scan
-#* print '-------------------Dynamo DB Get Item-------------'
+* print '-------------------GetItemMAMAssetInfo-------------'
 * def ItemCount =
     """
     function()
@@ -83,9 +83,12 @@ Scenario: Get Item Count of Table with Scan
          return ItCnt.getitem_PartionKey_SortKey(Param_TableName,Param_PartitionKey,Param_SortKey,ParamPartionKeyVal,ParamSortKeyVal);
     }
     """
-* def QueryJson = get[0] call ItemCount
-* def ActualTechMetaData = get[0] QueryJson.technicalMetadata
-* assert ActualTechMetaData == Param_TechMetaData
+* def QueryJson = call ItemCount
+* def ItemResponse = get[0] QueryJson
+#* print 
+#* def ActualTechMetaData = get[0] QueryJson.technicalMetadata
+* match ItemResponse contains Param_TechMetaData
+#* assert ActualTechMetaData == Param_TechMetaData
 #--------Backup------
 #* json jsonVar = temp
 #* def QueryJson = get[0] jsonVar
@@ -141,10 +144,10 @@ Scenario: Get Item Count of Table with Scan
 #* print '-------------ActualResponse-----------'+ItemResponse
 #* print '-------------ExpectedResponse-----------'+QueryJsonExpected
 #* match ItemResponse contains '#(QueryJsonExpected)'
-#* match ItemResponse contains Param_Expected_VideoUpdates
-#* match ItemResponse contains Param_Expected_Item_AspectRatio_TemplateID
-* match ItemResponse contains Param_Expected_TimelineItems
 * match ItemResponse contains Param_Expected_Status
+* match ItemResponse contains Param_Expected_Item_AspectRatio_TemplateID
+* match ItemResponse contains Param_Expected_VideoUpdates
+#* match ItemResponse contains Param_Expected_TimelineItems
 #* match QueryJsonExpected contains ItemResponse
 
 
