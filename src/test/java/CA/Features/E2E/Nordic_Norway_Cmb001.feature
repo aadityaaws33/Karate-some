@@ -70,3 +70,15 @@ Examples:
     | '16x9'        | 'Expected_VideoUpdates.txt'         | 'Expected16_9_Item_AspectRatio_TemplateID.txt'  |ASPECT_16_9  |
     | '4x5'         | 'Expected_VideoUpdates.txt'         | 'Expected4_5_Item_AspectRatio_TemplateID.txt'   |ASPECT_4_5   |
     | '1x1'         | 'Expected_VideoUpdates_1_1.txt'     | 'Expected1_1_Item_AspectRatio_TemplateID.txt'   |ASPECT_1_1   |
+
+
+Scenario Outline: Nordic_Norway_Cmb001 - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> Rendition Status 
+* def Expected_Status = read(currentTCPath+'/Output/Expected_Status_WochitMapping.txt')
+#* def RenditionFileName = 'DAQ CA Test_1-dplay_16x9-'+RandomCalloutText+'-'+RandomCTA
+* def RenditionFileName = <ASPECTRATIO>+'-'+RandomCalloutText+'-'+RandomCTA
+* def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateWochitPayload') {Param_TableName: 'CA_WOCHIT_MAPPING_EU-qa',Param_ScanAttr:'renditionFileName',Param_ScanVal:'#(RenditionFileName)',Param_Expected_VideoUpdates:'',Param_Expected_Item_AspectRatio_TemplateID: '',Param_Expected_TimelineItems:'',Param_Expected_Status:'#(Expected_Status)'}
+Examples:
+    | ASPECTRATIO                     |
+    | 'DAQ CA Test_1-dplay_16x9'      | 
+    | 'DAQ CA Test_1-dplay_4x5'       | 
+    | 'DAQ CA Test_1-dplay_1x1'       | 
