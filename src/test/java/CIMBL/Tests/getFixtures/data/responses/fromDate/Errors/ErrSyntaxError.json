@@ -1,8 +1,0 @@
-{
-  "errors": [
-    {
-      "errorType": "MalformedHttpRequestException",
-      "message": "Unable to parse GraphQL query."
-    }
-  ]
-}

@@ -5,12 +5,12 @@ phases:
       java: corretto11
   pre_build:
     commands:
-      - echo Running Schema Validation
-      - mvn clean test -Dkarate.options="-t SchemaValidation" -Dkarate.targetEnv="${env}"
+      - echo Running Pre Build
+     # - mvn clean test -Dkarate.options="-t SchemaValidation" -Dkarate.targetEnv="${env}"
   build:
     commands:
       - echo Build started on `date`
-      - mvn clean test -Dkarate.options="-t @${tag}" -Dkarate.targetEnv="${env}" -Dkarate.authType="${authType}"
+      - mvn clean test -Dkarate.options="-t @Module" -Dkarate.region="Nordic"
     cache:
       paths:
         - '/root/.m2/**/*'

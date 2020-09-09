@@ -1,5 +1,0 @@
-#!/bin/bash
-if [ \"$skip\" == \"false\" ]; then 
-  # mvn clean verify -Dkarate.options=\"-t @$tag\" -Dkarate.targetEnv=\"$env\" -Dkarate.authType=\"$authType\"
-  mvn clean test -Dkarate.options="-t @${tag}" -Dkarate.targetEnv="${env}" -Dkarate.authType="${authType}"
-fi

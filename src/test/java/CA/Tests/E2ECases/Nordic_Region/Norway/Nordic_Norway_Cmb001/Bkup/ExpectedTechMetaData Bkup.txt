@@ -1,0 +1,1 @@
+{data={Format=MPEG-4|AVC|AAC, Duration=30000, Height=1080, Width=1920, FileSize=34674856}, name=Asset Metadata, objectName=DAQ CA Test_1.mp4, ID=488545e4-8398-11ea-87ea-0a580a3c35ce, objectId=d03eedd4-e345-11ea-9814-0a580a3f06a0, objectType=assets}

@@ -1,0 +1,15 @@
+{
+    "user_id": "db01ddf8-1d57-11ea-9366-0a580a3f8f79",
+    "system_domain_id": "da4c0aaa-1d57-11ea-93d8-0a580a3cb9a8",
+    "context": "ASSET",
+    "action_id": "fd02ac0a-99fa-11ea-8151-0a580a3ee649",
+    "asset_ids": [
+      "d03eedd4-e345-11ea-9814-0a580a3f06a0"
+    ],
+    "collection_ids": [],
+    "saved_search_ids": [],
+    "metadata_view_id": null,
+    "metadata_values": null,
+    "date_created": "2020-08-21T00:40:34.377229",
+    "auth_token": "eyJhbGciOiJIUzI1NiIsImlhdCI6MTU5Nzk3MDQzNCwiZXhwIjoxNTk4MDEzNjM0fQ.eyJpZCI6ImVjOTE5MWYyLWUzNDYtMTFlYS1iYzczLTBhNTgwYTNkMWYxYiJ9.QGeookJH-domsFAyO4BKKLbiVQyIqsV_-E4GOdvlIaM"
+  }

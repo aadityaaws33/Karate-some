@@ -1,0 +1,4 @@
+{
+    "input": "{\"executionArn\":'#notnull',\"startDate\":'#notnull'}",
+    "stateMachineArn": "arn:aws:states:ap-southeast-1:978432760342:stateMachine:adapter-state-machine-EU-qa"
+}
