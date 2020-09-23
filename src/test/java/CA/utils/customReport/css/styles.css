@@ -1,0 +1,11 @@
+.Pass {
+  background-color: green;
+}
+
+.NotApplicable {
+  background-color: orange;
+}
+
+.Fail {
+  background-color: red;
+}

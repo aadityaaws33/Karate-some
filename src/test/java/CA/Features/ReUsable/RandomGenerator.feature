@@ -15,3 +15,18 @@ Scenario: Random generator CallOut Text
 Scenario: Random generator CTA
     * def RandomCTA = 'CTA-' + Random_String_Generator()
     #* print '-------------RandomCTA in feature file----------'+RandomCTA
+
+@DateNow
+Scenario: DateTimeGeneration
+#* print '-------------------Dynamo DB Feature and Item Count-------------'
+* def ItemCount =
+    """
+    function()
+    {
+        var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
+        var ItCnt = new ItemCount();
+        return ItCnt.CreateDate();
+    }
+    """
+* def Datenow = call ItemCount
+* print '----------------Date in FeatureFile------------'+Datenow

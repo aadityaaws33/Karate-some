@@ -33,7 +33,7 @@ Scenario: Get Item Count of Table with Scan
 * def temp = call ItemCount
 #* print '----------------Actual Item Count------------'+temp
 #* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
-* assert temp == Param_ExpectedItemCount
+* def result = temp == Param_ExpectedItemCount?'Pass':'Fail'
 
 
 @ItemCountScan
@@ -45,14 +45,13 @@ Scenario: Get Item Count of Table with Scan
     {
         var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
         var ItCnt = new ItemCount();
-        return ItCnt.Scan_GetTableItemCount(Param_TableName,Param_Atr1,Param_Atrvalue1);
+        return ItCnt.Scan_GetTableItemCount(Param_TableName,Param_Atr1,Param_Atrvalue1,Param_Operator);
     }
     """
 * def temp = call ItemCount
 #* print '----------------Actual Item Count------------'+temp
 #* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
-* assert temp == Param_ExpectedItemCount
-
+* def result = temp == Param_ExpectedItemCount?'Pass':'Fail'
 
 @ValidatePassedItem
 Scenario: Get Item Count of Table with Scan
@@ -73,7 +72,7 @@ Scenario: Get Item Count of Table with Scan
 
 @GetItemMAMAssetInfo
 Scenario: Get Item Count of Table with Scan
-* print '-------------------GetItemMAMAssetInfo-------------'
+#* print '-------------------GetItemMAMAssetInfo-------------'
 * def ItemCount =
     """
     function()
@@ -85,9 +84,23 @@ Scenario: Get Item Count of Table with Scan
     """
 * def QueryJson = call ItemCount
 * def ItemResponse = get[0] QueryJson
+* def evalItemResponse = 
+  """
+    function() {
+      if (
+        ItemResponse.contains(Param_TechMetaData)
+      ) {
+        return 'Pass'
+      } else {
+        return 'Fail'
+      }
+    }
+  """
+* def result = call evalItemResponse
+# * match ItemResponse contains Param_TechMetaData
+# * print QueryJson
 #* print 
 #* def ActualTechMetaData = get[0] QueryJson.technicalMetadata
-* match ItemResponse contains Param_TechMetaData
 #* assert ActualTechMetaData == Param_TechMetaData
 #--------Backup------
 #* json jsonVar = temp
@@ -136,35 +149,108 @@ Scenario: Get Item Count of Table with Scan
     {
         var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
         var ItCnt = new ItemCount();
-        return ItCnt.Scan_DB_GetSingleItem(Param_TableName,Param_ScanAttr,Param_ScanVal,'');
+        return ItCnt.Scan_WochitRendition(Param_TableName,Param_ScanAttr1,Param_ScanVal1,Param_ScanAttr2,Param_ScanVal2);
     }
     """
 * def QueryJson = call ItemCount
 * def ItemResponse = get[0] QueryJson
-#* print '-------------ActualResponse-----------'+ItemResponse
-#* print '-------------ExpectedResponse-----------'+QueryJsonExpected
-#* match ItemResponse contains '#(QueryJsonExpected)'
 * match ItemResponse contains Param_Expected_Status
 * match ItemResponse contains Param_Expected_Item_AspectRatio_TemplateID
 * match ItemResponse contains Param_Expected_VideoUpdates
+
+#-----TBI
+#* print '-------------ActualResponse-----------'+ItemResponse
+#* print '-------------ExpectedResponse-----------'+QueryJsonExpected
+#* match ItemResponse contains '#(QueryJsonExpected)'
 #* match ItemResponse contains Param_Expected_TimelineItems
 #* match QueryJsonExpected contains ItemResponse
+#-----TBI
 
-
-
-@WaitUntilDBUpdate
-Scenario: Wait for DB Update
-#* print '-------------------WaitUntilDBUpdate-------------'
+@ValidateWochitRenditionPayload
+Scenario: Get Item Count of Table with Scan
+#* print '-------------------Dynamo DB Get Item-------------'
 * def ItemCount =
     """
     function()
     {
         var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
         var ItCnt = new ItemCount();
-        ItCnt.WaitforDBUpdate();
+        return ItCnt.Scan_DB_WochitRendition(Param_TableName,Param_ScanAttr1,Param_ScanVal1,Param_ScanAttr2,Param_ScanVal2);
     }
     """
 * def QueryJson = call ItemCount
+* def ItemResponse = get[0] QueryJson
+#* print '-----------Response in Feature File-----------'+ItemResponse
+* def evalItemResponse =
+  """
+    function() {
+      if(
+        ItemResponse.contains(Param_Expected_Status) &&
+        ItemResponse.contains(Param_Expected_Item_AspectRatio_TemplateID) &&
+        ItemResponse.contains(Param_Expected_VideoUpdates)
+      ) {
+        return 'Pass'
+      } else {
+        return 'Fail'
+      }
+    }
+  """
+* def result = call evalItemResponse
+# * match ItemResponse contains Param_Expected_Status
+# * match ItemResponse contains Param_Expected_Item_AspectRatio_TemplateID
+# * match ItemResponse contains Param_Expected_VideoUpdates
+
+
+@ValidateWochitMappingPayload
+Scenario: Get Item Count of Table with Scan
+#* print '-------------------Dynamo DB Get Item-------------'
+* def ItemCount =
+    """
+    function()
+    {
+        var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
+        var ItCnt = new ItemCount();
+        return ItCnt.Scan_DB_WochitMapping(Param_TableName,Param_ScanAttr1,Param_ScanVal1);
+    }
+    """
+* def QueryJson = call ItemCount
+* print QueryJson
+* def ItemResponse = get[0] QueryJson
+* def evalItemResponse =
+  """
+    function() {
+      if(
+        ItemResponse.contains(Param_Expected_Status)
+      ) {
+        return 'Pass'
+      } else {
+        return 'Fail'
+      }
+    }
+  """
+* def result = call evalItemResponse
+# * match ItemResponse contains Param_Expected_Status
+
+#* print '-----------Response in Feature File-----------'+ItemResponse
+#* match ItemResponse contains Param_Expected_Item_AspectRatio_TemplateID
+#* match ItemResponse contains Param_Expected_VideoUpdates
+
+
+@WaitUntilDBUpdate
+Scenario: Wait for DB Update
+#* print '-------------------WaitUntilDBUpdate-------------'
+* def getItemCount =
+    """
+    function()
+    {
+        var dynamoDBUtilsClass = Java.type('CA.utils.java.DynamoDBUtils');
+        var dynamoDB = new dynamoDBUtilsClass();
+        var itemCount = dynamoDB.WaitforDBUpdate(Param_ScanAtr,Param_ScanVal);
+        return itemCount
+    }
+    """
+* def itemCount = call getItemCount
+* def result = itemCount > 0?'Pass':'Fail'
 
 
 
