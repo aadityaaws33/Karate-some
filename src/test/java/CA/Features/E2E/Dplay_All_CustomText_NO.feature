@@ -3,14 +3,32 @@ Feature:  Dplay_All_CustomText_NO
 
 Background:
     * def TCName = 'Dplay_All_CustomText_NO'
+    * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
     * def tcResultWritePath = 'test-classes/' + TCName + '.json'
     * def tcResultReadPath = 'classpath:target/' + tcResultWritePath
     * def finalResultWritePath = 'test-classes/Results.json'
     * def finalResultReadPath = 'classpath:target/' + finalResultWritePath
     * def currentTCPath = 'classpath:CA/TestData/E2ECases/Nordic_Region/Norway/' + TCName
     * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
-    * def placeholderParams = { tcResultReadPath: #(tcResultReadPath), tcResultWritePath: #(tcResultWritePath), tcName: #(TCName) }
-    * def updateFinalResultParams = { tcResultReadPath: #(tcResultReadPath), tcResultWritePath: #(tcResultWritePath), tcName: #(TCName), finalResultReadPath: #(finalResultReadPath), finalResultWritePath: #(finalResultWritePath) }
+    * def placeholderParams = 
+      """
+        { 
+          tcResultReadPath: #(tcResultReadPath), 
+          tcResultWritePath: #(tcResultWritePath), 
+          tcName: #(TCName),
+          tcValidationType: #(TCValidationType)
+        }
+      """
+    * def updateFinalResultParams = 
+      """
+        { 
+          tcResultReadPath: #(tcResultReadPath), 
+          tcResultWritePath: #(tcResultWritePath), 
+          tcName: #(TCName), 
+          finalResultReadPath: #(finalResultReadPath), 
+          finalResultWritePath: #(finalResultWritePath) 
+        }
+      """
     * call read(FeatureFilePath + '/Results.feature@setPlaceholder') { placeholderParams: #(placeholderParams) })
     # * call read(FeatureFilePath + '/Results.feature@shouldContinue') { placeholderParams: #(updateFinalResultParams) })
     * def Pause = function(pause){ java.lang.Thread.sleep(pause) }

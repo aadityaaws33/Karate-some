@@ -31,6 +31,7 @@ Scenario: Get Item Count of Table with Scan
     }
     """
 * def temp = call ItemCount
+* print temp
 #* print '----------------Actual Item Count------------'+temp
 #* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
 * def result = temp == Param_ExpectedItemCount?'Pass':'Fail'
@@ -49,6 +50,7 @@ Scenario: Get Item Count of Table with Scan
     }
     """
 * def temp = call ItemCount
+* print temp
 #* print '----------------Actual Item Count------------'+temp
 #* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
 * def result = temp == Param_ExpectedItemCount?'Pass':'Fail'
@@ -67,6 +69,7 @@ Scenario: Get Item Count of Table with Scan
     }
     """
 * def temp = call ItemCount
+* print temp
 #* print '----------------Temp in ValidatePassedItem------------'+temp
 
 
@@ -83,11 +86,13 @@ Scenario: Get Item Count of Table with Scan
     }
     """
 * def QueryJson = call ItemCount
+* print QueryJson
 * def ItemResponse = get[0] QueryJson
 * def evalItemResponse = 
   """
     function() {
-      if (
+      
+      if(
         ItemResponse.contains(Param_TechMetaData)
       ) {
         return 'Pass'
@@ -133,6 +138,7 @@ Scenario: Get Item Count of Table with Scan
     }
     """
 * def QueryJson = call ItemCount
+* print QueryJson
 * def ItemResponse = get[0] QueryJson
 #* print '-------------ActualResponse-----------'+ItemResponse
 #* print '-------------ExpectedResponse-----------'+QueryJsonExpected
@@ -153,6 +159,7 @@ Scenario: Get Item Count of Table with Scan
     }
     """
 * def QueryJson = call ItemCount
+* print QueryJson
 * def ItemResponse = get[0] QueryJson
 * match ItemResponse contains Param_Expected_Status
 * match ItemResponse contains Param_Expected_Item_AspectRatio_TemplateID
@@ -179,11 +186,13 @@ Scenario: Get Item Count of Table with Scan
     }
     """
 * def QueryJson = call ItemCount
+* print QueryJson
 * def ItemResponse = get[0] QueryJson
 #* print '-----------Response in Feature File-----------'+ItemResponse
 * def evalItemResponse =
   """
     function() {
+      
       if(
         ItemResponse.contains(Param_Expected_Status) &&
         ItemResponse.contains(Param_Expected_Item_AspectRatio_TemplateID) &&
@@ -219,6 +228,7 @@ Scenario: Get Item Count of Table with Scan
 * def evalItemResponse =
   """
     function() {
+      
       if(
         ItemResponse.contains(Param_Expected_Status)
       ) {

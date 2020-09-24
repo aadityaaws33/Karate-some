@@ -423,7 +423,7 @@ public List<String> Scan_DB_WochitMapping_Working(String TableName,String ScanAt
 public int WaitforDBUpdate(String ScanAtr, String ScanVal) throws InterruptedException
 {
     int itemCount = Scan_GetTableItemCount("CA_WOCHIT_RENDITIONS_EU-qa",ScanAtr,ScanVal,"=");
-    int waitTime = 20000;
+    int waitTime = 50000;
     int maxRetries = 1;
     int retries = 0;
     String result = "Fail";

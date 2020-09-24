@@ -65,6 +65,7 @@ Scenario: Create placeholder in Results.json
         var tcResultReadPath = objectInfo.tcResultReadPath;
         var tcResultWritePath = objectInfo.tcResultWritePath;
         var tcName = objectInfo.tcName;
+        var tcValidationType = objectInfo.tcValidationType;
         var results = [];
         try {
           results = karate.read(tcResultReadPath);
@@ -80,7 +81,8 @@ Scenario: Create placeholder in Results.json
         }
         if(!hasTCplaceholder) {
           var placeholder = {
-            name: tcName
+            name: tcName,
+            tableName: tcValidationType
           }
           karate.appendTo(results, placeholder);
           karate.write(karate.pretty(results), tcResultWritePath);
