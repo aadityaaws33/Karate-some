@@ -34,11 +34,20 @@ Scenario: Update Test Results to Results.json
     """
       function(objectInfo) {
         var tcName = objectInfo.tcName;
-        var tcResult = objectInfo.result;
         var scenarioName = objectInfo.scenarioName;
         var tcResultReadPath = objectInfo.tcResultReadPath;
         var tcResultWritePath = objectInfo.tcResultWritePath;
-
+        var passedResult = objectInfo.result;
+        
+        var tcResult = '';
+        if(typeof(passedResult) == 'string') {
+          tcResult = passedResult;
+        } else if (typeof(passedResult) == 'object') {
+          tcResult = passedResult.pass == true? 'Pass': 'Fail';
+        } else {
+          karate.fail('Unknown result object: ' + passedResult);
+        }
+        
         var results = karate.read(tcResultReadPath);
         karate.log('before:' + results);
         for(var resultSet in results) {

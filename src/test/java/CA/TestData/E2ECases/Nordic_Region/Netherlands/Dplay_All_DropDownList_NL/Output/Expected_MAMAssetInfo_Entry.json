@@ -1,0 +1,74 @@
+{
+  "country": "NETHERLANDS",
+  "technicalMetadata": {
+    "data": {
+      "Format": "MPEG-4|AVC|AAC",
+      "Duration": "30000",
+      "Height": "1080",
+      "Width": "1920",
+      "FileSize": "34669625"
+    },
+    "name": "Asset Metadata",
+    "objectName": "QA_NL_EP1.mp4",
+    "ID": "488545e4-8398-11ea-87ea-0a580a3c35ce",
+    "objectId": "90fedfd0-f7e5-11ea-9ff7-0a580a3fed90",
+    "objectType": "assets"
+  },
+  "modifiedAt": "#notnull",
+  "assetMetadata": {
+    "data": {
+      "nl-dplay-OutputAspectRatio": "#notnull",
+      "nl-dplay-TagIn": "#? parseInt(_) > 0",
+      "nl-dplay-isNoTagRequired": "#notnull",
+      "nl-dplay-CtaList-multi": "#(RandomCTA)",
+      "nl-dplay-CalloutList-multi": "#(RandomCalloutText)",
+      "nl-dplaywoeb-TagIn":"#? parseInt(_) > 0",
+      "nl-dplaywoeb-CtaList-multi": "#notnull",
+      "nl-dplaywoeb-OutputAspectRatio": "#notnull",
+      "nl-dplaywoeb-CtaText-multi": "#notnull",
+      "nl-dplayebo-OutputAspectRatio": "#notnull",
+      "nl-dplayebo-CalloutList-multi": "#notnull",
+      "nl-dplayebo-CalloutText-multi": "#notnull",
+      "nl-dplayebo-CtaList-multi": "#notnull"
+    },
+    "objectFilePath": "QA_NL_EP1.mp4",
+    "name": "#notnull",
+    "objectName": "QA_NL_EP1.mp4",
+    "ID": "#notnull",
+    "objectId": "90fedfd0-f7e5-11ea-9ff7-0a580a3fed90",
+    "objectType": "assets"
+  },
+  "assetType": "VIDEO",
+  "episodeMetadata": {
+    "objectName": "QA Episode ",
+    "objectId": "572afd02-f7e5-11ea-9a82-0a580a3c45bf",
+    "objectType": "collections"
+  },
+  "createdAt": "#notnull",
+  "onlyNoTagRequired": 0,
+  "seasonMetadata": {
+    "data": {
+      "nl-dplay-Scribble4x5": "2",
+      "nl-dplay-Scribble1x1": "2",
+      "nl-dplay-Logo": "1",
+      "nl-dplay-Scribble16x9": "1",
+      "nl-dplay-SeriesTitle": "#(RandomSeriesTitle)",
+      "nl-dplay-Scribble9x16": "2"
+    },
+    "name": "#notnull",
+    "objectName": "#notnull",
+    "ID": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "#notnull"
+  },
+  "createdBy": "#notnull",
+  "assetId": "#notnull",
+  "compositeViewsId": "#(COMPOSITEVIEWID)",
+  "assetTitle": "#notnull",
+  "modifiedBy": "#notnull",
+  "seriesMetadata": {
+    "objectName": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "#notnull"
+  }
+}

@@ -1,14 +1,14 @@
 {
   "metadata_values": {
-    "no-dplay-OutputAspectRatio": {
+    "nl-dplay-OutputAspectRatio": {
       "field_values": [
-        {
-          "label": "1x1",
-          "value": "1x1"
-        },
         {
           "label": "16x9",
           "value": "16x9"
+        },
+        {
+          "label": "1x1",
+          "value": "1x1"
         },
         {
           "label": "4x5",
@@ -16,26 +16,26 @@
         }
       ]
     },
-    "no-dplay-TagIn": {
+    "nl-dplay-TagIn": {
       "field_values": [
         {
-          "value": "2"
+          "value": "4"
         }
       ]
     },
-    "no-dplay-CalloutText-multi": {
+    "nl-dplay-CalloutList-multi": {
       "field_values": [
         {
-          "score": 1,
-          "value": "<CallOutText>" 
+          "label": "#(RandomCalloutText)",
+          "value": "#(RandomCalloutText)"
         }
       ]
     },
-    "no-dplay-CtaText-multi": {
+    "nl-dplay-CtaList-multi": {
       "field_values": [
         {
-          "score": 1,
-          "value": "<CTA>"
+          "label": "#(RandomCTA)",
+          "value": "#(RandomCTA)"
         }
       ]
     }

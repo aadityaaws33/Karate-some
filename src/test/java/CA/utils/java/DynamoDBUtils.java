@@ -184,7 +184,7 @@ public List<String> getitem_PartionKey_SortKey(String TableName,String PartKey,S
                 Item movieItem = iterator.next();
                 //System.out.println("MAM Asset Info ====================>" + movieItem.toJSONPretty());
                 //moviesJsonList.add(movieItem.toJSONPretty());
-                getitemJsonList.add(movieItem.toString());
+                getitemJsonList.add(movieItem.toJSON());
             }
             return getitemJsonList;
     }
@@ -283,16 +283,8 @@ public List<String> Scan_DB_WochitRendition(String TableName,String AtrName1, St
     Map<String, Object> expressionAttributeValues = new HashMap<String, Object>();
     expressionAttributeValues.put(":x", AtrVal1);
     expressionAttributeValues.put(":y", AtrVal2);
-   // System.out.println("---------------2--------------");
- 
-        //scanSpec = new ScanSpec().withFilterExpression("#atr1 = :atrv1 AND #atr2 = :atrv2").withNameMap(nameMap).withValueMap(valueMap);
-        scanSpec = new ScanSpec().withFilterExpression(AtrName1+" = :x AND "+AtrName2+" = :y").withValueMap(expressionAttributeValues);
-    
-    
- 
-        //scanSpec = new ScanSpec().withFilterExpression("contains(#atr1, :atrv1)").withFilterExpression("contains(atr2, :atrv2)").withNameMap(nameMap).withValueMap(valueMap);
-         //scanSpec = new ScanSpec().withFilterExpression("contains(#atr1, :atrv1)").withNameMap(nameMap).withValueMap(valueMap);
-    
+    // scanSpec = new ScanSpec().withFilterExpression(AtrName1+" = :x AND "+AtrName2+" = :y").withValueMap(expressionAttributeValues);
+    scanSpec = new ScanSpec().withFilterExpression("contains(" + AtrName1 + ", :x) AND contains(" + AtrName2 + ", :y)").withValueMap(expressionAttributeValues);
 
     ItemCollection<ScanOutcome> items = null;
     Iterator<Item> iter = null;
@@ -300,19 +292,14 @@ public List<String> Scan_DB_WochitRendition(String TableName,String AtrName1, St
 
     try {
         items = table.scan(scanSpec);
-       // System.out.println("---------------3--------------");
+        // System.out.println("---------------3--------------");
         // System.out.println("-------Get Max Result Size---------"+
         // items.getMaxResultSize() );
         iter = items.iterator();
         while (iter.hasNext()) {
             Item movieItem = iter.next();
-               getitemJsonList.add(movieItem.toString());
-            //item = iter.next();
-             //System.out.println("---------Value of Scan----------"+movieItem.toString());
-            // System.out.println("------------------While Loop Ends------------");
-
+            getitemJsonList.add(movieItem.toJSON());
         }
-
     } catch (final Exception e) {
         System.err.println("Unable to scan the table:");
         System.err.println(e.getMessage());
@@ -332,18 +319,8 @@ public List<String> Scan_DB_WochitMapping(String TableName,String AtrName1, Stri
     Table table = dynamoDB.getTable(TableName);
     Map<String, Object> expressionAttributeValues = new HashMap<String, Object>();
     expressionAttributeValues.put(":x", AtrVal1);
-    //expressionAttributeValues.put(":y", AtrVal2);
-   // System.out.println("---------------2--------------");
- 
-        //scanSpec = new ScanSpec().withFilterExpression("#atr1 = :atrv1 AND #atr2 = :atrv2").withNameMap(nameMap).withValueMap(valueMap);
-        scanSpec = new ScanSpec().withFilterExpression(AtrName1+" = :x").withValueMap(expressionAttributeValues);
-    
-    
- 
-        //scanSpec = new ScanSpec().withFilterExpression("contains(#atr1, :atrv1)").withFilterExpression("contains(atr2, :atrv2)").withNameMap(nameMap).withValueMap(valueMap);
-         //scanSpec = new ScanSpec().withFilterExpression("contains(#atr1, :atrv1)").withNameMap(nameMap).withValueMap(valueMap);
-    
-
+    // scanSpec = new ScanSpec().withFilterExpression(AtrName1+" = :x").withValueMap(expressionAttributeValues);
+    scanSpec = new ScanSpec().withFilterExpression("contains(" + AtrName1 + ", :x)").withValueMap(expressionAttributeValues);
     ItemCollection<ScanOutcome> items = null;
     Iterator<Item> iter = null;
     Item item = null;
@@ -356,10 +333,7 @@ public List<String> Scan_DB_WochitMapping(String TableName,String AtrName1, Stri
         iter = items.iterator();
         while (iter.hasNext()) {
             Item movieItem = iter.next();
-               getitemJsonList.add(movieItem.toString());
-            //item = iter.next();
-             //System.out.println("---------Value of Scan----------"+movieItem.toString());
-            // System.out.println("------------------While Loop Ends------------");
+            getitemJsonList.add(movieItem.toJSON());
 
         }
 
@@ -381,16 +355,7 @@ public List<String> Scan_DB_WochitMapping_Working(String TableName,String ScanAt
     Table table = dynamoDB.getTable(TableName);
     Map<String, Object> expressionAttributeValues = new HashMap<String, Object>();
     expressionAttributeValues.put(":x", ScanValue);
-    
-
-
-        scanSpec = new ScanSpec().withFilterExpression(ScanAttribute+" = :x").withValueMap(expressionAttributeValues);
-   
-    
- 
-        //scanSpec = new ScanSpec().withFilterExpression("contains(#atr1, :atrv1)").withFilterExpression("contains(atr2, :atrv2)").withNameMap(nameMap).withValueMap(valueMap);
-         //scanSpec = new ScanSpec().withFilterExpression("contains(#atr1, :atrv1)").withNameMap(nameMap).withValueMap(valueMap);
-    
+    scanSpec = new ScanSpec().withFilterExpression(ScanAttribute+" = :x").withValueMap(expressionAttributeValues);
 
     ItemCollection<ScanOutcome> items = null;
     Iterator<Item> iter = null;
@@ -423,10 +388,9 @@ public List<String> Scan_DB_WochitMapping_Working(String TableName,String ScanAt
 public int WaitforDBUpdate(String ScanAtr, String ScanVal) throws InterruptedException
 {
     int itemCount = Scan_GetTableItemCount("CA_WOCHIT_RENDITIONS_EU-qa",ScanAtr,ScanVal,"=");
-    int waitTime = 50000;
+    int waitTime = 30000;
     int maxRetries = 1;
     int retries = 0;
-    String result = "Fail";
     while(retries < maxRetries & itemCount <= 0)
     {
       System.out.println("---------Intentional Wait for DB Update until item count > 0---------");
@@ -487,7 +451,7 @@ public int Scan_GetTableItemCount(String TableName, String AtrName1, String AtrV
             // System.out.println("------------------While Loop Ends------------");
 
         }
-
+        System.out.println(getitemJsonList);
     } catch (final Exception e) {
         System.err.println("Unable to scan the table:");
         System.err.println(e.getMessage());

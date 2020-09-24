@@ -77,73 +77,32 @@ Scenario: Get Item Count of Table with Scan
 
 @GetItemMAMAssetInfo
 Scenario: Get Item Count of Table with Scan
-  #* print '-------------------GetItemMAMAssetInfo-------------'
-  * def scanMAMAssetInfo =
-    """
-      function()
-      {
-        var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
-        var ItCnt = new ItemCount();
-        var result = ItCnt.getitem_PartionKey_SortKey(
-          Param_TableName,
-          Param_PartitionKey,
-          Param_SortKey,
-          ParamPartionKeyVal,
-          ParamSortKeyVal
-        );
-        karate.log(result);
-        return JSON.parse(result[0]);
-      }
-    """
-  * def scanResult = call scanMAMAssetInfo
-  * print scanResult
-  * def getMatchResult = 
-    """
-      function() {
-        var matchRes = karate.match('scanResult contains Expected_MAMAssetInfo_Entry');
-        if(!matchRes['pass']) {
-          karate.log('Initial matching failed');
-          for(var key in scanResult) {
-            var thisRes = '';
-            expectedValue = Expected_MAMAssetInfo_Entry[key];
-            actualValue = scanResult[key];
-            if(key == 'assetMetadata' || key == 'seasonMetadata' || key == 'seriesMetadata') {
-              for(var assetMetadataKey in actualValue) {
-                expectedAssetMetadataValue = expectedValue[assetMetadataKey];
-                actualAssetMetadataValue = actualValue[assetMetadataKey];
-                if(assetMetadataKey == 'data') {
-                  for(var dataKey in actualAssetMetadataValue) {
-                    expectedDataField = expectedAssetMetadataValue[dataKey];
-                    actualDataField = actualAssetMetadataValue[dataKey];
-                    thisRes = karate.match('actualDataField contains expectedDataField');
-                    karate.log(key,'[',assetMetadataKey,']','[',dataKey,']', thisRes);
-                    if(!thisRes['pass']) {
-                      break;
-                    }
-                  }
-                } else {
-                  thisRes = karate.match('actualAssetMetadataValue contains expectedAssetMetadataValue');
-                  karate.log(key,'[',assetMetadataKey,']', thisRes);
-                }
-                if(!thisRes['pass']) {
-                  break;
-                }
-              }
-            } else {
-              thisRes = karate.match('actualValue contains expectedValue');
-              karate.log(key, thisRes);
-            }
-            matchRes = thisRes;
-            if(!matchRes['pass']) {
-              break;
-            }
-          }
-        }
-        return matchRes;
-      }
-    """
-  * def result = call getMatchResult
-  * print result
+#* print '-------------------GetItemMAMAssetInfo-------------'
+* def ItemCount =
+  """
+    function()
+    {
+      var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
+      var ItCnt = new ItemCount();
+      return ItCnt.getitem_PartionKey_SortKey(
+        Param_TableName,Param_PartitionKey,
+        Param_SortKey,
+        ParamPartionKeyVal,
+        ParamSortKeyVal
+      );
+    }
+  """
+* def QueryJson = call ItemCount
+* print QueryJson
+* def ItemResponse = get[0] QueryJson
+* def evalItemResponse = 
+  """
+    function() {
+      return karate.match('ItemResponse contains Param_TechMetaData');
+    }
+  """
+* def result = call evalItemResponse
+* print result
 
 @ScanGetItem
 Scenario: Get Item Count of Table with Scan
@@ -202,98 +161,40 @@ Scenario: Get Item Count of Table with Scan
       {
         var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
         var ItCnt = new ItemCount();
-        var result = ItCnt.Scan_DB_WochitRendition(
-          Param_TableName,
-          Param_ScanAttr1,
-          Param_ScanVal1,
-          Param_ScanAttr2,
-          Param_ScanVal2
-        );
+        var result = ItCnt.Scan_DB_WochitRendition(Param_TableName,Param_ScanAttr1,Param_ScanVal1,Param_ScanAttr2,Param_ScanVal2);
         karate.log(result);
         return JSON.parse(result[0]);
       }
     """
   * def scanResult = call scanWochitRendition
   * print scanResult
-  * def getMatchResult = 
-    """
-      function() {
-        var matchRes = karate.match('scanResult contains Expected_WochitRendition_Entry');
-        if(!matchRes['pass']) {
-          karate.log('Initial matching failed');
-          for(var key in scanResult) {
-            var thisRes = '';
-            expectedValue = Expected_WochitRendition_Entry[key];
-            actualValue = scanResult[key];
-            if(key == 'videoUpdates') {
-              for(var videoUpdatesKey in actualValue) {
-                actualVideoField = actualValue[videoUpdatesKey];
-                expectedVideoField = expectedValue[videoUpdatesKey];
-                thisRes = karate.match('actualVideoField contains expectedVideoField');
-                karate.log(key + '[' + videoUpdatesKey + ']: ' + thisRes);
-                if(!thisRes['pass']) {
-                  break;
-                }
-              }
-            } else {
-              thisRes = karate.match('actualValue contains expectedValue');
-            }
-            karate.log(key + ': ' + thisRes);
-            matchRes = thisRes;
-            if(!matchRes['pass']) {
-              break;
-            }
-          }
-        }
-        return matchRes;
-      }
-    """
-  * def result = call getMatchResult
+  * def result = karate.match('scanResult contains Param_Expected_WochitRendition_Entry')
   * print result
 
 
 @ValidateWochitMappingPayload
 Scenario: Get Item Count of Table with Scan
-  #* print '-------------------Dynamo DB Get Item-------------'
-  * def scanWochitMapping =
-      """
-      function()
-      {
-          var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
-          var ItCnt = new ItemCount();
-          var result = ItCnt.Scan_DB_WochitMapping(
-            Param_TableName,
-            Param_ScanAttr1,
-            Param_ScanVal1
-          );
-          return JSON.parse(result[0]);
-      }
-      """
-  * def scanResult = call scanWochitMapping
-  * print scanResult
-  * def getMatchResult = 
+#* print '-------------------Dynamo DB Get Item-------------'
+* def ItemCount =
     """
-      function() {
-        var matchRes = karate.match('scanResult contains Expected_WochitMapping_Entry');
-        if(!matchRes['pass']) {
-          karate.log('Initial matching failed');
-          for(var key in scanResult) {
-            var thisRes = '';
-            expectedValue = Expected_WochitMapping_Entry[key];
-            actualValue = scanResult[key];
-            thisRes = karate.match('actualValue contains expectedValue');
-            karate.log(key + ': ' + thisRes);
-            matchRes = thisRes;
-            if(!matchRes['pass']) {
-              break;
-            }
-          }
-        }
-        return matchRes;
-      }
+    function()
+    {
+        var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
+        var ItCnt = new ItemCount();
+        return ItCnt.Scan_DB_WochitMapping(Param_TableName,Param_ScanAttr1,Param_ScanVal1);
+    }
     """
-  * def result = call getMatchResult
-  * print result
+* def QueryJson = call ItemCount
+* print QueryJson
+* def ItemResponse = get[0] QueryJson
+* def evalItemResponse =
+  """
+    function() {
+      return karate.match('ItemResponse contains Param_Expected_Status');
+    }
+  """
+* def result = call evalItemResponse
+* print result
 
 @WaitUntilDBUpdate
 Scenario: Wait for DB Update

@@ -1,0 +1,11 @@
+{
+  "user_id": "db01ddf8-1d57-11ea-9366-0a580a3f8f79",
+  "system_domain_id": "da4c0aaa-1d57-11ea-93d8-0a580a3cb9a8",
+  "context": "ASSET",
+  "action_id": "fd02ac0a-99fa-11ea-8151-0a580a3ee649",
+  "asset_ids": ["#(TCAssetID)"],
+  "collection_ids": [],
+  "saved_search_ids": [],
+  "metadata_values": null,
+  "date_created": "2020-06-12T01:36:38.120385"
+}
