@@ -1,1 +1,0 @@
-aspectRatio=ASPECT_1_1, templateId=5ebb5b25eff13f1e3a9c4399

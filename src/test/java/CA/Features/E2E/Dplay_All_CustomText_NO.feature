@@ -7,6 +7,7 @@ Background:
     * def SeasonURL = UpdateSeasonURLNorway
     * def EpisodeURL = UpdateEpisodeURLNorway
     * def TriggerRenditionURL = TriggerRenditionURLNorway
+    * def Iconik_CollectionID = Iconik_CollectionIDNorway
     * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
     * def tcResultWritePath = 'test-classes/' + TCName + '.json'
     * def tcResultReadPath = 'classpath:target/' + tcResultWritePath
@@ -119,7 +120,6 @@ Scenario: Nordic_Norway_Dplay_All_DropDownList_NO - Update Episode
 
 Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Trigger Rendition
   * def scenarioName = 'triggerRendition'
-  * def RenditionFileName = 'DAQ CA Test_1-dplay_16x9-'+RandomCalloutText+'-'+RandomCTA
   * def Renditionquery = read(currentTCPath+'/Input/RenditionRequest.json')
   * def Rendition_ExpectedResponse = read(currentTCPath+'/Output/ExpectedRenditionResponse.json')
   * def renditionParams = 
@@ -172,8 +172,8 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - MAM Ass
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit Renditions
-  * def scenarioName = "validateWochitMappingCount"
+Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit Rendition
+  * def scenarioName = "validateWochitRenditionCount"
   * def CTA = RandomCTA
   * def ExpectedWocRenditionCount = 3
   * def itemCountScanParams = 
@@ -228,27 +228,17 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit 
 
 Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Renditions Table for <ASPECTRATIO>
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
-  * def Expected_VideoUpdates = read(currentTCPath+'/Output/'+<VideoUpdatesFileName>)
-  * replace Expected_VideoUpdates.TTBR = RandomSeriesTitle
-  * replace Expected_VideoUpdates.CallOutText = RandomCalloutText
-  * replace Expected_VideoUpdates.CTA = RandomCTA
-  * replace Expected_VideoUpdates.AR = <ASPECTRATIO>
-  * def Expected_TimelineItems = read(currentTCPath+'/Output/Expected_TimelineItems.txt')
-  * def Expected_Status = read(currentTCPath+'/Output/Expected_Status.txt')
-  * def Expected_Item_AspectRatio_TemplateID = read(currentTCPath+'/Output/'+<ARTemplateIDFilename>)
   * def RenditionFileName = <FileNameSuffix>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def Expected_WochitRendition_Entry = read(currentTCPath + '/Output/Expected_WochitRendition_Entry.json')
   * def validateRenditionPayloadParams =
     """
       {
         Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',
         Param_ScanAttr1: 'videoUpdates.title',
-        Param_ScanVal1: '#(RenditionFileName)',
+        Param_ScanVal1: #(RenditionFileName),
         Param_ScanAttr2:'aspectRatio',
         Param_ScanVal2: <ScanVal>,
-        Param_Expected_VideoUpdates: '#(Expected_VideoUpdates)',
-        Param_Expected_Item_AspectRatio_TemplateID: '#(Expected_Item_AspectRatio_TemplateID)',
-        Param_Expected_TimelineItems: '#(Expected_TimelineItems)',
-        Param_Expected_Status: '#(Expected_Status)'
+        Expected_WochitRendition_Entry: #(Expected_WochitRendition_Entry)
       }
     """
   * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateWochitRenditionPayload') validateRenditionPayloadParams
@@ -264,23 +254,23 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Rendit
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | ASPECTRATIO   | VideoUpdatesFileName                | ARTemplateIDFilename                            | ScanVal        | FileNameSuffix             | CustomReportCell |
-    | '16x9'        | 'Expected_VideoUpdates.txt'         | 'Expected16_9_Item_AspectRatio_TemplateID.txt'  | 'ASPECT_16_9'  | 'DAQ CA Test_1-dplay_16x9' | 7                |
-    | '4x5'         | 'Expected_VideoUpdates.txt'         | 'Expected4_5_Item_AspectRatio_TemplateID.txt'   | 'ASPECT_4_5'   | 'DAQ CA Test_1-dplay_4x5'  | 8                |
-    | '1x1'         | 'Expected_VideoUpdates_1_1.txt'     | 'Expected1_1_Item_AspectRatio_TemplateID.txt'   | 'ASPECT_1_1'   | 'DAQ CA Test_1-dplay_1x1'  | 9                |
+    | ASPECTRATIO   | TEMPLATEID               | ScanVal      | FileNameSuffix             |
+    | '16x9'        | 5ebb4c377f8c3b07249d5e80 | ASPECT_16_9  | 'DAQ CA Test_1-dplay_16x9' |
+    | '4x5'         | 5ebb596b7f8c3b07249d5e8b | ASPECT_4_5   | 'DAQ CA Test_1-dplay_4x5'  |
+    | '1x1'         | 5ebb5b25eff13f1e3a9c4399 | ASPECT_1_1   | 'DAQ CA Test_1-dplay_1x1'  |
 
 Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
-  * def TechMetaData_expectedResponse = read(currentTCPath+'/Output/ExpectedTechMetaData.txt')
-  * def getItemMAMAssetInfoParams =
+  * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
+  * def getItemMAMAssetInfoParams = 
     """
       {
         Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',
-        Param_PartitionKey: 'assetId',
+        Param_PartitionKey: 'assetId', 
         Param_SortKey: 'compositeViewsId',
-        ParamPartionKeyVal: #(TCAssetID),
+        ParamPartionKeyVal: #(TCAssetID), 
         ParamSortKeyVal: <COMPOSITEVIEWID>,
-        Param_TechMetaData:'#(TechMetaData_expectedResponse)'
+        Expected_MAMAssetInfo_Entry: #(Expected_MAMAssetInfo_Entry)
       }
     """
   * def result = call read(FeatureFilePath+'/Dynamodb.feature@GetItemMAMAssetInfo') getItemMAMAssetInfoParams
@@ -296,24 +286,24 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Met
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
     Examples:
-    | COMPOSITEVIEWID                                                             |
-    | 'e1706402-934f-11ea-b2e1-0a580a3cb9b9\|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b'|
-    | 'adb2fec4-934d-11ea-bcbe-0a580a3c65d4\|4cf68d80-890c-11ea-bdcd-0a580a3c35b3'|
-    | 'becf5274-8908-11ea-8e56-0a580a3c10cd\|ec70917e-8909-11ea-95eb-0a580a3f8e05'|
-    | 'c7197d98-8907-11ea-983a-0a580a3d1fe6\|3a32b7ae-8908-11ea-958b-0a580a3c10cd'|
-    | 'e1706402-934f-11ea-b2e1-0a580a3cb9b9\|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b'|
+    | COMPOSITEVIEWID                                                            |
+    | e1706402-934f-11ea-b2e1-0a580a3cb9b9\|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b |
+    | adb2fec4-934d-11ea-bcbe-0a580a3c65d4\|4cf68d80-890c-11ea-bdcd-0a580a3c35b3 |
+    | becf5274-8908-11ea-8e56-0a580a3c10cd\|ec70917e-8909-11ea-95eb-0a580a3f8e05 |
+    | c7197d98-8907-11ea-983a-0a580a3d1fe6\|3a32b7ae-8908-11ea-958b-0a580a3c10cd |
+    | e1706402-934f-11ea-b2e1-0a580a3cb9b9\|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b |
 
 Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> Rendition Status 
   * def scenarioName = 'validateWochitMapping' + <ASPECTRATIO>
-  * def Expected_Status = read(currentTCPath+'/Output/Expected_Status_WochitMapping.txt')
   * def RenditionFileName = <ASPECTRATIO>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
   * def validateWochitMappingPayloadParams =
     """
       {
         Param_TableName: 'CA_WOCHIT_MAPPING_EU-qa',
-        Param_ScanAttr1:'renditionFileName',
-        Param_ScanVal1:'#(RenditionFileName)',
-        Param_Expected_Status:'#(Expected_Status)'
+        Param_ScanAttr1: 'renditionFileName',
+        Param_ScanVal1: '#(RenditionFileName)',
+        Expected_WochitMapping_Entry: '#(Expected_WochitMapping_Entry)'
       }
     """
   * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateWochitMappingPayload') validateWochitMappingPayloadParams
@@ -329,7 +319,7 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mappin
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | ASPECTRATIO                     | CustomReportCell |
-    | 'DAQ CA Test_1-dplay_16x9'      | 11               |
-    | 'DAQ CA Test_1-dplay_4x5'       | 12               |
-    | 'DAQ CA Test_1-dplay_1x1'       | 13               |
+    | ASPECTRATIO                     |
+    | 'DAQ CA Test_1-dplay_16x9'      |
+    | 'DAQ CA Test_1-dplay_4x5'       |
+    | 'DAQ CA Test_1-dplay_1x1'       |

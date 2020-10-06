@@ -2,11 +2,11 @@
   "country": "NETHERLANDS",
   "technicalMetadata": {
     "data": {
-      "Format": "MPEG-4|AVC|AAC",
-      "Duration": "30000",
-      "Height": "1080",
-      "Width": "1920",
-      "FileSize": "34669625"
+      "Format": "#notnull",
+      "Duration": "#notnull",
+      "Height": "#notnull",
+      "Width": "#notnull",
+      "FileSize": "#notnull"
     },
     "name": "Asset Metadata",
     "objectName": "QA_NL_EP1.mp4",
@@ -48,12 +48,12 @@
   "onlyNoTagRequired": 0,
   "seasonMetadata": {
     "data": {
-      "nl-dplay-Scribble4x5": "2",
-      "nl-dplay-Scribble1x1": "2",
-      "nl-dplay-Logo": "1",
-      "nl-dplay-Scribble16x9": "1",
+      "nl-dplay-Scribble4x5": "#? parseInt(_) > 0",
+      "nl-dplay-Scribble1x1": "#? parseInt(_) > 0",
+      "nl-dplay-Logo": "#? parseInt(_) > 0",
+      "nl-dplay-Scribble16x9": "#? parseInt(_) > 0",
       "nl-dplay-SeriesTitle": "#(RandomSeriesTitle)",
-      "nl-dplay-Scribble9x16": "2"
+      "nl-dplay-Scribble9x16": "#? parseInt(_) > 0"
     },
     "name": "#notnull",
     "objectName": "#notnull",

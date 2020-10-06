@@ -1,0 +1,18 @@
+{
+  "country": "NORWAY",
+  "modifiedAt": "#notnull",
+  "isRenditionMoved": "false",
+  "wochitRenditionStatus": "PROCESSING",
+  "assetType": "VIDEO",
+  "createdAt": "#notnull",
+  "episodeCollectionId": "#notnull",
+  "wochitRenditionReferenceId": "#notnull",
+  "createdBy": "#notnull",
+  "seasonCollectionId": "#notnull",
+  "modifiedBy": "#notnull",
+  "ID": "#notnull",
+  "seriesCollectionId": "#notnull",
+  "outputCollectionId": "#notnull",
+  "mamAssetInfoReferenceId": "#(TCAssetID)",
+  "renditionFileName": "#(RenditionFileName)"
+}

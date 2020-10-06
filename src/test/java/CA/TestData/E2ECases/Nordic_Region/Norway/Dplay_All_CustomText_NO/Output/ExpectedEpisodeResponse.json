@@ -1,68 +1,72 @@
- {
-    "date_created": null,
-    "date_modified": null,
-    "metadata_values": {
-        "__separator__": {
-            "date_created": null,
-            "field_values": []
-        },
-        "no-dplay-CalloutList-multi": {
-            "date_created": null,
-            "field_values": []
-        },
-        "no-dplay-CalloutText-multi": {
-            "date_created": '#notnull',
-            "field_values": [
-                {
-                    "score": 1,
-                    "value": '#notnull'
-                }
-            ]
-        },
-        "no-dplay-CtaList-multi": {
-            "date_created": null,
-            "field_values": []
-        },
-        "no-dplay-CtaText-multi": {
-            "date_created": '#notnull',
-            "field_values": [
-                {
-                    "score": 1,
-                    "value": '#notnull'
-                }
-            ]
-        },
-        "no-dplay-OutputAspectRatio": {
-            "date_created": '#notnull',
-            "field_values": [
-                {
-                    "label": "1x1",
-                    "value": "1x1"
-                },
-                {
-                    "label": "16x9",
-                    "value": "16x9"
-                },
-                {
-                    "label": "4x5",
-                    "value": "4x5"
-                }
-            ]
-        },
-        "no-dplay-TagIn": {
-            "date_created": '#notnull',
-            "field_values": [
-                {
-                    "value": "2"
-                }
-            ]
-        },
-        "no-dplay-isNoTagRequired": {
-            "date_created": null,
-            "field_values": []
+{
+  "date_modified": null,
+  "object_type": "assets",
+  "date_created": null,
+  "version_id": "d03f2eca-e345-11ea-9814-0a580a3f06a0",
+  "metadata_values": {
+    "no-dplay-CalloutText-multi": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "score": 1,
+          "value": "#(RandomCalloutText)"
         }
+      ]
     },
-    "object_id": "d03eedd4-e345-11ea-9814-0a580a3f06a0",
-    "object_type": "assets",
-    "version_id": "d03f2eca-e345-11ea-9814-0a580a3f06a0"
+    "no-dplay-CalloutList-multi": {
+      "date_created": null,
+      "field_values": [
+      ]
+    },
+    "no-dplay-CtaList-multi": {
+      "date_created": null,
+      "field_values": [
+      ]
+    },
+    "__separator__": {
+      "date_created": null,
+      "field_values": [
+      ]
+    },
+    "no-dplay-TagIn": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "value": "2"
+        }
+      ]
+    },
+    "no-dplay-isNoTagRequired": {
+      "date_created": null,
+      "field_values": [
+      ]
+    },
+    "no-dplay-OutputAspectRatio": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "label": "1x1",
+          "value": "1x1"
+        },
+        {
+          "label": "16x9",
+          "value": "16x9"
+        },
+        {
+          "label": "4x5",
+          "value": "4x5"
+        }
+      ]
+    },
+    "no-dplay-CtaText-multi": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "score": 1,
+          "value": "#(RandomCTA)"
+        }
+      ]
+    }
+  },
+  "object_id": "d03eedd4-e345-11ea-9814-0a580a3f06a0"
 }

@@ -27,7 +27,7 @@
       "field_values": [
         {
           "score": 1,
-          "value": "<CallOutText>" 
+          "value": "#(RandomCalloutText)" 
         }
       ]
     },
@@ -35,7 +35,7 @@
       "field_values": [
         {
           "score": 1,
-          "value": "<CTA>"
+          "value": "#(RandomCTA)"
         }
       ]
     }

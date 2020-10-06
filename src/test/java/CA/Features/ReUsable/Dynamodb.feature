@@ -47,7 +47,12 @@ Scenario: Get Item Count of Table with Scan
     {
         var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
         var ItCnt = new ItemCount();
-        return ItCnt.Scan_GetTableItemCount(Param_TableName,Param_Atr1,Param_Atrvalue1,Param_Operator);
+        return ItCnt.Scan_GetTableItemCount(
+          Param_TableName,
+          Param_Atr1,
+          Param_Atrvalue1,
+          Param_Operator
+        );
     }
     """
 * def itemCount = call getItemCountScan
@@ -108,22 +113,31 @@ Scenario: Get Item Count of Table with Scan
             expectedValue = Expected_MAMAssetInfo_Entry[key];
             actualValue = scanResult[key];
             if(key == 'assetMetadata' || key == 'seasonMetadata' || key == 'seriesMetadata') {
-              for(var assetMetadataKey in actualValue) {
-                expectedAssetMetadataValue = expectedValue[assetMetadataKey];
-                actualAssetMetadataValue = actualValue[assetMetadataKey];
-                if(assetMetadataKey == 'data') {
-                  for(var dataKey in actualAssetMetadataValue) {
-                    expectedDataField = expectedAssetMetadataValue[dataKey];
-                    actualDataField = actualAssetMetadataValue[dataKey];
-                    thisRes = karate.match('actualDataField contains expectedDataField');
-                    karate.log(key,'[',assetMetadataKey,']','[',dataKey,']', thisRes);
-                    if(!thisRes['pass']) {
-                      break;
+              for(var metadataKey in actualValue) {
+                expectedMetadataValue = expectedValue[metadataKey];
+                actualMetadataValue = actualValue[metadataKey];
+                if(typeof(actualMetadataValue) == 'object') {
+                  karate.log(metadataKey + ' TYPE: ' + typeof(actualMetadataValue));
+                  karate.log(actualMetadataValue);
+                  if(actualMetadataValue.length > 0) {
+                    for(var dataKey in actualMetadataValue) {
+                      expectedDataField = expectedMetadataValue[dataKey];
+                      actualDataField = actualMetadataValue[dataKey];
+                      thisRes = karate.match('actualDataField contains expectedDataField');
+                      karate.log(key,'[',metadataKey,']','[',dataKey,']', thisRes);
+                      if(!thisRes['pass']) {
+                        break;
+                      }
+                    }
+                  } else {
+                    thisRes = {
+                      message: 'Skipping empty object',
+                      pass: true
                     }
                   }
                 } else {
-                  thisRes = karate.match('actualAssetMetadataValue contains expectedAssetMetadataValue');
-                  karate.log(key,'[',assetMetadataKey,']', thisRes);
+                  thisRes = karate.match('actualMetadataValue contains expectedMetadataValue');
+                  karate.log(key,'[',metadataKey,']', thisRes);
                 }
                 if(!thisRes['pass']) {
                   break;

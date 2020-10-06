@@ -7,6 +7,7 @@ Background:
     * def SeasonURL = UpdateSeasonURLNetherlands
     * def EpisodeURL = UpdateEpisodeURLNetherlands
     * def TriggerRenditionURL = TriggerRenditionURLNetherlands
+    * def Iconik_CollectionID = Iconik_CollectionIDNetherlands
     * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
     * def tcResultWritePath = 'test-classes/' + TCName + '.json'
     * def tcResultReadPath = 'classpath:target/' + tcResultWritePath
@@ -119,7 +120,6 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Update Episode
 
 Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Trigger Rendition
   * def scenarioName = 'triggerRendition'
-  * def RenditionFileName = 'QA_NL_EP1-dplay_16x9-'+RandomCalloutText+'-'+RandomCTA
   * def Renditionquery = read(currentTCPath+'/Input/RenditionRequest.json')
   * def Rendition_ExpectedResponse = read(currentTCPath+'/Output/ExpectedRenditionResponse.json')
   * def renditionParams = 
@@ -142,7 +142,7 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Trigger Rendition
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  * call Pause 20000
+  * call Pause 30000
 
 Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"
@@ -172,8 +172,8 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - 
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL-Validate Item Counts- Wochit Mapping
-  * def scenarioName = "validateWochitMappingCount"
+Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - Wochit Rendition
+  * def scenarioName = "validateWochitRenditionCount"
   * def CTA = RandomCTA
   * def ExpectedWocRenditionCount = 3
   * def itemCountScanParams = 
