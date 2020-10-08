@@ -15,6 +15,7 @@
     "objectType": "assets"
   },
   "modifiedAt": "#notnull",
+  "userName": "#notnull",
   "assetMetadata": {
     "data": {
       "nl-dplay-OutputAspectRatio": "#notnull",
@@ -53,7 +54,8 @@
       "nl-dplay-Logo": "#? parseInt(_) > 0",
       "nl-dplay-Scribble16x9": "#? parseInt(_) > 0",
       "nl-dplay-SeriesTitle": "#(RandomSeriesTitle)",
-      "nl-dplay-Scribble9x16": "#? parseInt(_) > 0"
+      "nl-dplay-Scribble9x16": "#? parseInt(_) > 0",
+      "nl-dplay-ColouredBox": "#notnull"
     },
     "name": "#notnull",
     "objectName": "#notnull",

@@ -1,4 +1,4 @@
-@Netherlands @parallel=false
+@E2E @Netherlands @predefined @parallel=false
 Feature:  Dplay_All_DropDownList_NL
 
 Background:
@@ -44,12 +44,37 @@ Background:
         }
       """
     * def Random_String_Generator = function(){ return java.lang.System.currentTimeMillis() }
+    * def chooseCalloutFromList = 
+      """
+        function() {
+          predefinedList = [
+            'Nieuw seizoen',
+            'Nieuwe serie',
+            'Nieuwe aflevering',
+            'Alle seizoenen',
+            'Hele seizoen'
+          ];
+          return predefinedList[Math.floor(Math.random()*predefinedList.length)];
+        }
+      """
+    * def chooseCTAFromList =
+      """
+        function() {
+          predefinedList = [
+            'Probeer 7 dagen gratis',
+            'Kijk nu vooruit op Dplay.nl',
+            'Kijk nu op Dplay.nl',
+            'Kijk nu exclusief op Dplay.nl'
+          ];
+          return predefinedList[Math.floor(Math.random()*predefinedList.length)];
+        }
+      """
     * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
     * def RandomSeriesTitle = one.RandomSeriesTitle
-    * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
-    * def RandomCalloutText = two.RandomCalloutText
-    * def three = callonce read(FeatureFilePath+'/RandomGenerator.feature@CTA')
-    * def RandomCTA = three.RandomCTA
+    # * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
+    * def RandomCalloutText = callonce chooseCalloutFromList
+    # * def three = callonce read(FeatureFilePath+'/RandomGenerator.feature@CTA')
+    * def RandomCTA = callonce chooseCTAFromList
     * print RandomSeriesTitle, RandomCalloutText, RandomCTA
     * configure afterFeature = 
       """

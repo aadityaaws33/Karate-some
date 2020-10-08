@@ -174,14 +174,14 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - MAM Ass
 
 Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit Rendition
   * def scenarioName = "validateWochitRenditionCount"
-  * def CTA = RandomCTA
   * def ExpectedWocRenditionCount = 3
+  * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
   * def itemCountScanParams = 
     """
       {
         Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',
         Param_Atr1: 'videoUpdates.title',
-        Param_Atrvalue1: '#(CTA)',
+        Param_Atrvalue1: #(ExpectedTitle),
         Param_Operator: 'contains',
         Param_ExpectedItemCount: #(ExpectedWocRenditionCount)
       }    
@@ -201,14 +201,14 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit 
 
 Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit Mapping
   * def scenarioName = "validateWochitMappingCount"
-  * def CTA = RandomCTA
   * def ExpectedWochitMappingCount = 3
+  * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
   * def itemCountScanParams =
     """
       {
         Param_TableName: 'CA_WOCHIT_MAPPING_EU-qa',
         Param_Atr1: 'renditionFileName',
-        Param_Atrvalue1: '#(CTA)',
+        Param_Atrvalue1: #(ExpectedTitle),
         Param_Operator: 'containsforcount',
         Param_ExpectedItemCount: #(ExpectedWochitMappingCount)
       }    
@@ -289,9 +289,9 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Met
     | COMPOSITEVIEWID                                                            |
     | e1706402-934f-11ea-b2e1-0a580a3cb9b9\|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b |
     | adb2fec4-934d-11ea-bcbe-0a580a3c65d4\|4cf68d80-890c-11ea-bdcd-0a580a3c35b3 |
-    | becf5274-8908-11ea-8e56-0a580a3c10cd\|ec70917e-8909-11ea-95eb-0a580a3f8e05 |
     | c7197d98-8907-11ea-983a-0a580a3d1fe6\|3a32b7ae-8908-11ea-958b-0a580a3c10cd |
     | e1706402-934f-11ea-b2e1-0a580a3cb9b9\|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b |
+    # | becf5274-8908-11ea-8e56-0a580a3c10cd\|ec70917e-8909-11ea-95eb-0a580a3f8e05 |
 
 Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> Rendition Status 
   * def scenarioName = 'validateWochitMapping' + <ASPECTRATIO>

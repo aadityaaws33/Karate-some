@@ -3,6 +3,7 @@
   "modifiedAt": "#notnull",
   "isRenditionMoved": "false",
   "wochitRenditionStatus": "PROCESSING",
+  "userName": "#notnull",
   "assetType": "VIDEO",
   "createdAt": "#notnull",
   "episodeCollectionId": "#notnull",

@@ -15,6 +15,7 @@
     "objectType": "assets"
   },
   "modifiedAt": "#notnull",
+  "userName": "#notnull",
   "assetMetadata": {
     "data": {
       "no-dplay-OutputAspectRatio": "#notnull",
