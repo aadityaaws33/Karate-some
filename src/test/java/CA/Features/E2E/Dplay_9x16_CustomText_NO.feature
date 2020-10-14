@@ -1,19 +1,19 @@
-@E2E @Netherlands @predefined @parallel=false
-Feature:  Dplay_All_DropDownList_NL
+@E2E @Norway @parallel=false @Demo
+Feature:  Dplay_All_CustomText_NO
 
 Background:
-    * def TCName = 'Dplay_All_DropDownList_NL'
-    * def TCAssetID = AssetIDNetherlands
-    * def SeasonURL = UpdateSeasonURLNetherlands
-    * def EpisodeURL = UpdateEpisodeURLNetherlands
-    * def TriggerRenditionURL = TriggerRenditionURLNetherlands
-    * def Iconik_CollectionID = Iconik_CollectionIDNetherlands
+    * def TCName = 'Dplay_9x16_CustomText_NO'
+    * def TCAssetID = AssetIDNorway
+    * def SeasonURL = UpdateSeasonURLNorway
+    * def EpisodeURL = UpdateEpisodeURLNorway
+    * def TriggerRenditionURL = TriggerRenditionURLNorway
+    * def Iconik_CollectionID = Iconik_CollectionIDNorway
     * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
     * def tcResultWritePath = 'test-classes/' + TCName + '.json'
     * def tcResultReadPath = 'classpath:target/' + tcResultWritePath
     * def finalResultWritePath = 'test-classes/Results.json'
     * def finalResultReadPath = 'classpath:target/' + finalResultWritePath
-    * def currentTCPath = 'classpath:CA/TestData/E2ECases/Nordic_Region/Netherlands/' + TCName
+    * def currentTCPath = 'classpath:CA/TestData/E2ECases/Nordic_Region/Norway/' + TCName
     * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
     * def placeholderParams = 
       """
@@ -44,37 +44,12 @@ Background:
         }
       """
     * def Random_String_Generator = function(){ return java.lang.System.currentTimeMillis() }
-    * def chooseCalloutFromList = 
-      """
-        function() {
-          predefinedList = [
-            'Nieuw seizoen',
-            'Nieuwe serie',
-            'Nieuwe aflevering',
-            'Alle seizoenen',
-            'Hele seizoen'
-          ];
-          return predefinedList[Math.floor(Math.random()*predefinedList.length)];
-        }
-      """
-    * def chooseCTAFromList =
-      """
-        function() {
-          predefinedList = [
-            'Probeer 7 dagen gratis',
-            'Kijk nu vooruit op Dplay.nl',
-            'Kijk nu op Dplay.nl',
-            'Kijk nu exclusief op Dplay.nl'
-          ];
-          return predefinedList[Math.floor(Math.random()*predefinedList.length)];
-        }
-      """
     * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
     * def RandomSeriesTitle = one.RandomSeriesTitle
-    # * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
-    * def RandomCalloutText = callonce chooseCalloutFromList
-    # * def three = callonce read(FeatureFilePath+'/RandomGenerator.feature@CTA')
-    * def RandomCTA = callonce chooseCTAFromList
+    * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
+    * def RandomCalloutText = two.RandomCalloutText
+    * def three = callonce read(FeatureFilePath+'/RandomGenerator.feature@CTA')
+    * def RandomCTA = three.RandomCTA
     * print RandomSeriesTitle, RandomCalloutText, RandomCTA
     * configure afterFeature = 
       """
@@ -89,7 +64,7 @@ Background:
     #* def result = call read(FeatureFilePath+'/Dynamodb.feature@TruncateTable') {Param_TableName: 'CA_WOCHIT_MAPPING_EU-qa',Param_PrimaryKey: 'ID'}
     #* def result = call read(FeatureFilePath+'/Dynamodb.feature@TruncateTable') {Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',Param_PrimaryKey: 'ID'}  
 
-Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Update Season 
+Scenario: Nordic_Norway_Dplay_All_DropDownList_NO - Update Season 
   * def scenarioName = 'updateSeason'
   * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
   * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
@@ -116,7 +91,7 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Update Season
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Update Episode 
+Scenario: Nordic_Norway_Dplay_All_DropDownList_NO - Update Episode 
   * def scenarioName = 'updateEpisode'
   * def UpdateEpisodequery = read(currentTCPath+'/Input/EpisodeRequest.json')
   * replace UpdateEpisodequery.CallOutText = RandomCalloutText
@@ -143,7 +118,7 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Update Episode
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Trigger Rendition
+Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Trigger Rendition
   * def scenarioName = 'triggerRendition'
   * def Renditionquery = read(currentTCPath+'/Input/RenditionRequest.json')
   * def Rendition_ExpectedResponse = read(currentTCPath+'/Output/ExpectedRenditionResponse.json')
@@ -168,10 +143,10 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Trigger Rendition
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   * call Pause 60000
-
-Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - MAM Asset Info
+    
+Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"
-  * def ExpectedMAMAssetInfoCount = 3
+  * def ExpectedMAMAssetInfoCount = 5
   * def itemCountQueryParams = 
     """
       {
@@ -197,9 +172,9 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - 
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - Wochit Rendition
+Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit Rendition
   * def scenarioName = "validateWochitRenditionCount"
-  * def ExpectedWocRenditionCount = 3
+  * def ExpectedWocRenditionCount = 1
   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
   * def itemCountScanParams = 
     """
@@ -224,9 +199,9 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - 
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - Wochit Mapping
+Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit Mapping
   * def scenarioName = "validateWochitMappingCount"
-  * def ExpectedWochitMappingCount = 3
+  * def ExpectedWochitMappingCount = 1
   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
   * def itemCountScanParams =
     """
@@ -250,8 +225,8 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - 
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  
-Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit Renditions Table for <ASPECTRATIO>
+
+Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Renditions Table for <ASPECTRATIO>
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
   * def RenditionFileName = <FileNameSuffix>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitRendition_Entry = read(currentTCPath + '/Output/Expected_WochitRendition_Entry.json')
@@ -280,11 +255,9 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
     | ASPECTRATIO   | TEMPLATEID               | ScanVal      | FileNameSuffix             |
-    | '16x9'        | 5ebb4c377f8c3b07249d5e80 | ASPECT_16_9  | 'QA_NL_EP1-dplay_16x9'     |
-    | '4x5'         | 5ebb596b7f8c3b07249d5e8b | ASPECT_4_5   | 'QA_NL_EP1-dplay_4x5'      |
-    | '1x1'         | 5ebb5b25eff13f1e3a9c4399 | ASPECT_1_1   | 'QA_NL_EP1-dplay_1x1'      |      
+    | '9x16'        | 5ebb5ccf5eb7f30d4b0957fb | ASPECT_9_16  | 'DAQ CA Test_1-dplay_9x16' |
 
-Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Technical Metadata for Composite View ID: <COMPOSITEVIEWID>
+Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
   * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
   * def getItemMAMAssetInfoParams = 
@@ -310,13 +283,13 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Techni
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  Examples:
-    | COMPOSITEVIEWID                                                            |
-    | 83a5bfc2-e771-11ea-afed-0a580a3c2c48\|1f708f46-e771-11ea-b4dd-0a580a3c8cb3 |
-    | 49074474-e773-11ea-8e77-0a580a3f8ee8\|1f708f46-e771-11ea-b4dd-0a580a3c8cb3 |
-    | e472d33e-e772-11ea-9b92-0a580a3f8d44\|861202d8-e772-11ea-abaf-0a580a3cf01e |
+    Examples:
+    | COMPOSITEVIEWID                                                             |
+    | 6be501e6-890b-11ea-958b-0a580a3c10cd\|4cf68d80-890c-11ea-bdcd-0a580a3c35b3  |
+    | adb2fec4-934d-11ea-bcbe-0a580a3c65d4\|4cf68d80-890c-11ea-bdcd-0a580a3c35b3  |
+    | e1706402-934f-11ea-b2e1-0a580a3cb9b9\|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b  |
 
-Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> Rendition Status 
+Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> Rendition Status 
   * def scenarioName = 'validateWochitMapping' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
@@ -342,7 +315,5 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | FNAMEPREFIX                 | ASPECTRATIO |
-    | 'QA_NL_EP1-dplay_16x9'      | '16x9'      |
-    | 'QA_NL_EP1-dplay_4x5'       | '4x5'       |
-    | 'QA_NL_EP1-dplay_1x1'       | '1x1'       |
+    | FNAMEPREFIX                     | ASPECTRATIO |
+    | 'DAQ CA Test_1-dplay_9x16'      | '9x16'      |

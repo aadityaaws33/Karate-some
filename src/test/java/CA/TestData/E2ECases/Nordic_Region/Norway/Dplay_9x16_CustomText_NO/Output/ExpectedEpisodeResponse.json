@@ -1,0 +1,64 @@
+{
+  "date_modified": null,
+  "object_type": "assets",
+  "date_created": null,
+  "version_id": "d03f2eca-e345-11ea-9814-0a580a3f06a0",
+  "metadata_values": {
+    "no-dplay-CalloutText-multi": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "score": 1,
+          "value": "#(RandomCalloutText)"
+        }
+      ]
+    },
+    "no-dplay-CalloutList-multi": {
+      "date_created": null,
+      "field_values": [
+      ]
+    },
+    "no-dplay-CtaList-multi": {
+      "date_created": null,
+      "field_values": [
+      ]
+    },
+    "__separator__": {
+      "date_created": null,
+      "field_values": [
+      ]
+    },
+    "no-dplay-TagIn": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "value": "2"
+        }
+      ]
+    },
+    "no-dplay-isNoTagRequired": {
+      "date_created": null,
+      "field_values": [
+      ]
+    },
+    "no-dplay-OutputAspectRatio": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "label": "9x16",
+          "value": "9x16"
+        }
+      ]
+    },
+    "no-dplay-CtaText-multi": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "score": 1,
+          "value": "#(RandomCTA)"
+        }
+      ]
+    }
+  },
+  "object_id": "d03eedd4-e345-11ea-9814-0a580a3f06a0"
+}

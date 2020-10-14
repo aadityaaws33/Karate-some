@@ -142,7 +142,7 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Trigger Rendition
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  * call Pause 30000
+  * call Pause 60000
 
 Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"
@@ -293,7 +293,7 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Techni
 
 Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> Rendition Status 
   * def scenarioName = 'validateWochitMapping' + <ASPECTRATIO>
-  * def RenditionFileName = <ASPECTRATIO>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
   * def validateWochitMappingPayloadParams =
     """
@@ -317,7 +317,7 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | ASPECTRATIO                 |
-    | 'QA_NL_EP1-dplay_16x9'      |
-    | 'QA_NL_EP1-dplay_4x5'       |
-    | 'QA_NL_EP1-dplay_1x1'       |
+    | FNAMEPREFIX                 | ASPECTRATIO    |
+    | 'QA_NL_EP1-dplay_16x9'      | '16x9'         |
+    | 'QA_NL_EP1-dplay_4x5'       | '4x5'          |
+    | 'QA_NL_EP1-dplay_1x1'       | '1x1'          |

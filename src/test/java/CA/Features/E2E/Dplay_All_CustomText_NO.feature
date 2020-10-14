@@ -142,7 +142,7 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Trigger Rendition
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  * call Pause 30000
+  * call Pause 60000
     
 Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"
@@ -290,12 +290,10 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Met
     | e1706402-934f-11ea-b2e1-0a580a3cb9b9\|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b |
     | adb2fec4-934d-11ea-bcbe-0a580a3c65d4\|4cf68d80-890c-11ea-bdcd-0a580a3c35b3 |
     | c7197d98-8907-11ea-983a-0a580a3d1fe6\|3a32b7ae-8908-11ea-958b-0a580a3c10cd |
-    | e1706402-934f-11ea-b2e1-0a580a3cb9b9\|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b |
-    # | becf5274-8908-11ea-8e56-0a580a3c10cd\|ec70917e-8909-11ea-95eb-0a580a3f8e05 |
 
 Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> Rendition Status 
   * def scenarioName = 'validateWochitMapping' + <ASPECTRATIO>
-  * def RenditionFileName = <ASPECTRATIO>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
   * def validateWochitMappingPayloadParams =
     """
@@ -319,7 +317,7 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mappin
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | ASPECTRATIO                     |
-    | 'DAQ CA Test_1-dplay_16x9'      |
-    | 'DAQ CA Test_1-dplay_4x5'       |
-    | 'DAQ CA Test_1-dplay_1x1'       |
+    | FNAMEPREFIX                     | ASPECTRATIO    |
+    | 'DAQ CA Test_1-dplay_16x9'      | '16x9'         | 
+    | 'DAQ CA Test_1-dplay_4x5'       | '4x5'          |
+    | 'DAQ CA Test_1-dplay_1x1'       | '1x1'          |

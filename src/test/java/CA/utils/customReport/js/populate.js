@@ -1,18 +1,38 @@
+const isUnique = (value, index, self) => {
+  return self.indexOf(value) === index
+}
+
 var populateTable = (data) => {
+  // Table Headers
+  var headers = [];
   for(let i = 0; i < data.length; i++) {
     var rowData = data[i];
-    var table = document.getElementById(rowData['tableName']);
-    var row = table.insertRow(table.length);
+    headers.push(...Object.keys(rowData));
+  }
+  headers = headers.filter(isUnique);
+  headers.splice(headers.indexOf('tableName'),1);
+  var htmlTable = document.getElementById(rowData['tableName']);
+  var row = htmlTable.insertRow(htmlTable.length);
+  for(let i = 0; i < headers.length; i++) {
+    var header = headers[i];
+    var cell = row.insertCell(i);
+    cell.innerHTML = header;
+  }
+  
+  for(let i = 0; i < data.length; i++) {
+    var rowData = data[i];
+    var htmlTable = document.getElementById(rowData['tableName']);
+    var row = htmlTable.insertRow(htmlTable.length);
     
-    let j = 0;
-    for(let key in rowData) {
-      if(key == 'tableName') {
-        continue;
-      }
+    for(let j = 0; j < headers.length; j++) {
+      var header = headers[j];
       var cell = row.insertCell(j);
-      j++;
-      cell.innerHTML = rowData[key];
-      $(cell).addClass(rowData[key]);
+      var cellValue = 'NotApplicable';
+      if(rowData.hasOwnProperty(header)) {
+        cellValue = rowData[header];
+      } 
+      cell.innerHTML = cellValue;
+      $(cell).addClass(cellValue);
     }
   }
 }

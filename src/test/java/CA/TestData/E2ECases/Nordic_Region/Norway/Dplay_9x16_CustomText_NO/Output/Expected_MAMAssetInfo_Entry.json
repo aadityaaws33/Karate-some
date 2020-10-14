@@ -1,0 +1,78 @@
+{
+  "country": "NORWAY",
+  "technicalMetadata": {
+    "data": {
+      "Format": "#notnull",
+      "Duration": "#notnull",
+      "Height": "#notnull",
+      "Width": "#notnull",
+      "FileSize": "#notnull"
+    },
+    "name": "Asset Metadata",
+    "objectName": "DAQ CA Test_1.mp4",
+    "ID": "488545e4-8398-11ea-87ea-0a580a3c35ce",
+    "objectId": "d03eedd4-e345-11ea-9814-0a580a3f06a0",
+    "objectType": "assets"
+  },
+  "modifiedAt": "#notnull",
+  "userName": "#notnull",
+  "assetMetadata": {
+    "data": {
+      "no-dplay-OutputAspectRatio": "#notnull",
+      "no-dplay-TagIn": "#? parseInt(_) > 0",
+      "no-dplay-isNoTagRequired": "#notnull",
+      "no-dplay-CtaList-multi": "#(RandomCTA)",
+      "no-dplay-CtaText-multi": "#(RandomCTA)",
+      "no-dplay-CalloutList-multi": "#(RandomCalloutText)",
+      "no-dplay-CalloutText-multi": "#(RandomCalloutText)",
+      "no-dplaywoeb-TagIn":"#? parseInt(_) > 0",
+      "no-dplaywoeb-CtaList-multi": "#notnull",
+      "no-dplaywoeb-OutputAspectRatio": "#notnull",
+      "no-dplaywoeb-CtaText-multi": "#notnull",
+      "no-dplayebo-OutputAspectRatio": "#notnull",
+      "no-dplayebo-CalloutList-multi": "#notnull",
+      "no-dplayebo-CalloutText-multi": "#notnull",
+      "no-dplayebo-CtaList-multi": "#notnull"
+    },
+    "objectFilePath": "DAQ CA Test_1.mp4",
+    "name": "#notnull",
+    "objectName": "DAQ CA Test_1.mp4",
+    "ID": "#notnull",
+    "objectId": "d03eedd4-e345-11ea-9814-0a580a3f06a0",
+    "objectType": "assets"
+  },
+  "assetType": "VIDEO",
+  "episodeMetadata": {
+    "objectName": "QA Episode 1",
+    "objectId": "ba077850-e03f-11ea-8124-0a580a3c8ca8",
+    "objectType": "collections"
+  },
+  "createdAt": "#notnull",
+  "onlyNoTagRequired": 0,
+  "seasonMetadata": {
+    "data": {
+      "no-dplay-Scribble4x5": "#? parseInt(_) > 0",
+      "no-dplay-Scribble1x1": "#? parseInt(_) > 0",
+      "no-dplay-Logo": "#? parseInt(_) > 0",
+      "no-dplay-Scribble16x9": "#? parseInt(_) > 0",
+      "no-dplay-SeriesTitle": "#(RandomSeriesTitle)",
+      "no-dplay-Scribble9x16": "#? parseInt(_) > 0",
+      "no-dplay-ColouredBox": "#notnull"
+    },
+    "name": "#notnull",
+    "objectName": "#notnull",
+    "ID": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "#notnull"
+  },
+  "createdBy": "#notnull",
+  "assetId": "#notnull",
+  "compositeViewsId": "#(COMPOSITEVIEWID)",
+  "assetTitle": "#notnull",
+  "modifiedBy": "#notnull",
+  "seriesMetadata": {
+    "objectName": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "#notnull"
+  }
+}
