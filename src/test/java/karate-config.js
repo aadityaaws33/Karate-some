@@ -25,6 +25,13 @@ function() {
     UpdateEpisodeURLNetherlands: 'https://app.iconik.io/API/metadata/v1/assets/90fedfd0-f7e5-11ea-9ff7-0a580a3fed90/views/83a5bfc2-e771-11ea-afed-0a580a3c2c48/',
     TriggerRenditionURLNetherlands: 'https://qa.creatives.dplayautomation.com/caadapter/creative/trigger',
     Iconik_CollectionIDNetherlands: '53823be8-f7e5-11ea-97b5-0a580a3c0c6b',
+    // JAPAN
+    AssetIDJapan: 'e122a862-12b5-11eb-ad03-0a580a3c653c',
+    // Unused: UpdateSeason and UpdateEpisode
+    // UpdateSeasonURLJapan: 'https://app.iconik.io/API/metadata/v1/collections/53823be8-f7e5-11ea-97b5-0a580a3c0c6b/views/1f708f46-e771-11ea-b4dd-0a580a3c8cb3/',
+    // UpdateEpisodeURLJapan: 'https://app.iconik.io/API/metadata/v1/assets/90fedfd0-f7e5-11ea-9ff7-0a580a3fed90/views/83a5bfc2-e771-11ea-afed-0a580a3c2c48/',
+    TriggerRenditionURLJapan: 'http://qa.apac.creatives.dplayautomation.com/caadapter/creative/trigger',
+    Iconik_CollectionIDJapan: '97d99e12-f8b2-11ea-97e3-0a580a3ee6da',
   };
   
   karate.log(config);

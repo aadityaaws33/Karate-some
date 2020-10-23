@@ -50,11 +50,8 @@
       ]
     },
     "nl-dplay-ColouredBox": {
-      "date_created": "#notnull",
+      "date_created": null,
       "field_values": [
-        {
-          "value": "Aqua"
-        }
       ]
     },
     "nl-dplay-Scribble9x16": {

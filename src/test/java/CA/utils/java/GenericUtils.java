@@ -20,7 +20,7 @@ import org.jsoup.select.Elements;
 
 public class GenericUtils {
 
-   String region = System.getProperty("karate.region");
+//    String region = System.getProperty("karate.region");
    
 public String CreateDate()
 {

@@ -10,13 +10,13 @@ while [ -n "$1" ];
 do
     case "$1"
     in
-        -r | -region)               shift; REGION=${1};;
+        # -r | -region)               shift; REGION=${1};;
         -t | -tag)                  shift; TAG=${1};;
     esac
     shift
 done    
 # EXECUTE
-mvn clean test -Dkarate.options="-t @${TAG}" -Dkarate.region="${REGION}"
+mvn clean test -Dkarate.options="-t @${TAG}"
 cd "$THIS_CWD"
 
 #./bin/run-test -r "Nordic" -t "Module"

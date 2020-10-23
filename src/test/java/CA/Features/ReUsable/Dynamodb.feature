@@ -2,6 +2,14 @@ Feature: Dynamo DB Related Features
 
 Background:
     * def Pause = function(pause){ java.lang.Thread.sleep(pause) }
+    * def initializeDynamoDBObject = 
+      """
+        function(thisAWSregion) {
+          var dynamoDBUtilsClass = Java.type('CA.utils.java.DynamoDBUtils');
+          return new dynamoDBUtilsClass(thisAWSregion)
+        }
+      """
+    * def dynamoDB = callonce initializeDynamoDBObject AWSregion
     
 @TruncateTable
 Scenario: Truncate Table
@@ -10,9 +18,10 @@ Scenario: Truncate Table
     """
     function()
     {
-        var TrTable = Java.type('CA.utils.java.DynamoDBUtils');
-        var Trt = new TrTable();
-        return Trt.TruncateTable(Param_TableName,Param_PrimaryKey);
+      return dynamoDB.TruncateTable(
+        Param_TableName,
+        Param_PrimaryKey
+      );
     }
     """
 * def temp = call TruncateTable
@@ -22,14 +31,19 @@ Scenario: Truncate Table
 Scenario: Get Item Count of Table with Scan
 #* print '-------------------Dynamo DB Feature and Item Count-------------'
 * def getItemCountQuery =
-    """
-    function()
-    {
-        var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
-        var ItCnt = new ItemCount();
-        return ItCnt.Query_GetTableItemCount(Param_TableName,Param_KeyType,Param_Atr1,Param_Atr2,Param_Atrvalue1,Param_Atrvalue2);
-    }
-    """
+  """
+  function()
+  {
+      return dynamoDB.Query_GetTableItemCount(
+        Param_TableName,
+        Param_KeyType,
+        Param_Atr1,
+        Param_Atr2,
+        Param_Atrvalue1,
+        Param_Atrvalue2
+      );
+  }
+  """
 * def itemCount = call getItemCountQuery
 * print itemCount
 * def result = karate.match(itemCount, Param_ExpectedItemCount)
@@ -45,9 +59,7 @@ Scenario: Get Item Count of Table with Scan
     """
     function()
     {
-        var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
-        var ItCnt = new ItemCount();
-        return ItCnt.Scan_GetTableItemCount(
+        return dynamoDB.Scan_GetTableItemCount(
           Param_TableName,
           Param_Atr1,
           Param_Atrvalue1,
@@ -70,9 +82,11 @@ Scenario: Get Item Count of Table with Scan
     """
     function()
     {
-        var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
-        var ItCnt = new ItemCount();
-         ItCnt.Scan_ValidateItem(Param_TableName,Param_Atr1,Param_Atrvalue1,Param_TechMetaDataExpected);
+      return dynamoDB.Scan_ValidateItem(
+        Param_TableName,
+        Param_Atr1,
+        Param_Atrvalue1,
+        Param_TechMetaDataExpected);
     }
     """
 * def temp = call ItemCount
@@ -87,16 +101,13 @@ Scenario: Get Item Count of Table with Scan
     """
       function()
       {
-        var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
-        var ItCnt = new ItemCount();
-        var result = ItCnt.getitem_PartionKey_SortKey(
+        var result = dynamoDB.getitem_PartionKey_SortKey(
           Param_TableName,
           Param_PartitionKey,
           Param_SortKey,
           ParamPartionKeyVal,
           ParamSortKeyVal
         );
-        karate.log(result);
         return JSON.parse(result[0]);
       }
     """
@@ -166,9 +177,12 @@ Scenario: Get Item Count of Table with Scan
     """
     function()
     {
-        var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
-        var ItCnt = new ItemCount();
-        return ItCnt.Scan_DB_GetSingleItem(Param_TableName,Param_ScanAttr,Param_ScanVal,'');
+      return dynamoDB.Scan_DB_GetSingleItem(
+        Param_TableName,
+        Param_ScanAttr,
+        Param_ScanVal,
+        ''
+      );
     }
     """
 * def QueryJson = call ItemCount
@@ -187,9 +201,13 @@ Scenario: Get Item Count of Table with Scan
     """
     function()
     {
-        var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
-        var ItCnt = new ItemCount();
-        return ItCnt.Scan_WochitRendition(Param_TableName,Param_ScanAttr1,Param_ScanVal1,Param_ScanAttr2,Param_ScanVal2);
+      return dynamoDB.Scan_WochitRendition(
+        Param_TableName,
+        Param_ScanAttr1,
+        Param_ScanVal1,
+        Param_ScanAttr2,
+        Param_ScanVal2
+      );
     }
     """
 * def QueryJson = call ItemCount
@@ -214,16 +232,13 @@ Scenario: Get Item Count of Table with Scan
     """
       function()
       {
-        var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
-        var ItCnt = new ItemCount();
-        var result = ItCnt.Scan_DB_WochitRendition(
+        var result = dynamoDB.Scan_DB_WochitRendition(
           Param_TableName,
           Param_ScanAttr1,
           Param_ScanVal1,
           Param_ScanAttr2,
           Param_ScanVal2
         );
-        karate.log(result);
         return JSON.parse(result[0]);
       }
     """
@@ -273,9 +288,7 @@ Scenario: Get Item Count of Table with Scan
       """
       function()
       {
-          var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
-          var ItCnt = new ItemCount();
-          var result = ItCnt.Scan_DB_WochitMapping(
+          var result = dynamoDB.Scan_DB_WochitMapping(
             Param_TableName,
             Param_ScanAttr1,
             Param_ScanVal1
@@ -316,10 +329,10 @@ Scenario: Wait for DB Update
     """
     function()
     {
-        var dynamoDBUtilsClass = Java.type('CA.utils.java.DynamoDBUtils');
-        var dynamoDB = new dynamoDBUtilsClass();
-        var itemCount = dynamoDB.WaitforDBUpdate(Param_ScanAtr,Param_ScanVal);
-        return itemCount
+      return itemCount = dynamoDB.WaitforDBUpdate(
+        Param_ScanAtr,
+        Param_ScanVal
+      );
     }
     """
 * def itemCount = call getItemCount

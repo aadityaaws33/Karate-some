@@ -1,23 +1,21 @@
-@E2E @Norway @parallel=false @Demo @WIP
-Feature:  Dplay_All_CustomText_NO
+@E2E @Japan @parallel=false
+Feature:  Dplay_All_CustomText_JP
 
 Background:
-    * def TCName = 'Dplay_9x16_CustomText_NO'
-    * def WochitMappingTableName = 'CA_WOCHIT_MAPPING_EU-qa'
-    * def WochitRenditionTableName = 'CA_WOCHIT_RENDITIONS_EU-qa'
-    * def MAMAssetsInfoTableName = 'CA_MAM_ASSETS_INFO_EU-qa'
-    * def AWSregion = 'Nordic'
-    * def TCAssetID = AssetIDNorway
-    * def SeasonURL = UpdateSeasonURLNorway
-    * def EpisodeURL = UpdateEpisodeURLNorway
-    * def TriggerRenditionURL = TriggerRenditionURLNorway
-    * def Iconik_CollectionID = Iconik_CollectionIDNorway
+    * def TCName = 'Dplay_All_CustomText_JP'
+    * def WochitMappingTableName = 'CA_WOCHIT_MAPPING_APAC-qa'
+    * def WochitRenditionTableName = 'CA_WOCHIT_RENDITIONS_APAC-qa'
+    * def MAMAssetsInfoTableName = 'CA_MAM_ASSETS_INFO_APAC-qa'
+    * def AWSregion = 'APAC'
+    * def TCAssetID = AssetIDJapan
+    * def TriggerRenditionURL = TriggerRenditionURLJapan
+    * def Iconik_CollectionID = Iconik_CollectionIDJapan
     * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
     * def tcResultWritePath = 'test-classes/' + TCName + '.json'
     * def tcResultReadPath = 'classpath:target/' + tcResultWritePath
     * def finalResultWritePath = 'test-classes/Results.json'
     * def finalResultReadPath = 'classpath:target/' + finalResultWritePath
-    * def currentTCPath = 'classpath:CA/TestData/E2ECases/Nordic_Region/Norway/' + TCName
+    * def currentTCPath = 'classpath:CA/TestData/E2ECases/APAC_Region/Japan/' + TCName
     * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
     * def placeholderParams = 
       """
@@ -48,12 +46,11 @@ Background:
         }
       """
     * def Random_String_Generator = function(){ return java.lang.System.currentTimeMillis() }
-    * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
-    * def RandomSeriesTitle = one.RandomSeriesTitle
+    * def RandomSeriesTitle = 'QA Series Japan'
     * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
-    * def RandomCalloutText = two.RandomCalloutText
+    * def RandomCalloutText = 'ジェスナーはここにいた' + two.RandomCalloutText
     * def three = callonce read(FeatureFilePath+'/RandomGenerator.feature@CTA')
-    * def RandomCTA = three.RandomCTA
+    * def RandomCTA = 'ジェスナーはここにいた' + three.RandomCTA
     * print RandomSeriesTitle, RandomCalloutText, RandomCTA
     * configure afterFeature = 
       """
@@ -62,67 +59,7 @@ Background:
         }
       """
 
-
-
-#Scenario: Table Item Truncation and Series Title,Call out Text and CTA Generation
-    #* def result = call read(FeatureFilePath+'/Dynamodb.feature@TruncateTable') {Param_TableName: 'CA_WOCHIT_MAPPING_EU-qa',Param_PrimaryKey: 'ID'}
-    #* def result = call read(FeatureFilePath+'/Dynamodb.feature@TruncateTable') {Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',Param_PrimaryKey: 'ID'}  
-
-Scenario: Nordic_Norway_Dplay_All_DropDownList_NO - Update Season 
-  * def scenarioName = 'updateSeason'
-  * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
-  * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
-  * def Season_expectedResponse = read(currentTCPath+'/Output/ExpectedSeasonResponse.json')
-  * def updateSeasonParams =
-    """
-      {
-        URL: '#(SeasonURL)',
-        Query: '#(UpdateSeasonquery)', 
-        ExpectedResponse: #(Season_expectedResponse),
-      }
-    """
-  * def result = call read(FeatureFilePath+'/UpdateSeason.feature') updateSeasonParams
-  * print result
-  * def updateParams = 
-    """
-      { 
-        tcName: #(TCName),
-        scenarioName: #(scenarioName),
-        result: #(result.result),
-        tcResultReadPath: #(tcResultReadPath),
-        tcResultWritePath: #(tcResultWritePath)
-      }
-    """
-  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-
-Scenario: Nordic_Norway_Dplay_All_DropDownList_NO - Update Episode 
-  * def scenarioName = 'updateEpisode'
-  * def UpdateEpisodequery = read(currentTCPath+'/Input/EpisodeRequest.json')
-  * replace UpdateEpisodequery.CallOutText = RandomCalloutText
-  * replace UpdateEpisodequery.CTA = RandomCTA
-  * def Episode_ExpectedResponse = read(currentTCPath+'/Output/ExpectedEpisodeResponse.json')
-  * def updateEpisodeParams =
-    """
-      {
-        URL: '#(EpisodeURL)',
-        Query: '#(UpdateEpisodequery)',
-        ExpectedResponse: '#(Episode_ExpectedResponse)'
-      }
-    """
-  * def result = call read(FeatureFilePath+'/UpdateEpisode.feature') updateEpisodeParams
-  * def updateParams = 
-    """
-      { 
-        tcName: #(TCName), 
-        scenarioName: #(scenarioName), 
-        result: #(result.result), 
-        tcResultReadPath: #(tcResultReadPath), 
-        tcResultWritePath: #(tcResultWritePath) 
-      }
-    """
-  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-
-Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Trigger Rendition
+Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Trigger Rendition
   * def scenarioName = 'triggerRendition'
   * def Renditionquery = read(currentTCPath+'/Input/RenditionRequest.json')
   * def Rendition_ExpectedResponse = read(currentTCPath+'/Output/ExpectedRenditionResponse.json')
@@ -147,10 +84,10 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Trigger Rendition
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   * call Pause 60000
-    
-Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - MAM Asset Info
+
+Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"
-  * def ExpectedMAMAssetInfoCount = 5
+  * def ExpectedMAMAssetInfoCount = 3
   * def itemCountQueryParams = 
     """
       {
@@ -160,8 +97,7 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - MAM Ass
         Param_Atr2: '',
         Param_Atrvalue1: #(TCAssetID),
         Param_Atrvalue2: '',
-        Param_ExpectedItemCount: #(ExpectedMAMAssetInfoCount),
-        AWSregion: #(AWSregion)
+        Param_ExpectedItemCount: #(ExpectedMAMAssetInfoCount)
       }
     """
   * def result = call read(FeatureFilePath+'/Dynamodb.feature@ItemCountQuery') itemCountQueryParams
@@ -177,9 +113,9 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - MAM Ass
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit Rendition
+Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Validate Item Counts - Wochit Rendition
   * def scenarioName = "validateWochitRenditionCount"
-  * def ExpectedWocRenditionCount = 1
+  * def ExpectedWocRenditionCount = 3
   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
   * def itemCountScanParams = 
     """
@@ -188,8 +124,7 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit 
         Param_Atr1: 'videoUpdates.title',
         Param_Atrvalue1: #(ExpectedTitle),
         Param_Operator: 'contains',
-        Param_ExpectedItemCount: #(ExpectedWocRenditionCount),
-        AWSregion: #(AWSregion)
+        Param_ExpectedItemCount: #(ExpectedWocRenditionCount)
       }    
     """
   * def result = call read(FeatureFilePath+'/Dynamodb.feature@ItemCountScan') itemCountScanParams
@@ -205,9 +140,9 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit 
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit Mapping
+Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Validate Item Counts - Wochit Mapping
   * def scenarioName = "validateWochitMappingCount"
-  * def ExpectedWochitMappingCount = 1
+  * def ExpectedWochitMappingCount = 3
   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
   * def itemCountScanParams =
     """
@@ -216,8 +151,7 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit 
         Param_Atr1: 'renditionFileName',
         Param_Atrvalue1: #(ExpectedTitle),
         Param_Operator: 'containsforcount',
-        Param_ExpectedItemCount: #(ExpectedWochitMappingCount),
-        AWSregion: #(AWSregion)
+        Param_ExpectedItemCount: #(ExpectedWochitMappingCount)
       }    
     """
   * def result = call read(FeatureFilePath+'/Dynamodb.feature@ItemCountScan') itemCountScanParams
@@ -232,8 +166,8 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit 
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-
-Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Renditions Table for <ASPECTRATIO>
+  
+Scenario Outline: APAC_Japan_Dplay_All_DropDownList_JP - Validate Wochit Renditions Table for <ASPECTRATIO>
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
   * def RenditionFileName = <FileNameSuffix>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitRendition_Entry = read(currentTCPath + '/Output/Expected_WochitRendition_Entry.json')
@@ -245,8 +179,7 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Rendit
         Param_ScanVal1: #(RenditionFileName),
         Param_ScanAttr2:'aspectRatio',
         Param_ScanVal2: <ScanVal>,
-        Expected_WochitRendition_Entry: #(Expected_WochitRendition_Entry),
-        AWSregion: #(AWSregion)
+        Expected_WochitRendition_Entry: #(Expected_WochitRendition_Entry)
       }
     """
   * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateWochitRenditionPayload') validateRenditionPayloadParams
@@ -262,10 +195,12 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Rendit
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | ASPECTRATIO   | TEMPLATEID               | ScanVal      | FileNameSuffix             |
-    | '9x16'        | 5ebb5ccf5eb7f30d4b0957fb | ASPECT_9_16  | 'DAQ CA Test_1-dplay_9x16' |
+    | ASPECTRATIO   | TEMPLATEID               | ScanVal      | FileNameSuffix                  |
+    | '16x9'        | 5ebb4c377f8c3b07249d5e80 | ASPECT_16_9  | 'DAQ CA Test JP-dplay_16x9'     |
+    | '4x5'         | 5ebb596b7f8c3b07249d5e8b | ASPECT_4_5   | 'DAQ CA Test JP-dplay_4x5'      |
+    | '1x1'         | 5ebb5b25eff13f1e3a9c4399 | ASPECT_1_1   | 'DAQ CA Test JP-dplay_1x1'      |      
 
-Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
+Scenario Outline: APAC_Japan_Dplay_All_DropDownList_JP - Validate Technical Metadata for Composite View ID: <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
   * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
   * def getItemMAMAssetInfoParams = 
@@ -276,8 +211,7 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Met
         Param_SortKey: 'compositeViewsId',
         ParamPartionKeyVal: #(TCAssetID), 
         ParamSortKeyVal: <COMPOSITEVIEWID>,
-        Expected_MAMAssetInfo_Entry: #(Expected_MAMAssetInfo_Entry),
-        AWSregion: #(AWSregion)
+        Expected_MAMAssetInfo_Entry: #(Expected_MAMAssetInfo_Entry)
       }
     """
   * def result = call read(FeatureFilePath+'/Dynamodb.feature@GetItemMAMAssetInfo') getItemMAMAssetInfoParams
@@ -292,13 +226,13 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Met
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-    Examples:
-    | COMPOSITEVIEWID                                                             |
-    | 6be501e6-890b-11ea-958b-0a580a3c10cd\|4cf68d80-890c-11ea-bdcd-0a580a3c35b3  |
-    | adb2fec4-934d-11ea-bcbe-0a580a3c65d4\|4cf68d80-890c-11ea-bdcd-0a580a3c35b3  |
-    | e1706402-934f-11ea-b2e1-0a580a3cb9b9\|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b  |
+  Examples:
+    | COMPOSITEVIEWID                                                            |
+    | 871e343e-e688-11ea-b4dd-0a580a3c8cb3\|f6df5b2c-e688-11ea-8e77-0a580a3f8ee8 |
+    | 104e4cca-e68a-11ea-b0f2-0a580a3c2c48\|38d81b6a-dc64-11ea-8d68-0a580a3d1fd3 |
+    | c1903366-dc64-11ea-83ae-0a580a3dd2ae\|38d81b6a-dc64-11ea-8d68-0a580a3d1fd3 |
 
-Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> Rendition Status 
+Scenario Outline: APAC_Japan_Dplay_All_DropDownList_JP - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> Rendition Status 
   * def scenarioName = 'validateWochitMapping' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
@@ -307,9 +241,8 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mappin
       {
         Param_TableName: #(WochitMappingTableName),
         Param_ScanAttr1: 'renditionFileName',
-        Param_ScanVal1: #(RenditionFileName),
-        Expected_WochitMapping_Entry: #(Expected_WochitMapping_Entry),
-        AWSregion: #(AWSregion)
+        Param_ScanVal1: '#(RenditionFileName)',
+        Expected_WochitMapping_Entry: '#(Expected_WochitMapping_Entry)'
       }
     """
   * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateWochitMappingPayload') validateWochitMappingPayloadParams
@@ -325,5 +258,7 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mappin
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | FNAMEPREFIX                     | ASPECTRATIO |
-    | 'DAQ CA Test_1-dplay_9x16'      | '9x16'      |
+    | FNAMEPREFIX                   | ASPECTRATIO |
+    | 'DAQ CA Test JP-dplay_16x9'   | '16x9'      |
+    | 'DAQ CA Test JP-dplay_4x5'    | '4x5'       |
+    | 'DAQ CA Test JP-dplay_1x1'    | '1x1'       |

@@ -3,6 +3,10 @@ Feature:  Dplay_All_CustomText_NO
 
 Background:
     * def TCName = 'Dplay_All_CustomText_NO'
+    * def WochitMappingTableName = 'CA_WOCHIT_MAPPING_EU-qa'
+    * def WochitRenditionTableName = 'CA_WOCHIT_RENDITIONS_EU-qa'
+    * def MAMAssetsInfoTableName = 'CA_MAM_ASSETS_INFO_EU-qa'
+    * def AWSregion = 'Nordic'
     * def TCAssetID = AssetIDNorway
     * def SeasonURL = UpdateSeasonURLNorway
     * def EpisodeURL = UpdateEpisodeURLNorway
@@ -150,7 +154,7 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - MAM Ass
   * def itemCountQueryParams = 
     """
       {
-        Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',
+        Param_TableName: #(MAMAssetsInfoTableName),
         Param_KeyType: 'Single',
         Param_Atr1: 'assetId',
         Param_Atr2: '',
@@ -179,7 +183,7 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit 
   * def itemCountScanParams = 
     """
       {
-        Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',
+        Param_TableName: #(WochitRenditionTableName),
         Param_Atr1: 'videoUpdates.title',
         Param_Atrvalue1: #(ExpectedTitle),
         Param_Operator: 'contains',
@@ -206,7 +210,7 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit 
   * def itemCountScanParams =
     """
       {
-        Param_TableName: 'CA_WOCHIT_MAPPING_EU-qa',
+        Param_TableName: #(WochitMappingTableName),
         Param_Atr1: 'renditionFileName',
         Param_Atrvalue1: #(ExpectedTitle),
         Param_Operator: 'containsforcount',
@@ -233,7 +237,7 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Rendit
   * def validateRenditionPayloadParams =
     """
       {
-        Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',
+        Param_TableName: #(WochitRenditionTableName),
         Param_ScanAttr1: 'videoUpdates.title',
         Param_ScanVal1: #(RenditionFileName),
         Param_ScanAttr2:'aspectRatio',
@@ -265,7 +269,7 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Met
   * def getItemMAMAssetInfoParams = 
     """
       {
-        Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',
+        Param_TableName: #(MAMAssetsInfoTableName),
         Param_PartitionKey: 'assetId', 
         Param_SortKey: 'compositeViewsId',
         ParamPartionKeyVal: #(TCAssetID), 
@@ -298,7 +302,7 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mappin
   * def validateWochitMappingPayloadParams =
     """
       {
-        Param_TableName: 'CA_WOCHIT_MAPPING_EU-qa',
+        Param_TableName: #(WochitMappingTableName),
         Param_ScanAttr1: 'renditionFileName',
         Param_ScanVal1: '#(RenditionFileName)',
         Expected_WochitMapping_Entry: '#(Expected_WochitMapping_Entry)'

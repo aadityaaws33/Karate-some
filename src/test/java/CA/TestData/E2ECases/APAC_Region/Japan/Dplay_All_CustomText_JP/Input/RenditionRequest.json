@@ -1,0 +1,49 @@
+{
+  "user_id": "#(Iconik_UserId)",
+  "system_domain_id": "da4c0aaa-1d57-11ea-93d8-0a580a3cb9a8",
+  "context": "ASSET",
+  "action_id": "fd02ac0a-99fa-11ea-8151-0a580a3ee649",
+  "collection_ids": ["#(Iconik_CollectionID)"],
+  "asset_ids":["#(TCAssetID)"],
+  "metadata_values":{
+    "jp-dplay-OutputAspectRatio":{
+      "field_values":[
+        {
+          "label":"16x9",
+          "value":"16x9"
+        },
+        {
+          "label":"1x1",
+          "value":"1x1"
+        },
+        {
+          "label":"4x5",
+          "value":"4x5"
+        }
+      ]
+    },
+    "jp-dplay-TagIn":{
+      "field_values":[
+        {
+          "value":"1"
+        }
+      ]
+    },
+    "jp-dplay-CalloutList-multi":{
+      "field_values":[
+        {
+          "label":"#(RandomCalloutText)",
+          "value":"#(RandomCalloutText)"
+        }
+      ]
+    },
+    "jp-dplay-CtaList-multi":{
+      "field_values":[
+        {
+          "label":"#(RandomCTA)",
+          "value":"#(RandomCTA)"
+        }
+      ]
+    }
+  }
+}

@@ -24,7 +24,7 @@ Scenario: DateTimeGeneration
     function()
     {
         var ItemCount = Java.type('CA.utils.java.DynamoDBUtils');
-        var ItCnt = new ItemCount();
+        var ItCnt = new ItemCount(AWSregion);
         return ItCnt.CreateDate();
     }
     """

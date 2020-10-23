@@ -3,6 +3,10 @@ Feature:  Dplay_All_DropDownList_NL
 
 Background:
     * def TCName = 'Dplay_All_DropDownList_NL'
+    * def WochitMappingTableName = 'CA_WOCHIT_MAPPING_EU-qa'
+    * def WochitRenditionTableName = 'CA_WOCHIT_RENDITIONS_EU-qa'
+    * def MAMAssetsInfoTableName = 'CA_MAM_ASSETS_INFO_EU-qa'
+    * def AWSregion = 'Nordic'
     * def TCAssetID = AssetIDNetherlands
     * def SeasonURL = UpdateSeasonURLNetherlands
     * def EpisodeURL = UpdateEpisodeURLNetherlands
@@ -150,7 +154,7 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - 
   * def itemCountQueryParams = 
     """
       {
-        Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',
+        Param_TableName: #(MAMAssetsInfoTableName),
         Param_KeyType: 'Single',
         Param_Atr1: 'assetId',
         Param_Atr2: '',
@@ -179,7 +183,7 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - 
   * def itemCountScanParams = 
     """
       {
-        Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',
+        Param_TableName: #(WochitRenditionTableName),
         Param_Atr1: 'videoUpdates.title',
         Param_Atrvalue1: #(ExpectedTitle),
         Param_Operator: 'contains',
@@ -206,7 +210,7 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - 
   * def itemCountScanParams =
     """
       {
-        Param_TableName: 'CA_WOCHIT_MAPPING_EU-qa',
+        Param_TableName: #(WochitMappingTableName),
         Param_Atr1: 'renditionFileName',
         Param_Atrvalue1: #(ExpectedTitle),
         Param_Operator: 'containsforcount',
@@ -233,7 +237,7 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit
   * def validateRenditionPayloadParams =
     """
       {
-        Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',
+        Param_TableName: #(WochitRenditionTableName),
         Param_ScanAttr1: 'videoUpdates.title',
         Param_ScanVal1: #(RenditionFileName),
         Param_ScanAttr2:'aspectRatio',
@@ -265,7 +269,7 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Techni
   * def getItemMAMAssetInfoParams = 
     """
       {
-        Param_TableName: 'CA_MAM_ASSETS_INFO_EU-qa',
+        Param_TableName: #(MAMAssetsInfoTableName),
         Param_PartitionKey: 'assetId', 
         Param_SortKey: 'compositeViewsId',
         ParamPartionKeyVal: #(TCAssetID), 
@@ -298,7 +302,7 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit
   * def validateWochitMappingPayloadParams =
     """
       {
-        Param_TableName: 'CA_WOCHIT_MAPPING_EU-qa',
+        Param_TableName: #(WochitMappingTableName),
         Param_ScanAttr1: 'renditionFileName',
         Param_ScanVal1: '#(RenditionFileName)',
         Expected_WochitMapping_Entry: '#(Expected_WochitMapping_Entry)'
