@@ -1,17 +1,10 @@
-@E2E @Norway @parallel=false @Demo @WIP
+@E2E @Norway @parallel=false
 Feature:  Dplay_All_CustomText_NO
 
 Background:
     * def TCName = 'Dplay_9x16_CustomText_NO'
-    * def WochitMappingTableName = 'CA_WOCHIT_MAPPING_EU-qa'
-    * def WochitRenditionTableName = 'CA_WOCHIT_RENDITIONS_EU-qa'
-    * def MAMAssetsInfoTableName = 'CA_MAM_ASSETS_INFO_EU-qa'
     * def AWSregion = 'Nordic'
     * def TCAssetID = AssetIDNorway
-    * def SeasonURL = UpdateSeasonURLNorway
-    * def EpisodeURL = UpdateEpisodeURLNorway
-    * def TriggerRenditionURL = TriggerRenditionURLNorway
-    * def Iconik_CollectionID = Iconik_CollectionIDNorway
     * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
     * def tcResultWritePath = 'test-classes/' + TCName + '.json'
     * def tcResultReadPath = 'classpath:target/' + tcResultWritePath
@@ -19,6 +12,33 @@ Background:
     * def finalResultReadPath = 'classpath:target/' + finalResultWritePath
     * def currentTCPath = 'classpath:CA/TestData/E2ECases/Nordic_Region/Norway/' + TCName
     * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
+    * def WochitMappingTableName = 'CA_WOCHIT_MAPPING_EU-qa'
+    * def WochitRenditionTableName = 'CA_WOCHIT_RENDITIONS_EU-qa'
+    * def MAMAssetsInfoTableName = 'CA_MAM_ASSETS_INFO_EU-qa'
+    * def SeasonURL = UpdateSeasonURLNorway
+    * def EpisodeURL = UpdateEpisodeURLNorway
+    * def Iconik_CustomAction = Iconik_CustomActionNorway
+    * def GetRenditionHTTPInfoParams =
+      """
+        {
+          URL: #(Iconik_CustomActionListURL),
+          Iconik_CustomAction: #(Iconik_CustomAction),
+          Auth_Token: #(Auth_Token),
+          App_ID: #(App_ID)
+        }
+      """
+    * def IconikRenditionURLInfo = call read(FeatureFilePath + '/Iconik.feature@GetRenditionHTTPInfo') GetRenditionHTTPInfoParams
+    * def TriggerRenditionURL = IconikRenditionURLInfo.result.URL
+    * def IconikCredentials =
+      """
+        {
+          username: #(IconikRenditionURLInfo.result.username),
+          password: #(IconikRenditionURLInfo.result.password)
+        }
+      """
+    * print TriggerRenditionURL
+    * print IconikCredentials
+    * def Iconik_CollectionID = Iconik_CollectionIDNorway
     * def placeholderParams = 
       """
         { 
@@ -131,10 +151,11 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Trigger Rendition
       {
         URL: #(TriggerRenditionURL),
         RenditionQuery: '#(Renditionquery)',
-        RenditionExpectedResponse: '#(Rendition_ExpectedResponse)'
+        RenditionExpectedResponse: '#(Rendition_ExpectedResponse)',
+        IconikCredentials: #(IconikCredentials)
       }
     """
-  * def result = call read(FeatureFilePath+'/Rendition.feature') renditionParams
+  * def result = call read(FeatureFilePath+'/Iconik.feature@TriggerRendition') renditionParams
   * def updateParams = 
     """
       { 

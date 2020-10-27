@@ -3,13 +3,8 @@ Feature:  Dplay_All_CustomText_JP
 
 Background:
     * def TCName = 'Dplay_All_CustomText_JP'
-    * def WochitMappingTableName = 'CA_WOCHIT_MAPPING_APAC-qa'
-    * def WochitRenditionTableName = 'CA_WOCHIT_RENDITIONS_APAC-qa'
-    * def MAMAssetsInfoTableName = 'CA_MAM_ASSETS_INFO_APAC-qa'
     * def AWSregion = 'APAC'
     * def TCAssetID = AssetIDJapan
-    * def TriggerRenditionURL = TriggerRenditionURLJapan
-    * def Iconik_CollectionID = Iconik_CollectionIDJapan
     * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
     * def tcResultWritePath = 'test-classes/' + TCName + '.json'
     * def tcResultReadPath = 'classpath:target/' + tcResultWritePath
@@ -17,6 +12,31 @@ Background:
     * def finalResultReadPath = 'classpath:target/' + finalResultWritePath
     * def currentTCPath = 'classpath:CA/TestData/E2ECases/APAC_Region/Japan/' + TCName
     * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
+    * def WochitMappingTableName = 'CA_WOCHIT_MAPPING_APAC-qa'
+    * def WochitRenditionTableName = 'CA_WOCHIT_RENDITIONS_APAC-qa'
+    * def MAMAssetsInfoTableName = 'CA_MAM_ASSETS_INFO_APAC-qa'
+    * def Iconik_CustomAction = Iconik_CustomActionJapan
+    * def GetRenditionHTTPInfoParams =
+      """
+        {
+          URL: #(Iconik_CustomActionListURL),
+          Iconik_CustomAction: #(Iconik_CustomAction),
+          Auth_Token: #(Auth_Token),
+          App_ID: #(App_ID)
+        }
+      """
+    * def IconikRenditionURLInfo = call read(FeatureFilePath + '/Iconik.feature@GetRenditionHTTPInfo') GetRenditionHTTPInfoParams
+    * def TriggerRenditionURL = IconikRenditionURLInfo.result.URL
+    * def IconikCredentials =
+      """
+        {
+          username: #(IconikRenditionURLInfo.result.username),
+          password: #(IconikRenditionURLInfo.result.password)
+        }
+      """
+    * print TriggerRenditionURL
+    * print IconikCredentials
+    * def Iconik_CollectionID = Iconik_CollectionIDJapan
     * def placeholderParams = 
       """
         { 
@@ -68,10 +88,11 @@ Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Trigger Rendition
       {
         URL: #(TriggerRenditionURL),
         RenditionQuery: '#(Renditionquery)',
-        RenditionExpectedResponse: '#(Rendition_ExpectedResponse)'
+        RenditionExpectedResponse: '#(Rendition_ExpectedResponse)',
+        IconikCredentials: #(IconikCredentials)
       }
     """
-  * def result = call read(FeatureFilePath+'/Rendition.feature') renditionParams
+  * def result = call read(FeatureFilePath+'/Iconik.feature@TriggerRendition') renditionParams
   * def updateParams = 
     """
       { 
