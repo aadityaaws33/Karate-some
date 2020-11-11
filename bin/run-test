@@ -2,8 +2,9 @@
 
 function show_help {
     echo "Usage: ./run-test 
-        <-r|-region> [Nordic|Japan]
-        <-t|-tag> [E2E|Demo]"
+        <-t|-tag> [E2E|Demo]
+        <-e|-env> [qa|staging|prod]
+        "
 }
 
 while [ -n "$1" ];
@@ -12,11 +13,13 @@ do
     in
         # -r | -region)               shift; REGION=${1};;
         -t | -tag)                  shift; TAG=${1};;
+        -e | -env)                  shift; ENV=${1};;
     esac
     shift
 done    
 # EXECUTE
-mvn clean test -Dkarate.options="-t @${TAG}"
+echo "======================= ENV: ${ENV} ======================="
+mvn clean test -Dkarate.options="-t @${TAG}" -Dkarate.targetEnv="${ENV}"
 cd "$THIS_CWD"
 
 #./bin/run-test -r "Nordic" -t "Module"

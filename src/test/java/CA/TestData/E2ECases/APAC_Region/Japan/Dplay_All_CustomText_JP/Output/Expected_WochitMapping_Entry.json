@@ -14,6 +14,6 @@
   "ID": "#notnull",
   "seriesCollectionId": "#notnull",
   "outputCollectionId": "#notnull",
-  "mamAssetInfoReferenceId": "#(TCAssetID)",
+  "mamAssetInfoReferenceId": "#(Iconik_AssetID)",
   "renditionFileName": "#(RenditionFileName)"
 }

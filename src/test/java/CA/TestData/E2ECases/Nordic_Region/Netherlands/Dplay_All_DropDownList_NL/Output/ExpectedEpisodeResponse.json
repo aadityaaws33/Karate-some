@@ -2,7 +2,7 @@
   "date_modified": null,
   "object_type": "assets",
   "date_created": null,
-  "version_id": "90ff776a-f7e5-11ea-9ff7-0a580a3fed90",
+  "version_id": "#(Iconik_EpisodeVersionID)",
   "metadata_values": {
     "nl-dplay-OutputAspectRatio": {
       "date_created": "#notnull",
@@ -77,5 +77,5 @@
       ]
     }
   },
-  "object_id": "90fedfd0-f7e5-11ea-9ff7-0a580a3fed90"
+  "object_id": "#(Iconik_MetadataObjectID)"
 }

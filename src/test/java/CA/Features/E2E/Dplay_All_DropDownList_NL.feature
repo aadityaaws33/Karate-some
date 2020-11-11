@@ -1,4 +1,4 @@
-@Netherlands @parallel=false @WIP
+@Netherlands @parallel=false
 Feature:  Dplay_All_DropDownList_NL
 
 Background:
@@ -17,7 +17,7 @@ Background:
     * def MAMAssetsInfoTableName = 'CA_MAM_ASSETS_INFO_EU-qa'
     * def SeasonURL = UpdateSeasonURLNetherlands
     * def EpisodeURL = UpdateEpisodeURLNetherlands
-        * def Iconik_CustomAction = Iconik_CustomActionNorway
+    * def Iconik_CustomAction = Iconik_CustomActionNorway
     * def GetRenditionHTTPInfoParams =
       """
         {

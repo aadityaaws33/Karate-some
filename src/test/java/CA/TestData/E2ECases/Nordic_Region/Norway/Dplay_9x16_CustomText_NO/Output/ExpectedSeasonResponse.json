@@ -2,7 +2,7 @@
   "date_modified": null,
   "object_type": "collections",
   "date_created": null,
-  "version_id": "b78432bc-e03f-11ea-a22d-0a580a3c35aa",
+  "version_id": "#(Iconik_CollectionID)",
   "metadata_values": {
     "__separator__": {
       "date_created": null,
@@ -66,5 +66,5 @@
       ]
     }
   },
-  "object_id": "b78432bc-e03f-11ea-a22d-0a580a3c35aa"
+  "object_id": "#(Iconik_CollectionID)"
 }

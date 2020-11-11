@@ -9,9 +9,9 @@
       "FileSize": "#notnull"
     },
     "name": "Asset Metadata",
-    "objectName": "QA_NL_EP1.mp4",
-    "ID": "488545e4-8398-11ea-87ea-0a580a3c35ce",
-    "objectId": "90fedfd0-f7e5-11ea-9ff7-0a580a3fed90",
+    "objectName": "#(Iconik_MetadataObjectName)",
+    "ID": "#(Iconik_MetadataID)",
+    "objectId": "#(Iconik_MetadataObjectID)",
     "objectType": "assets"
   },
   "modifiedAt": "#notnull",
@@ -32,17 +32,17 @@
       "nl-dplayebo-CalloutText-multi": "#notnull",
       "nl-dplayebo-CtaList-multi": "#notnull"
     },
-    "objectFilePath": "QA_NL_EP1.mp4",
+    "objectFilePath": "#(Iconik_MetadataObjectName)",
     "name": "#notnull",
-    "objectName": "QA_NL_EP1.mp4",
+    "objectName": "#(Iconik_MetadataObjectName)",
     "ID": "#notnull",
-    "objectId": "90fedfd0-f7e5-11ea-9ff7-0a580a3fed90",
+    "objectId": "#(Iconik_MetadataObjectID)",
     "objectType": "assets"
   },
   "assetType": "VIDEO",
   "episodeMetadata": {
     "objectName": "QA Episode ",
-    "objectId": "572afd02-f7e5-11ea-9a82-0a580a3c45bf",
+    "objectId": "#(Iconik_EpisodeObjectID)",
     "objectType": "collections"
   },
   "createdAt": "#notnull",

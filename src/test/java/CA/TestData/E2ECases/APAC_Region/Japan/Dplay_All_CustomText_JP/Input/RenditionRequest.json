@@ -1,10 +1,10 @@
 {
   "user_id": "#(Iconik_UserId)",
-  "system_domain_id": "da4c0aaa-1d57-11ea-93d8-0a580a3cb9a8",
+  "system_domain_id": "#(Iconik_SystemDomainID)",
   "context": "ASSET",
-  "action_id": "fd02ac0a-99fa-11ea-8151-0a580a3ee649",
+  "action_id": "#(Iconik_CustomActionID)",
   "collection_ids": ["#(Iconik_CollectionID)"],
-  "asset_ids":["#(TCAssetID)"],
+  "asset_ids":["#(Iconik_AssetID)"],
   "metadata_values":{
     "jp-dplay-OutputAspectRatio":{
       "field_values":[

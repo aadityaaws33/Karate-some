@@ -2,85 +2,97 @@
 Feature:  Dplay_All_CustomText_NO
 
 Background:
-    * def TCName = 'Dplay_9x16_CustomText_NO'
-    * def AWSregion = 'Nordic'
-    * def TCAssetID = AssetIDNorway
-    * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
-    * def tcResultWritePath = 'test-classes/' + TCName + '.json'
-    * def tcResultReadPath = 'classpath:target/' + tcResultWritePath
-    * def finalResultWritePath = 'test-classes/Results.json'
-    * def finalResultReadPath = 'classpath:target/' + finalResultWritePath
-    * def currentTCPath = 'classpath:CA/TestData/E2ECases/Nordic_Region/Norway/' + TCName
-    * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
-    * def WochitMappingTableName = 'CA_WOCHIT_MAPPING_EU-qa'
-    * def WochitRenditionTableName = 'CA_WOCHIT_RENDITIONS_EU-qa'
-    * def MAMAssetsInfoTableName = 'CA_MAM_ASSETS_INFO_EU-qa'
-    * def SeasonURL = UpdateSeasonURLNorway
-    * def EpisodeURL = UpdateEpisodeURLNorway
-    * def Iconik_CustomAction = Iconik_CustomActionNorway
-    * def GetRenditionHTTPInfoParams =
-      """
-        {
-          URL: #(Iconik_CustomActionListURL),
-          Iconik_CustomAction: #(Iconik_CustomAction),
-          Auth_Token: #(Auth_Token),
-          App_ID: #(App_ID)
-        }
-      """
-    * def IconikRenditionURLInfo = call read(FeatureFilePath + '/Iconik.feature@GetRenditionHTTPInfo') GetRenditionHTTPInfoParams
-    * def TriggerRenditionURL = IconikRenditionURLInfo.result.URL
-    * def IconikCredentials =
-      """
-        {
-          username: #(IconikRenditionURLInfo.result.username),
-          password: #(IconikRenditionURLInfo.result.password)
-        }
-      """
-    * print TriggerRenditionURL
-    * print IconikCredentials
-    * def Iconik_CollectionID = Iconik_CollectionIDNorway
-    * def placeholderParams = 
-      """
-        { 
-          tcResultReadPath: #(tcResultReadPath), 
-          tcResultWritePath: #(tcResultWritePath), 
-          tcName: #(TCName),
-          tcValidationType: #(TCValidationType)
-        }
-      """
-    * def updateFinalResultParams = 
-      """
-        { 
-          tcResultReadPath: #(tcResultReadPath), 
-          tcResultWritePath: #(tcResultWritePath), 
-          tcName: #(TCName), 
-          finalResultReadPath: #(finalResultReadPath), 
-          finalResultWritePath: #(finalResultWritePath) 
-        }
-      """
-    * call read(FeatureFilePath + '/Results.feature@setPlaceholder') { placeholderParams: #(placeholderParams) })
-    # * call read(FeatureFilePath + '/Results.feature@shouldContinue') { placeholderParams: #(updateFinalResultParams) })
-    * def Pause = 
-      """
-        function(pause){ 
-          karate.log('Pausing for ' + pause + ' milliseconds');
-          java.lang.Thread.sleep(pause);
-        }
-      """
-    * def Random_String_Generator = function(){ return java.lang.System.currentTimeMillis() }
-    * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
-    * def RandomSeriesTitle = one.RandomSeriesTitle
-    * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
-    * def RandomCalloutText = two.RandomCalloutText
-    * def three = callonce read(FeatureFilePath+'/RandomGenerator.feature@CTA')
-    * def RandomCTA = three.RandomCTA
-    * print RandomSeriesTitle, RandomCalloutText, RandomCTA
-    * configure afterFeature = 
-      """
-        function() {
-          karate.call(FeatureFilePath + '/Results.feature@updateFinalResults', { updateFinalResultParams: updateFinalResultParams });
-        }
-      """
+  # NEW
+  * def TCName = 'Dplay_9x16_CustomText_NO'
+  * def Country = 'Norway'
+  * def AWSregion = EnvData[Country]['AWSregion']
+  * def WochitMappingTableName = EnvData[Country]['WochitMappingTableName']
+  * def WochitRenditionTableName = EnvData[Country]['WochitRenditionTableName']
+  * def MAMAssetsInfoTableName = EnvData[Country]['MAMAssetsInfoTableName']
+  # Iconik Stuff Start
+  * def Iconik_EpisodeVersionID = EnvData[Country]['Iconik_EpisodeVersionID']
+  * def Iconik_EpisodeObjectID = EnvData[Country]['Iconik_EpisodeObjectID']
+  * def Iconik_AssetID = EnvData[Country]['Iconik_AssetID']
+  * def Iconik_CollectionID = EnvData[Country]['Iconik_CollectionID']
+  * def Iconik_CustomAction = EnvData[Country]['Iconik_CustomAction']
+  * def Iconik_CustomActionID = EnvData[Country]['Iconik_CustomActionID']
+  * def Iconik_MetadataID = EnvData[Country]['Iconik_MetadataID']
+  * def Iconik_MetadataObjectID = EnvData[Country]['Iconik_MetadataObjectID']
+  * def Iconik_MetadataObjectName = EnvData[Country]['Iconik_MetadataObjectName']
+  * def Iconik_SystemDomainID = EnvData[Country]['Iconik_SystemDomainID']
+  * def Iconik_UpdateSeasonURL =  EnvData[Country]['Iconik_UpdateSeasonURL']
+  * def Iconik_UpdateEpisodeURL =  EnvData[Country]['Iconik_UpdateEpisodeURL']
+  # Iconik Stuff End
+  * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
+  * def tcResultWritePath = 'test-classes/' + TCName + '.json'
+  * def tcResultReadPath = 'classpath:target/' + tcResultWritePath
+  * def finalResultWritePath = 'test-classes/Results.json'
+  * def finalResultReadPath = 'classpath:target/' + finalResultWritePath
+  * def currentTCPath = 'classpath:CA/TestData/E2ECases/' + AWSregion + '_Region/' + Country + '/' + TCName
+  * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
+  # NEW
+  * def GetRenditionHTTPInfoParams =
+    """
+      {
+        URL: #(Iconik_CustomActionListURL),
+        Iconik_CustomAction: #(Iconik_CustomAction),
+        Auth_Token: #(Auth_Token),
+        App_ID: #(App_ID)
+      }
+    """
+  * def IconikRenditionURLInfo = call read(FeatureFilePath + '/Iconik.feature@GetRenditionHTTPInfo') GetRenditionHTTPInfoParams
+  * def TriggerRenditionURL = IconikRenditionURLInfo.result.URL
+  * def IconikCredentials =
+    """
+      {
+        username: #(IconikRenditionURLInfo.result.username),
+        password: #(IconikRenditionURLInfo.result.password)
+      }
+    """
+  * print TriggerRenditionURL
+  * print IconikCredentials
+  * def placeholderParams = 
+    """
+      { 
+        tcResultReadPath: #(tcResultReadPath), 
+        tcResultWritePath: #(tcResultWritePath), 
+        tcName: #(TCName),
+        tcValidationType: #(TCValidationType)
+      }
+    """
+  * def updateFinalResultParams = 
+    """
+      { 
+        tcResultReadPath: #(tcResultReadPath), 
+        tcResultWritePath: #(tcResultWritePath), 
+        tcName: #(TCName), 
+        finalResultReadPath: #(finalResultReadPath), 
+        finalResultWritePath: #(finalResultWritePath) 
+      }
+    """
+  * call read(FeatureFilePath + '/Results.feature@setPlaceholder') { placeholderParams: #(placeholderParams) })
+  # * call read(FeatureFilePath + '/Results.feature@shouldContinue') { placeholderParams: #(updateFinalResultParams) })
+  * def Pause = 
+    """
+      function(pause){ 
+        karate.log('Pausing for ' + pause + ' milliseconds');
+        java.lang.Thread.sleep(pause);
+      }
+    """
+  * def Random_String_Generator = function(){ return java.lang.System.currentTimeMillis() }
+  * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
+  * def RandomSeriesTitle = one.RandomSeriesTitle
+  * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
+  * def RandomCalloutText = two.RandomCalloutText
+  * def three = callonce read(FeatureFilePath+'/RandomGenerator.feature@CTA')
+  * def RandomCTA = three.RandomCTA
+  * print RandomSeriesTitle, RandomCalloutText, RandomCTA
+  * configure afterFeature = 
+    """
+      function() {
+        karate.call(FeatureFilePath + '/Results.feature@updateFinalResults', { updateFinalResultParams: updateFinalResultParams });
+      }
+    """
 
 
 
@@ -96,7 +108,7 @@ Scenario: Nordic_Norway_Dplay_All_DropDownList_NO - Update Season
   * def updateSeasonParams =
     """
       {
-        URL: '#(SeasonURL)',
+        URL: '#(Iconik_UpdateSeasonURL)',
         Query: '#(UpdateSeasonquery)', 
         ExpectedResponse: #(Season_expectedResponse),
       }
@@ -124,7 +136,7 @@ Scenario: Nordic_Norway_Dplay_All_DropDownList_NO - Update Episode
   * def updateEpisodeParams =
     """
       {
-        URL: '#(EpisodeURL)',
+        URL: '#(Iconik_UpdateEpisodeURL)',
         Query: '#(UpdateEpisodequery)',
         ExpectedResponse: '#(Episode_ExpectedResponse)'
       }
@@ -179,7 +191,7 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - MAM Ass
         Param_KeyType: 'Single',
         Param_Atr1: 'assetId',
         Param_Atr2: '',
-        Param_Atrvalue1: #(TCAssetID),
+        Param_Atrvalue1: #(Iconik_AssetID),
         Param_Atrvalue2: '',
         Param_ExpectedItemCount: #(ExpectedMAMAssetInfoCount),
         AWSregion: #(AWSregion)
@@ -295,7 +307,7 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Met
         Param_TableName: #(MAMAssetsInfoTableName),
         Param_PartitionKey: 'assetId', 
         Param_SortKey: 'compositeViewsId',
-        ParamPartionKeyVal: #(TCAssetID), 
+        ParamPartionKeyVal: #(Iconik_AssetID), 
         ParamSortKeyVal: <COMPOSITEVIEWID>,
         Expected_MAMAssetInfo_Entry: #(Expected_MAMAssetInfo_Entry),
         AWSregion: #(AWSregion)

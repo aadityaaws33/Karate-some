@@ -9,9 +9,9 @@
       "FileSize": "#notnull"
     },
     "name": "Asset Metadata",
-    "objectName": "DAQ CA Test_1.mp4",
-    "ID": "488545e4-8398-11ea-87ea-0a580a3c35ce",
-    "objectId": "d03eedd4-e345-11ea-9814-0a580a3f06a0",
+    "objectName": "#(Iconik_MetadataObjectName)",
+    "ID": "#(Iconik_MetadataID)",
+    "objectId": "#(Iconik_MetadataObjectID)",
     "objectType": "assets"
   },
   "modifiedAt": "#notnull",
@@ -32,17 +32,17 @@
       "no-dplayebo-CalloutText-multi": "#notnull",
       "no-dplayebo-CtaList-multi": "#notnull"
     },
-    "objectFilePath": "DAQ CA Test_1.mp4",
+    "objectFilePath": "#(Iconik_MetadataObjectName)",
     "name": "#notnull",
-    "objectName": "DAQ CA Test_1.mp4",
+    "objectName": "#(Iconik_MetadataObjectName)",
     "ID": "#notnull",
-    "objectId": "d03eedd4-e345-11ea-9814-0a580a3f06a0",
+    "objectId": "#(Iconik_MetadataObjectID)",
     "objectType": "assets"
   },
   "assetType": "VIDEO",
   "episodeMetadata": {
     "objectName": "QA Episode 1",
-    "objectId": "ba077850-e03f-11ea-8124-0a580a3c8ca8",
+    "objectId": "#(Iconik_EpisodeObjectID)",
     "objectType": "collections"
   },
   "createdAt": "#notnull",

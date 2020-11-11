@@ -2,7 +2,7 @@
   "date_modified": null,
   "object_type": "assets",
   "date_created": null,
-  "version_id": "d03f2eca-e345-11ea-9814-0a580a3f06a0",
+  "version_id": "#(Iconik_EpisodeVersionID)",
   "metadata_values": {
     "no-dplay-CalloutText-multi": {
       "date_created": "#notnull",
@@ -68,5 +68,5 @@
       ]
     }
   },
-  "object_id": "d03eedd4-e345-11ea-9814-0a580a3f06a0"
+  "object_id": "#(Iconik_MetadataObjectID)"
 }
