@@ -17,12 +17,12 @@ Background:
     * def MAMAssetsInfoTableName = 'CA_MAM_ASSETS_INFO_EU-qa'
     * def SeasonURL = UpdateSeasonURLNetherlands
     * def EpisodeURL = UpdateEpisodeURLNetherlands
-    * def Iconik_CustomAction = Iconik_CustomActionNorway
+    * def Iconik_TriggerRenditionCustomActionName = Iconik_TriggerRenditionCustomActionNorway
     * def GetRenditionHTTPInfoParams =
       """
         {
-          URL: #(Iconik_CustomActionListURL),
-          Iconik_CustomAction: #(Iconik_CustomAction),
+          URL: #(Iconik_TriggerRenditionCustomActionListURL),
+          Iconik_TriggerRenditionCustomActionName: #(Iconik_TriggerRenditionCustomActionName),
           Auth_Token: #(Auth_Token),
           App_ID: #(App_ID)
         }
@@ -38,7 +38,7 @@ Background:
       """
     * print TriggerRenditionURL
     * print IconikCredentials
-    * def Iconik_CollectionID = Iconik_CollectionIDNetherlands
+    * def Iconik_SeasonCollectionID = Iconik_SeasonCollectionIDNetherlands
     * def placeholderParams = 
       """
         { 
@@ -167,7 +167,7 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Trigger Rendition
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  * call Pause 60000
+  * call Pause 35000
 
 Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"

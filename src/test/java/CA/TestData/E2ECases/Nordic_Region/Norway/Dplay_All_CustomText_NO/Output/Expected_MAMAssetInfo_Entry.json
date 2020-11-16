@@ -9,9 +9,9 @@
       "FileSize": "#notnull"
     },
     "name": "Asset Metadata",
-    "objectName": "#(Iconik_MetadataObjectName)",
-    "ID": "#(Iconik_MetadataID)",
-    "objectId": "#(Iconik_MetadataObjectID)",
+    "objectName": "#(Iconik_TechnicalMetadataObjectName)",
+    "ID": "#(Iconik_TechnicalMetadataID)",
+    "objectId": "#(Iconik_TechnicalMetadataObjectID)",
     "objectType": "assets"
   },
   "modifiedAt": "#notnull",
@@ -32,17 +32,17 @@
       "no-dplayebo-CalloutText-multi": "#notnull",
       "no-dplayebo-CtaList-multi": "#notnull"
     },
-    "objectFilePath": "#(Iconik_MetadataObjectName)",
+    "objectFilePath": "#(Iconik_TechnicalMetadataObjectName)",
     "name": "#notnull",
-    "objectName": "#(Iconik_MetadataObjectName)",
+    "objectName": "#(Iconik_TechnicalMetadataObjectName)",
     "ID": "#notnull",
-    "objectId": "#(Iconik_MetadataObjectID)",
+    "objectId": "#(Iconik_TechnicalMetadataObjectID)",
     "objectType": "assets"
   },
   "assetType": "VIDEO",
   "episodeMetadata": {
     "objectName": "QA Episode 1",
-    "objectId": "#(Iconik_EpisodeObjectID)",
+    "objectId": "#(Iconik_EpisodeMetadataObjectID)",
     "objectType": "collections"
   },
   "createdAt": "#notnull",

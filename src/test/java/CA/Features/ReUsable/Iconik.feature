@@ -9,7 +9,7 @@ Scenario: Get custom action list from Iconik
         var respObjects = resp['objects'];
         for(var index in respObjects) {
           var actionSet = respObjects[index];
-          if(actionSet['title'] == Iconik_CustomAction) {
+          if(actionSet['title'] == Iconik_TriggerRenditionCustomActionName) {
             url = actionSet['url'];
             break;
           }

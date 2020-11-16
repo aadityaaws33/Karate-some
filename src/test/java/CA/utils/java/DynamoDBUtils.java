@@ -33,6 +33,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.amazonaws.services.dynamodbv2.model.TableDescription;
+import com.amazonaws.services.dynamodbv2.document.Index;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -47,9 +48,10 @@ public class DynamoDBUtils {
 
 //    String region = System.getProperty("karate.region");
     public AmazonDynamoDB client;
-    public Table table ;
+    public Table table;
     public DynamoDB dynamoDB;
-   
+    public Index index;
+
     public DynamoDBUtils(String region) {
         dynamoDB = initObject(region);
     }
@@ -67,8 +69,192 @@ public class DynamoDBUtils {
         return new DynamoDB(client);
     }   
 
+
+    /**
+    *   Returns a String which contains an Expression used for a dynamoDB QuerySpec
+    *
+    *   @param  infoNameAlias   The alias used for a name in the expression
+    *   @param  infoValueAlias  The alias used for a value in the expression
+    *   @param  infoComparator  The comparison to be used in the expression
+    *   @return                 The full string expression
+    */
+    public String Query_FormExpression(
+            String infoNameAlias,
+            String infoValueAlias,
+            String infoComparator
+            ){
+
+        String conditionExpression = "";
+        if(infoComparator.contains("contains")) {
+            conditionExpression = "contains(" + infoNameAlias + ", " + infoValueAlias + ")";
+        }
+        else if(infoComparator.contains("begins")) {
+            conditionExpression = "begins_with(" + infoNameAlias + ", " + infoValueAlias + ")";
+        }
+        else {
+            conditionExpression = infoNameAlias + " " + infoComparator + " " + infoValueAlias;
+        }
+
+        return conditionExpression;
+    }
+
+    /**
+    *   Returns an integer which denotes the number of items as a result of a query
+    *
+    *   @param  TableName               The dynamoDB table name to be queried
+    *   @param  QueryInfoMapList        A List of HashMaps that contain information to form the query expression
+    *           [
+    *                {
+    *                  infoName: <PartitionKey/SortKey/FilterKey>,
+    *                  infoValue: <Value>,
+    *                  infoComparator: <Comparator>,
+    *                  infoType: <key/filter>
+    *                }, 
+    *                ...
+    *           ]
+    *   @param  GlobalSecondaryIndex    The GSI, if any
+    *   @return                         Number of items resulting from the query
+    */
+    public int Query_GetTableItemCount(
+            String TableName,
+            List<HashMap<String, String>> QueryInfoMapList,
+            String GlobalSecondaryIndex
+            ){
+        return Query_GetItems(
+                TableName,
+                QueryInfoMapList,
+                GlobalSecondaryIndex
+            ).size();
+    }
+    
+
+    /**
+    *   Returns a list of JSON strings which denotes the results of a query expression
+    *
+    *   @param  TableName               The dynamoDB table name to be queried
+    *   @param  QueryInfoMapList        A List of HashMaps that contain information to form the query expression
+    *           [
+    *                {
+    *                  infoName: <PartitionKey/SortKey/FilterKey>,
+    *                  infoValue: <Value>,
+    *                  infoComparator: <Comparator>,
+    *                  infoType: <key/filter>
+    *                }, 
+    *                ...
+    *           ]
+    *   @param  GlobalSecondaryIndex    The GSI, if any
+    *   @return                         JSON strings resulting from a query
+    */
+    public List<String> Query_GetItems(
+            String TableName, 
+            List<HashMap<String, String>> QueryInfoMapList,
+            String GlobalSecondaryIndex
+            ) {
+
+        List<String> getitemJsonList = new ArrayList<>();
+        HashMap<String, String> keyNameMap = new HashMap<String, String>();
+        HashMap<String, Object> keyValueMap = new HashMap<String, Object>();
+        HashMap<String, String> filterNameMap = new HashMap<String, String>();
+        HashMap<String, Object> filterValueMap = new HashMap<String, Object>();
+        ItemCollection<QueryOutcome> items = null;
+        Iterator<Item> iterator = null;
+        Item item = null;
+        QuerySpec querySpec = null;
+
+        table = dynamoDB.getTable(TableName);
+        if(!GlobalSecondaryIndex.isEmpty()) {
+            index = table.getIndex(GlobalSecondaryIndex);
+        }
+
+        String keyConditionExpression = ""; //infoType: key
+        String filterExpression = ""; //infoType: filter
+        
+        for(int i = 0; i < QueryInfoMapList.size(); i++){
+            HashMap<String, String> QueryInfoMap = (HashMap<String, String>) QueryInfoMapList.get(i);
+            String infoName = QueryInfoMap.get("infoName");
+            String infoValue = QueryInfoMap.get("infoValue");
+            String infoComparator = QueryInfoMap.get("infoComparator");
+            String infoType = QueryInfoMap.get("infoType");
+            String infoNameAlias = "#attr" + (i + 1);
+            String infoValueAlias = ":attrv" + (i + 1);         
+
+            String infoExpression = Query_FormExpression(
+                infoNameAlias,
+                infoValueAlias,
+                infoComparator
+            );
+
+            if(infoType.contains("key")) {
+                keyNameMap.put(infoNameAlias, infoName);
+                keyValueMap.put(infoValueAlias, infoValue);
+                if(!keyConditionExpression.isEmpty()) {
+                    keyConditionExpression += " AND ";
+                };
+                keyConditionExpression += infoExpression;
+            }
+            else if(infoType.contains("filter")) {
+                filterNameMap.put(infoNameAlias, infoName);
+                filterValueMap.put(infoValueAlias, infoValue);
+                if(!filterExpression.isEmpty()) {
+                    filterExpression += " AND ";
+                };
+                filterExpression += infoExpression;
+            }
+        }
+
+        // Create Query Spec
+        querySpec = new QuerySpec();
+        if(!keyConditionExpression.isEmpty()) {
+            querySpec.withKeyConditionExpression(keyConditionExpression)
+                     .withNameMap(keyNameMap)
+                     .withValueMap(keyValueMap);
+        }
+        if(!filterExpression.isEmpty()) {
+
+            // Fuse key Maps with filter Maps
+            filterNameMap.putAll(keyNameMap);
+            filterValueMap.putAll(keyValueMap);
+
+            querySpec.withFilterExpression(filterExpression)
+                     .withNameMap(filterNameMap)
+                     .withValueMap(filterValueMap);
+        }
+
+        try {
+
+            if(!GlobalSecondaryIndex.isEmpty()) {
+                items = index.query(querySpec);
+            }
+            else {
+                items = table.query(querySpec);
+            }
+
+            iterator = items.iterator();
+            while (iterator.hasNext()) {
+                //item = iterator.next();
+                Item movieItem = iterator.next();
+                getitemJsonList.add(movieItem.toJSON());
+            }
+        } catch (final Exception e) {
+            System.err.println("Unable to Query the table:");
+            System.err.println(e.getMessage());
+        }
+
+        // System.out.println(getitemJsonList);
+        return getitemJsonList;
+    }
+
+
+
+
+
     // USED
-    public List<String> getitem_PartionKey_SortKey(String TableName,String PartKey,String SortKey,String PartkeyVal,String SortKeyVal) {
+    public List<String> getitem_PartionKey_SortKey(
+        String TableName,
+        String PartKey,
+        String SortKey,
+        String PartkeyVal,
+        String SortKeyVal) {
 
         List<String> getitemJsonList = new ArrayList<>();
         table = dynamoDB.getTable(TableName);
@@ -76,8 +262,13 @@ public class DynamoDBUtils {
 
         //String replyId = forumName + "#" + threadSubject;
 
-        QuerySpec spec = new QuerySpec().withKeyConditionExpression(PartKey+" = :p_id AND "+SortKey+" = :s_id")
-            .withValueMap(new ValueMap().withString(":p_id", PartkeyVal).withString(":s_id", SortKeyVal));
+        QuerySpec spec = new QuerySpec()
+            .withKeyConditionExpression(PartKey+" = :p_id AND "+SortKey+" = :s_id")
+            .withValueMap(
+                new ValueMap()
+                .withString(":p_id", PartkeyVal)
+                .withString(":s_id", SortKeyVal)
+            );
 
             IteratorSupport<Item, QueryOutcome> iterator = table.query(spec).iterator();
             while (iterator.hasNext()) {
@@ -313,49 +504,6 @@ public class DynamoDBUtils {
     }
 
     
-    // USED
-    public int Query_GetTableItemCount(String TableName, String KeyType, String AtrName1, String AtrName2,
-        String AtrVal1, String AtrVal2) {
-        List<String> getitemJsonList = new ArrayList<>();
-        //System.out.println("---------Inside GetTableItemCount Function--------------");
-        table = dynamoDB.getTable(TableName);
-        HashMap<String, String> nameMap = new HashMap<String, String>();
-        HashMap<String, Object> valueMap = new HashMap<String, Object>();
-        ItemCollection<QueryOutcome> items = null;
-        Iterator<Item> iterator = null;
-        Item item = null;
-        QuerySpec querySpec = null;
-
-        if (KeyType.contentEquals("Single")) {
-            nameMap.put("#atr1", AtrName1);
-            valueMap.put(":atrv1", AtrVal1);
-            querySpec = new QuerySpec().withKeyConditionExpression("#atr1 = :atrv1").withNameMap(nameMap)
-                    .withValueMap(valueMap);
-
-        } else {
-            nameMap.put("#atr1", AtrName1);
-            nameMap.put("#atr2", AtrName2);
-            valueMap.put(":atrv1", AtrVal1);
-            valueMap.put(":atrv2", AtrVal2);
-            querySpec = new QuerySpec().withKeyConditionExpression("#atr1 = :atrv1 AND #atr2 = :atrv2")
-                    .withNameMap(nameMap).withValueMap(valueMap);
-        }
-        try {
-            items = table.query(querySpec);
-            iterator = items.iterator();
-            while (iterator.hasNext()) {
-                //item = iterator.next();
-                Item movieItem = iterator.next();
-                getitemJsonList.add(movieItem.toString());
-            }
-        } catch (final Exception e) {
-            System.err.println("Unable to Query the table:");
-            System.err.println(e.getMessage());
-        }
-        return getitemJsonList.size();
-        //return items.getAccumulatedItemCount();
-    }
-
 
     //**********UNUSED FUNCTIONS ***********/
 

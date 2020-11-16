@@ -1,41 +1,25 @@
-@E2E @Netherlands @predefined @parallel=false @THIS
+@E2E @Netherlands @predefined @parallel=false @WIP
 Feature:  Dplay_All_DropDownList_NL
 
 Background:
-  # * def TCName = 'Dplay_All_DropDownList_NL'
-  # * def AWSregion = 'Nordic'
-  # * def Iconik_AssetID = AssetIDNetherlands
-  # * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
-  # * def tcResultWritePath = 'test-classes/' + TCName + '.json'
-  # * def tcResultReadPath = 'classpath:target/' + tcResultWritePath
-  # * def finalResultWritePath = 'test-classes/Results.json'
-  # * def finalResultReadPath = 'classpath:target/' + finalResultWritePath
-  # * def currentTCPath = 'classpath:CA/TestData/E2ECases/Nordic_Region/Netherlands/' + TCName
-  # * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
-  # * def WochitMappingTableName = 'CA_WOCHIT_MAPPING_EU-qa'
-  # * def WochitRenditionTableName = 'CA_WOCHIT_RENDITIONS_EU-qa'
-  # * def MAMAssetsInfoTableName = 'CA_MAM_ASSETS_INFO_EU-qa'
-  # * def Iconik_UpdateSeasonURL = UpdateSeasonURLNetherlands
-  # * def Iconik_UpdateEpisodeURL = UpdateEpisodeURLNetherlands
-  # * def Iconik_CustomAction = Iconik_CustomActionNorway
-  
   # NEW
   * def TCName = 'Dplay_All_DropDownList_NL'
   * def Country = 'Netherlands'
   * def AWSregion = EnvData[Country]['AWSregion']
   * def WochitMappingTableName = EnvData[Country]['WochitMappingTableName']
+  * def WochitMappingTableGSI = EnvData[Country]['WochitMappingTableGSI']
   * def WochitRenditionTableName = EnvData[Country]['WochitRenditionTableName']
   * def MAMAssetsInfoTableName = EnvData[Country]['MAMAssetsInfoTableName']
   # Iconik Stuff Start
   * def Iconik_EpisodeVersionID = EnvData[Country]['Iconik_EpisodeVersionID']
-  * def Iconik_EpisodeObjectID = EnvData[Country]['Iconik_EpisodeObjectID']
+  * def Iconik_EpisodeMetadataObjectID = EnvData[Country]['Iconik_EpisodeMetadataObjectID']
   * def Iconik_AssetID = EnvData[Country]['Iconik_AssetID']
-  * def Iconik_CollectionID = EnvData[Country]['Iconik_CollectionID']
-  * def Iconik_CustomAction = EnvData[Country]['Iconik_CustomAction']
-  * def Iconik_CustomActionID = EnvData[Country]['Iconik_CustomActionID']
-  * def Iconik_MetadataID = EnvData[Country]['Iconik_MetadataID']
-  * def Iconik_MetadataObjectID = EnvData[Country]['Iconik_MetadataObjectID']
-  * def Iconik_MetadataObjectName = EnvData[Country]['Iconik_MetadataObjectName']
+  * def Iconik_SeasonCollectionID = EnvData[Country]['Iconik_SeasonCollectionID']
+  * def Iconik_TriggerRenditionCustomActionName = EnvData[Country]['Iconik_TriggerRenditionCustomActionName']
+  * def Iconik_TriggerRenditionCustomActionID = EnvData[Country]['Iconik_TriggerRenditionCustomActionID']
+  * def Iconik_TechnicalMetadataID = EnvData[Country]['Iconik_TechnicalMetadataID']
+  * def Iconik_TechnicalMetadataObjectID = EnvData[Country]['Iconik_TechnicalMetadataObjectID']
+  * def Iconik_TechnicalMetadataObjectName = EnvData[Country]['Iconik_TechnicalMetadataObjectName']
   * def Iconik_SystemDomainID = EnvData[Country]['Iconik_SystemDomainID']
   * def Iconik_UpdateSeasonURL =  EnvData[Country]['Iconik_UpdateSeasonURL']
   * def Iconik_UpdateEpisodeURL =  EnvData[Country]['Iconik_UpdateEpisodeURL']
@@ -48,14 +32,11 @@ Background:
   * def currentTCPath = 'classpath:CA/TestData/E2ECases/' + AWSregion + '_Region/' + Country + '/' + TCName
   * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
   # NEW
-
-
-
   * def GetRenditionHTTPInfoParams =
     """
       {
-        URL: #(Iconik_CustomActionListURL),
-        Iconik_CustomAction: #(Iconik_CustomAction),
+        URL: #(Iconik_TriggerRenditionCustomActionListURL),
+        Iconik_TriggerRenditionCustomActionName: #(Iconik_TriggerRenditionCustomActionName),
         Auth_Token: #(Auth_Token),
         App_ID: #(App_ID)
       }
@@ -139,12 +120,6 @@ Background:
       }
     """
 
-
-
-#Scenario: Table Item Truncation and Series Title,Call out Text and CTA Generation
-    #* def result = call read(FeatureFilePath+'/Dynamodb.feature@TruncateTable') {Param_TableName: 'CA_WOCHIT_MAPPING_EU-qa',Param_PrimaryKey: 'ID'}
-    #* def result = call read(FeatureFilePath+'/Dynamodb.feature@TruncateTable') {Param_TableName: 'CA_WOCHIT_RENDITIONS_EU-qa',Param_PrimaryKey: 'ID'}  
-
 Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Update Season 
   * def scenarioName = 'updateSeason'
   * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
@@ -224,25 +199,29 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Trigger Rendition
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  * call Pause 60000
+  * call Pause 35000
 
 Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"
   * def ExpectedMAMAssetInfoCount = 3
-  * def itemCountQueryParams = 
+  * def ValidateItemCountViaQueryParams = 
     """
       {
         Param_TableName: #(MAMAssetsInfoTableName),
-        Param_KeyType: 'Single',
-        Param_Atr1: 'assetId',
-        Param_Atr2: '',
-        Param_Atrvalue1: #(Iconik_AssetID),
-        Param_Atrvalue2: '',
+        Param_QueryInfoList: [
+          {
+            infoName: 'assetId',
+            infoValue: #(Iconik_AssetID),
+            infoComparator: '=',
+            infoType: 'key'
+          }
+        ],
+        Param_GlobalSecondaryIndex: '',
         Param_ExpectedItemCount: #(ExpectedMAMAssetInfoCount),
         AWSregion: #(AWSregion)
       }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ItemCountQuery') itemCountQueryParams
+  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateItemCountViaQuery') ValidateItemCountViaQueryParams
   * def updateParams = 
     """
       { 
@@ -287,18 +266,30 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - 
   * def scenarioName = "validateWochitMappingCount"
   * def ExpectedWochitMappingCount = 3
   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
-  * def itemCountScanParams =
+  * def ValidateItemCountViaQueryParams = 
     """
       {
         Param_TableName: #(WochitMappingTableName),
-        Param_Atr1: 'renditionFileName',
-        Param_Atrvalue1: #(ExpectedTitle),
-        Param_Operator: 'containsforcount',
+        Param_QueryInfoList: [
+          {
+            infoName: 'mamAssetInfoReferenceId',
+            infoValue: #(Iconik_AssetID),
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'renditionFileName',
+            infoValue: #(ExpectedTitle),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          }
+        ],
+        Param_GlobalSecondaryIndex: #(WochitMappingTableGSI),
         Param_ExpectedItemCount: #(ExpectedWochitMappingCount),
         AWSregion: #(AWSregion)
-      }    
+      }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ItemCountScan') itemCountScanParams
+  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateItemCountViaQuery') ValidateItemCountViaQueryParams
   * def updateParams = 
     """
       { 
@@ -348,19 +339,30 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit
 Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Technical Metadata for Composite View ID: <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
   * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
-  * def getItemMAMAssetInfoParams = 
+  * def ValidateItemViaQueryParams = 
     """
       {
         Param_TableName: #(MAMAssetsInfoTableName),
-        Param_PartitionKey: 'assetId', 
-        Param_SortKey: 'compositeViewsId',
-        ParamPartionKeyVal: #(Iconik_AssetID), 
-        ParamSortKeyVal: <COMPOSITEVIEWID>,
-        Expected_MAMAssetInfo_Entry: #(Expected_MAMAssetInfo_Entry),
+        Param_QueryInfoList: [
+          {
+            infoName: 'assetId',
+            infoValue: #(Iconik_AssetID),
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'compositeViewsId',
+            infoValue: <COMPOSITEVIEWID>,
+            infoComparator: '=',
+            infoType: 'key'
+          }
+        ],
+        Param_GlobalSecondaryIndex: '',
+        Param_ExpectedResponse: #(Expected_MAMAssetInfo_Entry),
         AWSregion: #(AWSregion)
       }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@GetItemMAMAssetInfo') getItemMAMAssetInfoParams
+  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery') ValidateItemViaQueryParams
   * def updateParams = 
     """
       { 
@@ -382,17 +384,30 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit
   * def scenarioName = 'validateWochitMapping' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
-  * def validateWochitMappingPayloadParams =
+  * def ValidateItemViaQueryParams = 
     """
       {
         Param_TableName: #(WochitMappingTableName),
-        Param_ScanAttr1: 'renditionFileName',
-        Param_ScanVal1: #(RenditionFileName),
-        Expected_WochitMapping_Entry: #(Expected_WochitMapping_Entry),
+        Param_QueryInfoList: [
+          {
+            infoName: 'mamAssetInfoReferenceId',
+            infoValue: #(Iconik_AssetID),
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'renditionFileName',
+            infoValue: #(RenditionFileName),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          }
+        ],
+        Param_GlobalSecondaryIndex: #(WochitMappingTableGSI),
+        Param_ExpectedResponse: #(Expected_WochitMapping_Entry),
         AWSregion: #(AWSregion)
       }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateWochitMappingPayload') validateWochitMappingPayloadParams
+  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery') ValidateItemViaQueryParams
   * def updateParams = 
     """
       { 

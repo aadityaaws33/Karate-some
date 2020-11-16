@@ -11,14 +11,14 @@ Background:
   * def MAMAssetsInfoTableName = EnvData[Country]['MAMAssetsInfoTableName']
   # Iconik Stuff Start
   * def Iconik_EpisodeVersionID = EnvData[Country]['Iconik_EpisodeVersionID']
-  * def Iconik_EpisodeObjectID = EnvData[Country]['Iconik_EpisodeObjectID']
+  * def Iconik_EpisodeMetadataObjectID = EnvData[Country]['Iconik_EpisodeMetadataObjectID']
   * def Iconik_AssetID = EnvData[Country]['Iconik_AssetID']
-  * def Iconik_CollectionID = EnvData[Country]['Iconik_CollectionID']  
-  * def Iconik_CustomAction = EnvData[Country]['Iconik_CustomAction']
-  * def Iconik_CustomActionID = EnvData[Country]['Iconik_CustomActionID']
-  * def Iconik_MetadataID = EnvData[Country]['Iconik_MetadataID']
-  * def Iconik_MetadataObjectID = EnvData[Country]['Iconik_MetadataObjectID']
-  * def Iconik_MetadataObjectName = EnvData[Country]['Iconik_MetadataObjectName']
+  * def Iconik_SeasonCollectionID = EnvData[Country]['Iconik_SeasonCollectionID']  
+  * def Iconik_TriggerRenditionCustomActionName = EnvData[Country]['Iconik_TriggerRenditionCustomActionName']
+  * def Iconik_TriggerRenditionCustomActionID = EnvData[Country]['Iconik_TriggerRenditionCustomActionID']
+  * def Iconik_TechnicalMetadataID = EnvData[Country]['Iconik_TechnicalMetadataID']
+  * def Iconik_TechnicalMetadataObjectID = EnvData[Country]['Iconik_TechnicalMetadataObjectID']
+  * def Iconik_TechnicalMetadataObjectName = EnvData[Country]['Iconik_TechnicalMetadataObjectName']
   * def Iconik_SystemDomainID = EnvData[Country]['Iconik_SystemDomainID']
   # NO UPDATE SEASON and EPISODE FOR JAPAN NEEDED
   # * def Iconik_UpdateSeasonURL =  EnvData[Country]['Iconik_UpdateSeasonURL']
@@ -35,8 +35,8 @@ Background:
   * def GetRenditionHTTPInfoParams =
     """
       {
-        URL: #(Iconik_CustomActionListURL),
-        Iconik_CustomAction: #(Iconik_CustomAction),
+        URL: #(Iconik_TriggerRenditionCustomActionListURL),
+        Iconik_TriggerRenditionCustomActionName: #(Iconik_TriggerRenditionCustomActionName),
         Auth_Token: #(Auth_Token),
         App_ID: #(App_ID)
       }
@@ -124,19 +124,24 @@ Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Trigger Rendition
 Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"
   * def ExpectedMAMAssetInfoCount = 3
-  * def itemCountQueryParams = 
+  * def ValidateItemCountViaQueryParams = 
     """
       {
         Param_TableName: #(MAMAssetsInfoTableName),
-        Param_KeyType: 'Single',
-        Param_Atr1: 'assetId',
-        Param_Atr2: '',
-        Param_Atrvalue1: #(Iconik_AssetID),
-        Param_Atrvalue2: '',
-        Param_ExpectedItemCount: #(ExpectedMAMAssetInfoCount)
+        Param_QueryInfoList: [
+          {
+            infoName: 'assetId',
+            infoValue: #(Iconik_AssetID),
+            infoComparator: '=',
+            infoType: 'key'
+          }
+        ],
+        Param_GlobalSecondaryIndex: '',
+        Param_ExpectedItemCount: #(ExpectedMAMAssetInfoCount),
+        AWSregion: #(AWSregion)
       }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ItemCountQuery') itemCountQueryParams
+  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateItemCountViaQuery') ValidateItemCountViaQueryParams
   * def updateParams = 
     """
       { 
