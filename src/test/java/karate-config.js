@@ -6,9 +6,11 @@ function() {
     karate.write([],'test-classes/Results.json');
   }
   var targetEnv = karate.properties['karate.targetEnv'];
+  var karateOptions = karate.properties['karate.options'];
   var envData = read('classpath:env.json')[targetEnv];
   
   var config = {
+    KarateOptions: karateOptions,
     EnvData: envData,
     // Auth_Token, App_ID are common for all iconik stuff
     Auth_Token: 'eyJhbGciOiJIUzI1NiIsImlhdCI6MTU4NjA5NjczOCwiZXhwIjoxOTAxNTU2NzM4fQ.eyJpZCI6IjUyNGFjZTU2LTc3NDktMTFlYS04ZmI4LTBhNTgwYTNjMTBmOSJ9.ixPYfczc55WD0Qzzg4-CcL_ILm89HtXxGBHuZZh0U7U',

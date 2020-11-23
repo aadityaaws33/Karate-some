@@ -1,4 +1,4 @@
-@E2E @Norway @parallel=false @WIP
+@E2E @Regression @Norway @parallel=false @WIP
 Feature:  Dplay_All_CustomText_NO
 
 Background:
@@ -355,8 +355,8 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Met
     | adb2fec4-934d-11ea-bcbe-0a580a3c65d4\|4cf68d80-890c-11ea-bdcd-0a580a3c35b3 |
     | c7197d98-8907-11ea-983a-0a580a3d1fe6\|3a32b7ae-8908-11ea-958b-0a580a3c10cd |
 
-Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> Rendition Status 
-  * def scenarioName = 'validateWochitMapping' + <ASPECTRATIO>
+Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+  * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
   * def ValidateItemViaQueryParams = 
@@ -395,7 +395,75 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mappin
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | FNAMEPREFIX                     | ASPECTRATIO    |
-    | 'DAQ CA Test_1-dplay_16x9'      | '16x9'         | 
-    | 'DAQ CA Test_1-dplay_4x5'       | '4x5'          |
-    | 'DAQ CA Test_1-dplay_1x1'       | '1x1'          |
+    | FNAMEPREFIX                     | ASPECTRATIO    | RENDITIONSTATUS | ISRENDITIONMOVED |
+    | 'DAQ CA Test_1-dplay_16x9'      | '16x9'         | PROCESSING      | false            |
+    | 'DAQ CA Test_1-dplay_4x5'       | '4x5'          | PROCESSING      | false            |
+    | 'DAQ CA Test_1-dplay_1x1'       | '1x1'          | PROCESSING      | false            |
+
+Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+  # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
+  * configure abortedStepsShouldPass = true
+  * eval if (KarateOptions.contains('Regression')) {karate.abort()}
+  # ---------
+  * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
+  * def retries = 10
+  * def ValidateItemViaQueryParams = 
+    """
+      {
+        Param_TableName: #(WochitMappingTableName),
+        Param_QueryInfoList: [
+          {
+            infoName: 'mamAssetInfoReferenceId',
+            infoValue: #(Iconik_AssetID),
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'renditionFileName',
+            infoValue: #(RenditionFileName),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          }
+        ],
+        Param_GlobalSecondaryIndex: #(WochitMappingTableGSI),
+        Param_ExpectedResponse: #(Expected_WochitMapping_Entry),
+        AWSregion: #(AWSregion)
+      }
+    """
+  * def getResult = 
+    """
+      function() {
+        var resp = null;
+        for(var i = 0; i < retries; i++) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
+          resp = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
+          if(resp['result']['pass']) {
+            break;
+          } else {
+            karate.log('Failed. Sleeping for 1 minute.');
+            java.lang.Thread.sleep(60*1000);
+          }
+
+        }
+        return resp;
+      }
+    """
+  * def result = call getResult
+  * def updateParams = 
+    """
+      { 
+        tcName: #(TCName), 
+        scenarioName: #(scenarioName), 
+        result: #(result.result), 
+        tcResultReadPath: #(tcResultReadPath), 
+        tcResultWritePath: #(tcResultWritePath) 
+      }
+    """
+  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+  Examples:
+    | FNAMEPREFIX                     | ASPECTRATIO    | RENDITIONSTATUS | ISRENDITIONMOVED |
+    | 'DAQ CA Test_1-dplay_16x9'      | '16x9'         | FINISHED        | true             |
+    | 'DAQ CA Test_1-dplay_4x5'       | '4x5'          | FINISHED        | true             |
+    | 'DAQ CA Test_1-dplay_1x1'       | '1x1'          | FINISHED        | true             |

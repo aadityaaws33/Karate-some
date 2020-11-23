@@ -1,4 +1,4 @@
-@E2E @Norway @parallel=false @WIP
+@E2E @Regression @Norway @parallel=false @WIP
 Feature:  Dplay_All_CustomText_NO
 
 Background:
@@ -353,8 +353,8 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Met
     | adb2fec4-934d-11ea-bcbe-0a580a3c65d4\|4cf68d80-890c-11ea-bdcd-0a580a3c35b3  |
     | e1706402-934f-11ea-b2e1-0a580a3cb9b9\|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b  |
 
-Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> Rendition Status 
-  * def scenarioName = 'validateWochitMapping' + <ASPECTRATIO>
+Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+  * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
   * def ValidateItemViaQueryParams = 
@@ -393,5 +393,71 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mappin
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | FNAMEPREFIX                     | ASPECTRATIO |
-    | 'DAQ CA Test_1-dplay_9x16'      | '9x16'      |
+    | FNAMEPREFIX                     | ASPECTRATIO | RENDITIONSTATUS | ISRENDITIONMOVED |
+    | 'DAQ CA Test_1-dplay_9x16'      | '9x16'      | PROCESSING      | false            |
+
+Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+  # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
+  * configure abortedStepsShouldPass = true
+  * eval if (KarateOptions.contains('Regression')) {karate.abort()}
+  # ---------
+  * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
+  * def retries = 10
+  * def ValidateItemViaQueryParams = 
+    """
+      {
+        Param_TableName: #(WochitMappingTableName),
+        Param_QueryInfoList: [
+          {
+            infoName: 'mamAssetInfoReferenceId',
+            infoValue: #(Iconik_AssetID),
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'renditionFileName',
+            infoValue: #(RenditionFileName),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          }
+        ],
+        Param_GlobalSecondaryIndex: #(WochitMappingTableGSI),
+        Param_ExpectedResponse: #(Expected_WochitMapping_Entry),
+        AWSregion: #(AWSregion)
+      }
+    """
+  * def getResult = 
+    """
+      function() {
+        var resp = null;
+        for(var i = 0; i < retries; i++) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
+          resp = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
+          if(resp['result']['pass']) {
+            break;
+          } else {
+            karate.log('Failed. Sleeping for 1 minute.');
+            java.lang.Thread.sleep(60*1000);
+          }
+
+        }
+        return resp;
+      }
+    """
+  * def result = call getResult
+  * def updateParams = 
+    """
+      { 
+        tcName: #(TCName), 
+        scenarioName: #(scenarioName), 
+        result: #(result.result), 
+        tcResultReadPath: #(tcResultReadPath), 
+        tcResultWritePath: #(tcResultWritePath) 
+      }
+    """
+  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+  Examples:
+    | FNAMEPREFIX                     | ASPECTRATIO | RENDITIONSTATUS | ISRENDITIONMOVED |
+    | 'DAQ CA Test_1-dplay_9x16'      | '9x16'      | FINISHED        | true             |

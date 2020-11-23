@@ -1,8 +1,8 @@
 {
   "country": "NETHERLANDS",
   "modifiedAt": "#notnull",
-  "isRenditionMoved": "false",
-  "wochitRenditionStatus": "PROCESSING",
+  "isRenditionMoved": #(ISRENDITIONMOVED),
+  "wochitRenditionStatus": #(RENDITIONSTATUS),
   "userName": "#notnull",
   "assetType": "VIDEO",
   "createdAt": "#notnull",

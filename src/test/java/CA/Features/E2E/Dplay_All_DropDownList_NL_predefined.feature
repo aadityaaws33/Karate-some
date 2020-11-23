@@ -1,4 +1,4 @@
-@E2E @Netherlands @predefined @parallel=false @WIP
+@E2E @Regression @Netherlands @predefined @parallel=false @WIP
 Feature:  Dplay_All_DropDownList_NL
 
 Background:
@@ -380,8 +380,8 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Techni
     | 49074474-e773-11ea-8e77-0a580a3f8ee8\|1f708f46-e771-11ea-b4dd-0a580a3c8cb3 |
     | e472d33e-e772-11ea-9b92-0a580a3f8d44\|861202d8-e772-11ea-abaf-0a580a3cf01e |
 
-Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> Rendition Status 
-  * def scenarioName = 'validateWochitMapping' + <ASPECTRATIO>
+Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+  * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
   * def ValidateItemViaQueryParams = 
@@ -420,7 +420,75 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | FNAMEPREFIX                 | ASPECTRATIO |
-    | 'QA_NL_EP1-dplay_16x9'      | '16x9'      |
-    | 'QA_NL_EP1-dplay_4x5'       | '4x5'       |
-    | 'QA_NL_EP1-dplay_1x1'       | '1x1'       |
+    | FNAMEPREFIX                 | ASPECTRATIO | RENDITIONSTATUS | ISRENDITIONMOVED |
+    | 'QA_NL_EP1-dplay_16x9'      | '16x9'      | PROCESSING      | false            |
+    | 'QA_NL_EP1-dplay_4x5'       | '4x5'       | PROCESSING      | false            |
+    | 'QA_NL_EP1-dplay_1x1'       | '1x1'       | PROCESSING      | false            |
+
+Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+  # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
+  * configure abortedStepsShouldPass = true
+  * eval if (KarateOptions.contains('Regression')) {karate.abort()}
+  # ---------  
+  * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
+  * def retries = 10
+  * def ValidateItemViaQueryParams = 
+    """
+      {
+        Param_TableName: #(WochitMappingTableName),
+        Param_QueryInfoList: [
+          {
+            infoName: 'mamAssetInfoReferenceId',
+            infoValue: #(Iconik_AssetID),
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'renditionFileName',
+            infoValue: #(RenditionFileName),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          }
+        ],
+        Param_GlobalSecondaryIndex: #(WochitMappingTableGSI),
+        Param_ExpectedResponse: #(Expected_WochitMapping_Entry),
+        AWSregion: #(AWSregion)
+      }
+    """
+  * def getResult = 
+    """
+      function() {
+        var resp = null;
+        for(var i = 0; i < retries; i++) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
+          resp = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
+          if(resp['result']['pass']) {
+            break;
+          } else {
+            karate.log('Failed. Sleeping for 1 minute.');
+            java.lang.Thread.sleep(60*1000);
+          }
+
+        }
+        return resp;
+      }
+    """
+  * def result = call getResult
+  * def updateParams = 
+    """
+      { 
+        tcName: #(TCName), 
+        scenarioName: #(scenarioName), 
+        result: #(result.result), 
+        tcResultReadPath: #(tcResultReadPath), 
+        tcResultWritePath: #(tcResultWritePath) 
+      }
+    """
+  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+  Examples:
+    | FNAMEPREFIX                 | ASPECTRATIO | RENDITIONSTATUS | ISRENDITIONMOVED |
+    | 'QA_NL_EP1-dplay_16x9'      | '16x9'      | FINISHED        | true             |
+    | 'QA_NL_EP1-dplay_4x5'       | '4x5'       | FINISHED        | true             |
+    | 'QA_NL_EP1-dplay_1x1'       | '1x1'       | FINISHED        | true             |

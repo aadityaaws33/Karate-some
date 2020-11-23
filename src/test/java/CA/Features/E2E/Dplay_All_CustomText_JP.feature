@@ -1,4 +1,4 @@
-@E2E @Japan @parallel=false
+@E2E @Regression @Japan @parallel=false @WIP
 Feature:  Dplay_All_CustomText_JP
 
 Background:
@@ -273,8 +273,8 @@ Scenario Outline: APAC_Japan_Dplay_All_DropDownList_JP - Validate Technical Meta
     | 104e4cca-e68a-11ea-b0f2-0a580a3c2c48\|38d81b6a-dc64-11ea-8d68-0a580a3d1fd3 |
     | c1903366-dc64-11ea-83ae-0a580a3dd2ae\|38d81b6a-dc64-11ea-8d68-0a580a3d1fd3 |
 
-Scenario Outline: APAC_Japan_Dplay_All_DropDownList_JP - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> Rendition Status 
-  * def scenarioName = 'validateWochitMapping' + <ASPECTRATIO>
+Scenario Outline: APAC_Japan_Dplay_All_DropDownList_JP - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+  * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
   * def validateWochitMappingPayloadParams =
@@ -299,7 +299,61 @@ Scenario Outline: APAC_Japan_Dplay_All_DropDownList_JP - Validate Wochit Mapping
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | FNAMEPREFIX                   | ASPECTRATIO |
-    | 'DAQ CA Test JP-dplay_16x9'   | '16x9'      |
-    | 'DAQ CA Test JP-dplay_4x5'    | '4x5'       |
-    | 'DAQ CA Test JP-dplay_1x1'    | '1x1'       |
+    | FNAMEPREFIX                   | ASPECTRATIO | RENDITIONSTATUS | ISRENDITIONMOVED |
+    | 'DAQ CA Test JP-dplay_16x9'   | '16x9'      | PROCESSING      | false            |
+    | 'DAQ CA Test JP-dplay_4x5'    | '4x5'       | PROCESSING      | false            |
+    | 'DAQ CA Test JP-dplay_1x1'    | '1x1'       | PROCESSING      | false            |
+
+Scenario Outline: APAC_Japan_Dplay_All_DropDownList_JP - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+  # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
+  * configure abortedStepsShouldPass = true
+  * eval if (KarateOptions.contains('Regression')) {karate.abort()}
+  # ---------
+  * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
+  * def retries = 10
+  * def validateWochitMappingPayloadParams =
+    """
+      {
+        Param_TableName: #(WochitMappingTableName),
+        Param_ScanAttr1: 'renditionFileName',
+        Param_ScanVal1: '#(RenditionFileName)',
+        Expected_WochitMapping_Entry: '#(Expected_WochitMapping_Entry)'
+      }
+    """
+  * def getResult = 
+    """
+      function() {
+        var resp = null;
+        for(var i = 0; i < retries; i++) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
+          resp = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateWochitMappingPayload', validateWochitMappingPayloadParams);
+          if(resp['result']['pass']) {
+            break;
+          } else {
+            karate.log('Failed. Sleeping for 1 minute.');
+            java.lang.Thread.sleep(60*1000);
+          }
+
+        }
+        return resp;
+      }
+    """
+  * def result = call getResult
+  * def updateParams = 
+    """
+      { 
+        tcName: #(TCName), 
+        scenarioName: #(scenarioName), 
+        result: #(result.result), 
+        tcResultReadPath: #(tcResultReadPath), 
+        tcResultWritePath: #(tcResultWritePath) 
+      }
+    """
+  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+  Examples:
+    | FNAMEPREFIX                   | ASPECTRATIO | RENDITIONSTATUS | ISRENDITIONMOVED |
+    | 'DAQ CA Test JP-dplay_16x9'   | '16x9'      | FINISHED        | true             |
+    | 'DAQ CA Test JP-dplay_4x5'    | '4x5'       | FINISHED        | true             |
+    | 'DAQ CA Test JP-dplay_1x1'    | '1x1'       | FINISHED        | true             |
