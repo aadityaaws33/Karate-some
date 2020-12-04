@@ -53,7 +53,7 @@
       "date_created": "#notnull",
       "field_values": [
         {
-          "value": "Aqua"
+          "value": "#notnull"
         }
       ]
     },

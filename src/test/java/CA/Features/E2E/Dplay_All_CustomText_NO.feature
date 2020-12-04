@@ -5,6 +5,8 @@ Background:
   # NEW
   * def TCName = 'Dplay_All_CustomText_NO'
   * def Country = 'Norway'
+  * def EpisodeMetadataType = 'Dplay'
+  * def AspectRatioSet = 'All'
   * def AWSregion = EnvData[Country]['AWSregion']
   * def WochitMappingTableName = EnvData[Country]['WochitMappingTableName']
   * def WochitMappingTableGSI = EnvData[Country]['WochitMappingTableGSI']
@@ -15,14 +17,14 @@ Background:
   * def Iconik_EpisodeMetadataObjectID = EnvData[Country]['Iconik_EpisodeMetadataObjectID']
   * def Iconik_AssetID = EnvData[Country]['Iconik_AssetID']
   * def Iconik_SeasonCollectionID = EnvData[Country]['Iconik_SeasonCollectionID']  
-  * def Iconik_TriggerRenditionCustomActionName = EnvData[Country]['Iconik_TriggerRenditionCustomActionName']
+  * def Iconik_TriggerRenditionCustomActionName = EnvData[Country]['Iconik_TriggerRenditionCustomActionName'][EpisodeMetadataType]
   * def Iconik_TriggerRenditionCustomActionID = EnvData[Country]['Iconik_TriggerRenditionCustomActionID']
   * def Iconik_TechnicalMetadataID = EnvData[Country]['Iconik_TechnicalMetadataID']
   * def Iconik_TechnicalMetadataObjectID = EnvData[Country]['Iconik_TechnicalMetadataObjectID']
   * def Iconik_TechnicalMetadataObjectName = EnvData[Country]['Iconik_TechnicalMetadataObjectName']
   * def Iconik_SystemDomainID = EnvData[Country]['Iconik_SystemDomainID']
   * def Iconik_UpdateSeasonURL =  EnvData[Country]['Iconik_UpdateSeasonURL']
-  * def Iconik_UpdateEpisodeURL =  EnvData[Country]['Iconik_UpdateEpisodeURL']
+  * def Iconik_UpdateEpisodeURL =  EnvData[Country]['Iconik_UpdateEpisodeURL'][EpisodeMetadataType]
   # Iconik Stuff End
   * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
   * def tcResultWritePath = 'test-classes/' + TCName + '.json'
@@ -31,6 +33,17 @@ Background:
   * def finalResultReadPath = 'classpath:target/' + finalResultWritePath
   * def currentTCPath = 'classpath:CA/TestData/E2ECases/' + AWSregion + '_Region/' + Country + '/' + TCName
   * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
+  # Scenario Outline Examples Start
+  * def validateTechnicalMetadataTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateTechnicalMetadata.json')[TargetEnv][AspectRatioSet]
+  * def validateWochitRenditionTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateWochitRendition.json')[TargetEnv][AspectRatioSet]
+  * def validateWochitMappingProcessingTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateWochitMappingProcessing.json')[TargetEnv][AspectRatioSet]
+  * def validateWochitMappingIsFiledMovedTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateWochitMappingIsFiledMoved.json')[TargetEnv][AspectRatioSet]
+  # Scenario Outline Examples End
+  # Expected Item Counts Start
+  * def ExpectedMAMAssetInfoCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][AspectRatioSet]['ExpectedMAMAssetInfoCount']
+  * def ExpectedWocRenditionCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][AspectRatioSet]['ExpectedWocRenditionCount']
+  * def ExpectedWochitMappingCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][AspectRatioSet]['ExpectedWochitMappingCount']
+  # Expected Item Counts End
   # NEW
   * def GetRenditionHTTPInfoParams =
     """
@@ -151,6 +164,18 @@ Scenario: Nordic_Norway_Dplay_All_DropDownList_NO - Update Episode
 
 Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Trigger Rendition
   * def scenarioName = 'triggerRendition'
+  * def getRenditionRequestMetadataValues =
+    """
+      function() {
+        if(TargetEnv == 'preprod') {
+          var metadataValues = karate.read(currentTCPath + '/Input/EpisodeRequest.json');
+          return metadataValues['metadata_values'];
+        } else {
+          return null;
+        }
+      }
+    """
+  * def RenditionRequestMetadataValues = call getRenditionRequestMetadataValues
   * def Renditionquery = read(currentTCPath+'/Input/RenditionRequest.json')
   * def Rendition_ExpectedResponse = read(currentTCPath+'/Output/ExpectedRenditionResponse.json')
   * def renditionParams = 
@@ -178,7 +203,7 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Trigger Rendition
     
 Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"
-  * def ExpectedMAMAssetInfoCount = 5
+  # * def ExpectedMAMAssetInfoCount = 5
   * def ValidateItemCountViaQueryParams = 
     """
       {
@@ -211,7 +236,7 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - MAM Ass
 
 Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit Rendition
   * def scenarioName = "validateWochitRenditionCount"
-  * def ExpectedWocRenditionCount = 3
+  # * def ExpectedWocRenditionCount = 3
   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
   * def itemCountScanParams = 
     """
@@ -239,7 +264,7 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit 
 
 Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit Mapping
   * def scenarioName = "validateWochitMappingCount"
-  * def ExpectedWochitMappingCount = 3
+  # * def ExpectedWochitMappingCount = 3
   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
   * def ValidateItemCountViaQueryParams = 
     """
@@ -279,7 +304,7 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit 
 
 Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Renditions Table for <ASPECTRATIO>
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
-  * def RenditionFileName = <FileNameSuffix>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitRendition_Entry = read(currentTCPath + '/Output/Expected_WochitRendition_Entry.json')
   * def validateRenditionPayloadParams =
     """
@@ -306,10 +331,7 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Rendit
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | ASPECTRATIO   | TEMPLATEID               | ScanVal      | FileNameSuffix             |
-    | '16x9'        | 5ebb4c377f8c3b07249d5e80 | ASPECT_16_9  | 'DAQ CA Test_1-dplay_16x9' |
-    | '4x5'         | 5ebb596b7f8c3b07249d5e8b | ASPECT_4_5   | 'DAQ CA Test_1-dplay_4x5'  |
-    | '1x1'         | 5ebb5b25eff13f1e3a9c4399 | ASPECT_1_1   | 'DAQ CA Test_1-dplay_1x1'  |
+    | validateWochitRenditionTestData |
 
 Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
@@ -349,11 +371,8 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Met
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-    Examples:
-    | COMPOSITEVIEWID                                                            |
-    | e1706402-934f-11ea-b2e1-0a580a3cb9b9\|a86a5f8c-c5ae-11ea-8c30-0a580a3ebc6b |
-    | adb2fec4-934d-11ea-bcbe-0a580a3c65d4\|4cf68d80-890c-11ea-bdcd-0a580a3c35b3 |
-    | c7197d98-8907-11ea-983a-0a580a3d1fe6\|3a32b7ae-8908-11ea-958b-0a580a3c10cd |
+  Examples:
+    | validateTechnicalMetadataTestData |
 
 Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
@@ -395,15 +414,12 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mappin
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | FNAMEPREFIX                     | ASPECTRATIO    | RENDITIONSTATUS | ISRENDITIONMOVED |
-    | 'DAQ CA Test_1-dplay_16x9'      | '16x9'         | PROCESSING      | false            |
-    | 'DAQ CA Test_1-dplay_4x5'       | '4x5'          | PROCESSING      | false            |
-    | 'DAQ CA Test_1-dplay_1x1'       | '1x1'          | PROCESSING      | false            |
+    | validateWochitMappingProcessingTestData |
 
 Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
-  * eval if (KarateOptions.contains('Regression')) {karate.abort()}
+  * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
   # ---------
   * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
@@ -463,7 +479,4 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mappin
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | FNAMEPREFIX                     | ASPECTRATIO    | RENDITIONSTATUS | ISRENDITIONMOVED |
-    | 'DAQ CA Test_1-dplay_16x9'      | '16x9'         | FINISHED        | true             |
-    | 'DAQ CA Test_1-dplay_4x5'       | '4x5'          | FINISHED        | true             |
-    | 'DAQ CA Test_1-dplay_1x1'       | '1x1'          | FINISHED        | true             |
+    | validateWochitMappingIsFiledMovedTestData |

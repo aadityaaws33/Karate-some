@@ -1,0 +1,46 @@
+{
+  "qa": {
+    "All": [
+      {
+        "FNAMEPREFIX": "'DAQ CA Test JP-dplay_16x9'",
+        "ASPECTRATIO": "'16x9'",
+        "RENDITIONSTATUS": "FINISHED",
+        "ISRENDITIONMOVED": "true"
+      },
+      {
+        "FNAMEPREFIX": "'DAQ CA Test JP-dplay_4x5'",
+        "ASPECTRATIO": "'4x5'",
+        "RENDITIONSTATUS": "FINISHED",
+        "ISRENDITIONMOVED": "true"
+      },
+      {
+        "FNAMEPREFIX": "'DAQ CA Test JP-dplay_1x1'",
+        "ASPECTRATIO": "'1x1'",
+        "RENDITIONSTATUS": "FINISHED",
+        "ISRENDITIONMOVED": "true"
+      }
+    ]
+  },
+  "preprod": {
+    "All": [
+      {
+        "FNAMEPREFIX": "'DAQ CA Test JP-dplay_16x9'",
+        "ASPECTRATIO": "'16x9'",
+        "RENDITIONSTATUS": "FINISHED",
+        "ISRENDITIONMOVED": "true"
+      },
+      {
+        "FNAMEPREFIX": "'DAQ CA Test JP-dplay_4x5'",
+        "ASPECTRATIO": "'4x5'",
+        "RENDITIONSTATUS": "FINISHED",
+        "ISRENDITIONMOVED": "true"
+      },
+      {
+        "FNAMEPREFIX": "'DAQ CA Test JP-dplay_1x1'",
+        "ASPECTRATIO": "'1x1'",
+        "RENDITIONSTATUS": "FINISHED",
+        "ISRENDITIONMOVED": "true"
+      }
+    ]
+  }
+}

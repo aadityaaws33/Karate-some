@@ -1,10 +1,12 @@
-@E2E @Regression @Netherlands @predefined @parallel=false @WIP
+@E2E @Regression @Netherlands @predefined @parallel=false 
 Feature:  Dplay_All_DropDownList_NL
 
 Background:
   # NEW
   * def TCName = 'Dplay_All_DropDownList_NL'
   * def Country = 'Netherlands'
+  * def EpisodeMetadataType = 'Dplay'
+  * def AspectRatioSet = 'All'
   * def AWSregion = EnvData[Country]['AWSregion']
   * def WochitMappingTableName = EnvData[Country]['WochitMappingTableName']
   * def WochitMappingTableGSI = EnvData[Country]['WochitMappingTableGSI']
@@ -15,14 +17,14 @@ Background:
   * def Iconik_EpisodeMetadataObjectID = EnvData[Country]['Iconik_EpisodeMetadataObjectID']
   * def Iconik_AssetID = EnvData[Country]['Iconik_AssetID']
   * def Iconik_SeasonCollectionID = EnvData[Country]['Iconik_SeasonCollectionID']
-  * def Iconik_TriggerRenditionCustomActionName = EnvData[Country]['Iconik_TriggerRenditionCustomActionName']
+  * def Iconik_TriggerRenditionCustomActionName = EnvData[Country]['Iconik_TriggerRenditionCustomActionName'][EpisodeMetadataType]
   * def Iconik_TriggerRenditionCustomActionID = EnvData[Country]['Iconik_TriggerRenditionCustomActionID']
   * def Iconik_TechnicalMetadataID = EnvData[Country]['Iconik_TechnicalMetadataID']
   * def Iconik_TechnicalMetadataObjectID = EnvData[Country]['Iconik_TechnicalMetadataObjectID']
   * def Iconik_TechnicalMetadataObjectName = EnvData[Country]['Iconik_TechnicalMetadataObjectName']
   * def Iconik_SystemDomainID = EnvData[Country]['Iconik_SystemDomainID']
   * def Iconik_UpdateSeasonURL =  EnvData[Country]['Iconik_UpdateSeasonURL']
-  * def Iconik_UpdateEpisodeURL =  EnvData[Country]['Iconik_UpdateEpisodeURL']
+  * def Iconik_UpdateEpisodeURL =  EnvData[Country]['Iconik_UpdateEpisodeURL'][EpisodeMetadataType]
   # Iconik Stuff End
   * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
   * def tcResultWritePath = 'test-classes/' + TCName + '.json'
@@ -31,6 +33,17 @@ Background:
   * def finalResultReadPath = 'classpath:target/' + finalResultWritePath
   * def currentTCPath = 'classpath:CA/TestData/E2ECases/' + AWSregion + '_Region/' + Country + '/' + TCName
   * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
+  # Scenario Outline Examples Start
+  * def validateTechnicalMetadataTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateTechnicalMetadata.json')[TargetEnv][AspectRatioSet]
+  * def validateWochitRenditionTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateWochitRendition.json')[TargetEnv][AspectRatioSet]
+  * def validateWochitMappingProcessingTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateWochitMappingProcessing.json')[TargetEnv][AspectRatioSet]
+  * def validateWochitMappingIsFiledMovedTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateWochitMappingIsFiledMoved.json')[TargetEnv][AspectRatioSet]
+  # Scenario Outline Examples End
+  # Expected Item Counts Start
+  * def ExpectedMAMAssetInfoCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][AspectRatioSet]['ExpectedMAMAssetInfoCount']
+  * def ExpectedWocRenditionCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][AspectRatioSet]['ExpectedWocRenditionCount']
+  * def ExpectedWochitMappingCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][AspectRatioSet]['ExpectedWochitMappingCount']
+  # Expected Item Counts End
   # NEW
   * def GetRenditionHTTPInfoParams =
     """
@@ -176,6 +189,18 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Update Episode
 
 Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Trigger Rendition
   * def scenarioName = 'triggerRendition'
+  * def getRenditionRequestMetadataValues =
+    """
+      function() {
+        if(TargetEnv == 'preprod') {
+          var metadataValues = karate.read(currentTCPath + '/Input/EpisodeRequest.json');
+          return metadataValues['metadata_values'];
+        } else {
+          return null;
+        }
+      }
+    """
+  * def RenditionRequestMetadataValues = call getRenditionRequestMetadataValues
   * def Renditionquery = read(currentTCPath+'/Input/RenditionRequest.json')
   * def Rendition_ExpectedResponse = read(currentTCPath+'/Output/ExpectedRenditionResponse.json')
   * def renditionParams = 
@@ -304,7 +329,7 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - 
   
 Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit Renditions Table for <ASPECTRATIO>
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
-  * def RenditionFileName = <FileNameSuffix>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitRendition_Entry = read(currentTCPath + '/Output/Expected_WochitRendition_Entry.json')
   * def validateRenditionPayloadParams =
     """
@@ -331,10 +356,7 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | ASPECTRATIO   | TEMPLATEID               | ScanVal      | FileNameSuffix             |
-    | '16x9'        | 5ebb4c377f8c3b07249d5e80 | ASPECT_16_9  | 'QA_NL_EP1-dplay_16x9'     |
-    | '4x5'         | 5ebb596b7f8c3b07249d5e8b | ASPECT_4_5   | 'QA_NL_EP1-dplay_4x5'      |
-    | '1x1'         | 5ebb5b25eff13f1e3a9c4399 | ASPECT_1_1   | 'QA_NL_EP1-dplay_1x1'      |      
+    | validateWochitRenditionTestData |
 
 Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Technical Metadata for Composite View ID: <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
@@ -375,10 +397,7 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Techni
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | COMPOSITEVIEWID                                                            |
-    | 83a5bfc2-e771-11ea-afed-0a580a3c2c48\|1f708f46-e771-11ea-b4dd-0a580a3c8cb3 |
-    | 49074474-e773-11ea-8e77-0a580a3f8ee8\|1f708f46-e771-11ea-b4dd-0a580a3c8cb3 |
-    | e472d33e-e772-11ea-9b92-0a580a3f8d44\|861202d8-e772-11ea-abaf-0a580a3cf01e |
+    | validateTechnicalMetadataTestData |
 
 Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
@@ -420,15 +439,12 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | FNAMEPREFIX                 | ASPECTRATIO | RENDITIONSTATUS | ISRENDITIONMOVED |
-    | 'QA_NL_EP1-dplay_16x9'      | '16x9'      | PROCESSING      | false            |
-    | 'QA_NL_EP1-dplay_4x5'       | '4x5'       | PROCESSING      | false            |
-    | 'QA_NL_EP1-dplay_1x1'       | '1x1'       | PROCESSING      | false            |
+    | validateWochitMappingProcessingTestData |
 
 Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
-  * eval if (KarateOptions.contains('Regression')) {karate.abort()}
+  * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
   # ---------  
   * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
@@ -488,7 +504,4 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
-    | FNAMEPREFIX                 | ASPECTRATIO | RENDITIONSTATUS | ISRENDITIONMOVED |
-    | 'QA_NL_EP1-dplay_16x9'      | '16x9'      | FINISHED        | true             |
-    | 'QA_NL_EP1-dplay_4x5'       | '4x5'       | FINISHED        | true             |
-    | 'QA_NL_EP1-dplay_1x1'       | '1x1'       | FINISHED        | true             |
+    | validateWochitMappingIsFiledMovedTestData |

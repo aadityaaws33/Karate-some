@@ -529,7 +529,7 @@ public class DynamoDBUtils {
         ItemCollection<ScanOutcome> items = null;
         List<String> getitemJsonList = new ArrayList<>();
         Map<String, Object> expressionAttributeValues = new HashMap<String, Object>();
-        //expressionAttributeValues.put(":val", "DAQ CA Test_1-dplay_4x5-Test-1599153181360-Test-1599153181360");
+        //expressionAttributeValues.put(":val", "DAQ CA Test NO-dplay_4x5-Test-1599153181360-Test-1599153181360");
         expressionAttributeValues.put(":val", ScanValue);
         table = dynamoDB.getTable(TableName);
         if(ProjectionExp.length()>0)
@@ -771,7 +771,7 @@ public class DynamoDBUtils {
             AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
             Map<String, AttributeValue> expressionAttributeValues = 
             new HashMap<String, AttributeValue>();
-        expressionAttributeValues.put(":val", new AttributeValue().withS("DAQ CA Test_1-dplay_4x5-Test-1599153181360-Test-1599153181360")); 
+        expressionAttributeValues.put(":val", new AttributeValue().withS("DAQ CA Test NO-dplay_4x5-Test-1599153181360-Test-1599153181360")); 
                 
         ScanRequest scanRequest = new ScanRequest()
             .withTableName(TableName)

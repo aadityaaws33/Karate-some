@@ -2,7 +2,7 @@
   "date_modified": null,
   "object_type": "assets",
   "date_created": null,
-  "version_id": "#(Iconik_EpisodeVersionID)",
+  "version_id": "#notnull",
   "metadata_values": {
     "no-dplay-CalloutText-multi": {
       "date_created": "#notnull",
@@ -60,5 +60,5 @@
       ]
     }
   },
-  "object_id": "#(Iconik_TechnicalMetadataObjectID)"
+  "object_id": "#notnull"
 }

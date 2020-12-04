@@ -1,0 +1,22 @@
+{
+  "qa": {
+    "All": [
+      {
+        "COMPOSITEVIEWID": "83a5bfc2-e771-11ea-afed-0a580a3c2c48|1f708f46-e771-11ea-b4dd-0a580a3c8cb3"
+      },
+      {
+        "COMPOSITEVIEWID": "49074474-e773-11ea-8e77-0a580a3f8ee8|1f708f46-e771-11ea-b4dd-0a580a3c8cb3"
+      },
+      {
+        "COMPOSITEVIEWID": "e472d33e-e772-11ea-9b92-0a580a3f8d44|861202d8-e772-11ea-abaf-0a580a3cf01e"
+      }
+    ]
+  },
+  "preprod": {
+    "All": [
+      {
+        "COMPOSITEVIEWID": "0b1a8ffc-f0df-11ea-9b04-0a580a3c2dfa|93460702-f0e0-11ea-b1dc-0a580a3c2c48"
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "qa": {
+    "9x16": [
+      {
+        "FNAMEPREFIX": "'DAQ CA Test NO-dplay_9x16'",
+        "ASPECTRATIO": "'9x16'",
+        "RENDITIONSTATUS": "PROCESSING",
+        "ISRENDITIONMOVED": "false"
+      }
+    ]
+  },
+  "preprod": {
+    "9x16": [
+      {
+        "FNAMEPREFIX": "'DAQ CA Test NO-dplay_9x16'",
+        "ASPECTRATIO": "'9x16'",
+        "RENDITIONSTATUS": "PROCESSING",
+        "ISRENDITIONMOVED": "false"
+      }
+    ]
+  }
+}

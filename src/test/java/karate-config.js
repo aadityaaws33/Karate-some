@@ -6,18 +6,18 @@ function() {
     karate.write([],'test-classes/Results.json');
   }
   var targetEnv = karate.properties['karate.targetEnv'];
-  var karateOptions = karate.properties['karate.options'];
-  var envData = read('classpath:env.json')[targetEnv];
-  
+  var targetTag = karate.properties['karate.options'].split('@')[1];
+  var envData = read('classpath:env.json');
+
   var config = {
-    KarateOptions: karateOptions,
-    EnvData: envData,
+    TargetEnv: targetEnv,
+    TargetTag: targetTag,
+    EnvData: envData[targetEnv],
     // Auth_Token, App_ID are common for all iconik stuff
-    Auth_Token: 'eyJhbGciOiJIUzI1NiIsImlhdCI6MTU4NjA5NjczOCwiZXhwIjoxOTAxNTU2NzM4fQ.eyJpZCI6IjUyNGFjZTU2LTc3NDktMTFlYS04ZmI4LTBhNTgwYTNjMTBmOSJ9.ixPYfczc55WD0Qzzg4-CcL_ILm89HtXxGBHuZZh0U7U',
-    App_ID: '511aba46-7749-11ea-b4d1-0a580a3ebcc5',
-    // Iconik_UserId: 'db01ddf8-1d57-11ea-9366-0a580a3f8f79',
-    Iconik_UserId: 'custom-qa-user-id',
-    Iconik_TriggerRenditionCustomActionListURL: 'https://app.iconik.io/API/assets/v1/custom_actions/',
+    Auth_Token: envData[targetEnv]['Common']['Iconik_AuthToken'], //'eyJhbGciOiJIUzI1NiIsImlhdCI6MTU4NjA5NjczOCwiZXhwIjoxOTAxNTU2NzM4fQ.eyJpZCI6IjUyNGFjZTU2LTc3NDktMTFlYS04ZmI4LTBhNTgwYTNjMTBmOSJ9.ixPYfczc55WD0Qzzg4-CcL_ILm89HtXxGBHuZZh0U7U',
+    App_ID: envData[targetEnv]['Common']['Iconik_AppID'], //'511aba46-7749-11ea-b4d1-0a580a3ebcc5',
+    Iconik_UserId: envData[targetEnv]['Common']['Iconik_UserId'][targetTag], //'db01ddf8-1d57-11ea-9366-0a580a3f8f79',
+    Iconik_TriggerRenditionCustomActionListURL: envData[targetEnv]['Common']['Iconik_TriggerRenditionCustomActionListURL'], //'https://app.iconik.io/API/assets/v1/custom_actions/',
     // UpdateSeasonURL and UpdateEpisodeURL is unique for each country
     // NORWAY
     // AssetIDNorway: 'd03eedd4-e345-11ea-9814-0a580a3f06a0',

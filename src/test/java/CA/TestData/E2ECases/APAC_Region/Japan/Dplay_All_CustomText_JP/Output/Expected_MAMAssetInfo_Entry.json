@@ -10,8 +10,8 @@
     },
     "name": "Asset Metadata",
     "objectName": "#(Iconik_TechnicalMetadataObjectName)",
-    "ID": "#(Iconik_TechnicalMetadataID)",
-    "objectId": "#(Iconik_TechnicalMetadataObjectID)",
+    "ID": "#notnull",
+    "objectId": "#notnull",
     "objectType": "assets"
   },
   "modifiedAt": "#notnull",
@@ -27,13 +27,13 @@
     "name": "#notnull",
     "objectName": "#(Iconik_TechnicalMetadataObjectName)",
     "ID": "#notnull",
-    "objectId": "#(Iconik_TechnicalMetadataObjectID)",
+    "objectId": "#notnull",
     "objectType": "assets"
   },
   "assetType": "VIDEO",
   "episodeMetadata": {
     "objectName": "QA Episode",
-    "objectId": "#(Iconik_EpisodeMetadataObjectID)",
+    "objectId": "#notnull",
     "objectType": "collections"
   },
   "createdAt": "#notnull",

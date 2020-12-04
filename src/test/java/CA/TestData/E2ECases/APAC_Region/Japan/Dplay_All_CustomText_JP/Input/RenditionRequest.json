@@ -1,6 +1,6 @@
 {
   "user_id": "#(Iconik_UserId)",
-  "system_domain_id": "#(Iconik_SystemDomainID)",
+  "system_domain_id": "da4c0aaa-1d57-11ea-93d8-0a580a3cb9a8",
   "context": "ASSET",
   "action_id": "#(Iconik_TriggerRenditionCustomActionID)",
   "collection_ids": ["#(Iconik_SeasonCollectionID)"],
