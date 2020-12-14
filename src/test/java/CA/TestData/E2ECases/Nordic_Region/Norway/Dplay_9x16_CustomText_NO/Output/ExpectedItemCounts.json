@@ -7,7 +7,7 @@
     }
   },
   "preprod": {
-    "All": {
+    "9x16": {
       "ExpectedMAMAssetInfoCount": 5,
       "ExpectedWocRenditionCount": 1,
       "ExpectedWochitMappingCount": 1

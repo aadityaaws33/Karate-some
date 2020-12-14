@@ -1,4 +1,4 @@
-@E2E @Regression @Netherlands @predefined @parallel=false 
+@predefined @parallel=false 
 Feature:  Dplay_All_DropDownList_NL
 
 Background:
