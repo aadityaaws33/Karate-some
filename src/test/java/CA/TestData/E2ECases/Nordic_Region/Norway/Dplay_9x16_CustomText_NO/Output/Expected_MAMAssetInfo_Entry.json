@@ -44,7 +44,7 @@
   "assetType": "VIDEO",
   "episodeMetadata": {
     "objectName": "QA Episode 1",
-    "objectId": "ba077850-e03f-11ea-8124-0a580a3c8ca8",
+    "objectId": "#notnull",
     "objectType": "collections"
   },
   "createdAt": "#notnull",
