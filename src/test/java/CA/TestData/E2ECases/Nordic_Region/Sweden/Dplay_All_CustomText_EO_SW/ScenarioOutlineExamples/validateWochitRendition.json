@@ -1,0 +1,46 @@
+{
+  "qa": {
+    "All": [
+      {
+        "FNAMEPREFIX": "'DAQ CA Test SW-dplay_16x9_endboardonly'",
+        "ASPECTRATIO": "'16x9'",
+        "TEMPLATEID": "5ebb6bffeff13f1e3a9c43a4",
+        "ScanVal": "ASPECT_16_9"
+      },
+      {
+        "FNAMEPREFIX": "'DAQ CA Test SW-dplay_4x5_endboardonly'",
+        "ASPECTRATIO": "'4x5'",
+        "TEMPLATEID": "5ebb6c4b5eb7f30d4b095809",
+        "ScanVal": "ASPECT_4_5"
+      },
+      {
+        "FNAMEPREFIX": "'DAQ CA Test SW-dplay_1x1_endboardonly'",
+        "ASPECTRATIO": "'1x1'",
+        "TEMPLATEID": "5ebb6b2f7f8c3b07249d5e9a",
+        "ScanVal": "ASPECT_1_1"
+      }
+    ]
+  },
+  "preprod": {
+    "All": [
+      {
+        "FNAMEPREFIX": "'DAQ CA Test SW-dplay_16x9_endboardonly'",
+        "ASPECTRATIO": "'16x9'",
+        "TEMPLATEID": "5ebb4c377f8c3b07249d5e80",
+        "ScanVal": "ASPECT_16_9"
+      },
+      {
+        "FNAMEPREFIX": "'DAQ CA Test SW-dplay_4x5_endboardonly'",
+        "ASPECTRATIO": "'4x5'",
+        "TEMPLATEID": "5ebb596b7f8c3b07249d5e8b",
+        "ScanVal": "ASPECT_4_5"
+      },
+      {
+        "FNAMEPREFIX": "'DAQ CA Test SW-dplay_1x1_endboardonly'",
+        "ASPECTRATIO": "'1x1'",
+        "TEMPLATEID": "5ebb5b25eff13f1e3a9c4399",
+        "ScanVal": "ASPECT_1_1"
+      }
+    ]
+  }
+}

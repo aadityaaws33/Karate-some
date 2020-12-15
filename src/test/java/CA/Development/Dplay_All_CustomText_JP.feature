@@ -103,7 +103,7 @@ Background:
       }
     """
 
-Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Trigger Rendition
+Scenario: APAC_Japan_Dplay_All_CustomText_JP - Trigger Rendition
   * def scenarioName = 'triggerRendition'
   * def Renditionquery = read(currentTCPath+'/Input/RenditionRequest.json')
   * def Rendition_ExpectedResponse = read(currentTCPath+'/Output/ExpectedRenditionResponse.json')
@@ -130,7 +130,7 @@ Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Trigger Rendition
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   * call Pause 60000
 
-# Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Validate Item Counts - MAM Asset Info
+# Scenario: APAC_Japan_Dplay_All_CustomText_JP - Validate Item Counts - MAM Asset Info
 #   * def scenarioName = "validateMAM"
 #   * def ExpectedMAMAssetInfoCount = 3
 #   * def ValidateItemCountViaQueryParams = 
@@ -163,7 +163,7 @@ Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Trigger Rendition
 #     """
 #   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-# Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Validate Item Counts - Wochit Rendition
+# Scenario: APAC_Japan_Dplay_All_CustomText_JP - Validate Item Counts - Wochit Rendition
 #   * def scenarioName = "validateWochitRenditionCount"
 #   * def ExpectedWocRenditionCount = 3
 #   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
@@ -190,7 +190,7 @@ Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Trigger Rendition
 #     """
 #   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-# Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Validate Item Counts - Wochit Mapping
+# Scenario: APAC_Japan_Dplay_All_CustomText_JP - Validate Item Counts - Wochit Mapping
 #   * def scenarioName = "validateWochitMappingCount"
 #   * def ExpectedWochitMappingCount = 3
 #   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
@@ -217,7 +217,7 @@ Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Trigger Rendition
 #     """
 #   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   
-# Scenario Outline: APAC_Japan_Dplay_All_DropDownList_JP - Validate Wochit Renditions Table for <ASPECTRATIO>
+# Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Renditions Table for <ASPECTRATIO>
 #   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
 #   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
 #   * def Expected_WochitRendition_Entry = read(currentTCPath + '/Output/Expected_WochitRendition_Entry.json')
@@ -247,7 +247,7 @@ Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Trigger Rendition
 #   Examples:
 #     | validateWochitRenditionTestData |
 
-# Scenario Outline: APAC_Japan_Dplay_All_DropDownList_JP - Validate Technical Metadata for Composite View ID: <COMPOSITEVIEWID>
+# Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Technical Metadata for Composite View ID: <COMPOSITEVIEWID>
 #   * def scenarioName = 'validateTechnicalMetadata'
 #   * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
 #   * def getItemMAMAssetInfoParams = 
@@ -276,7 +276,7 @@ Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Trigger Rendition
 #   Examples:
 #     | validateTechnicalMetadataTestData |
 
-# Scenario Outline: APAC_Japan_Dplay_All_DropDownList_JP - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+# Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
 #   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
 #   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
 #   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
@@ -304,7 +304,7 @@ Scenario: APAC_Japan_Dplay_All_DropDownList_JP - Trigger Rendition
 #   Examples:
 #     | validateWochitMappingProcessingTestData |
 
-# Scenario Outline: APAC_Japan_Dplay_All_DropDownList_JP - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+# Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
 #   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
 #   * configure abortedStepsShouldPass = true
 #   * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}

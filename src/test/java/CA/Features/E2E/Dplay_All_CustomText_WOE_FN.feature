@@ -1,4 +1,4 @@
-@E2E @Regression @Finland @parallel=false @WIP
+@E2E @Regression @Finland @parallel=false 
 Feature:  Dplay_All_CustomText_WOE_FN
 
 Background:
@@ -109,7 +109,7 @@ Background:
       }
     """
 
-Scenario: Nordic_Finland_Dplay_All_DropDownList_FN - Update Season 
+Scenario: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Update Season 
   * def scenarioName = 'updateSeason'
   * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
   * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
@@ -136,7 +136,7 @@ Scenario: Nordic_Finland_Dplay_All_DropDownList_FN - Update Season
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Finland_Dplay_All_DropDownList_FN - Update Episode 
+Scenario: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Update Episode 
   * def scenarioName = 'updateEpisode'
   * def UpdateEpisodequery = read(currentTCPath+'/Input/EpisodeRequest.json')
   # * replace UpdateEpisodequery.CallOutText = RandomCalloutText

@@ -1,14 +1,15 @@
-@Japan @parallel=false 
-Feature:  Dplay_All_CustomText_JP
+@E2E @Regression @Sweden @parallel=false @WIP
+Feature:  Dplay_All_CustomText_EO_SW
 
 Background:
   # NEW
-  * def TCName = 'Dplay_All_CustomText_JP'
-  * def Country = 'Japan'
-  * def EpisodeMetadataType = 'Dplay'
+  * def TCName = 'Dplay_All_CustomText_EO_SW'
+  * def Country = 'Sweden'
+  * def EpisodeMetadataType = 'DplayEndboardOnly'
   * def AspectRatioSet = 'All'
   * def AWSregion = EnvData[Country]['AWSregion']
   * def WochitMappingTableName = EnvData[Country]['WochitMappingTableName']
+  * def WochitMappingTableGSI = EnvData[Country]['WochitMappingTableGSI']
   * def WochitRenditionTableName = EnvData[Country]['WochitRenditionTableName']
   * def MAMAssetsInfoTableName = EnvData[Country]['MAMAssetsInfoTableName']
   # Iconik Stuff Start
@@ -16,15 +17,14 @@ Background:
   * def Iconik_EpisodeMetadataObjectID = EnvData[Country]['Iconik_EpisodeMetadataObjectID']
   * def Iconik_AssetID = EnvData[Country]['Iconik_AssetID']
   * def Iconik_SeasonCollectionID = EnvData[Country]['Iconik_SeasonCollectionID']  
-  * def Iconik_TriggerRenditionCustomActionName = EnvData[Country]['Iconik_TriggerRenditionCustomActionName']
   * def Iconik_TriggerRenditionCustomActionName = EnvData[Country]['Iconik_TriggerRenditionCustomActionName'][EpisodeMetadataType]
+  * def Iconik_TriggerRenditionCustomActionID = EnvData[Country]['Iconik_TriggerRenditionCustomActionID']
   * def Iconik_TechnicalMetadataID = EnvData[Country]['Iconik_TechnicalMetadataID']
   * def Iconik_TechnicalMetadataObjectID = EnvData[Country]['Iconik_TechnicalMetadataObjectID']
   * def Iconik_TechnicalMetadataObjectName = EnvData[Country]['Iconik_TechnicalMetadataObjectName']
   * def Iconik_SystemDomainID = EnvData[Country]['Iconik_SystemDomainID']
-  # NO UPDATE SEASON and EPISODE FOR JAPAN NEEDED
-  # * def Iconik_UpdateSeasonURL =  EnvData[Country]['Iconik_UpdateSeasonURL']
-  # * def Iconik_UpdateEpisodeURL =  EnvData[Country]['Iconik_UpdateEpisodeURL'][EpisodeMetadataType]
+  * def Iconik_UpdateSeasonURL =  EnvData[Country]['Iconik_UpdateSeasonURL']
+  * def Iconik_UpdateEpisodeURL =  EnvData[Country]['Iconik_UpdateEpisodeURL'][EpisodeMetadataType]
   # Iconik Stuff End
   * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
   * def tcResultWritePath = 'test-classes/' + TCName + '.json'
@@ -94,11 +94,12 @@ Background:
       }
     """
   * def Random_String_Generator = function(){ return java.lang.System.currentTimeMillis() }
-  * def RandomSeriesTitle = 'QA Series Japan'
+  * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
+  * def RandomSeriesTitle = one.RandomSeriesTitle
   * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
-  * def RandomCalloutText = 'ジェスナーはここにいた' + two.RandomCalloutText
+  * def RandomCalloutText = two.RandomCalloutText
   * def three = callonce read(FeatureFilePath+'/RandomGenerator.feature@CTA')
-  * def RandomCTA = 'ジェスナーはここにいた' + three.RandomCTA
+  * def RandomCTA = three.RandomCTA
   * print RandomSeriesTitle, RandomCalloutText, RandomCTA
   * configure afterFeature = 
     """
@@ -107,8 +108,74 @@ Background:
       }
     """
 
-Scenario: APAC_Japan_Dplay_All_CustomText_JP - Trigger Rendition
+Scenario: Nordic_Sweden_Dplay_All_CustomText_SW - Update Season 
+  * def scenarioName = 'updateSeason'
+  * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
+  * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
+  * def Season_expectedResponse = read(currentTCPath+'/Output/ExpectedSeasonResponse.json')
+  * def updateSeasonParams =
+    """
+      {
+        URL: '#(Iconik_UpdateSeasonURL)',
+        Query: '#(UpdateSeasonquery)', 
+        ExpectedResponse: #(Season_expectedResponse),
+      }
+    """
+  * def result = call read(FeatureFilePath+'/UpdateSeason.feature') updateSeasonParams
+  * print result
+  * def updateParams = 
+    """
+      { 
+        tcName: #(TCName),
+        scenarioName: #(scenarioName),
+        result: #(result.result),
+        tcResultReadPath: #(tcResultReadPath),
+        tcResultWritePath: #(tcResultWritePath)
+      }
+    """
+  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+
+Scenario: Nordic_Sweden_Dplay_All_CustomText_SW - Update Episode 
+  * def scenarioName = 'updateEpisode'
+  * def UpdateEpisodequery = read(currentTCPath+'/Input/EpisodeRequest.json')
+  * replace UpdateEpisodequery.CallOutText = RandomCalloutText
+  * replace UpdateEpisodequery.CTA = RandomCTA
+  * def Episode_ExpectedResponse = read(currentTCPath+'/Output/ExpectedEpisodeResponse.json')
+  * def updateEpisodeParams =
+    """
+      {
+        URL: '#(Iconik_UpdateEpisodeURL)',
+        Query: '#(UpdateEpisodequery)',
+        ExpectedResponse: '#(Episode_ExpectedResponse)'
+      }
+    """
+  * def result = call read(FeatureFilePath+'/UpdateEpisode.feature') updateEpisodeParams
+  * def updateParams = 
+    """
+      { 
+        tcName: #(TCName), 
+        scenarioName: #(scenarioName), 
+        result: #(result.result), 
+        tcResultReadPath: #(tcResultReadPath), 
+        tcResultWritePath: #(tcResultWritePath) 
+      }
+    """
+  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+
+Scenario: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Trigger Rendition
   * def scenarioName = 'triggerRendition'
+  * def getRenditionRequestMetadataValues =
+    """
+      function() {
+        if(TargetEnv == 'preprod') {
+          var metadataValues = karate.read(currentTCPath + '/Input/EpisodeRequest.json');
+          return metadataValues['metadata_values'];
+        } else {
+          return null;
+        }
+      }
+    """
+  * def RenditionRequestMetadataValues = call getRenditionRequestMetadataValues
   * def Renditionquery = read(currentTCPath+'/Input/RenditionRequest.json')
   * def Rendition_ExpectedResponse = read(currentTCPath+'/Output/ExpectedRenditionResponse.json')
   * def renditionParams = 
@@ -132,11 +199,11 @@ Scenario: APAC_Japan_Dplay_All_CustomText_JP - Trigger Rendition
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  * call Pause 60000
-
-Scenario: APAC_Japan_Dplay_All_CustomText_JP - Validate Item Counts - MAM Asset Info
+  * call Pause 35000
+    
+Scenario: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"
-  # * def ExpectedMAMAssetInfoCount = 3
+  # * def ExpectedMAMAssetInfoCount = 5
   * def ValidateItemCountViaQueryParams = 
     """
       {
@@ -167,7 +234,7 @@ Scenario: APAC_Japan_Dplay_All_CustomText_JP - Validate Item Counts - MAM Asset 
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: APAC_Japan_Dplay_All_CustomText_JP - Validate Item Counts - Wochit Rendition
+Scenario: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Validate Item Counts - Wochit Rendition
   * def scenarioName = "validateWochitRenditionCount"
   # * def ExpectedWocRenditionCount = 3
   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
@@ -178,7 +245,8 @@ Scenario: APAC_Japan_Dplay_All_CustomText_JP - Validate Item Counts - Wochit Ren
         Param_Atr1: 'videoUpdates.title',
         Param_Atrvalue1: #(ExpectedTitle),
         Param_Operator: 'contains',
-        Param_ExpectedItemCount: #(ExpectedWocRenditionCount)
+        Param_ExpectedItemCount: #(ExpectedWocRenditionCount),
+         AWSregion: #(AWSregion)
       }    
     """
   * def result = call read(FeatureFilePath+'/Dynamodb.feature@ItemCountScan') itemCountScanParams
@@ -194,21 +262,34 @@ Scenario: APAC_Japan_Dplay_All_CustomText_JP - Validate Item Counts - Wochit Ren
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: APAC_Japan_Dplay_All_CustomText_JP - Validate Item Counts - Wochit Mapping
+Scenario: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Validate Item Counts - Wochit Mapping
   * def scenarioName = "validateWochitMappingCount"
   # * def ExpectedWochitMappingCount = 3
   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
-  * def itemCountScanParams =
+  * def ValidateItemCountViaQueryParams = 
     """
       {
         Param_TableName: #(WochitMappingTableName),
-        Param_Atr1: 'renditionFileName',
-        Param_Atrvalue1: #(ExpectedTitle),
-        Param_Operator: 'containsforcount',
-        Param_ExpectedItemCount: #(ExpectedWochitMappingCount)
-      }    
+        Param_QueryInfoList: [
+          {
+            infoName: 'mamAssetInfoReferenceId',
+            infoValue: #(Iconik_AssetID),
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'renditionFileName',
+            infoValue: #(ExpectedTitle),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          }
+        ],
+        Param_GlobalSecondaryIndex: #(WochitMappingTableGSI),
+        Param_ExpectedItemCount: #(ExpectedWochitMappingCount),
+        AWSregion: #(AWSregion)
+      }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ItemCountScan') itemCountScanParams
+  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateItemCountViaQuery') ValidateItemCountViaQueryParams
   * def updateParams = 
     """
       { 
@@ -220,8 +301,8 @@ Scenario: APAC_Japan_Dplay_All_CustomText_JP - Validate Item Counts - Wochit Map
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  
-Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Renditions Table for <ASPECTRATIO>
+
+Scenario Outline: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Validate Wochit Renditions Table for <ASPECTRATIO>
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitRendition_Entry = read(currentTCPath + '/Output/Expected_WochitRendition_Entry.json')
@@ -233,7 +314,8 @@ Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Rendition
         Param_ScanVal1: #(RenditionFileName),
         Param_ScanAttr2:'aspectRatio',
         Param_ScanVal2: <ScanVal>,
-        Expected_WochitRendition_Entry: #(Expected_WochitRendition_Entry)
+        Expected_WochitRendition_Entry: #(Expected_WochitRendition_Entry),
+         AWSregion: #(AWSregion)
       }
     """
   * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateWochitRenditionPayload') validateRenditionPayloadParams
@@ -251,21 +333,33 @@ Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Rendition
   Examples:
     | validateWochitRenditionTestData |
 
-Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Technical Metadata for Composite View ID: <COMPOSITEVIEWID>
+Scenario Outline: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
   * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
-  * def getItemMAMAssetInfoParams = 
+  * def ValidateItemViaQueryParams = 
     """
       {
         Param_TableName: #(MAMAssetsInfoTableName),
-        Param_PartitionKey: 'assetId', 
-        Param_SortKey: 'compositeViewsId',
-        ParamPartionKeyVal: #(Iconik_AssetID), 
-        ParamSortKeyVal: <COMPOSITEVIEWID>,
-        Expected_MAMAssetInfo_Entry: #(Expected_MAMAssetInfo_Entry)
+        Param_QueryInfoList: [
+          {
+            infoName: 'assetId',
+            infoValue: #(Iconik_AssetID),
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'compositeViewsId',
+            infoValue: <COMPOSITEVIEWID>,
+            infoComparator: '=',
+            infoType: 'key'
+          }
+        ],
+        Param_GlobalSecondaryIndex: '',
+        Param_ExpectedResponse: #(Expected_MAMAssetInfo_Entry),
+        AWSregion: #(AWSregion)
       }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@GetItemMAMAssetInfo') getItemMAMAssetInfoParams
+  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery') ValidateItemViaQueryParams
   * def updateParams = 
     """
       { 
@@ -280,20 +374,34 @@ Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Technical Metada
   Examples:
     | validateTechnicalMetadataTestData |
 
-Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
-  * def validateWochitMappingPayloadParams =
+  * def ValidateItemViaQueryParams = 
     """
       {
         Param_TableName: #(WochitMappingTableName),
-        Param_ScanAttr1: 'renditionFileName',
-        Param_ScanVal1: '#(RenditionFileName)',
-        Expected_WochitMapping_Entry: '#(Expected_WochitMapping_Entry)'
+        Param_QueryInfoList: [
+          {
+            infoName: 'mamAssetInfoReferenceId',
+            infoValue: #(Iconik_AssetID),
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'renditionFileName',
+            infoValue: #(RenditionFileName),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          }
+        ],
+        Param_GlobalSecondaryIndex: #(WochitMappingTableGSI),
+        Param_ExpectedResponse: #(Expected_WochitMapping_Entry),
+        AWSregion: #(AWSregion)
       }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateWochitMappingPayload') validateWochitMappingPayloadParams
+  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery') ValidateItemViaQueryParams
   * def updateParams = 
     """
       { 
@@ -308,7 +416,7 @@ Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Mapping T
   Examples:
     | validateWochitMappingProcessingTestData |
 
-Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
@@ -317,13 +425,27 @@ Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Mapping T
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
   * def retries = 10
-  * def validateWochitMappingPayloadParams =
+  * def ValidateItemViaQueryParams = 
     """
       {
         Param_TableName: #(WochitMappingTableName),
-        Param_ScanAttr1: 'renditionFileName',
-        Param_ScanVal1: '#(RenditionFileName)',
-        Expected_WochitMapping_Entry: '#(Expected_WochitMapping_Entry)'
+        Param_QueryInfoList: [
+          {
+            infoName: 'mamAssetInfoReferenceId',
+            infoValue: #(Iconik_AssetID),
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'renditionFileName',
+            infoValue: #(RenditionFileName),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          }
+        ],
+        Param_GlobalSecondaryIndex: #(WochitMappingTableGSI),
+        Param_ExpectedResponse: #(Expected_WochitMapping_Entry),
+        AWSregion: #(AWSregion)
       }
     """
   * def getResult = 
@@ -332,7 +454,7 @@ Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Mapping T
         var resp = null;
         for(var i = 0; i < retries; i++) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          resp = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateWochitMappingPayload', validateWochitMappingPayloadParams);
+          resp = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
           if(resp['result']['pass']) {
             break;
           } else {

@@ -103,7 +103,7 @@ Background:
       }
     """
 
-Scenario: Nordic_Norway_Dplay_All_DropDownList_NO - Update Season 
+Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Update Season 
   * def scenarioName = 'updateSeason'
   * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
   * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
@@ -130,7 +130,7 @@ Scenario: Nordic_Norway_Dplay_All_DropDownList_NO - Update Season
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplay_All_DropDownList_NO - Update Episode 
+Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Update Episode 
   * def scenarioName = 'updateEpisode'
   * def UpdateEpisodequery = read(currentTCPath+'/Input/EpisodeRequest.json')
   * replace UpdateEpisodequery.CallOutText = RandomCalloutText
