@@ -1,11 +1,11 @@
-@E2E @Regression @Norway @parallel=false 
-Feature:  Dplay_All_CustomText_NO
+@E2E @Regression @Finland @parallel=false @WIP
+Feature:  Dplay_All_CustomText_WOE_FN
 
 Background:
   # NEW
-  * def TCName = 'Dplay_All_CustomText_NO'
-  * def Country = 'Norway'
-  * def EpisodeMetadataType = 'Dplay'
+  * def TCName = 'Dplay_All_CustomText_WOE_FN'
+  * def Country = 'Finland'
+  * def EpisodeMetadataType = 'DplayWithoutEndboard'
   * def AspectRatioSet = 'All'
   * def AWSregion = EnvData[Country]['AWSregion']
   * def WochitMappingTableName = EnvData[Country]['WochitMappingTableName']
@@ -96,11 +96,12 @@ Background:
   * def Random_String_Generator = function(){ return java.lang.System.currentTimeMillis() }
   * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
-  * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
-  * def RandomCalloutText = two.RandomCalloutText
+  # * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
+  # * def RandomCalloutText = two.RandomCalloutText
   * def three = callonce read(FeatureFilePath+'/RandomGenerator.feature@CTA')
   * def RandomCTA = three.RandomCTA
-  * print RandomSeriesTitle, RandomCalloutText, RandomCTA
+  # * print RandomSeriesTitle, RandomCalloutText, RandomCTA
+  * print RandomSeriesTitle, RandomCTA
   * configure afterFeature = 
     """
       function() {
@@ -108,7 +109,7 @@ Background:
       }
     """
 
-Scenario: Nordic_Norway_Dplay_All_DropDownList_NO - Update Season 
+Scenario: Nordic_Finland_Dplay_All_DropDownList_FN - Update Season 
   * def scenarioName = 'updateSeason'
   * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
   * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
@@ -135,10 +136,10 @@ Scenario: Nordic_Norway_Dplay_All_DropDownList_NO - Update Season
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplay_All_DropDownList_NO - Update Episode 
+Scenario: Nordic_Finland_Dplay_All_DropDownList_FN - Update Episode 
   * def scenarioName = 'updateEpisode'
   * def UpdateEpisodequery = read(currentTCPath+'/Input/EpisodeRequest.json')
-  * replace UpdateEpisodequery.CallOutText = RandomCalloutText
+  # * replace UpdateEpisodequery.CallOutText = RandomCalloutText
   * replace UpdateEpisodequery.CTA = RandomCTA
   * def Episode_ExpectedResponse = read(currentTCPath+'/Output/ExpectedEpisodeResponse.json')
   * def updateEpisodeParams =
@@ -162,7 +163,7 @@ Scenario: Nordic_Norway_Dplay_All_DropDownList_NO - Update Episode
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Trigger Rendition
+Scenario: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Trigger Rendition
   * def scenarioName = 'triggerRendition'
   * def getRenditionRequestMetadataValues =
     """
@@ -201,7 +202,7 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Trigger Rendition
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   * call Pause 35000
     
-Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - MAM Asset Info
+Scenario: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"
   # * def ExpectedMAMAssetInfoCount = 5
   * def ValidateItemCountViaQueryParams = 
@@ -234,10 +235,11 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - MAM Ass
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit Rendition
+Scenario: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Item Counts - Wochit Rendition
   * def scenarioName = "validateWochitRenditionCount"
   # * def ExpectedWocRenditionCount = 3
-  * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
+  # * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
+  * def ExpectedTitle = RandomCTA
   * def itemCountScanParams = 
     """
       {
@@ -262,10 +264,11 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit 
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit Mapping
+Scenario: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Item Counts - Wochit Mapping
   * def scenarioName = "validateWochitMappingCount"
   # * def ExpectedWochitMappingCount = 3
-  * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
+  # * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
+  * def ExpectedTitle = RandomCTA
   * def ValidateItemCountViaQueryParams = 
     """
       {
@@ -302,9 +305,10 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - Wochit 
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Renditions Table for <ASPECTRATIO>
+Scenario Outline: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Wochit Renditions Table for <ASPECTRATIO>
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
-  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  # * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCTA
   * def Expected_WochitRendition_Entry = read(currentTCPath + '/Output/Expected_WochitRendition_Entry.json')
   * def validateRenditionPayloadParams =
     """
@@ -333,7 +337,7 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Rendit
   Examples:
     | validateWochitRenditionTestData |
 
-Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
+Scenario Outline: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
   * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
   * def ValidateItemViaQueryParams = 
@@ -374,9 +378,10 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Met
   Examples:
     | validateTechnicalMetadataTestData |
 
-Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
-  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  # * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
   * def ValidateItemViaQueryParams = 
     """
@@ -416,13 +421,14 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mappin
   Examples:
     | validateWochitMappingProcessingTestData |
 
-Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
   # ---------
   * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
-  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  # * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
   * def retries = 10
   * def ValidateItemViaQueryParams = 

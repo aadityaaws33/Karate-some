@@ -1,0 +1,19 @@
+{
+  "country": "FINLAND",
+  "modifiedAt": "#notnull",
+  "isRenditionMoved": #(ISRENDITIONMOVED),
+  "wochitRenditionStatus": #(RENDITIONSTATUS),
+  "userName": "#notnull",
+  "assetType": "VIDEO",
+  "createdAt": "#notnull",
+  "episodeCollectionId": "#notnull",
+  "wochitRenditionReferenceId": "#notnull",
+  "createdBy": "#notnull",
+  "seasonCollectionId": "#notnull",
+  "modifiedBy": "#notnull",
+  "ID": "#notnull",
+  "seriesCollectionId": "#notnull",
+  "outputCollectionId": "#notnull",
+  "mamAssetInfoReferenceId": "#(Iconik_AssetID)",
+  "renditionFileName": "#(RenditionFileName)"
+}

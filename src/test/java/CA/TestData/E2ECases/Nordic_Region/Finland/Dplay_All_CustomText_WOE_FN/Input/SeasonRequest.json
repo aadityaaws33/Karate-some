@@ -1,0 +1,53 @@
+{
+  "metadata_values": {
+    "fi-dplay-SeriesTitle": {
+      "field_values": [
+        {
+          "value": "#(RandomSeriesTitle)"
+        }
+      ]
+    },
+    "fi-dplay-Logo": {
+      "field_values": [
+        {
+          "value": "1"
+        }
+      ]
+    },
+    "fi-dplay-Scribble16x9": {
+      "field_values": [
+        {
+          "value": "1"
+        }
+      ]
+    },
+    "fi-dplay-Scribble1x1": {
+      "field_values": [
+        {
+          "value": "2"
+        }
+      ]
+    },
+    "fi-dplay-Scribble4x5": {
+      "field_values": [
+        {
+          "value": "2"
+        }
+      ]
+    },
+    "fi-dplay-Scribble9x16": {
+      "field_values": [
+        {
+          "value": "2"
+        }
+      ]
+    },
+    "fi-dplay-ColouredBox": {
+      "field_values": [
+          {
+              "value": "Aqua"
+          }
+      ]
+  }
+  }
+}

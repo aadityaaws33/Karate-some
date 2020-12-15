@@ -1,4 +1,4 @@
-@E2E @Regression @Japan @parallel=false 
+@Japan @parallel=false 
 Feature:  Dplay_All_CustomText_JP
 
 Background:
