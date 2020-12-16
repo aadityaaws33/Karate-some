@@ -35,10 +35,19 @@
   "assetType": "VIDEO",
   "createdAt": "#notnull",
   "createdBy": "#notnull",
-  "renditionStatus": "PROCESSING",
+  "renditionStatus": "#notnull",
   "width": "#notnull",
   "modifiedBy": "#notnull",
   "programmerName": "#notnull",
   "ID": "#notnull",
+  "wochitResponse": {
+    "duration": "#notnull",
+    "errorMessage": "#ignore",
+    "videoId": "#notnull",
+    "isMonitored": "#notnull",
+    "userId": "#notnull",
+    "videoState": "#notnull",
+    "statusCode": "#notnull"
+  },
   "height": "#notnull"
 }

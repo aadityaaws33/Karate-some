@@ -93,6 +93,7 @@ Background:
         java.lang.Thread.sleep(pause);
       }
     """
+  * call Pause 700
   * def Random_String_Generator = function(){ return java.lang.System.currentTimeMillis() }
   * def chooseCalloutFromList = 
     """
@@ -224,7 +225,7 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Trigger Rendition
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  * call Pause 35000
+  * call Pause 60000
 
 Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"
@@ -399,7 +400,7 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Techni
   Examples:
     | validateTechnicalMetadataTestData |
 
-Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
@@ -441,7 +442,14 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit
   Examples:
     | validateWochitMappingProcessingTestData |
 
-Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario: Hard wait for PROCESSING to FINISH
+  # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
+  * configure abortedStepsShouldPass = true
+  * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
+  # ---------
+  * call Pause 60000*4
+
+Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
@@ -491,7 +499,6 @@ Scenario Outline: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Wochit
         return resp;
       }
     """
-  * call Pause 60000*7
   * def result = call getResult
   * def updateParams = 
     """

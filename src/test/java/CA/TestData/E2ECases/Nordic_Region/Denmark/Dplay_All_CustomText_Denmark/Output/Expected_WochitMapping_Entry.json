@@ -9,6 +9,7 @@
   "episodeCollectionId": "#notnull",
   "wochitRenditionReferenceId": "#notnull",
   "createdBy": "#notnull",
+  "renditionAssetId": "#notnull",
   "seasonCollectionId": "#notnull",
   "modifiedBy": "#notnull",
   "ID": "#notnull",

@@ -38,6 +38,13 @@
           "value": "#(RandomCTA)"
         }
       ]
+    },
+    "no-dplay-isNoTagRequired": {
+      "field_values": [
+          {
+            "value": "false"
+          }
+      ]
     }
   }
 }

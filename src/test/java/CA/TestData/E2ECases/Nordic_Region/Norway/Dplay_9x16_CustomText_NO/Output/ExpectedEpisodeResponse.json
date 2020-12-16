@@ -37,8 +37,11 @@
       ]
     },
     "no-dplay-isNoTagRequired": {
-      "date_created": null,
+      "date_created": "#notnull",
       "field_values": [
+        {
+          "value": "false"
+        }
       ]
     },
     "no-dplay-OutputAspectRatio": {

@@ -2,6 +2,10 @@
 Feature:  Dplay_All_CustomText_WOE_FN
 
 Background:
+  # NOT READY FOR PREPROD
+  * configure abortedStepsShouldPass = true
+  * eval if (TargetEnv.contains('preprod')) {karate.abort()}
+  # ---------
   # NEW
   * def TCName = 'Dplay_All_CustomText_WOE_FN'
   * def Country = 'Finland'
@@ -93,6 +97,7 @@ Background:
         java.lang.Thread.sleep(pause);
       }
     """
+  * call Pause 600
   * def Random_String_Generator = function(){ return java.lang.System.currentTimeMillis() }
   * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
@@ -200,7 +205,7 @@ Scenario: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Trigger Rendition
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  * call Pause 35000
+  * call Pause 60000
     
 Scenario: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"
@@ -378,7 +383,7 @@ Scenario Outline: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Technica
   Examples:
     | validateTechnicalMetadataTestData |
 
-Scenario Outline: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Finland_Dplay_All_CustomText_WOE_FN - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   # * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCTA
@@ -421,7 +426,14 @@ Scenario Outline: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Wochit M
   Examples:
     | validateWochitMappingProcessingTestData |
 
-Scenario Outline: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario: Hard wait for PROCESSING to FINISH
+  # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
+  * configure abortedStepsShouldPass = true
+  * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
+  # ---------
+  * call Pause 60000*4
+
+Scenario Outline: Nordic_Finland_Dplay_All_CustomText_WOE_FN - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
@@ -472,7 +484,6 @@ Scenario Outline: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Wochit M
         return resp;
       }
     """
-  * call Pause 60000*7
   * def result = call getResult
   * def updateParams = 
     """

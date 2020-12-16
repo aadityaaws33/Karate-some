@@ -93,6 +93,7 @@ Background:
         java.lang.Thread.sleep(pause);
       }
     """
+  * call Pause 400
   * def Random_String_Generator = function(){ return java.lang.System.currentTimeMillis() }
   * def RandomSeriesTitle = 'QA Series Japan'
   * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
@@ -280,7 +281,7 @@ Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Technical Metada
   Examples:
     | validateTechnicalMetadataTestData |
 
-Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
@@ -308,7 +309,14 @@ Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Mapping T
   Examples:
     | validateWochitMappingProcessingTestData |
 
-Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario: Hard wait for PROCESSING to FINISH
+  # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
+  * configure abortedStepsShouldPass = true
+  * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
+  # ---------
+  * call Pause 60000*4
+
+Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
@@ -344,7 +352,6 @@ Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Mapping T
         return resp;
       }
     """
-  * call Pause 60000*7
   * def result = call getResult
   * def updateParams = 
     """

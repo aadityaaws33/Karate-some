@@ -1,4 +1,4 @@
-@E2E @Regression @Norway @parallel=false 
+@E2E @Regression @Norway @parallel=false @WIP 
 Feature:  Dplay_All_CustomText_NO
 
 Background:
@@ -93,6 +93,7 @@ Background:
         java.lang.Thread.sleep(pause);
       }
     """
+  * call Pause 500
   * def Random_String_Generator = function(){ return java.lang.System.currentTimeMillis() }
   * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
@@ -199,7 +200,7 @@ Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Trigger Rendition
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  * call Pause 35000
+  * call Pause 60000
     
 Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"
@@ -374,7 +375,7 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Technical Met
   Examples:
     | validateTechnicalMetadataTestData |
 
-Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
@@ -416,7 +417,14 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mappin
   Examples:
     | validateWochitMappingProcessingTestData |
 
-Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario: Hard wait for PROCESSING to FINISH
+  # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
+  * configure abortedStepsShouldPass = true
+  * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
+  # ---------
+  * call Pause 60000*4
+
+Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
@@ -466,7 +474,6 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - Validate Wochit Mappin
         return resp;
       }
     """
-  * call Pause 60000*7
   * def result = call getResult
   * def updateParams = 
     """

@@ -194,7 +194,7 @@ Scenario: Nordic_Norway_Dplay_9x16_CustomText_NO - Trigger Rendition
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  * call Pause 35000
+  * call Pause 60000
     
 # Scenario: Nordic_Norway_Dplay_9x16_CustomText_NO - Validate Item Counts - MAM Asset Info
 #   * def scenarioName = "validateMAM"
