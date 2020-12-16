@@ -466,6 +466,7 @@ Scenario Outline: Nordic_Norway_Dplay_9x16_CustomText_NO - Validate Wochit Mappi
         return resp;
       }
     """
+  * call Pause 60000*7
   * def result = call getResult
   * def updateParams = 
     """

@@ -466,6 +466,7 @@ Scenario Outline: Nordic_Denmark_Dplay_All_CustomText_Denmark - Validate Wochit 
         return resp;
       }
     """
+  * call Pause 60000*7
   * def result = call getResult
   * def updateParams = 
     """

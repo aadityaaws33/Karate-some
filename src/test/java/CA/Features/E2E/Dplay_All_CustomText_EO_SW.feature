@@ -466,6 +466,7 @@ Scenario Outline: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Validate Wochit Map
         return resp;
       }
     """
+  * call Pause 60000*7
   * def result = call getResult
   * def updateParams = 
     """

@@ -472,6 +472,7 @@ Scenario Outline: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Wochit M
         return resp;
       }
     """
+  * call Pause 60000*7
   * def result = call getResult
   * def updateParams = 
     """

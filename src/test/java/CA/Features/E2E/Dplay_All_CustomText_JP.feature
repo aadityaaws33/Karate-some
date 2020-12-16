@@ -344,6 +344,7 @@ Scenario Outline: APAC_Japan_Dplay_All_CustomText_JP - Validate Wochit Mapping T
         return resp;
       }
     """
+  * call Pause 60000*7
   * def result = call getResult
   * def updateParams = 
     """
