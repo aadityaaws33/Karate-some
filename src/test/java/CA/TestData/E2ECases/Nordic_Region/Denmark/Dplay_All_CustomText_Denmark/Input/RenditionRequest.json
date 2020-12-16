@@ -1,0 +1,11 @@
+{
+  "user_id": "#(Iconik_UserId)",
+  "system_domain_id": "da4c0aaa-1d57-11ea-93d8-0a580a3cb9a8",
+  "context": "ASSET",
+  "action_id": "#(Iconik_TriggerRenditionCustomActionID)",
+  "asset_ids": ["#(Iconik_AssetID)"],
+  "collection_ids": ["#(Iconik_SeasonCollectionID)"],
+  "saved_search_ids": [],
+  "metadata_values": #(RenditionRequestMetadataValues),
+  "date_created": "2020-06-12T01:36:38.120385"
+}

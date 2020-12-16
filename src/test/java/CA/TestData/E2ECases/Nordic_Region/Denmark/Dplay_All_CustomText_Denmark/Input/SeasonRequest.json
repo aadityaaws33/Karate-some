@@ -1,0 +1,53 @@
+{
+  "metadata_values": {
+    "dk-dplay-SeriesTitle": {
+      "field_values": [
+        {
+          "value": "#(RandomSeriesTitle)"
+        }
+      ]
+    },
+    "dk-dplay-Logo": {
+      "field_values": [
+        {
+          "value": "3"
+        }
+      ]
+    },
+    "dk-dplay-ColouredBox": {
+      "field_values": [
+        {
+          "value": "Putty"
+        }
+      ]
+    },
+    "dk-dplay-Scribble16x9": {
+      "field_values": [
+        {
+          "value": "2"
+        }
+      ]
+    },
+    "dk-dplay-Scribble1x1": {
+      "field_values": [
+        {
+          "value": "2"
+        }
+      ]
+    },
+    "dk-dplay-Scribble4x5": {
+      "field_values": [
+        {
+          "value": "2"
+        }
+      ]
+    },
+    "dk-dplay-Scribble9x16": {
+      "field_values": [
+        {
+          "value": "2"
+        }
+      ]
+    }
+  }
+}
