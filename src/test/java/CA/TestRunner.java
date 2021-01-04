@@ -48,7 +48,7 @@ public class TestRunner {
 
   @Test
   public void testParallel() {
-    Results results = Runner.path("classpath:CA").hook(new ExecHook()).parallel(3);
+    Results results = Runner.path("classpath:CA").hook(new ExecHook()).parallel(2);
     generateReport(results.getReportDir());
     assertTrue(results.getErrorMessages(), results.getFailCount() == 0);
   }

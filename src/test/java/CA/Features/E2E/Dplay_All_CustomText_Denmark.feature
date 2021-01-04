@@ -1,4 +1,4 @@
-@E2E @Regression @Denmark @parallel=false @WIP
+@E2E @Regression @Denmark @parallel=false 
 Feature:  Dplay_All_CustomText_Denmark
 
 Background:

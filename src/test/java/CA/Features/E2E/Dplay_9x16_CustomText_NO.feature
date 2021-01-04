@@ -1,3 +1,4 @@
+@E2E @Regression @Norway @parallel=false
 Feature:  Dplay_All_CustomText_NO
 
 Background:
