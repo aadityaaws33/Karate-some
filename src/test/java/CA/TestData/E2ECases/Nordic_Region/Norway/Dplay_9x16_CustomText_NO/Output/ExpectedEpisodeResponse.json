@@ -14,13 +14,21 @@
       ]
     },
     "no-dplay-CalloutList-multi": {
-      "date_created": null,
+      "date_created": "#notnull",
       "field_values": [
+        {
+          "label": "#notnull",
+          "value": "#notnull"
+        }
       ]
     },
     "no-dplay-CtaList-multi": {
-      "date_created": null,
+      "date_created": "#notnull",
       "field_values": [
+        {
+          "label": "#notnull",
+          "value": "#notnull"
+        }
       ]
     },
     "__separator__": {
