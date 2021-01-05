@@ -30,7 +30,7 @@
       "date_created": "#notnull",
       "field_values": [
         {
-          "value": ""
+          "value": "#notnull"
         }
       ]
     },
@@ -46,7 +46,7 @@
       "date_created": "#notnull",
       "field_values": [
         {
-          "value": ""
+          "value": "#notnull"
         }
       ]
     },

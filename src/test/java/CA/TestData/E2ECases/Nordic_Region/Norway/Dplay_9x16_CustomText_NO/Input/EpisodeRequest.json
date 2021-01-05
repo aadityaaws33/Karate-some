@@ -37,6 +37,14 @@
             "value": "false"
           }
       ]
+    },
+    "no-dplay-CalloutList-multi":{
+      "field_values":[
+        {
+          "label":"Ny serie",
+          "value":"Ny serie"
+        }
+      ]
     }
   }
 }

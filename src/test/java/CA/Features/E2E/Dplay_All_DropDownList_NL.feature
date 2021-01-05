@@ -168,7 +168,7 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Trigger Rendition
   * def getRenditionRequestMetadataValues =
     """
       function() {
-        if(TargetEnv == 'preprod') {
+        if(TargetEnv == 'preprod' || TargetEnv == 'prod') {
           var metadataValues = karate.read(currentTCPath + '/Input/EpisodeRequest.json');
           return metadataValues['metadata_values'];
         } else {
@@ -281,6 +281,12 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Validate Item Counts - 
           {
             infoName: 'renditionFileName',
             infoValue: #(ExpectedTitle),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          },
+          {
+            infoName: 'seasonCollectionId',
+            infoValue: #(Iconik_SeasonCollectionID),
             infoComparator: 'contains',
             infoType: 'filter'
           }

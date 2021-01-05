@@ -14,20 +14,20 @@
       ]
     },
     "no-dplay-CalloutList-multi": {
-      "date_created": "#notnull",
+      "date_created": "#ignore",
       "field_values": [
         {
-          "label": "#notnull",
-          "value": "#notnull"
+          "label": "#ignore",
+          "value": "#ignore"
         }
       ]
     },
     "no-dplay-CtaList-multi": {
-      "date_created": "#notnull",
+      "date_created": "#ignore",
       "field_values": [
         {
-          "label": "#notnull",
-          "value": "#notnull"
+          "label": "#ignore",
+          "value": "#ignore"
         }
       ]
     },

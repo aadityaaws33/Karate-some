@@ -2,10 +2,6 @@
 Feature:  Dplay_All_CustomText_EO_SW
 
 Background:
-  # NOT READY FOR PREPROD
-  * configure abortedStepsShouldPass = true
-  * eval if (TargetEnv.contains('preprod')) {karate.abort()}
-  # ---------
   # NEW
   * def TCName = 'Dplay_All_CustomText_EO_SW'
   * def Country = 'Sweden'
@@ -172,7 +168,7 @@ Scenario: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Trigger Rendition
   * def getRenditionRequestMetadataValues =
     """
       function() {
-        if(TargetEnv == 'preprod') {
+        if(TargetEnv == 'preprod' || TargetEnv == 'prod') {
           var metadataValues = karate.read(currentTCPath + '/Input/EpisodeRequest.json');
           return metadataValues['metadata_values'];
         } else {
@@ -285,6 +281,12 @@ Scenario: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Validate Item Counts - Woch
           {
             infoName: 'renditionFileName',
             infoValue: #(ExpectedTitle),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          },
+          {
+            infoName: 'seasonCollectionId',
+            infoValue: #(Iconik_SeasonCollectionID),
             infoComparator: 'contains',
             infoType: 'filter'
           }

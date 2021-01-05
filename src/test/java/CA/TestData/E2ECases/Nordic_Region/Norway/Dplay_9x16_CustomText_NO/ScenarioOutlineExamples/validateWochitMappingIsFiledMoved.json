@@ -18,5 +18,15 @@
         "ISRENDITIONMOVED": "true"
       }
     ]
+  },
+  "prod": {
+    "9x16": [
+      {
+        "FNAMEPREFIX": "'DAQ CA Test NO-dplay_9x16'",
+        "ASPECTRATIO": "'9x16'",
+        "RENDITIONSTATUS": "FINISHED",
+        "ISRENDITIONMOVED": "true"
+      }
+    ]
   }
 }

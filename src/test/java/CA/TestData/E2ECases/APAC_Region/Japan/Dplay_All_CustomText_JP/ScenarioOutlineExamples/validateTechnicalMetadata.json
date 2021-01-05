@@ -18,5 +18,12 @@
         "COMPOSITEVIEWID": "534b3dec-f0e1-11ea-b811-0a580a3c0e49|e60ec1de-f0e2-11ea-abaf-0a580a3cf01e"
       }
     ]
+  },
+  "prod": {
+    "All": [
+      {
+        "COMPOSITEVIEWID": "534b3dec-f0e1-11ea-b811-0a580a3c0e49|e60ec1de-f0e2-11ea-abaf-0a580a3cf01e"
+      }
+    ]
   }
 }

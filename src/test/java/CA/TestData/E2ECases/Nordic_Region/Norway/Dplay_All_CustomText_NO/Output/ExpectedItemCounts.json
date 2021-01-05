@@ -12,5 +12,12 @@
       "ExpectedWocRenditionCount": 3,
       "ExpectedWochitMappingCount": 3
     }
+  },
+  "prod": {
+    "All": {
+      "ExpectedMAMAssetInfoCount": 5,
+      "ExpectedWocRenditionCount": 3,
+      "ExpectedWochitMappingCount": 3
+    }
   } 
 }

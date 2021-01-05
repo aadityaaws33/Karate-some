@@ -31,7 +31,9 @@
       "nl-dplayebo-CalloutList-multi": "#notnull",
       "nl-dplayebo-CalloutText-multi": "#notnull",
       "nl-dplayebo-CtaList-multi": "#notnull",
-      "nl-dplayebo-CtaText-multi": "#notnull"
+      "nl-dplayebo-CtaText-multi": "#notnull",
+      "nl-dplay-CalloutText-multi": "#ignore",
+      "nl-dplay-CtaText-multi": "#ignore"
     },
     "objectFilePath": "#(Iconik_TechnicalMetadataObjectName)",
     "name": "#notnull",

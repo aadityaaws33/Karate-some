@@ -168,7 +168,7 @@ Scenario: Nordic_Norway_Dplay_9x16_CustomText_NO - Trigger Rendition
   * def getRenditionRequestMetadataValues =
     """
       function() {
-        if(TargetEnv == 'preprod') {
+        if(TargetEnv == 'preprod' || TargetEnv == 'prod') {
           var metadataValues = karate.read(currentTCPath + '/Input/EpisodeRequest.json');
           return metadataValues['metadata_values'];
         } else {
@@ -283,6 +283,12 @@ Scenario: Nordic_Norway_Dplay_9x16_CustomText_NO - Validate Item Counts - Wochit
             infoValue: #(ExpectedTitle),
             infoComparator: 'contains',
             infoType: 'filter'
+          },
+          {
+            infoName: 'seasonCollectionId',
+            infoValue: #(Iconik_SeasonCollectionID),
+            infoComparator: 'contains',
+            infoType: 'filter'
           }
         ],
         Param_GlobalSecondaryIndex: #(WochitMappingTableGSI),
@@ -393,6 +399,12 @@ Scenario Outline: Nordic_Norway_Dplay_9x16_CustomText_NO - PROCESSING - Validate
           {
             infoName: 'renditionFileName',
             infoValue: #(RenditionFileName),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          },
+          {
+            infoName: 'seasonCollectionId',
+            infoValue: #(Iconik_SeasonCollectionID),
             infoComparator: 'contains',
             infoType: 'filter'
           }
