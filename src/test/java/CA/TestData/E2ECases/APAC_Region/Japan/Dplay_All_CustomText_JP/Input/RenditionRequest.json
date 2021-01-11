@@ -5,6 +5,7 @@
   "action_id": "#(Iconik_TriggerRenditionCustomActionID)",
   "collection_ids": ["#(Iconik_SeasonCollectionID)"],
   "asset_ids":["#(Iconik_AssetID)"],
+  "auth_token": "#(Iconik_AuthToken)",
   "metadata_values":{
     "jp-dplay-OutputAspectRatio":{
       "field_values":[

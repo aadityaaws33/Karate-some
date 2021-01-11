@@ -2,8 +2,8 @@ Feature: Rendition
 
 Background: 
   * url URL
-  * header Auth-Token = Auth_Token
-  * header App-ID = App_ID
+  * header Auth-Token = Iconik_AuthToken
+  * header App-ID = Iconik_AppID
   * def formAuthHeader = 
     """
       function (creds) {
@@ -15,8 +15,8 @@ Background:
     """
   * header Authorization = call formAuthHeader IconikCredentials
 Scenario: Rendition
-#* print '--------------Season Request-----------'+RenditionQuery
-When request RenditionQuery
+#* print '--------------Season Request-----------'+RenditionRequestPayload
+When request RenditionRequestPayload
 And method post
 Then def result = karate.match('response contains RenditionExpectedResponse')
 

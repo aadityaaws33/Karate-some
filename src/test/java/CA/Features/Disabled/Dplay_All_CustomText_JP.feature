@@ -15,7 +15,7 @@ Background:
   * def Iconik_EpisodeVersionID = EnvData[Country]['Iconik_EpisodeVersionID']
   * def Iconik_EpisodeMetadataObjectID = EnvData[Country]['Iconik_EpisodeMetadataObjectID']
   * def Iconik_AssetID = EnvData[Country]['Iconik_AssetID']
-  * def Iconik_SeasonCollectionID = EnvData[Country]['Iconik_SeasonCollectionID']  
+  * def Iconik_SeasonCollectionID = EnvData[Country]['Iconik_SeasonCollectionID']
   * def Iconik_TriggerRenditionCustomActionName = EnvData[Country]['Iconik_TriggerRenditionCustomActionName']
   * def Iconik_TriggerRenditionCustomActionName = EnvData[Country]['Iconik_TriggerRenditionCustomActionName'][EpisodeMetadataType]
   * def Iconik_TechnicalMetadataID = EnvData[Country]['Iconik_TechnicalMetadataID']
@@ -50,8 +50,8 @@ Background:
       {
         URL: #(Iconik_TriggerRenditionCustomActionListURL),
         Iconik_TriggerRenditionCustomActionName: #(Iconik_TriggerRenditionCustomActionName),
-        Auth_Token: #(Auth_Token),
-        App_ID: #(App_ID)
+        Iconik_AuthToken: #(Iconik_AuthToken),
+        Iconik_AppID: #(Iconik_AppID)
       }
     """
   * def IconikRenditionURLInfo = call read(FeatureFilePath + '/Iconik.feature@GetRenditionHTTPInfo') GetRenditionHTTPInfoParams
@@ -110,13 +110,13 @@ Background:
 
 Scenario: APAC_Japan_Dplay_All_CustomText_JP - Trigger Rendition
   * def scenarioName = 'triggerRendition'
-  * def Renditionquery = read(currentTCPath+'/Input/RenditionRequest.json')
+  * def RenditionRequestPayload = read(currentTCPath+'/Input/RenditionRequest.json')
   * def Rendition_ExpectedResponse = read(currentTCPath+'/Output/ExpectedRenditionResponse.json')
   * def renditionParams = 
     """
       {
         URL: #(TriggerRenditionURL),
-        RenditionQuery: '#(Renditionquery)',
+        RenditionRequestPayload: '#(RenditionRequestPayload)',
         RenditionExpectedResponse: '#(Rendition_ExpectedResponse)',
         IconikCredentials: #(IconikCredentials)
       }

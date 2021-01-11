@@ -7,5 +7,6 @@
   "collection_ids": ["#(Iconik_SeasonCollectionID)"],
   "saved_search_ids": [],
   "metadata_values": #(RenditionRequestMetadataValues),
-  "date_created": "2020-06-12T01:36:38.120385"
+  "date_created": "2020-06-12T01:36:38.120385",
+  "auth_token": "#(Iconik_AuthToken)"
 }

@@ -50,8 +50,8 @@ Background:
       {
         URL: #(Iconik_TriggerRenditionCustomActionListURL),
         Iconik_TriggerRenditionCustomActionName: #(Iconik_TriggerRenditionCustomActionName),
-        Auth_Token: #(Auth_Token),
-        App_ID: #(App_ID)
+        Iconik_AuthToken: #(Iconik_AuthToken),
+        Iconik_AppID: #(Iconik_AppID)
       }
     """
   * def IconikRenditionURLInfo = call read(FeatureFilePath + '/Iconik.feature@GetRenditionHTTPInfo') GetRenditionHTTPInfoParams
@@ -202,13 +202,13 @@ Scenario: Nordic_Netherlands_Dplay_All_DropDownList_NL - Trigger Rendition
       }
     """
   * def RenditionRequestMetadataValues = call getRenditionRequestMetadataValues
-  * def Renditionquery = read(currentTCPath+'/Input/RenditionRequest.json')
+  * def RenditionRequestPayload = read(currentTCPath+'/Input/RenditionRequest.json')
   * def Rendition_ExpectedResponse = read(currentTCPath+'/Output/ExpectedRenditionResponse.json')
   * def renditionParams = 
     """
       {
         URL: #(TriggerRenditionURL),
-        RenditionQuery: '#(Renditionquery)',
+        RenditionRequestPayload: '#(RenditionRequestPayload)',
         RenditionExpectedResponse: '#(Rendition_ExpectedResponse)',
         IconikCredentials: #(IconikCredentials)
       }

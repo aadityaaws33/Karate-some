@@ -6,14 +6,6 @@
   "videoUpdates": {
     "linkedFields": [
       {
-        "value": "#? parseInt(_) > 0",
-        "key": "Dplay.Video.Tag.IN-SecAfterVideoStarts"
-      },
-      {
-        "value": "#(RandomSeriesTitle)",
-        "key": "Dplay.Video.Tag.SeriesTitle"
-      },
-      {
         "key": "Dplay.Video.Endboard.Keyart"
       },
       {
@@ -33,16 +25,24 @@
         "key": "Dplay.Video.Endboard.SeriesTitle"
       },
       {
+        "value": "#? parseInt(_) > 0",
+        "key": "Dplay.Video.Tag.IN-SecAfterVideoStarts"
+      },
+      {
+        "value": "#(RandomSeriesTitle)",
+        "key": "Dplay.Video.Tag.SeriesTitle"
+      },
+      {
         "value": "#(RandomCalloutText)",
         "key": "Dplay.Video.Endboard.DplayCallout"
       },
       {
         "value": "#(RandomCTA)",
-        "key": "Dplay.Video.Tag.DplayCTA"
+        "key": "Dplay.Video.Endboard.DplayCTA"
       },
       {
         "value": "#(RandomCTA)",
-        "key": "Dplay.Video.Endboard.DplayCTA"
+        "key": "Dplay.Video.Tag.DplayCTA"
       }
     ],
     "title": "#(RenditionFileName)",

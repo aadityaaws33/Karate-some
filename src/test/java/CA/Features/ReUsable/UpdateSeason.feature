@@ -3,8 +3,8 @@ Feature:  Update Season
 
 Background: 
   * url URL
-  * header Auth-Token = Auth_Token
-  * header App-ID = App_ID
+  * header Auth-Token = Iconik_AuthToken
+  * header App-ID = Iconik_AppID
   * request Query
   * method put
 

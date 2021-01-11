@@ -1,7 +1,7 @@
 Feature: Iconik functionalities
 
 @GetRenditionHTTPInfo
-Scenario: Get custom action list from Iconik
+Scenario: Get Rendition URL from custom action list via Iconik API
   * def getRenditionHTTPInfo =
     """
       function (resp) {
@@ -14,28 +14,37 @@ Scenario: Get custom action list from Iconik
             break;
           }
         }
-        // SPLIT USERNAME AND PASSWORD
-        var creds = url.split('\/\/')[1].split('@')[0];
-        var username = creds.split(':')[0];
-        var password = creds.split(':')[1];
-        
-        // SPLIT URL endpoint
-        var protocol = url.split('\/\/')[0];
-        var endpoint = url.split('\/\/')[1].split('@')[1];
         var finalResp = {
-          URL: protocol + '//' + endpoint,
-          username: username,
-          password: password
+          URL: url
         }
         return finalResp
       }
     """
   Given url URL
-  And header Auth-Token = Auth_Token
-  And header App-ID = App_ID
+  And header Auth-Token = Iconik_AuthToken
+  And header App-ID = Iconik_AppID
   When method get
   * print response
   Then def result = call getRenditionHTTPInfo response
+
+@GetAppTokenInfo
+Scenario: Get Authentication Token from Application Token via Iconik API
+  * def getAppTokenInfo =
+    """
+      function (resp) {
+        var finalResp = {
+          Iconik_AuthToken: resp['token'],
+          Iconik_AppID: resp['app_id']
+        }
+        return finalResp
+      }
+    """
+  Given url URL
+  And header Content-Type = 'application/json'
+  And request GetAppTokenInfoPayload
+  When method post
+  * print response
+  Then def result = call getAppTokenInfo response
 
 @TriggerRendition
 Scenario: Rendition
@@ -49,9 +58,9 @@ Scenario: Rendition
       }
     """
   Given url URL
-  When header Auth-Token = Auth_Token
-  And header App-ID = App_ID
-  And header Authorization = call formAuthHeader IconikCredentials
-  And request RenditionQuery
+  When header Auth-Token = Iconik_AuthToken
+  And header App-ID = Iconik_AppID
+  # And header Authorization = call formAuthHeader IconikCredentials
+  And request RenditionRequestPayload
   And method post
   Then def result = karate.match('response contains RenditionExpectedResponse')

@@ -15,16 +15,30 @@ Background:
   # Iconik Stuff Start
   * def Iconik_EpisodeVersionID = EnvData[Country]['Iconik_EpisodeVersionID']
   * def Iconik_EpisodeMetadataObjectID = EnvData[Country]['Iconik_EpisodeMetadataObjectID']
-  * def Iconik_AssetID = EnvData[Country]['Iconik_AssetID']
-  * def Iconik_SeasonCollectionID = EnvData[Country]['Iconik_SeasonCollectionID']  
+  * def Iconik_AssetID = EnvData[Country]['Iconik_AssetID'][EpisodeMetadataType][AspectRatioSet]
+  * def Iconik_SeasonCollectionID = EnvData[Country]['Iconik_SeasonCollectionID']
   * def Iconik_TriggerRenditionCustomActionName = EnvData[Country]['Iconik_TriggerRenditionCustomActionName'][EpisodeMetadataType]
   * def Iconik_TriggerRenditionCustomActionID = EnvData[Country]['Iconik_TriggerRenditionCustomActionID']
   * def Iconik_TechnicalMetadataID = EnvData[Country]['Iconik_TechnicalMetadataID']
   * def Iconik_TechnicalMetadataObjectID = EnvData[Country]['Iconik_TechnicalMetadataObjectID']
-  * def Iconik_TechnicalMetadataObjectName = EnvData[Country]['Iconik_TechnicalMetadataObjectName']
+  * def Iconik_TechnicalMetadataObjectName = EnvData[Country]['Iconik_TechnicalMetadataObjectName'][EpisodeMetadataType][AspectRatioSet]
   * def Iconik_SystemDomainID = EnvData[Country]['Iconik_SystemDomainID']
   * def Iconik_UpdateSeasonURL =  EnvData[Country]['Iconik_UpdateSeasonURL']
-  * def Iconik_UpdateEpisodeURL =  EnvData[Country]['Iconik_UpdateEpisodeURL'][EpisodeMetadataType]
+  * def Iconik_UpdateEpisodeURL =  EnvData[Country]['Iconik_UpdateEpisodeURL'][EpisodeMetadataType][AspectRatioSet]
+  * def Iconik_UserId = EnvData['Common']['Iconik_UserId'][TargetTag]
+  * def Iconik_TriggerRenditionCustomActionListURL = EnvData['Common']['Iconik_TriggerRenditionCustomActionListURL']
+  * def Iconik_GetAppTokenInfoURL = EnvData['Common']['Iconik_GetAppTokenInfoURL']
+  * def Iconik_AppTokenName = EnvData['Common']['Iconik_AppTokenName']
+  * def Iconik_AdminEmail = eval("SecretsData['Iconik-AdminEmail" + TargetEnv + "']")
+  * def Iconik_AdminPassword = eval("SecretsData['Iconik-AdminPassword" + TargetEnv + "']")
+  * def Iconik_GetAppTokenInfoPayload = 
+    """
+      {
+        "app_name": #(Iconik_AppTokenName),
+        "email":  #(Iconik_AdminEmail),
+        "password": #(Iconik_AdminPassword)
+      }
+    """
   # Iconik Stuff End
   * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
   * def tcResultWritePath = 'test-classes/' + TCName + '.json'
@@ -45,26 +59,28 @@ Background:
   * def ExpectedWochitMappingCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][AspectRatioSet]['ExpectedWochitMappingCount']
   # Expected Item Counts End
   # NEW
+  * def GetAppTokenInfoParams =
+    """
+      {
+        URL: "#(Iconik_GetAppTokenInfoURL)",
+        GetAppTokenInfoPayload: #(Iconik_GetAppTokenInfoPayload)
+      }
+    """
+  * def IconikAuthenticationInfo = callonce read(FeatureFilePath + '/Iconik.feature@GetAppTokenInfo') GetAppTokenInfoParams
+  * def Iconik_AuthToken = IconikAuthenticationInfo.result.Iconik_AuthToken
+  * def Iconik_AppID = IconikAuthenticationInfo.result.Iconik_AppID
   * def GetRenditionHTTPInfoParams =
     """
       {
         URL: #(Iconik_TriggerRenditionCustomActionListURL),
         Iconik_TriggerRenditionCustomActionName: #(Iconik_TriggerRenditionCustomActionName),
-        Auth_Token: #(Auth_Token),
-        App_ID: #(App_ID)
+        Iconik_AuthToken: #(Iconik_AuthToken),
+        Iconik_AppID: #(Iconik_AppID)
       }
     """
   * def IconikRenditionURLInfo = call read(FeatureFilePath + '/Iconik.feature@GetRenditionHTTPInfo') GetRenditionHTTPInfoParams
   * def TriggerRenditionURL = IconikRenditionURLInfo.result.URL
-  * def IconikCredentials =
-    """
-      {
-        username: #(IconikRenditionURLInfo.result.username),
-        password: #(IconikRenditionURLInfo.result.password)
-      }
-    """
   * print TriggerRenditionURL
-  * print IconikCredentials
   * def placeholderParams = 
     """
       { 
@@ -93,8 +109,15 @@ Background:
         java.lang.Thread.sleep(pause);
       }
     """
-  * call Pause 600
-  * def Random_String_Generator = function(){ return java.lang.System.currentTimeMillis() }
+  * def Random_String_Generator = 
+    """
+      function(){ 
+        var pause = 4000;
+        karate.log('Pausing for ' + pause + ' milliseconds');
+        java.lang.Thread.sleep(pause);
+        return java.lang.System.currentTimeMillis() 
+      }
+    """
   * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
   # * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
@@ -178,13 +201,13 @@ Scenario: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Trigger Rendition
       }
     """
   * def RenditionRequestMetadataValues = call getRenditionRequestMetadataValues
-  * def Renditionquery = read(currentTCPath+'/Input/RenditionRequest.json')
+  * def RenditionRequestPayload = read(currentTCPath+'/Input/RenditionRequest.json')
   * def Rendition_ExpectedResponse = read(currentTCPath+'/Output/ExpectedRenditionResponse.json')
   * def renditionParams = 
     """
       {
         URL: #(TriggerRenditionURL),
-        RenditionQuery: '#(Renditionquery)',
+        RenditionRequestPayload: '#(RenditionRequestPayload)',
         RenditionExpectedResponse: '#(Rendition_ExpectedResponse)',
         IconikCredentials: #(IconikCredentials)
       }
@@ -249,7 +272,7 @@ Scenario: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Item Counts - Wo
         Param_Atrvalue1: #(ExpectedTitle),
         Param_Operator: 'contains',
         Param_ExpectedItemCount: #(ExpectedWocRenditionCount),
-         AWSregion: #(AWSregion)
+        AWSregion: #(AWSregion)
       }    
     """
   * def result = call read(FeatureFilePath+'/Dynamodb.feature@ItemCountScan') itemCountScanParams
@@ -326,7 +349,7 @@ Scenario Outline: Nordic_Finland_Dplay_All_CustomText_WOE_FN - Validate Wochit R
         Param_ScanAttr2:'aspectRatio',
         Param_ScanVal2: <ScanVal>,
         Expected_WochitRendition_Entry: #(Expected_WochitRendition_Entry),
-         AWSregion: #(AWSregion)
+        AWSregion: #(AWSregion)
       }
     """
   * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateWochitRenditionPayload') validateRenditionPayloadParams
@@ -404,6 +427,12 @@ Scenario Outline: Nordic_Finland_Dplay_All_CustomText_WOE_FN - PROCESSING - Vali
           {
             infoName: 'renditionFileName',
             infoValue: #(RenditionFileName),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          },
+          {
+            infoName: 'seasonCollectionId',
+            infoValue: #(Iconik_SeasonCollectionID),
             infoComparator: 'contains',
             infoType: 'filter'
           }
