@@ -118,6 +118,7 @@ Background:
         return java.lang.System.currentTimeMillis() 
       }
     """
+  * callonce Pause 1000
   * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
   * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')

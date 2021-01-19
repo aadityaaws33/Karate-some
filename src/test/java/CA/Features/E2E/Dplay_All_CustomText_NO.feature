@@ -118,6 +118,7 @@ Background:
         return java.lang.System.currentTimeMillis() 
       }
     """
+  * callonce Pause 3000
   * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
   * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
@@ -132,32 +133,32 @@ Background:
       }
     """
 
-Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Update Season 
-  * def scenarioName = 'updateSeason'
-  * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
-  * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
-  * def Season_expectedResponse = read(currentTCPath+'/Output/ExpectedSeasonResponse.json')
-  * def updateSeasonParams =
-    """
-      {
-        URL: '#(Iconik_UpdateSeasonURL)',
-        Query: '#(UpdateSeasonquery)', 
-        ExpectedResponse: #(Season_expectedResponse),
-      }
-    """
-  * def result = call read(FeatureFilePath+'/UpdateSeason.feature') updateSeasonParams
-  * print result
-  * def updateParams = 
-    """
-      { 
-        tcName: #(TCName),
-        scenarioName: #(scenarioName),
-        result: #(result.result),
-        tcResultReadPath: #(tcResultReadPath),
-        tcResultWritePath: #(tcResultWritePath)
-      }
-    """
-  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+# Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Update Season 
+#   * def scenarioName = 'updateSeason'
+#   * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
+#   * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
+#   * def Season_expectedResponse = read(currentTCPath+'/Output/ExpectedSeasonResponse.json')
+#   * def updateSeasonParams =
+#     """
+#       {
+#         URL: '#(Iconik_UpdateSeasonURL)',
+#         Query: '#(UpdateSeasonquery)', 
+#         ExpectedResponse: #(Season_expectedResponse),
+#       }
+#     """
+#   * def result = call read(FeatureFilePath+'/UpdateSeason.feature') updateSeasonParams
+#   * print result
+#   * def updateParams = 
+#     """
+#       { 
+#         tcName: #(TCName),
+#         scenarioName: #(scenarioName),
+#         result: #(result.result),
+#         tcResultReadPath: #(tcResultReadPath),
+#         tcResultWritePath: #(tcResultWritePath)
+#       }
+#     """
+#   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
 Scenario: Nordic_Norway_Dplay_All_CustomText_NO - Update Episode 
   * def scenarioName = 'updateEpisode'

@@ -443,7 +443,7 @@ public class DynamoDBUtils {
     }
 
     // USED
-    public int Scan_GetTableItemCount(String TableName, String AtrName1, String AtrVal1,String Op) {
+    public List<String> Scan_GetTableItemCount(String TableName, String AtrName1, String AtrVal1,String Op) {
         List<String> getitemJsonList = new ArrayList<>();
         ScanSpec scanSpec  = null;
         table = dynamoDB.getTable(TableName);
@@ -499,7 +499,7 @@ public class DynamoDBUtils {
 
         //System.out.println("--------------Size of Scan---------" + getitemJsonList.size());
         // items.getAccumulatedItemCount());
-        return getitemJsonList.size();
+        return getitemJsonList;
 
     }
 
@@ -508,21 +508,21 @@ public class DynamoDBUtils {
     //**********UNUSED FUNCTIONS ***********/
 
     // NOT USED
-    public int WaitforDBUpdate(String ScanAtr, String ScanVal) throws InterruptedException
-    {
-        int itemCount = Scan_GetTableItemCount("CA_WOCHIT_RENDITIONS_EU-qa",ScanAtr,ScanVal,"=");
-        int waitTime = 30000;
-        int maxRetries = 1;
-        int retries = 0;
-        while(retries < maxRetries & itemCount <= 0)
-        {
-        System.out.println("---------Intentional Wait for DB Update until item count > 0---------");
-        Thread.sleep(waitTime);
-        retries++;
-        itemCount = Scan_GetTableItemCount("CA_WOCHIT_RENDITIONS_EU-qa",ScanAtr,ScanVal,"=");
-        }
-        return itemCount;
-    }
+    // public int WaitforDBUpdate(String ScanAtr, String ScanVal) throws InterruptedException
+    // {
+    //     int itemCount = Scan_GetTableItemCount("CA_WOCHIT_RENDITIONS_EU-qa",ScanAtr,ScanVal,"=");
+    //     int waitTime = 30000;
+    //     int maxRetries = 1;
+    //     int retries = 0;
+    //     while(retries < maxRetries & itemCount <= 0)
+    //     {
+    //     System.out.println("---------Intentional Wait for DB Update until item count > 0---------");
+    //     Thread.sleep(waitTime);
+    //     retries++;
+    //     itemCount = Scan_GetTableItemCount("CA_WOCHIT_RENDITIONS_EU-qa",ScanAtr,ScanVal,"=");
+    //     }
+    //     return itemCount;
+    // }
 
     // NOT USED
     public List<String> Scan_DB_GetSingleItem(String TableName,String ScanAttribute, String ScanValue,String ProjectionExp) {

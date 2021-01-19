@@ -55,7 +55,7 @@
       "no-dplay-Scribble1x1": "#? parseInt(_) > 0",
       "no-dplay-Logo": "#? parseInt(_) > 0",
       "no-dplay-Scribble16x9": "#? parseInt(_) > 0",
-      "no-dplay-SeriesTitle": "#(RandomSeriesTitle)",
+      "no-dplay-SeriesTitle": "#notnull",
       "no-dplay-Scribble9x16": "#? parseInt(_) > 0",
       "no-dplay-ColouredBox": "#notnull",
       "no-linear-Logo-multi": "#notnull",

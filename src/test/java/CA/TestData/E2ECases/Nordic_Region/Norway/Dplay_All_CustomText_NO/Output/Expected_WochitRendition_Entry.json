@@ -10,7 +10,7 @@
         "key": "Dplay.Video.Tag.IN-SecAfterVideoStarts"
       },
       {
-        "value": "#(RandomSeriesTitle)",
+        "value": "#notnull",
         "key": "Dplay.Video.Tag.SeriesTitle"
       },
       {
@@ -29,7 +29,7 @@
         "key": "Dplay.Video.Endboard.ColouredBoxes"
       },
       {
-        "value": "#(RandomSeriesTitle)",
+        "value": "#notnull",
         "key": "Dplay.Video.Endboard.SeriesTitle"
       },
       {

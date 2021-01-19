@@ -26,19 +26,19 @@
       {
         "FNAMEPREFIX": "'DAQ CA Test FN-dplay_16x9_woendboard'",
         "ASPECTRATIO": "'16x9'",
-        "TEMPLATEID": "5ebb4c377f8c3b07249d5e80",
+        "TEMPLATEID": "5ebb68ddeff13f1e3a9c439c",
         "ScanVal": "ASPECT_16_9"
       },
       {
         "FNAMEPREFIX": "'DAQ CA Test FN-dplay_4x5_woendboard'",
         "ASPECTRATIO": "'4x5'",
-        "TEMPLATEID": "5ebb596b7f8c3b07249d5e8b",
+        "TEMPLATEID": "5ebb6affeff13f1e3a9c43a2",
         "ScanVal": "ASPECT_4_5"
       },
       {
         "FNAMEPREFIX": "'DAQ CA Test FN-dplay_1x1_woendboard'",
         "ASPECTRATIO": "'1x1'",
-        "TEMPLATEID": "5ebb5b25eff13f1e3a9c4399",
+        "TEMPLATEID": "5ebb69bc5eb7f30d4b095804",
         "ScanVal": "ASPECT_1_1"
       }
     ]

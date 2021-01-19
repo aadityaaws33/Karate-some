@@ -163,8 +163,9 @@ Scenario: Get Item Count of Table with Scan
         );
     }
     """
-* def itemCount = call getItemCountScan
-* print itemCount
+* def itemList = call getItemCountScan
+* print itemList
+* def itemCount = itemList.length
 * def result = karate.match(itemCount, Param_ExpectedItemCount)
 * print result
 #* print '----------------Actual Item Count------------'+temp
