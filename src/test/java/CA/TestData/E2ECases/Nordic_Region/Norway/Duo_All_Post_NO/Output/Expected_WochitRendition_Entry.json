@@ -1,0 +1,67 @@
+{
+  "modifiedAt": "#notnull",
+  "aspectRatio": #(ScanVal),
+  "userName": "#notnull",
+  "templateId": #(TEMPLATEID),
+  "videoUpdates": {
+    "linkedFields": [
+      {
+        "value": "#notnull",
+        "key": "Duo.TopLine.SeriesTitle"
+      },
+      {
+        "key": "Duo.TopLine.LinearCTA"
+      },
+      {
+        "key": "Duo.EndPage.Duration"
+      },
+      {
+        "value": "#(RandomCTA)",
+        "key": "Duo.EndPage.LinearCTA"
+      },
+      {
+        "value": "Se gratis på",
+        "key": "Duo.EndPage.DplayCTA"
+      },
+      {
+        "value": "#notnull",
+        "key": "Duo.TopLine.Logo"
+      },
+      {
+        "value": "#notnull",
+        "key": "Duo.EndPage.LogoLine2"
+      }
+    ],
+    "title": "#(RenditionFileName)",
+    "timelineItems": [
+      {
+        "volumeControl": {
+          "bgMusic": "0.0",
+          "video": "1.0"
+        },
+        "itemType": "VIDEO_SEGMENT",
+        "videoUrl": "#notnull",
+        "segmentEndTime": "30.0",
+        "segmentStartTime": "0.0"
+      }
+    ]
+  },
+  "assetType": "VIDEO",
+  "createdAt": "#notnull",
+  "createdBy": "#notnull",
+  "renditionStatus": "#notnull",
+  "width": "#notnull",
+  "modifiedBy": "#notnull",
+  "programmerName": "#notnull",
+  "ID": "#notnull",
+  "wochitResponse": {
+    "duration": "#notnull",
+    "errorMessage": "#ignore",
+    "videoId": "#notnull",
+    "isMonitored": "#notnull",
+    "userId": "#notnull",
+    "videoState": "#notnull",
+    "statusCode": "#notnull"
+  },
+  "height": "#notnull"
+}

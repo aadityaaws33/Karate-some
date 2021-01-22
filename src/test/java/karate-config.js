@@ -20,7 +20,7 @@ function() {
     karate.log(err);
     karate.abort();
   }
-
+  
   var config = {
     TargetEnv: targetEnv,
     TargetTag: targetTag,
