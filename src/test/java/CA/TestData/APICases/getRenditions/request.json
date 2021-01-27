@@ -1,0 +1,11 @@
+{
+  "operationName": "GetRenditions",
+  "variables":{
+    "limit": 50,
+    "country": "#(country)",
+    "fromDate": "#(fromDate)",
+    "toDate": "#(toDate)",
+    "filter": #(filters)
+  },
+  "query":"query GetRenditions($limit: Int, $nextToken: String, $country: Country!, $fromDate: String!, $toDate: String!, $filter: RenditionFilterInput) {\n  getRenditions(\n    limit: $limit\n    nextToken: $nextToken\n    country: $country\n    fromDate: $fromDate\n    toDate: $toDate\n    filter: $filter\n  ) {\n    renditions {\n      assetType\n      country\n      ID\n      createdAt\n      createdBy\n      isRenditionMoved\n      modifiedAt\n      modifiedBy\n      renditionFileName\n      userName\n      wochitRenditionStatus\n      errorMessage\n      mamAssetInfoReferenceId\n      iconikAssetUrl\n      seriesName\n      renditionAssetId\n      __typename\n    }\n    nextToken\n    scannedCount\n    __typename\n  }\n}\n"
+}

@@ -1,0 +1,19 @@
+{
+  "assetType": "#? _ == 'VIDEO' || _ == 'IMAGE'",
+  "country": "#(country)",
+  "ID": "#notnull",
+  "createdAt": "#notnull",
+  "createdBy": "#notnull",
+  "isRenditionMoved": "#? _ == 'true' || _ == 'false'",
+  "modifiedAt": "#notnull",
+  "modifiedBy": "#notnull",
+  "renditionFileName": "#notnull",
+  "userName": "#notnull",
+  "wochitRenditionStatus": "#? _ == 'PROCESSING' || _ == 'FINISHED'",
+  "errorMessage": null,
+  "mamAssetInfoReferenceId": "#notnull",
+  "iconikAssetUrl": "#ignore",
+  "seriesName": "#notnull",
+  "renditionAssetId": "#ignore",
+  "__typename": "Rendition"
+}

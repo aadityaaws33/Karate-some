@@ -1,4 +1,4 @@
-Feature: Dynamo DB Related Features
+Feature: DynamoDB-related reusable functions
 
 Background:
     * def Pause = function(pause){ java.lang.Thread.sleep(pause) }
@@ -59,6 +59,39 @@ Scenario: Validate DynamoDB Item Count via Query
 * print result
 #* print '----------------Actual Item Count------------'+temp
 #* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
+
+@GetItemsViaQuery
+Scenario: Get DynamoDB Item(s) via Query
+#* print '-------------------Dynamo DB Feature and Item Count-------------'
+* def getItemsQuery =
+  """
+  function()
+  {
+    var HashMap = Java.type('java.util.HashMap');
+    var Param_QueryInfoListJava = [];
+    for(var index in Param_QueryInfoList){
+      // Convert J04 Object into Java HashMap
+      var Param_QueryInfoItemHashMapJava = new HashMap();
+      Param_QueryInfoItemHashMapJava.putAll(Param_QueryInfoList[index]);
+      // Append converted Java HashMap to Java List
+      Param_QueryInfoListJava.push(
+        Param_QueryInfoItemHashMapJava
+      );
+    }
+
+    var queryResp = dynamoDB.Query_GetItems(
+      Param_TableName,
+      Param_QueryInfoListJava,
+      Param_GlobalSecondaryIndex
+    );
+
+    return JSON.parse(queryResp);
+
+  }
+  """
+* def queryResult = call getItemsQuery
+* def result = queryResult
+* print result
 
 @ValidateItemViaQuery
 Scenario: Validate DynamoDB Item via Query
