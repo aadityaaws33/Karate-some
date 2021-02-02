@@ -58,6 +58,11 @@ Background:
   * def ExpectedWocRenditionCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][AspectRatioSet]['ExpectedWocRenditionCount']
   * def ExpectedWochitMappingCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][AspectRatioSet]['ExpectedWochitMappingCount']
   # Expected Item Counts End
+  # S3 Stuff
+  * def AssetBucketName = EnvData['Common']['S3']['AssetBucketName']
+  * def RenditionsFolderName = EnvData['Common']['S3']['RenditionsFolderName']
+  * def S3Region = EnvData['Common']['S3']['Region']
+  # S3 Stuff End
   # NEW
   * def GetAppTokenInfoParams =
     """
@@ -517,6 +522,76 @@ Scenario Outline: Nordic_Norway_Dplay_9x16_CustomText_NO - FINISHED - Validate W
         tcName: #(TCName), 
         scenarioName: #(scenarioName), 
         result: #(result.result), 
+        tcResultReadPath: #(tcResultReadPath), 
+        tcResultWritePath: #(tcResultWritePath) 
+      }
+    """
+  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+  Examples:
+    | validateWochitMappingIsFiledMovedTestData |
+
+Scenario Outline: Nordic_Norway_Dplay_9x16_CustomText_NO - Validate if <ASPECTRATIO> Asset exists
+  # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
+  * configure abortedStepsShouldPass = true
+  * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
+  # ---------  
+  * def scenarioName = 'validateS3AssetExists' + <ASPECTRATIO>
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def ValidateItemViaQueryParams = 
+    """
+      {
+        Param_TableName: #(WochitMappingTableName),
+        Param_QueryInfoList: [
+          {
+            infoName: 'mamAssetInfoReferenceId',
+            infoValue: #(Iconik_AssetID),
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'renditionFileName',
+            infoValue: #(RenditionFileName),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          }
+        ],
+        Param_GlobalSecondaryIndex: #(WochitMappingTableGSI),
+        AWSregion: #(AWSregion)
+      }
+    """
+  * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') ValidateItemViaQueryParams
+  * def FullRenditionFileName = QueryResults.result[0]['renditionFileName'] + '.mp4'
+  * print FullRenditionFileName
+  * def validateS3ObjectExists =
+    """
+      function() {
+        var AWSUtilsClass = Java.type('AWSUtils.AWSUtils');
+        var AWSUtils = new AWSUtilsClass();
+        var FullObjectKey = RenditionsFolderName + '/' + FullRenditionFileName;
+        karate.log('Full Object Key: ' + FullObjectKey);
+
+        var isExist = AWSUtils.isS3ObjectExists(
+          AssetBucketName,
+          FullObjectKey,
+          S3Region
+        )
+        
+        var finalResult = {
+          result: isExist,
+          pass: isExist
+        }
+
+        return finalResult;
+      }
+    """
+  * def result = call validateS3ObjectExists
+  * print result
+  * def updateParams = 
+    """
+      { 
+        tcName: #(TCName), 
+        scenarioName: #(scenarioName), 
+        result: #(result), 
         tcResultReadPath: #(tcResultReadPath), 
         tcResultWritePath: #(tcResultWritePath) 
       }

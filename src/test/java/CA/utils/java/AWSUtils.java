@@ -66,6 +66,33 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 public class AWSUtils {
+  /**
+  *   Returns a Boolean which tells if an S3 Object exists
+  *
+  *   @param  BucketName      The full S3 Bucket Name
+  *   @param  ObjectKey       The full S3 Object Key
+  *   @return                 Boolean which tells if an S3 Object exists
+  */
+  public boolean isS3ObjectExists(
+    String BucketName, 
+    String ObjectKey,
+    String AWSRegion) {
+    String thisAWSRegion = "";
+    if(AWSRegion.contentEquals("Nordic")) {
+      thisAWSRegion = "eu-west-1";
+    } else if (AWSRegion.contentEquals("APAC")) {
+      thisAWSRegion = "ap-southeast-1";
+    }
+    AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(thisAWSRegion).build();
+
+    boolean output = false;
+    try {
+      output = s3.doesObjectExist(BucketName, ObjectKey);
+    } catch (AmazonServiceException e) {
+      System.err.println(e.getErrorMessage());
+    }
+    return output;
+  }
 
   public String downloadS3Object(String BucketName, String ObjectKey, String S3Region, String TargetDir) {
     String ObjectKeySplit[] = ObjectKey.split("/");
