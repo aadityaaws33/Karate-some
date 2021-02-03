@@ -16,11 +16,11 @@ This project is intended to test CIMBL API using the [Karate Framework](https://
 
 IMPORTANT NOTE: IT IS IMPORTANT THAT YOU RUN `gimme-aws-creds` AND CHOOSING THE RIGHT TENANT FOR THE ENVIRONMENT THAT YOU WILL BE RUNNING THE TEST ON.
 
-`./run-test.sh [-r|-runTag <|E2E|CustomTags>] [-e|-env <qa|staging|prod>]`
+`./run-test.sh [-t|-tag <|E2E|CustomTags>] [-e|-env <qa|staging|prod>]`
 
 e.g.
 
-`./run-test.sh -r E2E -e qa`
+`./run-test.sh -t E2E -e qa`
 
 
 ### Sample Report
