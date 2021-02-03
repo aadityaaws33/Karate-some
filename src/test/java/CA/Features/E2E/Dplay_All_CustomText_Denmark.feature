@@ -473,7 +473,7 @@ Scenario Outline: Nordic_Denmark_Dplay_All_CustomText_Denmark - FINISHED - Valid
   * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
-  * def retries = 10
+  * def retries = 15
   * def ValidateItemViaQueryParams = 
     """
       {
@@ -530,72 +530,72 @@ Scenario Outline: Nordic_Denmark_Dplay_All_CustomText_Denmark - FINISHED - Valid
   Examples:
     | validateWochitMappingIsFiledMovedTestData |
 
-# Scenario Outline: Nordic_Denmark_Dplay_All_CustomText_Denmark - Validate if <ASPECTRATIO> Asset exists
-#   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
-#   * configure abortedStepsShouldPass = true
-#   * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
-#   # ---------  
-#   * def scenarioName = 'validateS3AssetExists' + <ASPECTRATIO>
-#   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
-#   * def ValidateItemViaQueryParams = 
-#     """
-#       {
-#         Param_TableName: #(WochitMappingTableName),
-#         Param_QueryInfoList: [
-#           {
-#             infoName: 'mamAssetInfoReferenceId',
-#             infoValue: #(Iconik_AssetID),
-#             infoComparator: '=',
-#             infoType: 'key'
-#           },
-#           {
-#             infoName: 'renditionFileName',
-#             infoValue: #(RenditionFileName),
-#             infoComparator: 'contains',
-#             infoType: 'filter'
-#           }
-#         ],
-#         Param_GlobalSecondaryIndex: #(WochitMappingTableGSI),
-#         AWSregion: #(AWSregion)
-#       }
-#     """
-#   * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') ValidateItemViaQueryParams
-#   * def FullRenditionFileName = QueryResults.result[0]['renditionFileName'] + '.mp4'
-#   * print FullRenditionFileName
-#   * def validateS3ObjectExists =
-#     """
-#       function() {
-#         var AWSUtilsClass = Java.type('AWSUtils.AWSUtils');
-#         var AWSUtils = new AWSUtilsClass();
-#         var FullObjectKey = RenditionsFolderName + '/' + FullRenditionFileName;
-#         karate.log('Full Object Key: ' + FullObjectKey);
+Scenario Outline: Nordic_Denmark_Dplay_All_CustomText_Denmark - Validate if <ASPECTRATIO> Asset exists
+  # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
+  * configure abortedStepsShouldPass = true
+  * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
+  # ---------  
+  * def scenarioName = 'validateS3AssetExists' + <ASPECTRATIO>
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def ValidateItemViaQueryParams = 
+    """
+      {
+        Param_TableName: #(WochitMappingTableName),
+        Param_QueryInfoList: [
+          {
+            infoName: 'mamAssetInfoReferenceId',
+            infoValue: #(Iconik_AssetID),
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'renditionFileName',
+            infoValue: #(RenditionFileName),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          }
+        ],
+        Param_GlobalSecondaryIndex: #(WochitMappingTableGSI),
+        AWSregion: #(AWSregion)
+      }
+    """
+  * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') ValidateItemViaQueryParams
+  * def FullRenditionFileName = QueryResults.result[0]['renditionFileName'] + '.mp4'
+  * print FullRenditionFileName
+  * def validateS3ObjectExists =
+    """
+      function() {
+        var AWSUtilsClass = Java.type('AWSUtils.AWSUtils');
+        var AWSUtils = new AWSUtilsClass();
+        var FullObjectKey = RenditionsFolderName + '/' + FullRenditionFileName;
+        karate.log('Full Object Key: ' + FullObjectKey);
 
-#         var isExist = AWSUtils.isS3ObjectExists(
-#           AssetBucketName,
-#           FullObjectKey,
-#           S3Region
-#         )
+        var isExist = AWSUtils.isS3ObjectExists(
+          AssetBucketName,
+          FullObjectKey,
+          S3Region
+        )
         
-#         var finalResult = {
-#           result: isExist,
-#           pass: isExist
-#         }
+        var finalResult = {
+          result: isExist,
+          pass: isExist
+        }
 
-#         return finalResult;
-#       }
-#     """
-#   * def result = call validateS3ObjectExists
-#   * print result
-#   * def updateParams = 
-#     """
-#       { 
-#         tcName: #(TCName), 
-#         scenarioName: #(scenarioName), 
-#         result: #(result), 
-#         tcResultReadPath: #(tcResultReadPath), 
-#         tcResultWritePath: #(tcResultWritePath) 
-#       }
-#     """
-#   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-#   Examples:
-#     | validateWochitMappingIsFiledMovedTestData |
+        return finalResult;
+      }
+    """
+  * def result = call validateS3ObjectExists
+  * print result
+  * def updateParams = 
+    """
+      { 
+        tcName: #(TCName), 
+        scenarioName: #(scenarioName), 
+        result: #(result), 
+        tcResultReadPath: #(tcResultReadPath), 
+        tcResultWritePath: #(tcResultWritePath) 
+      }
+    """
+  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+  Examples:
+    | validateWochitMappingIsFiledMovedTestData |

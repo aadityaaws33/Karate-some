@@ -1,4 +1,4 @@
-@E2E @Regression @Norway @parallel=false  
+ @E2E @Regression @Norway @parallel=false @E2Epipeline
 Feature:  Dplay_All_CustomText_NO
 
 Background:
@@ -473,7 +473,7 @@ Scenario Outline: Nordic_Norway_Dplay_All_CustomText_NO - FINISHED - Validate Wo
   * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
-  * def retries = 10
+  * def retries = 15
   * def ValidateItemViaQueryParams = 
     """
       {
