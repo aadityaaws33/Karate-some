@@ -1,11 +1,11 @@
-@E2E @Regression @Norway @parallel=false  
-Feature:  Duo_All_Post_NO
+@Sweden @parallel=false 
+Feature:  Dplay_All_CustomText_EO_SW
 
 Background:
   # NEW
-  * def TCName = 'Duo_All_Post_NO'
-  * def Country = 'Norway'
-  * def EpisodeMetadataType = 'Duo'
+  * def TCName = 'Dplay_All_CustomText_EO_SW'
+  * def Country = 'Sweden'
+  * def EpisodeMetadataType = 'DplayEndboardOnly'
   * def AspectRatioSet = 'All'
   * def AWSregion = EnvData[Country]['AWSregion']
   * def WochitMappingTableName = EnvData[Country]['WochitMappingTableName']
@@ -117,13 +117,13 @@ Background:
   * def Random_String_Generator = 
     """
       function(){ 
-        var pause = 3000;
+        var pause = 2000;
         karate.log('Pausing for ' + pause + ' milliseconds');
         java.lang.Thread.sleep(pause);
         return java.lang.System.currentTimeMillis() 
       }
     """
-  * callonce Pause 3000
+  * callonce Pause 2000
   * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
   * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
@@ -138,34 +138,34 @@ Background:
       }
     """
 
-# Scenario: Nordic_Norway_Duo_All_Post_NO - Update Season 
-#   * def scenarioName = 'updateSeason'
-#   * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
-#   * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
-#   * def Season_expectedResponse = read(currentTCPath+'/Output/ExpectedSeasonResponse.json')
-#   * def updateSeasonParams =
-#     """
-#       {
-#         URL: '#(Iconik_UpdateSeasonURL)',
-#         Query: '#(UpdateSeasonquery)', 
-#         ExpectedResponse: #(Season_expectedResponse),
-#       }
-#     """
-#   * def result = call read(FeatureFilePath+'/UpdateSeason.feature') updateSeasonParams
-#   * print result
-#   * def updateParams = 
-#     """
-#       { 
-#         tcName: #(TCName),
-#         scenarioName: #(scenarioName),
-#         result: #(result.result),
-#         tcResultReadPath: #(tcResultReadPath),
-#         tcResultWritePath: #(tcResultWritePath)
-#       }
-#     """
-#   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+Scenario: Nordic_Sweden_Dplay_All_CustomText_SW - Update Season 
+  * def scenarioName = 'updateSeason'
+  * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
+  * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
+  * def Season_expectedResponse = read(currentTCPath+'/Output/ExpectedSeasonResponse.json')
+  * def updateSeasonParams =
+    """
+      {
+        URL: '#(Iconik_UpdateSeasonURL)',
+        Query: '#(UpdateSeasonquery)', 
+        ExpectedResponse: #(Season_expectedResponse),
+      }
+    """
+  * def result = call read(FeatureFilePath+'/UpdateSeason.feature') updateSeasonParams
+  * print result
+  * def updateParams = 
+    """
+      { 
+        tcName: #(TCName),
+        scenarioName: #(scenarioName),
+        result: #(result.result),
+        tcResultReadPath: #(tcResultReadPath),
+        tcResultWritePath: #(tcResultWritePath)
+      }
+    """
+  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Duo_All_Post_NO - Update Episode 
+Scenario: Nordic_Sweden_Dplay_All_CustomText_SW - Update Episode 
   * def scenarioName = 'updateEpisode'
   * def UpdateEpisodequery = read(currentTCPath+'/Input/EpisodeRequest.json')
   * replace UpdateEpisodequery.CallOutText = RandomCalloutText
@@ -192,7 +192,7 @@ Scenario: Nordic_Norway_Duo_All_Post_NO - Update Episode
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Duo_All_Post_NO - Trigger Rendition
+Scenario: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Trigger Rendition
   * def scenarioName = 'triggerRendition'
   * def getRenditionRequestMetadataValues =
     """
@@ -231,7 +231,7 @@ Scenario: Nordic_Norway_Duo_All_Post_NO - Trigger Rendition
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   * call Pause 60000
     
-Scenario: Nordic_Norway_Duo_All_Post_NO - Validate Item Counts - MAM Asset Info
+Scenario: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"
   # * def ExpectedMAMAssetInfoCount = 5
   * def ValidateItemCountViaQueryParams = 
@@ -264,10 +264,10 @@ Scenario: Nordic_Norway_Duo_All_Post_NO - Validate Item Counts - MAM Asset Info
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Duo_All_Post_NO - Validate Item Counts - Wochit Rendition
+Scenario: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Validate Item Counts - Wochit Rendition
   * def scenarioName = "validateWochitRenditionCount"
   # * def ExpectedWocRenditionCount = 3
-  * def ExpectedTitle = RandomCTA
+  * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
   * def itemCountScanParams = 
     """
       {
@@ -292,10 +292,10 @@ Scenario: Nordic_Norway_Duo_All_Post_NO - Validate Item Counts - Wochit Renditio
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Duo_All_Post_NO - Validate Item Counts - Wochit Mapping
+Scenario: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Validate Item Counts - Wochit Mapping
   * def scenarioName = "validateWochitMappingCount"
   # * def ExpectedWochitMappingCount = 3
-  * def ExpectedTitle = RandomCTA
+  * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
   * def ValidateItemCountViaQueryParams = 
     """
       {
@@ -338,9 +338,9 @@ Scenario: Nordic_Norway_Duo_All_Post_NO - Validate Item Counts - Wochit Mapping
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario Outline: Nordic_Norway_Duo_All_Post_NO - Validate Wochit Renditions Table for <ASPECTRATIO>
+Scenario Outline: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Validate Wochit Renditions Table for <ASPECTRATIO>
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
-  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCTA
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitRendition_Entry = read(currentTCPath + '/Output/Expected_WochitRendition_Entry.json')
   * def validateRenditionPayloadParams =
     """
@@ -369,7 +369,7 @@ Scenario Outline: Nordic_Norway_Duo_All_Post_NO - Validate Wochit Renditions Tab
   Examples:
     | validateWochitRenditionTestData |
 
-Scenario Outline: Nordic_Norway_Duo_All_Post_NO - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
+Scenario Outline: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
   * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
   * def ValidateItemViaQueryParams = 
@@ -410,9 +410,9 @@ Scenario Outline: Nordic_Norway_Duo_All_Post_NO - Validate Technical Metadata fo
   Examples:
     | validateTechnicalMetadataTestData |
 
-Scenario Outline: Nordic_Norway_Duo_All_Post_NO - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Sweden_Dplay_All_CustomText_EO_SW - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
-  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCTA
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
   * def ValidateItemViaQueryParams = 
     """
@@ -430,7 +430,7 @@ Scenario Outline: Nordic_Norway_Duo_All_Post_NO - PROCESSING - Validate Wochit M
             infoValue: #(RenditionFileName),
             infoComparator: 'contains',
             infoType: 'filter'
-          },
+            },
           {
             infoName: 'seasonCollectionId',
             infoValue: #(Iconik_SeasonCollectionID),
@@ -465,13 +465,13 @@ Scenario: Hard wait for PROCESSING to FINISH
   # ---------
   * call Pause 60000*4
 
-Scenario Outline: Nordic_Norway_Duo_All_Post_NO - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Sweden_Dplay_All_CustomText_EO_SW - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
   # ---------
   * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
-  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCTA
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
   * def retries = 15
   * def ValidateItemViaQueryParams = 
@@ -530,13 +530,13 @@ Scenario Outline: Nordic_Norway_Duo_All_Post_NO - FINISHED - Validate Wochit Map
   Examples:
     | validateWochitMappingIsFiledMovedTestData |
 
-Scenario Outline: Nordic_Norway_Duo_All_Post_NO - Validate if <ASPECTRATIO> Asset exists
+Scenario Outline: Nordic_Sweden_Dplay_All_CustomText_EO_SW - Validate if <ASPECTRATIO> Asset exists
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
   # ---------  
   * def scenarioName = 'validateS3AssetExists' + <ASPECTRATIO>
-  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCTA
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def ValidateItemViaQueryParams = 
     """
       {
