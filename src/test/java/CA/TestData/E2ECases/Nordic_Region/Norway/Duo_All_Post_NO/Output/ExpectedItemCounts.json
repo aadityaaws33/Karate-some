@@ -1,21 +1,21 @@
 {
   "qa": {
     "All": {
-      "ExpectedMAMAssetInfoCount": 5,
+      "ExpectedMAMAssetInfoCount": 6,
       "ExpectedWocRenditionCount": 2,
       "ExpectedWochitMappingCount": 2
     }
   },
   "preprod": {
     "All": {
-      "ExpectedMAMAssetInfoCount": 5,
+      "ExpectedMAMAssetInfoCount": 6,
       "ExpectedWocRenditionCount": 2,
       "ExpectedWochitMappingCount": 2
     }
   },
   "prod": {
     "All": {
-      "ExpectedMAMAssetInfoCount": 5,
+      "ExpectedMAMAssetInfoCount": 6,
       "ExpectedWocRenditionCount": 2,
       "ExpectedWochitMappingCount": 2
     }
