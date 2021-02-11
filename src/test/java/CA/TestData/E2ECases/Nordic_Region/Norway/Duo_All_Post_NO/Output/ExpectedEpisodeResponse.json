@@ -27,33 +27,45 @@
       ]
     },
     "no-duo-PreEndboard-templateCategory-text": {
-      "date_created": null,
+      "date_created": "#notnull",
       "field_values": [
+        {
+          "value": ""
+        }
       ]
     },
     "no-duo-isNoTagRequired": {
-      "date_created": null,
+      "date_created": "#notnull",
       "field_values": [
+        {
+          "value": "false"
+        }
       ]
     },
     "no-duo-CtaTag": {
-      "date_created": null,
+      "date_created": "#notnull",
       "field_values": [
+        {
+          "value": ""
+        }
       ]
     },
     "no-duo-EndboardDuration": {
-      "date_created": null,
+      "date_created": "#notnull",
       "field_values": [
       ]
     },
     "no-duo-PreEndboard-templateCategory": {
-      "date_created": null,
+      "date_created": "#notnull",
       "field_values": [
       ]
     },
     "no-duo-isWOEndboardRequired": {
-      "date_created": null,
+      "date_created": "#notnull",
       "field_values": [
+        {
+          "value": "false"
+        }
       ]
     },
     "no-duo-OutputAspectRatio": {
