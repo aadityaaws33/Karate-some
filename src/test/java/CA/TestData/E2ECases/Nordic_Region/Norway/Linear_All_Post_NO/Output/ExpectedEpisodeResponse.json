@@ -1,0 +1,62 @@
+{
+  "date_modified": null,
+  "object_type": "assets",
+  "date_created": null,
+  "version_id": "#notnull",
+  "metadata_values": {
+    "__separator__": {
+      "date_created": null,
+      "field_values": []
+    },
+    "no-linear-CtaEndboard": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "value": "#(RandomCTA)"
+        }
+      ]
+    },
+    "no-linear-CtaTag": {
+      "date_created": null,
+      "field_values": []
+    },
+    "no-linear-EndboardDuration": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "value": "#notnull"
+        }
+      ]
+    },
+    "no-linear-OutputAspectRatio": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "label": "16x9",
+          "value": "16x9"
+        },
+        {
+          "label": "4x5",
+          "value": "4x5"
+        }
+      ]
+    },
+    "no-linear-PreEndboard-templateCategory-multi": {
+      "date_created": null,
+      "field_values": []
+    },
+    "no-linear-PreEndboard-templateCategory-text-multi": {
+      "date_created": null,
+      "field_values": []
+    },
+    "no-linear-isNoTagRequired": {
+      "date_created": null,
+      "field_values": []
+    },
+    "no-linear-isWOEndboardRequired": {
+      "date_created": null,
+      "field_values": []
+    }
+  },
+  "object_id": "#notnull"
+}

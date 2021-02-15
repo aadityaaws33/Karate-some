@@ -1,0 +1,120 @@
+{
+  "country": "NETHERLANDS",
+  "technicalMetadata": {
+    "data": {
+      "Format": "#notnull",
+      "Duration": "#notnull",
+      "Height": "#notnull",
+      "Width": "#notnull",
+      "FileSize": "#notnull"
+    },
+    "name": "Asset Metadata",
+    "objectName": "#(Iconik_TechnicalMetadataObjectName)",
+    "ID": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "assets"
+  },
+  "modifiedAt": "#notnull",
+  "userName": "#notnull",
+  "assetMetadata": {
+    "data": {
+      "nl-dplay-OutputAspectRatio": "#notnull",
+      "nl-dplay-TagIn": "#? parseInt(_) > 0",
+      "nl-dplay-isNoTagRequired": "#notnull",
+      "nl-dplay-CtaList-multi": "#(RandomCTA)",
+      "nl-dplay-CalloutList-multi": "#(RandomCalloutText)",
+      "nl-dplaywoeb-TagIn":"#? parseInt(_) > 0",
+      "nl-dplaywoeb-CtaList-multi": "#notnull",
+      "nl-dplaywoeb-OutputAspectRatio": "#notnull",
+      "nl-dplaywoeb-CtaText-multi": "#notnull",
+      "nl-dplayebo-OutputAspectRatio": "#notnull",
+      "nl-dplayebo-CalloutList-multi": "#notnull",
+      "nl-dplayebo-CalloutText-multi": "#notnull",
+      "nl-dplayebo-CtaList-multi": "#notnull",
+      "nl-dplayebo-CtaText-multi": "#notnull",
+      "nl-dplay-CalloutText-multi": "#ignore",
+      "nl-dplay-CtaText-multi": "#ignore"
+    },
+    "objectFilePath": "#(Iconik_TechnicalMetadataObjectName)",
+    "name": "#notnull",
+    "objectName": "#(Iconik_TechnicalMetadataObjectName)",
+    "ID": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "assets"
+  },
+  "assetType": "VIDEO",
+  "episodeMetadata": {
+    "objectName": "QA Episode 1",
+    "objectId": "#notnull",
+    "objectType": "collections"
+  },
+  "createdAt": "#notnull",
+  "keyArts": [
+    {
+      "originalName": "test-1x1.png",
+      "createdDate": "#notnull",
+      "size": 7108,
+      "directoryPath": "JAPAN/Series 1/Season 1",
+      "name": "test-1x1_3bf80afc-f727-11ea-a2fa-0a580a3c46ae.png",
+      "width": 1080,
+      "format": "PNG",
+      "modifiedDate": "#notnull",
+      "id": "3b01d7fe-f727-11ea-97b5-0a580a3c0c6b",
+      "title": "test-1x1.png",
+      "height": 1080
+    },
+    {
+      "originalName": "test-4x5.png",
+      "createdDate": "#notnull",
+      "size": 8902,
+      "directoryPath": "NETHERLANDS/Series 1/Season 1",
+      "name": "test-4x5_f561f992-f71a-11ea-89e4-0a580a3c46ae.png",
+      "width": 1080,
+      "format": "PNG",
+      "modifiedDate": "#notnull",
+      "id": "f4623ade-f71a-11ea-9949-0a580a3c2c1d",
+      "title": "test-4x5.png",
+      "height": 1350
+    },
+    {
+      "originalName": "test-16x9.png",
+      "createdDate": "#notnull",
+      "size": 10577,
+      "directoryPath": "FINLAND/Series 1/Season 1",
+      "name": "test-16x9_57f6175e-0c57-11eb-9f43-0a580a3f8c16.png",
+      "width": 1920,
+      "format": "PNG",
+      "modifiedDate": "#notnull",
+      "id": "56b823c8-0c57-11eb-9476-0a580a3cd1df",
+      "title": "test-16x9.png",
+      "height": 1080
+    }
+  ],
+  "onlyNoTagRequired": 0,
+  "seasonMetadata": {
+    "data": {
+      "nl-dplay-Scribble4x5": "#? parseInt(_) > 0",
+      "nl-dplay-Scribble1x1": "#? parseInt(_) > 0",
+      "nl-dplay-Logo": "#? parseInt(_) > 0",
+      "nl-dplay-Scribble16x9": "#? parseInt(_) > 0",
+      "nl-dplay-SeriesTitle": "#(RandomSeriesTitle)",
+      "nl-dplay-Scribble9x16": "#? parseInt(_) > 0",
+      "nl-dplay-ColouredBox": "#notnull"
+    },
+    "name": "#notnull",
+    "objectName": "#notnull",
+    "ID": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "#notnull"
+  },
+  "createdBy": "#notnull",
+  "assetId": "#notnull",
+  "compositeViewsId": "#(COMPOSITEVIEWID)",
+  "assetTitle": "#notnull",
+  "modifiedBy": "#notnull",
+  "seriesMetadata": {
+    "objectName": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "#notnull"
+  }
+}

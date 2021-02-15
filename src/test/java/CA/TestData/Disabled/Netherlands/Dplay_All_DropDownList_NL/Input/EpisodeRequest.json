@@ -1,0 +1,43 @@
+{
+  "metadata_values": {
+    "nl-dplay-OutputAspectRatio": {
+      "field_values": [
+        {
+          "label": "16x9",
+          "value": "16x9"
+        },
+        {
+          "label": "1x1",
+          "value": "1x1"
+        },
+        {
+          "label": "4x5",
+          "value": "4x5"
+        }
+      ]
+    },
+    "nl-dplay-TagIn": {
+      "field_values": [
+        {
+          "value": "4"
+        }
+      ]
+    },
+    "nl-dplay-CalloutList-multi": {
+      "field_values": [
+        {
+          "label": "#(RandomCalloutText)",
+          "value": "#(RandomCalloutText)"
+        }
+      ]
+    },
+    "nl-dplay-CtaList-multi": {
+      "field_values": [
+        {
+          "label": "#(RandomCTA)",
+          "value": "#(RandomCTA)"
+        }
+      ]
+    }
+  }
+}

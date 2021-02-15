@@ -1,0 +1,53 @@
+{
+  "metadata_values": {
+      "se-dplay-SeriesTitle": {
+          "field_values": [
+              {
+                  "value": "#(RandomSeriesTitle)"
+              }
+          ]
+      },
+      "se-dplayebo-Logo": {
+          "field_values": [
+              {
+                  "value": "1"
+              }
+          ]
+      },
+      "se-dplayebo-ColouredBox": {
+          "field_values": [
+              {
+                  "value": "Blush"
+              }
+          ]
+      },
+      "se-dplayebo-Scribble16x9": {
+          "field_values": [
+              {
+                  "value": "1"
+              }
+          ]
+      },
+      "se-dplayebo-Scribble1x1": {
+          "field_values": [
+              {
+                  "value": "1"
+              }
+          ]
+      },
+      "se-dplayebo-Scribble4x5": {
+          "field_values": [
+              {
+                  "value": "1"
+              }
+          ]
+      },
+      "se-dplayebo-Scribble9x16": {
+          "field_values": [
+              {
+                  "value": "1"
+              }
+          ]
+      }
+  }
+}
