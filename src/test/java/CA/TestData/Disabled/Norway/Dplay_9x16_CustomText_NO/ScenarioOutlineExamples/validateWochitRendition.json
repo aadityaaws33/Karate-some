@@ -1,0 +1,32 @@
+{
+  "qa": {
+    "9x16": [
+      {
+        "FNAMEPREFIX": "'DAQ CA Test NO-dplay_9x16'",
+        "ASPECTRATIO": "'9x16'",
+        "TEMPLATEID": "5ebb5ccf5eb7f30d4b0957fb",
+        "ScanVal": "ASPECT_9_16"
+      }
+    ]
+  },
+  "preprod": {
+    "9x16": [
+      {
+        "FNAMEPREFIX": "'DAQ CA Test NO-dplay_9x16'",
+        "ASPECTRATIO": "'9x16'",
+        "TEMPLATEID": "5ebb5ccf5eb7f30d4b0957fb",
+        "ScanVal": "ASPECT_9_16"
+      }
+    ]
+  },
+  "prod": {
+    "9x16": [
+      {
+        "FNAMEPREFIX": "'DAQ CA Test NO-dplay_9x16'",
+        "ASPECTRATIO": "'9x16'",
+        "TEMPLATEID": "5ebb5ccf5eb7f30d4b0957fb",
+        "ScanVal": "ASPECT_9_16"
+      }
+    ]
+  }
+}

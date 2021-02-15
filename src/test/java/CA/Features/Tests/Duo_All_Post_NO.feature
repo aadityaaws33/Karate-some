@@ -165,44 +165,46 @@ Background:
 #     """
 #   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Duo_All_Post_NO - Update Episode 
-  * def scenarioName = 'updateEpisode'
-  * def UpdateEpisodequery = read(currentTCPath+'/Input/EpisodeRequest.json')
-  * replace UpdateEpisodequery.CallOutText = RandomCalloutText
-  * replace UpdateEpisodequery.CTA = RandomCTA
-  * def Episode_ExpectedResponse = read(currentTCPath+'/Output/ExpectedEpisodeResponse.json')
-  * def updateEpisodeParams =
-    """
-      {
-        URL: '#(Iconik_UpdateEpisodeURL)',
-        Query: '#(UpdateEpisodequery)',
-        ExpectedResponse: '#(Episode_ExpectedResponse)'
-      }
-    """
-  * def result = call read(FeatureFilePath+'/UpdateEpisode.feature') updateEpisodeParams
-  * def updateParams = 
-    """
-      { 
-        tcName: #(TCName), 
-        scenarioName: #(scenarioName), 
-        result: #(result.result), 
-        tcResultReadPath: #(tcResultReadPath), 
-        tcResultWritePath: #(tcResultWritePath) 
-      }
-    """
-  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+# Scenario: Nordic_Norway_Duo_All_Post_NO - Update Episode 
+#   * def scenarioName = 'updateEpisode'
+#   * def UpdateEpisodequery = read(currentTCPath+'/Input/EpisodeRequest.json')
+#   * replace UpdateEpisodequery.CallOutText = RandomCalloutText
+#   * replace UpdateEpisodequery.CTA = RandomCTA
+#   * def Episode_ExpectedResponse = read(currentTCPath+'/Output/ExpectedEpisodeResponse.json')
+#   * def updateEpisodeParams =
+#     """
+#       {
+#         URL: '#(Iconik_UpdateEpisodeURL)',
+#         Query: '#(UpdateEpisodequery)',
+#         ExpectedResponse: '#(Episode_ExpectedResponse)'
+#       }
+#     """
+#   * def result = call read(FeatureFilePath+'/UpdateEpisode.feature') updateEpisodeParams
+#   * def updateParams = 
+#     """
+#       { 
+#         tcName: #(TCName), 
+#         scenarioName: #(scenarioName), 
+#         result: #(result.result), 
+#         tcResultReadPath: #(tcResultReadPath), 
+#         tcResultWritePath: #(tcResultWritePath) 
+#       }
+#     """
+#   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
 Scenario: Nordic_Norway_Duo_All_Post_NO - Trigger Rendition
   * def scenarioName = 'triggerRendition'
   * def getRenditionRequestMetadataValues =
     """
       function() {
-        if(TargetEnv == 'preprod' || TargetEnv == 'prod') {
-          var metadataValues = karate.read(currentTCPath + '/Input/EpisodeRequest.json');
-          return metadataValues['metadata_values'];
-        } else {
-          return null;
-        }
+        var metadataValues = karate.read(currentTCPath + '/Input/EpisodeRequest.json');
+        return metadataValues['metadata_values'];
+        // if(TargetEnv == 'preprod' || TargetEnv == 'prod') {
+        //   var metadataValues = karate.read(currentTCPath + '/Input/EpisodeRequest.json');
+        //   return metadataValues['metadata_values'];
+        // } else {
+        //   return null;
+        // }
       }
     """
   * def RenditionRequestMetadataValues = call getRenditionRequestMetadataValues

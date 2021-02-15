@@ -1,0 +1,80 @@
+{
+  "modifiedAt": "#notnull",
+  "aspectRatio": #(ScanVal),
+  "userName": "#notnull",
+  "templateId": #(TEMPLATEID),
+  "videoUpdates": {
+    "linkedFields": [
+      {
+        "value": "#? parseInt(_) > 0",
+        "key": "Dplay.Video.Tag.IN-SecAfterVideoStarts"
+      },
+      {
+        "value": "#(RandomSeriesTitle)",
+        "key": "Dplay.Video.Tag.SeriesTitle"
+      },
+      {
+        "key": "Dplay.Video.Endboard.Keyart"
+      },
+      {
+        "value": "#? parseInt(_) > 0",
+        "key": "Dplay.Video.Endboard.Scribbles"
+      },
+      {
+        "value": "#? parseInt(_) > 0",
+        "key": "Dplay.Video.Endboard.DplayLogo"
+      },
+      {
+        "value": "#ignore",
+        "key": "Dplay.Video.Endboard.ColouredBoxes"
+      },
+      {
+        "value": "#(RandomSeriesTitle)",
+        "key": "Dplay.Video.Endboard.SeriesTitle"
+      },
+      {
+        "value": "#(RandomCalloutText)",
+        "key": "Dplay.Video.Endboard.DplayCallout"
+      },
+      {
+        "value": "#(RandomCTA)",
+        "key": "Dplay.Video.Tag.DplayCTA"
+      },
+      {
+        "value": "#(RandomCTA)",
+        "key": "Dplay.Video.Endboard.DplayCTA"
+      }
+    ],
+    "title": "#(RenditionFileName)",
+    "timelineItems": [
+      {
+        "volumeControl": {
+          "bgMusic": "0.0",
+          "video": "1.0"
+        },
+        "itemType": "VIDEO_SEGMENT",
+        "videoUrl": "#notnull",
+        "segmentEndTime": "30.0",
+        "segmentStartTime": "0.0"
+      }
+    ]
+  },
+  "assetType": "VIDEO",
+  "createdAt": "#notnull",
+  "createdBy": "#notnull",
+  "renditionStatus": "#notnull",
+  "width": "#notnull",
+  "modifiedBy": "#notnull",
+  "programmerName": "#notnull",
+  "ID": "#notnull",
+  "wochitResponse": {
+    "duration": "#notnull",
+    "errorMessage": "#ignore",
+    "videoId": "#notnull",
+    "isMonitored": "#notnull",
+    "userId": "#notnull",
+    "videoState": "#notnull",
+    "statusCode": "#notnull"
+  },
+  "height": "#notnull"
+}

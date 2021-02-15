@@ -1,0 +1,4 @@
+{ 
+  "input" : "#notnull", 
+  "stateMachineArn" : "#notnull" 
+}

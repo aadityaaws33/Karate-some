@@ -117,13 +117,13 @@ Background:
   * def Random_String_Generator = 
     """
       function(){ 
-        var pause = 3000;
+        var pause = 1000;
         karate.log('Pausing for ' + pause + ' milliseconds');
         java.lang.Thread.sleep(pause);
         return java.lang.System.currentTimeMillis() 
       }
     """
-  * callonce Pause 3000
+  * callonce Pause 1000
   * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
   * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
@@ -138,71 +138,73 @@ Background:
       }
     """
 
-Scenario: Nordic_Norway_Duo_9x16_Pre_NO - Update Season 
-  * def scenarioName = 'updateSeason'
-  * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
-  * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
-  * def Season_expectedResponse = read(currentTCPath+'/Output/ExpectedSeasonResponse.json')
-  * def updateSeasonParams =
-    """
-      {
-        URL: '#(Iconik_UpdateSeasonURL)',
-        Query: '#(UpdateSeasonquery)', 
-        ExpectedResponse: #(Season_expectedResponse),
-      }
-    """
-  * def result = call read(FeatureFilePath+'/UpdateSeason.feature') updateSeasonParams
-  * print result
-  * def updateParams = 
-    """
-      { 
-        tcName: #(TCName),
-        scenarioName: #(scenarioName),
-        result: #(result.result),
-        tcResultReadPath: #(tcResultReadPath),
-        tcResultWritePath: #(tcResultWritePath)
-      }
-    """
-  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+# Scenario: Nordic_Norway_Duo_9x16_Pre_NO - Update Season 
+#   * def scenarioName = 'updateSeason'
+#   * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
+#   * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
+#   * def Season_expectedResponse = read(currentTCPath+'/Output/ExpectedSeasonResponse.json')
+#   * def updateSeasonParams =
+#     """
+#       {
+#         URL: '#(Iconik_UpdateSeasonURL)',
+#         Query: '#(UpdateSeasonquery)', 
+#         ExpectedResponse: #(Season_expectedResponse),
+#       }
+#     """
+#   * def result = call read(FeatureFilePath+'/UpdateSeason.feature') updateSeasonParams
+#   * print result
+#   * def updateParams = 
+#     """
+#       { 
+#         tcName: #(TCName),
+#         scenarioName: #(scenarioName),
+#         result: #(result.result),
+#         tcResultReadPath: #(tcResultReadPath),
+#         tcResultWritePath: #(tcResultWritePath)
+#       }
+#     """
+#   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Duo_9x16_Pre_NO - Update Episode 
-  * def scenarioName = 'updateEpisode'
-  * def UpdateEpisodequery = read(currentTCPath+'/Input/EpisodeRequest.json')
-  * replace UpdateEpisodequery.CallOutText = RandomCalloutText
-  * replace UpdateEpisodequery.CTA = RandomCTA
-  * def Episode_ExpectedResponse = read(currentTCPath+'/Output/ExpectedEpisodeResponse.json')
-  * def updateEpisodeParams =
-    """
-      {
-        URL: '#(Iconik_UpdateEpisodeURL)',
-        Query: '#(UpdateEpisodequery)',
-        ExpectedResponse: '#(Episode_ExpectedResponse)'
-      }
-    """
-  * def result = call read(FeatureFilePath+'/UpdateEpisode.feature') updateEpisodeParams
-  * def updateParams = 
-    """
-      { 
-        tcName: #(TCName), 
-        scenarioName: #(scenarioName), 
-        result: #(result.result), 
-        tcResultReadPath: #(tcResultReadPath), 
-        tcResultWritePath: #(tcResultWritePath) 
-      }
-    """
-  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+# Scenario: Nordic_Norway_Duo_9x16_Pre_NO - Update Episode 
+#   * def scenarioName = 'updateEpisode'
+#   * def UpdateEpisodequery = read(currentTCPath+'/Input/EpisodeRequest.json')
+#   * replace UpdateEpisodequery.CallOutText = RandomCalloutText
+#   * replace UpdateEpisodequery.CTA = RandomCTA
+#   * def Episode_ExpectedResponse = read(currentTCPath+'/Output/ExpectedEpisodeResponse.json')
+#   * def updateEpisodeParams =
+#     """
+#       {
+#         URL: '#(Iconik_UpdateEpisodeURL)',
+#         Query: '#(UpdateEpisodequery)',
+#         ExpectedResponse: '#(Episode_ExpectedResponse)'
+#       }
+#     """
+#   * def result = call read(FeatureFilePath+'/UpdateEpisode.feature') updateEpisodeParams
+#   * def updateParams = 
+#     """
+#       { 
+#         tcName: #(TCName), 
+#         scenarioName: #(scenarioName), 
+#         result: #(result.result), 
+#         tcResultReadPath: #(tcResultReadPath), 
+#         tcResultWritePath: #(tcResultWritePath) 
+#       }
+#     """
+#   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
 Scenario: Nordic_Norway_Duo_9x16_Pre_NO - Trigger Rendition
   * def scenarioName = 'triggerRendition'
   * def getRenditionRequestMetadataValues =
     """
       function() {
-        if(TargetEnv == 'preprod' || TargetEnv == 'prod') {
-          var metadataValues = karate.read(currentTCPath + '/Input/EpisodeRequest.json');
-          return metadataValues['metadata_values'];
-        } else {
-          return null;
-        }
+        var metadataValues = karate.read(currentTCPath + '/Input/EpisodeRequest.json');
+        return metadataValues['metadata_values'];
+        // if(TargetEnv == 'preprod' || TargetEnv == 'prod') {
+        //   var metadataValues = karate.read(currentTCPath + '/Input/EpisodeRequest.json');
+        //   return metadataValues['metadata_values'];
+        // } else {
+        //   return null;
+        // }
       }
     """
   * def RenditionRequestMetadataValues = call getRenditionRequestMetadataValues

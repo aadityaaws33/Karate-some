@@ -1,0 +1,50 @@
+{
+  "metadata_values": {
+    "no-dplay-OutputAspectRatio": {
+      "field_values": [
+        {
+          "label": "9x16",
+          "value": "9x16"
+        }
+      ]
+    },
+    "no-dplay-TagIn": {
+      "field_values": [
+        {
+          "value": "2"
+        }
+      ]
+    },
+    "no-dplay-CalloutText-multi": {
+      "field_values": [
+        {
+          "score": 1,
+          "value": "#(RandomCalloutText)" 
+        }
+      ]
+    },
+    "no-dplay-CtaText-multi": {
+      "field_values": [
+        {
+          "score": 1,
+          "value": "#(RandomCTA)"
+        }
+      ]
+    },
+    "no-dplay-isNoTagRequired": {
+      "field_values": [
+          {
+            "value": "false"
+          }
+      ]
+    },
+    "no-dplay-CalloutList-multi":{
+      "field_values":[
+        {
+          "label":"Ny serie",
+          "value":"Ny serie"
+        }
+      ]
+    }
+  }
+}

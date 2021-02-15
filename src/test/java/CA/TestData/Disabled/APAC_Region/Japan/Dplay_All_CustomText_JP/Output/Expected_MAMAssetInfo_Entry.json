@@ -1,0 +1,71 @@
+{
+  "country": "JAPAN",
+  "technicalMetadata": {
+    "data": {
+      "Format": "#notnull",
+      "Duration": "#notnull",
+      "Height": "#notnull",
+      "Width": "#notnull",
+      "FileSize": "#notnull"
+    },
+    "name": "Asset Metadata",
+    "objectName": "#(Iconik_TechnicalMetadataObjectName)",
+    "ID": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "assets"
+  },
+  "modifiedAt": "#notnull",
+  "userName": "#notnull",
+  "assetMetadata": {
+    "data": {
+      "jp-dplay-TagIn": "#? parseInt(_) > 0",
+      "jp-dplay-CtaList-multi": "#(RandomCTA)",
+      "jp-dplay-OutputAspectRatio": "16x9|1x1|4x5",
+      "jp-dplay-CalloutList-multi": "#(RandomCalloutText)"
+    },
+    "objectFilePath": "#(Iconik_TechnicalMetadataObjectName)",
+    "name": "#notnull",
+    "objectName": "#(Iconik_TechnicalMetadataObjectName)",
+    "ID": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "assets"
+  },
+  "assetType": "VIDEO",
+  "episodeMetadata": {
+    "objectName": "QA Episode 1",
+    "objectId": "#notnull",
+    "objectType": "collections"
+  },
+  "createdAt": "#notnull",
+  "onlyNoTagRequired": 0,
+  "seasonMetadata": {
+    "data": {
+      "jp-dplayebo-Scribble1x1": "#? parseInt(_) > 0",
+      "jp-dplayebo-ColouredBox": "#notnull",
+      "jp-dplayebo-Logo": "#? parseInt(_) > 0",
+      "jp-dplayebo-Scribble4x5": "#? parseInt(_) > 0",
+      "jp-dplayebo-Scribble16x9": "#? parseInt(_) > 0",
+      "jp-dplay-SeriesTitle": "QA Series Japan",
+      "jp-dplay-Scribble4x5": "#? parseInt(_) > 0",
+      "jp-dplay-Logo": "#? parseInt(_) > 0",
+      "jp-dplay-Scribble16x9": "#? parseInt(_) > 0",
+      "jp-dplay-ColouredBox": "#notnull",
+      "jp-dplay-Scribble1x1": "#? parseInt(_) > 0"
+    },
+    "name": "#notnull",
+    "objectName": "#notnull",
+    "ID": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "#notnull"
+  },
+  "createdBy": "#notnull",
+  "assetId": "#notnull",
+  "compositeViewsId": "#(COMPOSITEVIEWID)",
+  "assetTitle": "#notnull",
+  "modifiedBy": "#notnull",
+  "seriesMetadata": {
+    "objectName": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "#notnull"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "country": "SWEDEN",
+  "technicalMetadata": {
+    "data": {
+      "Format": "#notnull",
+      "Duration": "#notnull",
+      "Height": "#notnull",
+      "Width": "#notnull",
+      "FileSize": "#notnull"
+    },
+    "name": "Asset Metadata",
+    "objectName": "#(Iconik_TechnicalMetadataObjectName)",
+    "ID": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "assets"
+  },
+  "modifiedAt": "#notnull",
+  "userName": "#notnull",
+  "assetMetadata": {
+    "data": {
+      "se-dplayebo-OutputAspectRatio": "#notnull",
+      "se-dplayebo-TagIn": "#? parseInt(_) > 0",
+      "se-dplayebo-isNoTagRequired": "#notnull",
+      "se-dplayebo-CtaList-multi": "#(RandomCTA)",
+      "se-dplayebo-CtaText-multi": "#(RandomCTA)",
+      "se-dplayebo-CalloutList-multi": "#(RandomCalloutText)",
+      "se-dplayebo-CalloutText-multi": "#(RandomCalloutText)",
+    },
+    "objectFilePath": "#(Iconik_TechnicalMetadataObjectName)",
+    "name": "#notnull",
+    "objectName": "#(Iconik_TechnicalMetadataObjectName)",
+    "ID": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "assets"
+  },
+  "assetType": "VIDEO",
+  "episodeMetadata": {
+    "objectName": "QA Episode 1",
+    "objectId": "#notnull",
+    "objectType": "collections"
+  },
+  "createdAt": "#notnull",
+  "onlyNoTagRequired": 0,
+  "seasonMetadata": {
+    "data": {
+      "se-dplayebo-Scribble4x5": "#? parseInt(_) > 0",
+      "se-dplayebo-Scribble1x1": "#? parseInt(_) > 0",
+      "se-dplayebo-Logo": "#? parseInt(_) > 0",
+      "se-dplayebo-Scribble16x9": "#? parseInt(_) > 0",
+      "se-dplayebo-Scribble9x16": "#? parseInt(_) > 0",
+      "se-dplayebo-ColouredBox": "#notnull",
+      "se-dplay-SeriesTitle": "#(RandomSeriesTitle)",
+      "global-SeriesTitle": "#notnull"
+    },
+    "name": "#notnull",
+    "objectName": "#notnull",
+    "ID": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "#notnull"
+  },
+  "createdBy": "#notnull",
+  "assetId": "#notnull",
+  "compositeViewsId": "#(COMPOSITEVIEWID)",
+  "assetTitle": "#notnull",
+  "modifiedBy": "#notnull",
+  "seriesMetadata": {
+    "objectName": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "#notnull"
+  }
+}
