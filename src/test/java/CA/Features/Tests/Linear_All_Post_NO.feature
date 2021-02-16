@@ -2,10 +2,6 @@
 Feature:  Linear_All_Post_NO
 
 Background:
-  # DPLUS IS STILL NOT IN PROD AS OF 15th FEB 2021
-  * configure abortedStepsShouldPass = true
-  * eval if (TargetEnv == 'prod') { karate.log('TEST IS NOT READY FOR PROD'); karate.abort()}
-  # ---------  
   # NEW
   * def TCName = 'Linear_All_Post_NO'
   * def Country = 'Norway'
