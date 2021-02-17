@@ -16,8 +16,6 @@ Background:
   * def Iconik_EpisodeMetadataObjectID = EnvData[Country]['Iconik_EpisodeMetadataObjectID']
   * def Iconik_AssetID = EnvData[Country]['Iconik_AssetID']
   * def Iconik_SeasonCollectionID = EnvData[Country]['Iconik_SeasonCollectionID']
-  * def Iconik_TriggerRenditionCustomActionName = EnvData[Country]['Iconik_TriggerRenditionCustomActionName']
-  * def Iconik_TriggerRenditionCustomActionName = EnvData[Country]['Iconik_TriggerRenditionCustomActionName'][EpisodeMetadataType]
   * def Iconik_TechnicalMetadataID = EnvData[Country]['Iconik_TechnicalMetadataID']
   * def Iconik_TechnicalMetadataObjectID = EnvData[Country]['Iconik_TechnicalMetadataObjectID']
   * def Iconik_TechnicalMetadataObjectName = EnvData[Country]['Iconik_TechnicalMetadataObjectName']
@@ -49,7 +47,7 @@ Background:
     """
       {
         URL: #(Iconik_TriggerRenditionCustomActionListURL),
-        Iconik_TriggerRenditionCustomActionName: #(Iconik_TriggerRenditionCustomActionName),
+        Iconik_TriggerRenditionCustomActionID: #(Iconik_TriggerRenditionCustomActionID),
         Iconik_AuthToken: #(Iconik_AuthToken),
         Iconik_AppID: #(Iconik_AppID)
       }

@@ -9,7 +9,7 @@ Scenario: Get Rendition URL from custom action list via Iconik API
         var respObjects = resp['objects'];
         for(var index in respObjects) {
           var actionSet = respObjects[index];
-          if(actionSet['title'] == Iconik_TriggerRenditionCustomActionName) {
+          if(actionSet['id'] == Iconik_TriggerRenditionCustomActionID) {
             url = actionSet['url'];
             break;
           }
