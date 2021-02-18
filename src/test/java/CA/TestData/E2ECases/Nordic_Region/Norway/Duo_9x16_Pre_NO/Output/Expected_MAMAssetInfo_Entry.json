@@ -16,6 +16,7 @@
   },
   "modifiedAt": "#notnull",
   "userName": "#notnull",
+  "iconikUserName": "#? CheckIconikUserNameAttr(_)",
   "assetMetadata": {
     "data": {
       "no-dplay-OutputAspectRatio": "#notnull",

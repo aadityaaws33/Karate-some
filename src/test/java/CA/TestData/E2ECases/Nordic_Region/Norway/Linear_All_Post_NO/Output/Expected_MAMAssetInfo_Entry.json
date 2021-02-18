@@ -16,6 +16,7 @@
   },
   "modifiedAt": "#notnull",
   "userName": "#notnull",
+  "iconikUserName": "#? CheckIconikUserNameAttr(_)",
   "assetMetadata": {
     "data": {
       "no-linear-OutputAspectRatio": "16x9|4x5",

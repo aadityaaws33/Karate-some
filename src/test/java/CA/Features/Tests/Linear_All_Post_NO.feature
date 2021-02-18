@@ -39,6 +39,18 @@ Background:
         "password": #(Iconik_AdminPassword)
       }
     """
+  * def CheckIconikUserNameAttr =
+    """
+      function(iconikUserName) {
+        var result = true;
+        if(TargetTag == 'E2E') {
+          if(iconikUserName == null) {
+            result = false;
+          }
+        }
+        return result;
+      }
+    """
   # Iconik Stuff End
   * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
   * def tcResultWritePath = 'test-classes/' + TCName + '.json'

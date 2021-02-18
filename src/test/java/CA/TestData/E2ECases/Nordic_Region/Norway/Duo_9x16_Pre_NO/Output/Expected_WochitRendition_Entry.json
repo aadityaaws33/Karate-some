@@ -3,6 +3,7 @@
   "aspectRatio": #(ScanVal),
   "userName": "#notnull",
   "templateId": #(TEMPLATEID),
+  "iconikUserName": "#? CheckIconikUserNameAttr(_)",
   "videoUpdates": {
     "linkedFields": [
       {

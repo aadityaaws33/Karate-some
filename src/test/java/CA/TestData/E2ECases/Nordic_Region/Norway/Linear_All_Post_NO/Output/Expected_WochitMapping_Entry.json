@@ -4,6 +4,7 @@
   "isRenditionMoved": #(ISRENDITIONMOVED),
   "wochitRenditionStatus": #(RENDITIONSTATUS),
   "userName": "#notnull",
+  "iconikUserName": "#? CheckIconikUserNameAttr(_)",
   "assetType": "VIDEO",
   "createdAt": "#notnull",
   "episodeCollectionId": "#notnull",
