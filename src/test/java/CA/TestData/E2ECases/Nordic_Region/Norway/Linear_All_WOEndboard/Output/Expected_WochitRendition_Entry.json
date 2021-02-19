@@ -1,0 +1,57 @@
+{
+  "modifiedAt": "#notnull",
+  "aspectRatio": "#(ScanVal)",
+  "userName": "#notnull",
+  "templateId": "#(TEMPLATEID)",
+  "iconikUserName": "#? CheckIconikUserNameAttr(_)",
+  "videoUpdates": {
+    "linkedFields": [
+      {
+        "value": "QA Series 1",
+        "key": "Duo.TopLine.SeriesTitle"
+      },
+      {
+        "key": "Duo.TopLine.LinearCTA"
+      },
+      {
+        "value": "#(RandomCalloutText)",
+        "key": "Duo.EndPage.LinearCTALabel"
+      },
+      {
+        "value": "FEM",
+        "key": "Duo.TopLine.Logo"
+      }
+    ],
+    "title": "#(RenditionFileName)",
+    "timelineItems": [
+      {
+        "itemType": "VIDEO_SEGMENT",
+        "volumeControl": {
+          "bgMusic": "0.0",
+          "video": "1.0"
+        },
+        "videoUrl": "#notnull",
+        "segmentEndTime": "30.0",
+        "segmentStartTime": "0.0"
+      }
+    ]
+  },
+  "assetType": "VIDEO",
+  "createdAt": "#notnull",
+  "createdBy": "#notnull",
+  "renditionStatus": "#notnull",
+  "width": "#notnull",
+  "modifiedBy": "#notnull",
+  "programmerName": "#notnull",
+  "ID": "#notnull",
+  "height": "#notnull",
+  "wochitResponse": {
+    "duration": "#notnull",
+    "errorMessage": "#ignore",
+    "videoId": "#notnull",
+    "isMonitored": "#notnull",
+    "userId": "#notnull",
+    "videoState": "#notnull",
+    "statusCode": "#notnull"
+  }
+}
