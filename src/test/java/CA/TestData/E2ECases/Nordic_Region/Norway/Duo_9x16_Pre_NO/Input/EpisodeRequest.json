@@ -22,6 +22,20 @@
                   "value": "Se gratis på"
               }
           ]
+      },
+      "no-duo-isNoTagRequired":{
+        "field_values":[
+          {
+            "value":"false"
+          }
+        ]
+      },
+      "no-duo-isWOEndboardRequired":{
+        "field_values":[
+          {
+            "value":"false"
+          }
+        ]
       }
   }
 }
