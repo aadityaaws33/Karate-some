@@ -25,7 +25,7 @@
     "no-linear-PreEndboard-templateCategory-text-multi": {
         "field_values": [
             {
-                "value": "#(RandomCalloutText)"
+                "value": ""
             }
         ]
     },
