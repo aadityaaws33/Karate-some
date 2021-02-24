@@ -19,24 +19,11 @@
   "iconikUserName": "#? CheckIconikUserNameAttr(_)",
   "assetMetadata": {
     "data": {
-      "no-dplay-OutputAspectRatio": "#notnull",
-      "no-dplay-TagIn": "#? parseInt(_) > 0",
-      "no-dplay-isNoTagRequired": "#notnull",
-      "no-dplay-CtaList-multi": "#notnull",
-      "no-dplay-CtaText-multi": "#(RandomCTA)",
-      "no-dplay-CalloutList-multi": "#notnull",
-      "no-dplay-CalloutText-multi": "#(RandomCalloutText)",
-      "no-dplaywoeb-TagIn":"#? parseInt(_) > 0",
-      "no-dplaywoeb-CtaList-multi": "#notnull",
-      "no-dplaywoeb-OutputAspectRatio": "#notnull",
-      "no-dplaywoeb-CtaText-multi": "#notnull",
-      "no-dplayebo-OutputAspectRatio": "#notnull",
-      "no-dplayebo-CalloutList-multi": "#notnull",
-      "no-dplayebo-CalloutText-multi": "#notnull",
-      "no-dplayebo-CtaList-multi": "#notnull",
       "no-duo-CtaEndboard": "#(RandomCTA)",
-      "no-duo-DplayCtaEndboard-multi": "#notnull",
-      "no-duo-OutputAspectRatio": "#notnull"
+      "no-duo-DplayCtaEndboard-multi": "Se gratis på",
+      "no-duo-isNoTagRequired": "false",
+      "no-duo-isWOEndboardRequired": "false",
+      "no-duo-OutputAspectRatio": "16x9|4x5"
     },
     "objectFilePath": "#(Iconik_TechnicalMetadataObjectName)",
     "name": "#notnull",
