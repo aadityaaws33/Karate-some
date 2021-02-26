@@ -1,0 +1,23 @@
+{
+  "qa": {
+    "9x16NoTag": [
+      {
+        "COMPOSITEVIEWID": "c7197d98-8907-11ea-983a-0a580a3d1fe6|3a32b7ae-8908-11ea-958b-0a580a3c10cd"
+      }
+    ]
+  },
+  "preprod": {
+    "9x16NoTag": [
+      {
+        "COMPOSITEVIEWID": "7c810286-e59d-11ea-b1dc-0a580a3c2c48|bc4c6f82-e59c-11ea-951e-0a580a3dd80f"
+      }
+    ]
+  },
+  "prod": {
+    "9x16NoTag": [
+      {
+        "COMPOSITEVIEWID": "7c810286-e59d-11ea-b1dc-0a580a3c2c48|bc4c6f82-e59c-11ea-951e-0a580a3dd80f"
+      }
+    ]
+  }
+}
