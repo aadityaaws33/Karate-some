@@ -128,13 +128,13 @@ Background:
   * def Random_String_Generator = 
     """
       function(){ 
-        var pause = 5000;
+        var pause = 7000;
         karate.log('Pausing for ' + pause + ' milliseconds');
         java.lang.Thread.sleep(pause);
         return java.lang.System.currentTimeMillis() 
       }
     """
-  * callonce Pause 5000
+  * callonce Pause 7000
   * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
   * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
