@@ -1,0 +1,86 @@
+{
+  "date_modified": null,
+  "object_type": "assets",
+  "date_created": null,
+  "version_id": "#notnull",
+  "metadata_values": {
+    "__separator__": {
+      "date_created": null,
+      "field_values": [
+      ]
+    },
+    "no-duo-CtaEndboard": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "value": "#(RandomCTA)"
+        }
+      ]
+    },
+    "no-duo-DplayCtaEndboard-multi": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "label": "Se gratis på",
+          "value": "Se gratis på"
+        }
+      ]
+    },
+    "no-duo-PreEndboard-templateCategory-text": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "value": ""
+        }
+      ]
+    },
+    "no-duo-isNoTagRequired": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "value": "false"
+        }
+      ]
+    },
+    "no-duo-CtaTag": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "value": ""
+        }
+      ]
+    },
+    "no-duo-EndboardDuration": {
+      "date_created": "#notnull",
+      "field_values": [
+      ]
+    },
+    "no-duo-PreEndboard-templateCategory": {
+      "date_created": "#notnull",
+      "field_values": [
+      ]
+    },
+    "no-duo-isWOEndboardRequired": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "value": "false"
+        }
+      ]
+    },
+    "no-duo-OutputAspectRatio": {
+      "date_created": "#notnull",
+      "field_values": [
+        {
+          "label": "16x9",
+          "value": "16x9"
+        },
+        {
+          "label": "4x5",
+          "value": "4x5"
+        }
+      ]
+    }
+  },
+  "object_id": "#notnull"
+}

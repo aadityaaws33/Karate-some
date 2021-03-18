@@ -3,13 +3,10 @@
   "assetMetadata": {
     "data": {
       "Nordics_Dplus_CallOutText_MultiText": "#(RandomCalloutText)",
-      "Nordics_Dplus_CtaText_MultiText": "#(RandomCTA)",
-      "Nordics_Dplus_CtaText_TextArea_multi": "",
-      "Nordics_Dplus_EndboardDuration_Text": "8",
-      "Nordics_Dplus_IsNoStrapRequired_Boolean": "false",
+      "Nordics_Dplus_CtaText_TextArea_multi": "#(RandomCTA)",
+      "Nordics_Dplus_EndboardDuration_Text": "5",
+      "Nordics_Dplus_IsNoStrapRequired_Boolean": "true",
       "Nordics_Dplus_OutputAspectRatio_MultiSelect": "16x9|1x1|4x5|2x3",
-      "Nordics_Dplus_StrapInTiming_Text": "2",
-      "Nordics_Dplus_StrapOutTiming_Text": "8",
       "Nordics_Dplus_TemplateType_MultiSelect": "Standard_BoltOn"
     },
     "ID": "#notnull",
@@ -48,7 +45,7 @@
   ],
   "modifiedAt": "#notnull",
   "modifiedBy": "#notnull",
-  "onlyNoTagRequired": 0,
+  "onlyNoTagRequired": 1,
   "seasonMetadata": {
     "data": {
       "Nordics_Dplus_ColourScheme_SingleSelect": "primary brand warm",

@@ -1,0 +1,86 @@
+{
+  "qa": {
+    "AllStdBoltOnNoStrap": [
+      {
+        "FNAMEPREFIX": "'QA NO Dplus All Std Bolt-on No-Strap-dplus_standard_bolton_16x9-No Strap'",
+        "ASPECTRATIO": "'16x9'",
+        "TEMPLATEID": "5ffd0378dfea140bda395a73",
+        "ScanVal": "ASPECT_16_9"
+      },
+      {
+        "FNAMEPREFIX": "'QA NO Dplus All Std Bolt-on No-Strap-dplus_standard_bolton_4x5-No Strap'",
+        "ASPECTRATIO": "'4x5'",
+        "TEMPLATEID": "5fffb85cdfea140bda397296",
+        "ScanVal": "ASPECT_4_5"
+      },
+      {
+        "FNAMEPREFIX": "'QA NO Dplus All Std Bolt-on No-Strap-dplus_standard_bolton_1x1-No Strap'",
+        "ASPECTRATIO": "'1x1'",
+        "TEMPLATEID": "5fffb785e9e3792d42aad329",
+        "ScanVal": "ASPECT_1_1"
+      },
+      {
+        "FNAMEPREFIX": "'QA NO Dplus All Std Bolt-on No-Strap-dplus_standard_bolton_2x3-No Strap'",
+        "ASPECTRATIO": "'2x3'",
+        "TEMPLATEID": "601a4ad93b7e3e68c748afe9",
+        "ScanVal": "ASPECT_2_3"
+      }
+    ]
+  },
+  "preprod": {
+    "AllStdBoltOnNoStrap": [
+      {
+        "FNAMEPREFIX": "'Preprod NO Dplus All Std Bolt-on No-Strap-dplus_standard_bolton_16x9-No Strap'",
+        "ASPECTRATIO": "'16x9'",
+        "TEMPLATEID": "5ffd0378dfea140bda395a73",
+        "ScanVal": "ASPECT_16_9"
+      },
+      {
+        "FNAMEPREFIX": "'Preprod NO Dplus All Std Bolt-on No-Strap-dplus_standard_bolton_4x5-No Strap'",
+        "ASPECTRATIO": "'4x5'",
+        "TEMPLATEID": "5fffb85cdfea140bda397296",
+        "ScanVal": "ASPECT_4_5"
+      },
+      {
+        "FNAMEPREFIX": "'Preprod NO Dplus All Std Bolt-on No-Strap-dplus_standard_bolton_1x1-No Strap'",
+        "ASPECTRATIO": "'1x1'",
+        "TEMPLATEID": "5fffb785e9e3792d42aad329",
+        "ScanVal": "ASPECT_1_1"
+      },
+      {
+        "FNAMEPREFIX": "'Preprod NO Dplus All Std Bolt-on No-Strap-dplus_standard_bolton_2x3-No Strap'",
+        "ASPECTRATIO": "'2x3'",
+        "TEMPLATEID": "601a4ad93b7e3e68c748afe9",
+        "ScanVal": "ASPECT_2_3"
+      }
+    ]
+  },
+  "prod": {
+    "AllStdBoltOnNoStrap": [
+      {
+        "FNAMEPREFIX": "'Prod NO Dplus All Std Bolt-on No-Strap-dplus_standard_bolton_16x9-No Strap'",
+        "ASPECTRATIO": "'16x9'",
+        "TEMPLATEID": "5ffd0378dfea140bda395a73",
+        "ScanVal": "ASPECT_16_9"
+      },
+      {
+        "FNAMEPREFIX": "'Prod NO Dplus All Std Bolt-on No-Strap-dplus_standard_bolton_4x5-No Strap'",
+        "ASPECTRATIO": "'4x5'",
+        "TEMPLATEID": "5fffb85cdfea140bda397296",
+        "ScanVal": "ASPECT_4_5"
+      },
+      {
+        "FNAMEPREFIX": "'Prod NO Dplus All Std Bolt-on No-Strap-dplus_standard_bolton_1x1-No Strap'",
+        "ASPECTRATIO": "'1x1'",
+        "TEMPLATEID": "5fffb785e9e3792d42aad329",
+        "ScanVal": "ASPECT_1_1"
+      },
+      {
+        "FNAMEPREFIX": "'Prod NO Dplus All Std Bolt-on No-Strap-dplus_standard_bolton_2x3-No Strap'",
+        "ASPECTRATIO": "'2x3'",
+        "TEMPLATEID": "601a4ad93b7e3e68c748afe9",
+        "ScanVal": "ASPECT_2_3"
+      }
+    ]
+  }
+}

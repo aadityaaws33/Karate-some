@@ -29,45 +29,40 @@
       ]
     },
     "Nordics_Dplus_CtaText_MultiText": {
-      "field_values": [
-        {
-          "score": 1,
-          "value": "#(RandomCTA)"
-        }
-      ]
+      "field_values": []
     },
     "Nordics_Dplus_CtaText_TextArea_multi": {
       "field_values": [
         {
-          "value": ""
+          "value": "#(RandomCTA)"
         }
       ]
     },
     "Nordics_Dplus_StrapInTiming_Text": {
       "field_values": [
         {
-          "value": "2"
+          "value": ""
         }
       ]
     },
     "Nordics_Dplus_StrapOutTiming_Text": {
       "field_values": [
         {
-          "value": "8"
+          "value": ""
         }
       ]
     },
     "Nordics_Dplus_IsNoStrapRequired_Boolean": {
       "field_values": [
         {
-          "value": "false"
+          "value": "true"
         }
       ]
     },
     "Nordics_Dplus_EndboardDuration_Text": {
       "field_values": [
         {
-          "value": "8"
+            "value": "5"
         }
       ]
     },
