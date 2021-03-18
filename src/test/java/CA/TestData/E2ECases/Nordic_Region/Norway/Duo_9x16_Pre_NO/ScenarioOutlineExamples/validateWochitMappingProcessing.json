@@ -2,7 +2,7 @@
   "qa": {
     "9x16": [
       {
-        "FNAMEPREFIX": "'DAQ CA Test NO Duo 9x16-duo_9x16_post-FEM'",
+        "FNAMEPREFIX": "'QA NO Duo 9x16-duo_9x16_post-FEM'",
         "ASPECTRATIO": "'9x16'",
         "RENDITIONSTATUS": "PROCESSING",
         "ISRENDITIONMOVED": "false"
@@ -12,7 +12,7 @@
   "preprod": {
     "9x16": [
       {
-        "FNAMEPREFIX": "'DAQ CA Test NO Duo 9x16-duo_9x16_post-FEM'",
+        "FNAMEPREFIX": "'Preprod NO Duo 9x16-duo_9x16_post-FEM'",
         "ASPECTRATIO": "'9x16'",
         "RENDITIONSTATUS": "PROCESSING",
         "ISRENDITIONMOVED": "false"
@@ -22,7 +22,7 @@
   "prod": {
     "9x16": [
       {
-        "FNAMEPREFIX": "'DAQ CA Test NO Duo 9x16-duo_9x16_post-FEM'",
+        "FNAMEPREFIX": "'Prod NO Duo 9x16-duo_9x16_post-FEM'",
         "ASPECTRATIO": "'9x16'",
         "RENDITIONSTATUS": "PROCESSING",
         "ISRENDITIONMOVED": "false"

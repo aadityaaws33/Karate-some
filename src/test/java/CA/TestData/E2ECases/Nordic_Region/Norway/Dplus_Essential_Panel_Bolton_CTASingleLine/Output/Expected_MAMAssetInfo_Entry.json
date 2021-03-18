@@ -1,0 +1,85 @@
+{
+  "assetId": "#(Iconik_AssetID)",
+  "assetMetadata": {
+    "data": {
+      "Nordics_Dplus_CallOutText_MultiText": "#(RandomCalloutText)",
+      "Nordics_Dplus_CtaText_TextArea_multi": "#(RandomCTA)",
+      "Nordics_Dplus_EndboardDuration_Text": "8",
+      "Nordics_Dplus_IsNoStrapRequired_Boolean": "false",
+      "Nordics_Dplus_OutputAspectRatio_MultiSelect": "16x9|1x1|4x5|2x3",
+      "Nordics_Dplus_StrapInTiming_Text": "2",
+      "Nordics_Dplus_StrapOutTiming_Text": "8",
+      "Nordics_Dplus_TemplateType_MultiSelect": "Standard_BoltOn"
+    },
+    "ID": "#notnull",
+    "name": "Dplus Asset Metadata (Nordics)",
+    "objectFilePath": "#(Iconik_AssetName)",
+    "objectId": "#(Iconik_AssetID)",
+    "objectName": "#(Iconik_AssetName)",
+    "objectType": "assets"
+  },
+  "assetTitle": "#(Iconik_AssetName)",
+  "assetType": "VIDEO",
+  "compositeViewsId": "#(COMPOSITEVIEWID)",
+  "country": "NORWAY",
+  "createdAt": "#notnull",
+  "createdBy": "#notnull",
+  "episodeMetadata": {
+    "objectId": "#notnull",
+    "objectName": "QA Episode 1",
+    "objectType": "collections"
+  },
+  "iconikUserName": "#? CheckIconikUserNameAttr(_)",
+  "keyArts": [
+    {
+      "createdDate": "#notnull",
+      "directoryPath": "#notnull",
+      "format": "#notnull",
+      "height": "#notnull",
+      "id": "#notnull",
+      "modifiedDate": "#notnull",
+      "name": "#notnull",
+      "originalName": "#notnull",
+      "size": "#notnull",
+      "title": "#notnull",
+      "width": "#notnull"
+    }
+  ],
+  "modifiedAt": "#notnull",
+  "modifiedBy": "#notnull",
+  "onlyNoTagRequired": 0,
+  "seasonMetadata": {
+    "data": {
+      "Nordics_Dplus_ColourScheme_SingleSelect": "primary brand warm",
+      "Nordics_Dplus_EndBoardType_SingleSelect": "Circle",
+      "Nordics_Dplus_LogoLabel_Text": "QA Season",
+      "Nordics_Dplus_ProgrammeTitle_TextArea": "QA Season Programme Title",
+      "Nordics_Dplus_TagLine_Text": "QA TAGLINE"
+    },
+    "ID": "#notnull",
+    "name": "Dplus Essential Metadata (Nordics)",
+    "objectId": "#notnull",
+    "objectName": "QA Season",
+    "objectType": "collections"
+  },
+  "seriesMetadata": {
+    "objectId": "#notnull",
+    "objectName": "QA Series",
+    "objectType": "collections"
+  },
+  "technicalMetadata": {
+    "data": {
+      "Duration": "#notnull",
+      "FileSize": "#notnull",
+      "Format": "#notnull",
+      "Height": "#notnull",
+      "Width": "#notnull"
+    },
+    "ID": "#notnull",
+    "name": "Asset Metadata",
+    "objectId": "#(Iconik_AssetID)",
+    "objectName": "#(Iconik_AssetName)",
+    "objectType": "assets"
+  },
+  "userName": "#? CheckIconikUserNameAttr(_)"
+}

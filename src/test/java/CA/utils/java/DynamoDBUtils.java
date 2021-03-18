@@ -529,7 +529,6 @@ public class DynamoDBUtils {
         ItemCollection<ScanOutcome> items = null;
         List<String> getitemJsonList = new ArrayList<>();
         Map<String, Object> expressionAttributeValues = new HashMap<String, Object>();
-        //expressionAttributeValues.put(":val", "DAQ CA Test NO-dplay_4x5-Test-1599153181360-Test-1599153181360");
         expressionAttributeValues.put(":val", ScanValue);
         table = dynamoDB.getTable(TableName);
         if(ProjectionExp.length()>0)
@@ -766,29 +765,29 @@ public class DynamoDBUtils {
         return item.toString();
     }
 
-    public static List<String> Scan_DBItems(String TableName) {
-            List<String> getitemJsonList = new ArrayList<>();
-            AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
-            Map<String, AttributeValue> expressionAttributeValues = 
-            new HashMap<String, AttributeValue>();
-        expressionAttributeValues.put(":val", new AttributeValue().withS("DAQ CA Test NO-dplay_4x5-Test-1599153181360-Test-1599153181360")); 
+    // public static List<String> Scan_DBItems(String TableName) {
+    //         List<String> getitemJsonList = new ArrayList<>();
+    //         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();
+    //         Map<String, AttributeValue> expressionAttributeValues = 
+    //         new HashMap<String, AttributeValue>();
+    //     expressionAttributeValues.put(":val", new AttributeValue().withS("DAQ CA Test NO-dplay_4x5-Test-1599153181360-Test-1599153181360")); 
                 
-        ScanRequest scanRequest = new ScanRequest()
-            .withTableName(TableName)
-            .withFilterExpression("renditionFileName = :val")
-            .withExpressionAttributeValues(expressionAttributeValues);
+    //     ScanRequest scanRequest = new ScanRequest()
+    //         .withTableName(TableName)
+    //         .withFilterExpression("renditionFileName = :val")
+    //         .withExpressionAttributeValues(expressionAttributeValues);
         
         
-        ScanResult result = client.scan(scanRequest);
-        for (Map<String, AttributeValue> item : result.getItems()) {
-            //Item movieItem = iterator.next();
-                    //getitemJsonList.add(item.);
-            //printItem(item);
+    //     ScanResult result = client.scan(scanRequest);
+    //     for (Map<String, AttributeValue> item : result.getItems()) {
+    //         //Item movieItem = iterator.next();
+    //                 //getitemJsonList.add(item.);
+    //         //printItem(item);
             
-        }
-        return getitemJsonList;
+    //     }
+    //     return getitemJsonList;
 
-    }
+    // }
 
     public String CreateDate()
     {

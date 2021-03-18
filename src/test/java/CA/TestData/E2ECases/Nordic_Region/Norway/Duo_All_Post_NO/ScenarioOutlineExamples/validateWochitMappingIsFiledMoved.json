@@ -2,13 +2,13 @@
   "qa": {
     "All": [
       {
-        "FNAMEPREFIX": "'DAQ CA Test NO Duo All-duo_16x9_post-FEM'",
+        "FNAMEPREFIX": "'QA NO Duo All-duo_16x9_post-FEM'",
         "ASPECTRATIO": "'16x9'",
         "RENDITIONSTATUS": "FINISHED",
         "ISRENDITIONMOVED": "true"
       },
       {
-        "FNAMEPREFIX": "'DAQ CA Test NO Duo All-duo_4x5_post-FEM'",
+        "FNAMEPREFIX": "'QA NO Duo All-duo_4x5_post-FEM'",
         "ASPECTRATIO": "'4x5'",
         "RENDITIONSTATUS": "FINISHED",
         "ISRENDITIONMOVED": "true"
@@ -18,13 +18,13 @@
   "preprod": {
     "All": [
       {
-        "FNAMEPREFIX": "'DAQ CA Test NO Duo All-duo_16x9_post-FEM'",
+        "FNAMEPREFIX": "'Preprod NO Duo All-duo_16x9_post-FEM'",
         "ASPECTRATIO": "'16x9'",
         "RENDITIONSTATUS": "FINISHED",
         "ISRENDITIONMOVED": "true"
       },
       {
-        "FNAMEPREFIX": "'DAQ CA Test NO Duo All-duo_4x5_post-FEM'",
+        "FNAMEPREFIX": "'Preprod NO Duo All-duo_4x5_post-FEM'",
         "ASPECTRATIO": "'4x5'",
         "RENDITIONSTATUS": "FINISHED",
         "ISRENDITIONMOVED": "true"
@@ -34,13 +34,13 @@
   "prod": {
     "All": [
       {
-        "FNAMEPREFIX": "'DAQ CA Test NO Duo All-duo_16x9_post-FEM'",
+        "FNAMEPREFIX": "'Prod NO Duo All-duo_16x9_post-FEM'",
         "ASPECTRATIO": "'16x9'",
         "RENDITIONSTATUS": "FINISHED",
         "ISRENDITIONMOVED": "true"
       },
       {
-        "FNAMEPREFIX": "'DAQ CA Test NO Duo All-duo_4x5_post-FEM'",
+        "FNAMEPREFIX": "'Prod NO Duo All-duo_4x5_post-FEM'",
         "ASPECTRATIO": "'4x5'",
         "RENDITIONSTATUS": "FINISHED",
         "ISRENDITIONMOVED": "true"

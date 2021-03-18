@@ -9,7 +9,7 @@
       "FileSize": "#notnull"
     },
     "name": "Asset Metadata",
-    "objectName": "#(Iconik_TechnicalMetadataObjectName)",
+    "objectName": "#(Iconik_AssetName)",
     "ID": "#notnull",
     "objectId": "#notnull",
     "objectType": "assets"
@@ -26,9 +26,9 @@
       "no-linear-CtaEndboard": "#(RandomCTA)",
       "no-linear-EndboardDuration": "8"
     },
-    "objectFilePath": "#(Iconik_TechnicalMetadataObjectName)",
+    "objectFilePath": "#(Iconik_AssetName)",
     "name": "#notnull",
-    "objectName": "#(Iconik_TechnicalMetadataObjectName)",
+    "objectName": "#(Iconik_AssetName)",
     "ID": "#notnull",
     "objectId": "#notnull",
     "objectType": "assets"

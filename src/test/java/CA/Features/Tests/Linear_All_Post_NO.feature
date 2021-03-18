@@ -20,10 +20,9 @@ Background:
   * def Iconik_TriggerRenditionCustomActionID = EnvData[Country]['Iconik_TriggerRenditionCustomActionID'][EpisodeMetadataType]
   * def Iconik_TechnicalMetadataID = EnvData[Country]['Iconik_TechnicalMetadataID']
   * def Iconik_TechnicalMetadataObjectID = EnvData[Country]['Iconik_TechnicalMetadataObjectID']
-  * def Iconik_TechnicalMetadataObjectName = EnvData[Country]['Iconik_TechnicalMetadataObjectName'][EpisodeMetadataType][AspectRatioSet]
+  * def Iconik_AssetName = EnvData[Country]['Iconik_AssetName'][EpisodeMetadataType][AspectRatioSet]
   * def Iconik_SystemDomainID = EnvData[Country]['Iconik_SystemDomainID']
   * def Iconik_UpdateSeasonURL =  EnvData[Country]['Iconik_UpdateSeasonURL']
-  * def Iconik_UpdateEpisodeURL =  EnvData[Country]['Iconik_UpdateEpisodeURL'][EpisodeMetadataType][AspectRatioSet]
   * def Iconik_UserId = EnvData['Common']['Iconik_UserId'][TargetTag]
   * def Iconik_TriggerRenditionCustomActionListURL = EnvData['Common']['Iconik_TriggerRenditionCustomActionListURL']
   * def Iconik_GetAppTokenInfoURL = EnvData['Common']['Iconik_GetAppTokenInfoURL']
@@ -176,33 +175,6 @@ Background:
 #     """
 #   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-# Scenario: Nordic_Norway_Linear_All_Post_NO - Update Episode 
-#   * def scenarioName = 'updateEpisode'
-#   * def UpdateEpisodequery = read(currentTCPath+'/Input/EpisodeRequest.json')
-#   * replace UpdateEpisodequery.CallOutText = RandomCalloutText
-#   * replace UpdateEpisodequery.CTA = RandomCTA
-#   * def Episode_ExpectedResponse = read(currentTCPath+'/Output/ExpectedEpisodeResponse.json')
-#   * def updateEpisodeParams =
-#     """
-#       {
-#         URL: '#(Iconik_UpdateEpisodeURL)',
-#         Query: '#(UpdateEpisodequery)',
-#         ExpectedResponse: '#(Episode_ExpectedResponse)'
-#       }
-#     """
-#   * def result = call read(FeatureFilePath+'/UpdateEpisode.feature') updateEpisodeParams
-#   * def updateParams = 
-#     """
-#       { 
-#         tcName: #(TCName), 
-#         scenarioName: #(scenarioName), 
-#         result: #(result.result), 
-#         tcResultReadPath: #(tcResultReadPath), 
-#         tcResultWritePath: #(tcResultWritePath) 
-#       }
-#     """
-#   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-
 Scenario: Nordic_Norway_Linear_All_Post_NO - Trigger Rendition
   * def scenarioName = 'triggerRendition'
   * def getRenditionRequestMetadataValues =
@@ -257,6 +229,12 @@ Scenario: Nordic_Norway_Linear_All_Post_NO - Validate Item Counts - MAM Asset In
             infoValue: #(Iconik_AssetID),
             infoComparator: '=',
             infoType: 'key'
+          },
+          {
+            infoName: 'assetTitle',
+            infoValue: #(Iconik_AssetName),
+            infoComparator: '=',
+            infoType: 'filter'
           }
         ],
         Param_GlobalSecondaryIndex: '',
@@ -395,6 +373,12 @@ Scenario Outline: Nordic_Norway_Linear_All_Post_NO - Validate Technical Metadata
             infoValue: #(Iconik_AssetID),
             infoComparator: '=',
             infoType: 'key'
+          },
+          {
+            infoName: 'assetTitle',
+            infoValue: #(Iconik_AssetName),
+            infoComparator: '=',
+            infoType: 'filter'
           },
           {
             infoName: 'compositeViewsId',

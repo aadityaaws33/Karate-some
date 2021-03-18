@@ -2,13 +2,13 @@
   "qa": {
     "All": [
       {
-        "FNAMEPREFIX": "'DAQ CA Test NO Duo All-duo_16x9_post-FEM'",
+        "FNAMEPREFIX": "'QA NO Duo All-duo_16x9_post-FEM'",
         "ASPECTRATIO": "'16x9'",
         "TEMPLATEID": "602dd5835661eb313d7044d8",
         "ScanVal": "ASPECT_16_9"
       },
       {
-        "FNAMEPREFIX": "'DAQ CA Test NO Duo All-duo_4x5_post-FEM'",
+        "FNAMEPREFIX": "'QA NO Duo All-duo_4x5_post-FEM'",
         "ASPECTRATIO": "'4x5'",
         "TEMPLATEID": "602dd60bf5f9a21ba44b13e5",
         "ScanVal": "ASPECT_4_5"
@@ -18,13 +18,13 @@
   "preprod": {
     "All": [
       {
-        "FNAMEPREFIX": "'DAQ CA Test NO Duo All-duo_16x9_post-FEM'",
+        "FNAMEPREFIX": "'Preprod NO Duo All-duo_16x9_post-FEM'",
         "ASPECTRATIO": "'16x9'",
         "TEMPLATEID": "602dd5835661eb313d7044d8",
         "ScanVal": "ASPECT_16_9"
       },
       {
-        "FNAMEPREFIX": "'DAQ CA Test NO Duo All-duo_4x5_post-FEM'",
+        "FNAMEPREFIX": "'Preprod NO Duo All-duo_4x5_post-FEM'",
         "ASPECTRATIO": "'4x5'",
         "TEMPLATEID": "602dd60bf5f9a21ba44b13e5",
         "ScanVal": "ASPECT_4_5"
@@ -34,13 +34,13 @@
   "prod": {
     "All": [
       {
-        "FNAMEPREFIX": "'DAQ CA Test NO Duo All-duo_16x9_post-FEM'",
+        "FNAMEPREFIX": "'Prod NO Duo All-duo_16x9_post-FEM'",
         "ASPECTRATIO": "'16x9'",
         "TEMPLATEID": "602dd5835661eb313d7044d8",
         "ScanVal": "ASPECT_16_9"
       },
       {
-        "FNAMEPREFIX": "'DAQ CA Test NO Duo All-duo_4x5_post-FEM'",
+        "FNAMEPREFIX": "'Prod NO Duo All-duo_4x5_post-FEM'",
         "ASPECTRATIO": "'4x5'",
         "TEMPLATEID": "602dd60bf5f9a21ba44b13e5",
         "ScanVal": "ASPECT_4_5"

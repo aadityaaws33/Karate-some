@@ -43,7 +43,7 @@
   "ID": "#notnull",
   "wochitResponse": {
     "duration": "#notnull",
-    "errorMessage": "#ignore",
+    "errorMessage": " ",
     "videoId": "#notnull",
     "isMonitored": "#notnull",
     "userId": "#notnull",
