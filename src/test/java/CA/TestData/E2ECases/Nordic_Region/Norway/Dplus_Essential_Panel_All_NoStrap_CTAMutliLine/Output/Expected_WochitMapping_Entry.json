@@ -1,9 +1,11 @@
 {
   "country": "NORWAY",
   "modifiedAt": "#notnull",
+  "seriesName": "QA Series",
   "errorMessage": " ",
   "isRenditionMoved": #(ISRENDITIONMOVED),
-  "wochitRenditionStatus": #(RENDITIONSTATUS),
+  "wochitRenditionStatus": #(WOCHITRENDITIONSTATUS),
+  "renditionStatus": #(RENDITIONSTATUS),
   "userName": "#notnull",
   "iconikUserName": "#? CheckIconikUserNameAttr(_)",
   "assetType": "VIDEO",

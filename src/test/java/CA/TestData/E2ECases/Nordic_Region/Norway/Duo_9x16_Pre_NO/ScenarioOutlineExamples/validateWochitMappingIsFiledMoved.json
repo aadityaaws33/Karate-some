@@ -4,8 +4,9 @@
       {
         "FNAMEPREFIX": "'QA NO Duo 9x16-duo_9x16_post-FEM'",
         "ASPECTRATIO": "'9x16'",
-        "RENDITIONSTATUS": "FINISHED",
-        "ISRENDITIONMOVED": "true"
+        "WOCHITRENDITIONSTATUS": "FINISHED",
+        "ISRENDITIONMOVED": "true",
+        "RENDITIONSTATUS": "COMPLETED"
       }
     ]
   },
@@ -14,8 +15,9 @@
       {
         "FNAMEPREFIX": "'Preprod NO Duo 9x16-duo_9x16_post-FEM'",
         "ASPECTRATIO": "'9x16'",
-        "RENDITIONSTATUS": "FINISHED",
-        "ISRENDITIONMOVED": "true"
+        "WOCHITRENDITIONSTATUS": "FINISHED",
+        "ISRENDITIONMOVED": "true",
+        "RENDITIONSTATUS": "COMPLETED"
       }
     ]
   },
@@ -24,8 +26,9 @@
       {
         "FNAMEPREFIX": "'Prod NO Duo 9x16-duo_9x16_post-FEM'",
         "ASPECTRATIO": "'9x16'",
-        "RENDITIONSTATUS": "FINISHED",
-        "ISRENDITIONMOVED": "true"
+        "WOCHITRENDITIONSTATUS": "FINISHED",
+        "ISRENDITIONMOVED": "true",
+        "RENDITIONSTATUS": "COMPLETED"
       }
     ]
   }
