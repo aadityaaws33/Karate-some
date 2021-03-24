@@ -1,0 +1,85 @@
+{
+  "country": "NORWAY",
+  "technicalMetadata": {
+    "data": {
+      "Format": "MPEG-4|AVC|AAC",
+      "Duration": "29640",
+      "Height": "1080",
+      "Width": "1920",
+      "FileSize": "57905636"
+    },
+    "name": "Asset Metadata",
+    "objectName": "#(Iconik_AssetName)",
+    "ID": "#notnull",
+    "objectId": "#(Iconik_AssetID)",
+    "objectType": "assets"
+  },
+  "modifiedAt": "#notnull",
+  "userName": "#? CheckIconikUserNameAttr(_)",
+  "iconikUserName": "#? CheckIconikUserNameAttr(_)",
+  "assetMetadata": {
+    "data": {
+      "Nordics_Dplus_OutputAspectRatio_MultiSelect": "9x16",
+      "Nordics_Dplus_TemplateType_MultiSelect": "Standard_BoltOn",
+      "Nordics_Dplus_StrapOutTiming_Text": "8",
+      "Nordics_Dplus_CtaText_MultiText": "#(RandomCTA)",
+      "Nordics_Dplus_StrapInTiming_Text": "2",
+      "Nordics_Dplus_CallOutText_MultiText": "#(RandomCalloutText)",
+      "Nordics_Dplus_IsNoStrapRequired_Boolean": "false",
+      "Nordics_Dplus_EndboardDuration_Text": "6"
+    },
+    "objectFilePath": "#(Iconik_AssetName)",
+    "name": "Dplus Asset Metadata (Nordics)",
+    "objectName": "#(Iconik_AssetName)",
+    "ID": "#notnull",
+    "objectId": "#(Iconik_AssetID)",
+    "objectType": "assets"
+  },
+  "assetType": "VIDEO",
+  "episodeMetadata": {
+    "objectName": "QA Episode 1",
+    "objectId": "#notnull",
+    "objectType": "collections"
+  },
+  "createdAt": "#notnull",
+  "keyArts": [
+    {
+      "originalName": "#notnull",
+      "createdDate": "#notnull",
+      "size": "#notnull",
+      "directoryPath": "#notnull",
+      "name": "#notnull",
+      "width": "#notnull",
+      "format": "#notnull",
+      "modifiedDate": "#notnull",
+      "id": "#notnull",
+      "title": "#notnull",
+      "height": "#notnull"
+    }
+  ],
+  "onlyNoTagRequired": 0,
+  "seasonMetadata": {
+    "data": {
+      "Nordics_Dplus_EndBoardType_SingleSelect": "Panel",
+      "Nordics_Dplus_LogoLabel_Text": "QA Season",
+      "Nordics_Dplus_TagLine_Text": "QA TAGLINE",
+      "Nordics_Dplus_ColourScheme_SingleSelect": "primary brand warm",
+      "Nordics_Dplus_ProgrammeTitle_TextArea": "QA Season Programme Title"
+    },
+    "name": "Dplus Essential Metadata (Nordics)",
+    "objectName": "QA Season",
+    "ID": "#notnull",
+    "objectId": "#notnull",
+    "objectType": "collections"
+  },
+  "createdBy": "#notnull",
+  "assetId": "#(Iconik_AssetID)",
+  "compositeViewsId": "#(COMPOSITEVIEWID)",
+  "assetTitle": "#(Iconik_AssetName)",
+  "modifiedBy": "#notnull",
+  "seriesMetadata": {
+    "objectName": "QA Series",
+    "objectId": "#notnull",
+    "objectType": "collections"
+  }
+}

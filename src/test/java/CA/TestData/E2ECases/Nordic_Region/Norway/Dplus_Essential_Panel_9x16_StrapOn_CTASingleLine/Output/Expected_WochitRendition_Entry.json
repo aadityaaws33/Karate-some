@@ -1,0 +1,97 @@
+{
+  "modifiedAt": "#notnull",
+  "aspectRatio": "#(ScanVal)",
+  "userName": "#? CheckIconikUserNameAttr(_)",
+  "templateId": "#(TEMPLATEID)",
+  "iconikUserName": "#? CheckIconikUserNameAttr(_)",
+  "videoUpdates": {
+    "linkedFields": [
+      {
+        "value": "6.1",
+        "key": "Dplus.Video.Endboard.FlexiDuration"
+      },
+      {
+        "value": "#notnull",
+        "key": "Dplus.Video.Endboard.Keyart"
+      },
+      {
+        "value": "Panel",
+        "key": "Dplus.Video.Endboard.Selector"
+      },
+      {
+        "value": "primary brand warm",
+        "key": "Dplus.Video.Endboard.ColourScheme"
+      },
+      {
+        "value": "QA Season",
+        "key": "Dplus.Video.Endboard.LogoLabel"
+      },
+      {
+        "value": "QA TAGLINE",
+        "key": "Dplus.Video.Endboard.Tagline"
+      },
+      {
+        "value": "QA Season Programme Title",
+        "key": "Dplus.Video.Endboard.ProgTitle"
+      },
+      {
+        "value": "2",
+        "key": "Dplus.Video.Strap.InTiming"
+      },
+      {
+        "value": "QA Season",
+        "key": "Dplus.Video.Strap.LogoLabel"
+      },
+      {
+        "value": "QA Season Programme Title",
+        "key": "Dplus.Video.Strap.ProgTitle"
+      },
+      {
+        "value": "8",
+        "key": "Dplus.Video.Strap.OutTiming"
+      },
+      {
+        "value": "primary brand warm",
+        "key": "Dplus.Video.Bolton.ColourScheme"
+      },
+      {
+        "value": "QA Season",
+        "key": "Dplus.Video.Bolton.LogoLabel"
+      },
+      {
+        "value": "#(RandomCTA)",
+        "key": "Dplus.Video.Endboard.CTA"
+      },
+      {
+        "value": "#(RandomCTA)",
+        "key": "Dplus.Video.Strap.CTA"
+      },
+      {
+        "value": "#(RandomCalloutText)",
+        "key": "Dplus.Video.Endboard.Callout"
+      }
+    ],
+    "title": "#(RenditionFileName)",
+    "timelineItems": [
+      {
+        "itemType": "VIDEO_SEGMENT",
+        "volumeControl": {
+          "bgMusic": "0.0",
+          "video": "1.0"
+        },
+        "videoUrl": "#notnull",
+        "segmentEndTime": "29.64",
+        "segmentStartTime": "0.0"
+      }
+    ]
+  },
+  "assetType": "VIDEO",
+  "createdAt": "#notnull",
+  "createdBy": "#notnull",
+  "renditionStatus": "#notnull",
+  "width": 0,
+  "modifiedBy": "#notnull",
+  "programmerName": "#notnull",
+  "ID": "#notnull",
+  "height": 0
+}

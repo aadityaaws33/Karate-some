@@ -1,4 +1,4 @@
-@E2E @Regression @Norway @parallel=false  
+@Norway @parallel=false  
 Feature:  Linear_All_WOEndboard
 
 Background:
