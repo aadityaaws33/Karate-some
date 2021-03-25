@@ -1,4 +1,4 @@
-@Norway @parallel=false  
+@E2E @Regression @Norway @parallel=false  
 Feature:  Linear_9x16_NoTag
 
 Background:

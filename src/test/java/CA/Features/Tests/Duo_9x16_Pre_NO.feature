@@ -1,4 +1,4 @@
-@Norway @parallel=false  
+@E2E @Regression @Norway @parallel=false  
 Feature:  Duo_9x16_Pre_NO
 
 Background:
