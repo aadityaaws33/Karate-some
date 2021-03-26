@@ -1,0 +1,12 @@
+{
+  "country": "NORWAY",
+  "createdAt": "#notnull",
+  "createdBy": "#notnull",
+  "errorMessage": "Strap OUT Timing should be larger than Strap IN Timing by a minimum of 3 seconds",
+  "ID": "#notnull",
+  "modifiedAt": "#notnull",
+  "modifiedBy": "#notnull",
+  "sourceAssetName": "#(RenditionFileName)",
+  "userName": "#? CheckIconikUserNameAttr(_)",
+  "wochitRenditionStatus": "FAILED"
+}

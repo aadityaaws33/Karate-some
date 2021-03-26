@@ -6,7 +6,16 @@ function() {
     karate.write([],'test-classes/Results.json');
   }
   var targetEnv = karate.properties['karate.targetEnv'];
+
   var targetTag = karate.properties['karate.options'].split('@')[1];
+  if(targetTag != 'E2E' && targetTag != 'Regression') {
+    if(targetTag.contains('E2E')) {
+      targetTag = 'E2E'
+    } else {
+      targetTag = 'Regression';
+    }
+  }
+
   var envData = read('classpath:env.json');
   var envConfig = envData[targetEnv];
   

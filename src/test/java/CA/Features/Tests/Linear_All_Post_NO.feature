@@ -6,7 +6,7 @@ Background:
   * def TCName = 'Linear_All_Post_NO'
   * def Country = 'Norway'
   * def EpisodeMetadataType = 'Linear'
-  * def AspectRatioSet = 'All'
+  * def MetadataSet = 'All'
   * def AWSregion = EnvData[Country]['AWSregion']
   * def WochitMappingTableName = EnvData[Country]['WochitMappingTableName']
   * def WochitMappingTableGSI = EnvData[Country]['WochitMappingTableGSI']
@@ -15,12 +15,12 @@ Background:
   # Iconik Stuff Start
   * def Iconik_EpisodeVersionID = EnvData[Country]['Iconik_EpisodeVersionID']
   * def Iconik_EpisodeMetadataObjectID = EnvData[Country]['Iconik_EpisodeMetadataObjectID']
-  * def Iconik_AssetID = EnvData[Country]['Iconik_AssetID'][EpisodeMetadataType][AspectRatioSet]
+  * def Iconik_AssetID = EnvData[Country]['Iconik_AssetID'][EpisodeMetadataType][MetadataSet]
   * def Iconik_SeasonCollectionID = EnvData[Country]['Iconik_SeasonCollectionID']
   * def Iconik_TriggerRenditionCustomActionID = EnvData[Country]['Iconik_TriggerRenditionCustomActionID'][EpisodeMetadataType]
   * def Iconik_TechnicalMetadataID = EnvData[Country]['Iconik_TechnicalMetadataID']
   * def Iconik_TechnicalMetadataObjectID = EnvData[Country]['Iconik_TechnicalMetadataObjectID']
-  * def Iconik_AssetName = EnvData[Country]['Iconik_AssetName'][EpisodeMetadataType][AspectRatioSet]
+  * def Iconik_AssetName = EnvData[Country]['Iconik_AssetName'][EpisodeMetadataType][MetadataSet]
   * def Iconik_SystemDomainID = EnvData[Country]['Iconik_SystemDomainID']
   * def Iconik_UpdateSeasonURL =  EnvData[Country]['Iconik_UpdateSeasonURL']
   * def Iconik_UserId = EnvData['Common']['Iconik_UserId'][TargetTag]
@@ -58,15 +58,15 @@ Background:
   * def currentTCPath = 'classpath:CA/TestData/E2ECases/' + AWSregion + '_Region/' + Country + '/' + TCName
   * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
   # Scenario Outline Examples Start
-  * def validateTechnicalMetadataTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateTechnicalMetadata.json')[TargetEnv][AspectRatioSet]
-  * def validateWochitRenditionTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateWochitRendition.json')[TargetEnv][AspectRatioSet]
-  * def validateWochitMappingProcessingTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateWochitMappingProcessing.json')[TargetEnv][AspectRatioSet]
-  * def validateWochitMappingIsFiledMovedTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateWochitMappingIsFiledMoved.json')[TargetEnv][AspectRatioSet]
+  * def validateTechnicalMetadataTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateTechnicalMetadata.json')[TargetEnv][MetadataSet]
+  * def validateWochitRenditionTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateWochitRendition.json')[TargetEnv][MetadataSet]
+  * def validateWochitMappingProcessingTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateWochitMappingProcessing.json')[TargetEnv][MetadataSet]
+  * def validateWochitMappingIsFiledMovedTestData = read(currentTCPath + '/ScenarioOutlineExamples/validateWochitMappingIsFiledMoved.json')[TargetEnv][MetadataSet]
   # Scenario Outline Examples End
   # Expected Item Counts Start
-  * def ExpectedMAMAssetInfoCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][AspectRatioSet]['ExpectedMAMAssetInfoCount']
-  * def ExpectedWocRenditionCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][AspectRatioSet]['ExpectedWocRenditionCount']
-  * def ExpectedWochitMappingCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][AspectRatioSet]['ExpectedWochitMappingCount']
+  * def ExpectedMAMAssetInfoCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][MetadataSet]['ExpectedMAMAssetInfoCount']
+  * def ExpectedWocRenditionCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][MetadataSet]['ExpectedWocRenditionCount']
+  * def ExpectedWochitMappingCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][MetadataSet]['ExpectedWochitMappingCount']
   # Expected Item Counts End
   # S3 Stuff
   * def AssetBucketName = EnvData['Common']['S3']['AssetBucketName']

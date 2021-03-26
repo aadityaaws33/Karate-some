@@ -93,5 +93,14 @@
   "modifiedBy": "#notnull",
   "programmerName": "#notnull",
   "ID": "#notnull",
+  "wochitResponse": {
+    "duration": "#notnull",
+    "errorMessage": " ",
+    "videoId": "#notnull",
+    "isMonitored": "#notnull",
+    "userId": "#notnull",
+    "videoState": "#notnull",
+    "statusCode": "#notnull"
+  },
   "height": 0
 }

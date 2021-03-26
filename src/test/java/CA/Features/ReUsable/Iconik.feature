@@ -48,19 +48,18 @@ Scenario: Get Authentication Token from Application Token via Iconik API
 
 @TriggerRendition
 Scenario: Rendition
-  * def formAuthHeader = 
-    """
-      function (creds) {
-        var temp = creds.username + ':' + creds.password;
-        var Base64 = Java.type('java.util.Base64');
-        var encoded = Base64.getEncoder().encodeToString(temp.bytes);
-        return 'Basic ' + encoded;
-      }
-    """
   Given url URL
   When header Auth-Token = Iconik_AuthToken
   And header App-ID = Iconik_AppID
-  # And header Authorization = call formAuthHeader IconikCredentials
   And request RenditionRequestPayload
   And method post
   Then def result = karate.match('response contains RenditionExpectedResponse')
+
+@RenameAsset
+Scenario: Rename Asset
+  Given url URL
+  When header Auth-Token = Iconik_AuthToken
+  And header App-ID = Iconik_AppID
+  And request UpdateAssetNamePayload
+  And method put
+  Then status 200

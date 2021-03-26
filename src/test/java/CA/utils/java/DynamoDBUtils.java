@@ -91,6 +91,9 @@ public class DynamoDBUtils {
         else if(infoComparator.contains("begins")) {
             conditionExpression = "begins_with(" + infoNameAlias + ", " + infoValueAlias + ")";
         }
+        else if(infoComparator.contains("notexists")) {
+            conditionExpression = "attribute_not_exists(" + infoNameAlias + ")";
+        }
         else {
             conditionExpression = infoNameAlias + " " + infoComparator + " " + infoValueAlias;
         }
@@ -202,6 +205,14 @@ public class DynamoDBUtils {
             }
         }
 
+        // DEBUGGING PURPOSES
+        // System.out.println("KEY CONDITION EXPRESSION: " + keyConditionExpression);
+        // System.out.println("KEY CONDITION NAME MAP: " + keyNameMap.toString());
+        // System.out.println("KEY CONDITION VALUE MAP: " + keyValueMap.toString());
+        // System.out.println("FILTER EXPRESSION: " + filterExpression);
+        // System.out.println("FILTER NAME MAP: " + filterNameMap.toString());
+        // System.out.println("FILTER VALUE MAP: " + filterValueMap.toString());
+
         // Create Query Spec
         querySpec = new QuerySpec();
         if(!keyConditionExpression.isEmpty()) {
@@ -219,7 +230,6 @@ public class DynamoDBUtils {
                      .withNameMap(filterNameMap)
                      .withValueMap(filterValueMap);
         }
-
         try {
 
             if(!GlobalSecondaryIndex.isEmpty()) {
