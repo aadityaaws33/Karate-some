@@ -2,9 +2,9 @@
   "qa": {
     "9x16": [
       {
-        "FNAMEPREFIX": "'QA NO Duo 9x16-duo_9x16_post-FEM'",
+        "FNAMEPREFIX": "'QA NO Duo 9x16-duo_9x16_pre-FEM'",
         "ASPECTRATIO": "'9x16'",
-        "TEMPLATEID": "602dd83ff5f9a21ba44b13e8",
+        "TEMPLATEID": "602dd4985661eb313d7044d6",
         "ScanVal": "ASPECT_9_16"
       }
     ]
@@ -12,9 +12,9 @@
   "preprod": {
     "9x16": [
       {
-        "FNAMEPREFIX": "'Preprod NO Duo 9x16-duo_9x16_post-FEM'",
+        "FNAMEPREFIX": "'Preprod NO Duo 9x16-duo_9x16_pre-FEM'",
         "ASPECTRATIO": "'9x16'",
-        "TEMPLATEID": "602dd83ff5f9a21ba44b13e8",
+        "TEMPLATEID": "602dd4985661eb313d7044d6",
         "ScanVal": "ASPECT_9_16"
       }
     ]
@@ -22,9 +22,9 @@
   "prod": {
     "9x16": [
       {
-        "FNAMEPREFIX": "'Prod NO Duo 9x16-duo_9x16_post-FEM'",
+        "FNAMEPREFIX": "'Prod NO Duo 9x16-duo_9x16_pre-FEM'",
         "ASPECTRATIO": "'9x16'",
-        "TEMPLATEID": "602dd83ff5f9a21ba44b13e8",
+        "TEMPLATEID": "602dd4985661eb313d7044d6",
         "ScanVal": "ASPECT_9_16"
       }
     ]

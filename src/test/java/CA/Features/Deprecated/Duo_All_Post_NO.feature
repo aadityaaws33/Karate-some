@@ -1,4 +1,4 @@
-@E2E @Regression @Norway @parallel=false  
+@Norway @parallel=false  
 Feature:  Duo_All_Post_NO
 
 Background:

@@ -1,4 +1,4 @@
-@E2E @Regression @Norway @parallel=false  
+@DPLUS @E2E @Regression @Norway @parallel=false  
 Feature:  Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
 
 Background:
@@ -133,7 +133,7 @@ Background:
         return java.lang.System.currentTimeMillis() 
       }
     """
-  * callonce Pause 15000
+  * callonce Pause 1000
   * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
   * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')

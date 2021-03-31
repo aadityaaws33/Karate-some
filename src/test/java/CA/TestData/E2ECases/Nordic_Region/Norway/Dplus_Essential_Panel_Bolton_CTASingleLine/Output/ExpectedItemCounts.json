@@ -1,21 +1,21 @@
 {
   "qa": {
     "AllStdBoltOn": {
-      "ExpectedMAMAssetInfoCount": 3,
+      "ExpectedMAMAssetInfoCount": 4,
       "ExpectedWocRenditionCount": 4,
       "ExpectedWochitMappingCount": 4
     }
   },
   "preprod": {
     "AllStdBoltOn": {
-      "ExpectedMAMAssetInfoCount": 3,
+      "ExpectedMAMAssetInfoCount": 4,
       "ExpectedWocRenditionCount": 4,
       "ExpectedWochitMappingCount": 4
     }
   },
   "prod": {
     "AllStdBoltOn": {
-      "ExpectedMAMAssetInfoCount": 3,
+      "ExpectedMAMAssetInfoCount": 4,
       "ExpectedWocRenditionCount": 4,
       "ExpectedWochitMappingCount": 4
     }

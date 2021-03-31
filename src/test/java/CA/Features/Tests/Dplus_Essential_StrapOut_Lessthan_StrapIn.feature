@@ -1,4 +1,4 @@
-@E2E @Regression @Norway @parallel=false  
+@DPLUS @E2E @Regression @Norway @parallel=false  
 Feature:  Dplus_Essential_StrapOut_Lessthan_StrapIn
 
 Background:
@@ -114,7 +114,7 @@ Background:
         java.lang.Thread.sleep(pause);
       }
     """
-  * callonce Pause 17000
+  * callonce Pause 4000
   * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
   * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')

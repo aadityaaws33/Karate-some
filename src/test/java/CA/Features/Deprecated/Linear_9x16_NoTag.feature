@@ -1,12 +1,12 @@
-@E2E @Regression @Norway @parallel=false  
-Feature:  Linear_All_Post_NO
+@Norway @parallel=false  
+Feature:  Linear_9x16_NoTag
 
 Background:
   # NEW
-  * def TCName = 'Linear_All_Post_NO'
+  * def TCName = 'Linear_9x16_NoTag'
   * def Country = 'Norway'
   * def EpisodeMetadataType = 'Linear'
-  * def MetadataSet = 'All'
+  * def MetadataSet = '9x16NoTag'
   * def AWSregion = EnvData[Country]['AWSregion']
   * def WochitMappingTableName = EnvData[Country]['WochitMappingTableName']
   * def WochitMappingTableGSI = EnvData[Country]['WochitMappingTableGSI']
@@ -127,13 +127,13 @@ Background:
   * def Random_String_Generator = 
     """
       function(){ 
-        var pause = 7000;
+        var pause = 5000;
         karate.log('Pausing for ' + pause + ' milliseconds');
         java.lang.Thread.sleep(pause);
         return java.lang.System.currentTimeMillis() 
       }
     """
-  * callonce Pause 7000
+  * callonce Pause 5000
   * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
   * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
@@ -148,7 +148,7 @@ Background:
       }
     """
 
-# Scenario: Nordic_Norway_Linear_All_Post_NO - Update Season 
+# Scenario: Nordic_Norway_Linear_9x16_NoTag - Update Season 
 #   * def scenarioName = 'updateSeason'
 #   * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
 #   * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
@@ -175,7 +175,7 @@ Background:
 #     """
 #   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Linear_All_Post_NO - Trigger Rendition
+Scenario: Nordic_Norway_Linear_9x16_NoTag - Trigger Rendition
   * def scenarioName = 'triggerRendition'
   * def getRenditionRequestMetadataValues =
     """
@@ -216,7 +216,7 @@ Scenario: Nordic_Norway_Linear_All_Post_NO - Trigger Rendition
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   * call Pause 60000
     
-Scenario: Nordic_Norway_Linear_All_Post_NO - Validate Item Counts - MAM Asset Info
+Scenario: Nordic_Norway_Linear_9x16_NoTag - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAM"
   # * def ExpectedMAMAssetInfoCount = 5
   * def ValidateItemCountViaQueryParams = 
@@ -255,7 +255,7 @@ Scenario: Nordic_Norway_Linear_All_Post_NO - Validate Item Counts - MAM Asset In
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Linear_All_Post_NO - Validate Item Counts - Wochit Rendition
+Scenario: Nordic_Norway_Linear_9x16_NoTag - Validate Item Counts - Wochit Rendition
   * def scenarioName = "validateWochitRenditionCount"
   # * def ExpectedWocRenditionCount = 3
   * def ExpectedTitle = RandomCTA
@@ -283,7 +283,7 @@ Scenario: Nordic_Norway_Linear_All_Post_NO - Validate Item Counts - Wochit Rendi
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Linear_All_Post_NO - Validate Item Counts - Wochit Mapping
+Scenario: Nordic_Norway_Linear_9x16_NoTag - Validate Item Counts - Wochit Mapping
   * def scenarioName = "validateWochitMappingCount"
   # * def ExpectedWochitMappingCount = 3
   * def ExpectedTitle = RandomCTA
@@ -329,7 +329,7 @@ Scenario: Nordic_Norway_Linear_All_Post_NO - Validate Item Counts - Wochit Mappi
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario Outline: Nordic_Norway_Linear_All_Post_NO - Validate Wochit Renditions Table for <ASPECTRATIO>
+Scenario Outline: Nordic_Norway_Linear_9x16_NoTag - Validate Wochit Renditions Table for <ASPECTRATIO>
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCTA
   * def Expected_WochitRendition_Entry = read(currentTCPath + '/Output/Expected_WochitRendition_Entry.json')
@@ -360,7 +360,7 @@ Scenario Outline: Nordic_Norway_Linear_All_Post_NO - Validate Wochit Renditions 
   Examples:
     | validateWochitRenditionTestData |
 
-Scenario Outline: Nordic_Norway_Linear_All_Post_NO - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
+Scenario Outline: Nordic_Norway_Linear_9x16_NoTag - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
   * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
   * def ValidateItemViaQueryParams = 
@@ -407,7 +407,7 @@ Scenario Outline: Nordic_Norway_Linear_All_Post_NO - Validate Technical Metadata
   Examples:
     | validateTechnicalMetadataTestData |
 
-Scenario Outline: Nordic_Norway_Linear_All_Post_NO - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Norway_Linear_9x16_NoTag - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
@@ -462,7 +462,7 @@ Scenario: Hard wait for PROCESSING to FINISH
   # ---------
   * call Pause 60000*4
 
-Scenario Outline: Nordic_Norway_Linear_All_Post_NO - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Norway_Linear_9x16_NoTag - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
@@ -527,7 +527,7 @@ Scenario Outline: Nordic_Norway_Linear_All_Post_NO - FINISHED - Validate Wochit 
   Examples:
     | validateWochitMappingIsFiledMovedTestData |
 
-Scenario Outline: Nordic_Norway_Linear_All_Post_NO - Validate if <ASPECTRATIO> Asset exists
+Scenario Outline: Nordic_Norway_Linear_9x16_NoTag - Validate if <ASPECTRATIO> Asset exists
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}

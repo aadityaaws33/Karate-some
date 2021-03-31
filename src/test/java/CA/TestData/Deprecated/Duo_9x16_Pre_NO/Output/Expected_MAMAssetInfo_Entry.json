@@ -18,20 +18,22 @@
   "userName": "#notnull",
   "iconikUserName": "#? CheckIconikUserNameAttr(_)",
   "assetMetadata": {
-    "data": {
-      "no-duo-CtaEndboard": "#(RandomCTA)",
-      "no-duo-DplayCtaEndboard-multi": "#notnull",
-      "no-duo-isNoTagRequired": "false",
-      "no-duo-isWOEndboardRequired": "false",
-      "no-duo-OutputAspectRatio": "9x16"
+      "data": {
+        "no-duo-CtaEndboard": "#(RandomCTA)",
+        "no-duo-PreEndboard-templateCategory-text": "#(RandomCalloutText)",
+        "no-duo-DplayCtaEndboard-multi": "Se gratis på",
+        "no-duo-isNoTagRequired": "false",
+        "no-duo-isWOEndboardRequired": "false",
+        "no_duo_TemplateType_MultiSelect": "Duo_Pre_Launch",
+        "no-duo-OutputAspectRatio": "9x16"
+      },
+      "objectFilePath": "#(Iconik_AssetName)",
+      "name": "Duo & Linear Asset Metadata (Norway)",
+      "objectName": "#(Iconik_AssetName)",
+      "ID": "#notnull",
+      "objectId": "#notnull",
+      "objectType": "assets"
     },
-    "objectFilePath": "#(Iconik_AssetName)",
-    "name": "#notnull",
-    "objectName": "#(Iconik_AssetName)",
-    "ID": "#notnull",
-    "objectId": "#notnull",
-    "objectType": "assets"
-  },
   "assetType": "VIDEO",
   "episodeMetadata": {
     "objectName": "QA Episode 1",

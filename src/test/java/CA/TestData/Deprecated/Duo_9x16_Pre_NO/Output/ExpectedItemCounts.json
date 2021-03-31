@@ -1,7 +1,7 @@
 {
   "qa": {
     "9x16": {
-      "ExpectedMAMAssetInfoCount": 3,
+      "ExpectedMAMAssetInfoCount": 4,
       "ExpectedWocRenditionCount": 1,
       "ExpectedWochitMappingCount": 1
     }
