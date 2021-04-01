@@ -127,7 +127,7 @@ Background:
   * def Random_String_Generator = 
     """
       function(){ 
-        var pause = 11000;
+        var pause = 3000;
         karate.log('Pausing for ' + pause + ' milliseconds');
         java.lang.Thread.sleep(pause);
         return java.lang.System.currentTimeMillis() 
@@ -458,14 +458,14 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - PRO
 Scenario: Hard wait for PROCESSING to FINISH
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
-  * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
+  * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------
   * call Pause 60000*4
 
 Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
-  * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
+  * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------
   * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
@@ -530,7 +530,7 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - FIN
 Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Validate if <ASPECTRATIO> Asset exists
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
-  * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
+  * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------  
   * def scenarioName = 'validateS3AssetExists' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA

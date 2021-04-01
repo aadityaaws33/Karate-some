@@ -458,14 +458,14 @@ Scenario Outline: Nordic_Norway_Duo_9x16_Pre_NO - PROCESSING - Validate Wochit M
 Scenario: Hard wait for PROCESSING to FINISH
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
-  * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
+  * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------
   * call Pause 60000*4
 
 Scenario Outline: Nordic_Norway_Duo_9x16_Pre_NO - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
-  * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
+  * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------
   * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX> + '-' + RandomCalloutText + '-' + RandomCTA
@@ -530,7 +530,7 @@ Scenario Outline: Nordic_Norway_Duo_9x16_Pre_NO - FINISHED - Validate Wochit Map
 Scenario Outline: Nordic_Norway_Duo_9x16_Pre_NO - Validate if <ASPECTRATIO> Asset exists
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
-  * eval if (TargetTag.contains('Regression') || TargetTag.contains('WIP')) {karate.abort()}
+  * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------  
   * def scenarioName = 'validateS3AssetExists' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX> + '-' + RandomCalloutText + '-' + RandomCTA

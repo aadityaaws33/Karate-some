@@ -53,7 +53,15 @@ Scenario: Rendition
   And header App-ID = Iconik_AppID
   And request RenditionRequestPayload
   And method post
-  Then def result = karate.match('response contains RenditionExpectedResponse')
+  Then def matchResult = karate.match('response contains RenditionExpectedResponse')
+  And def result =
+    """
+      {
+        "response": #(response),
+        "message": #(matchResult.message),
+        "pass": #(matchResult.pass)
+      }
+    """
 
 @RenameAsset
 Scenario: Rename Asset

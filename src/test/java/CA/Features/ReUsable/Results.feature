@@ -60,7 +60,7 @@ Scenario: Update Test Results to Results.json
         karate.log('after:' + results);
         karate.write(karate.pretty(results), tcResultWritePath);
         if(tcResult == 'Fail') {
-          karate.fail(TCName + '-' + scenarioName + ': ' + result);
+          karate.fail(TCName + '-' + scenarioName + ': ' + karate.pretty(passedResult));
         }
       }
     """

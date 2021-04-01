@@ -1,130 +1,139 @@
 Feature: DynamoDB-related reusable functions
 
 Background:
-    * def Pause = function(pause){ java.lang.Thread.sleep(pause) }
-    * def initializeDynamoDBObject = 
-      """
-        function(thisAWSregion) {
-          var dynamoDBUtilsClass = Java.type('CA.utils.java.DynamoDBUtils');
-          return new dynamoDBUtilsClass(thisAWSregion)
-        }
-      """
-    * def dynamoDB = callonce initializeDynamoDBObject AWSregion
+  * def Pause = function(pause){ java.lang.Thread.sleep(pause) }
+  * def initializeDynamoDBObject = 
+    """
+      function(thisAWSregion) {
+        var dynamoDBUtilsClass = Java.type('CA.utils.java.DynamoDBUtils');
+        return new dynamoDBUtilsClass(thisAWSregion)
+      }
+    """
+  * def dynamoDB = callonce initializeDynamoDBObject AWSregion
     
 @TruncateTable
 Scenario: Truncate Table
-#* print '-------------------Dynamo DB Feature and Truncate Table Scenario-------------'
-* def TruncateTable =
-    """
-    function()
-    {
-      return dynamoDB.TruncateTable(
-        Param_TableName,
-        Param_PrimaryKey
-      );
-    }
-    """
-* def temp = call TruncateTable
+  #* print '-------------------Dynamo DB Feature and Truncate Table Scenario-------------'
+  * def TruncateTable =
+      """
+      function()
+      {
+        return dynamoDB.TruncateTable(
+          Param_TableName,
+          Param_PrimaryKey
+        );
+      }
+      """
+  * def temp = call TruncateTable
 
 
 @ValidateItemCountViaQuery
 Scenario: Validate DynamoDB Item Count via Query
-#* print '-------------------Dynamo DB Feature and Item Count-------------'
-* def getItemCountQuery =
-  """
-  function()
-  {
-    var HashMap = Java.type('java.util.HashMap');
-    var Param_QueryInfoListJava = [];
-    for(var index in Param_QueryInfoList){
-      // Convert J04 Object into Java HashMap
-      var Param_QueryInfoItemHashMapJava = new HashMap();
-      Param_QueryInfoItemHashMapJava.putAll(Param_QueryInfoList[index]);
-      // Append converted Java HashMap to Java List
-      Param_QueryInfoListJava.push(
-        Param_QueryInfoItemHashMapJava
+  #* print '-------------------Dynamo DB Feature and Item Count-------------'
+  * def getItemCountQuery =
+    """
+    function()
+    {
+      var HashMap = Java.type('java.util.HashMap');
+      var Param_QueryInfoListJava = [];
+      for(var index in Param_QueryInfoList){
+        // Convert J04 Object into Java HashMap
+        var Param_QueryInfoItemHashMapJava = new HashMap();
+        Param_QueryInfoItemHashMapJava.putAll(Param_QueryInfoList[index]);
+        // Append converted Java HashMap to Java List
+        Param_QueryInfoListJava.push(
+          Param_QueryInfoItemHashMapJava
+        );
+      }
+
+      return dynamoDB.Query_GetTableItemCount(
+        Param_TableName,
+        Param_QueryInfoListJava,
+        Param_GlobalSecondaryIndex
       );
     }
-
-    return dynamoDB.Query_GetTableItemCount(
-      Param_TableName,
-      Param_QueryInfoListJava,
-      Param_GlobalSecondaryIndex
-    );
-  }
-  """
-* def itemCount = call getItemCountQuery
-* print itemCount
-* def result = karate.match(itemCount, Param_ExpectedItemCount)
-* print result
-#* print '----------------Actual Item Count------------'+temp
-#* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
+    """
+  * def itemCount = call getItemCountQuery
+  * print itemCount
+  * def matchResult = karate.match(itemCount, Param_ExpectedItemCount)
+  * def result =
+    """
+      {
+        "response": #(itemCount),
+        "message": #(matchResult.message),
+        "pass": #(matchResult.pass),
+        "path": #(matchResult.path)
+      }
+    """
+  * print result
+  #* print '----------------Actual Item Count------------'+temp
+  #* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
 
 @GetItemsViaQuery
 Scenario: Get DynamoDB Item(s) via Query
-#* print '-------------------Dynamo DB Feature and Item Count-------------'
-* def getItemsQuery =
-  """
-  function()
-  {
-    var HashMap = Java.type('java.util.HashMap');
-    var Param_QueryInfoListJava = [];
-    for(var index in Param_QueryInfoList){
-      // Convert J04 Object into Java HashMap
-      var Param_QueryInfoItemHashMapJava = new HashMap();
-      Param_QueryInfoItemHashMapJava.putAll(Param_QueryInfoList[index]);
-      // Append converted Java HashMap to Java List
-      Param_QueryInfoListJava.push(
-        Param_QueryInfoItemHashMapJava
+  #* print '-------------------Dynamo DB Feature and Item Count-------------'
+  * def getItemsQuery =
+    """
+    function()
+    {
+      var HashMap = Java.type('java.util.HashMap');
+      var Param_QueryInfoListJava = [];
+      for(var index in Param_QueryInfoList){
+        // Convert J04 Object into Java HashMap
+        var Param_QueryInfoItemHashMapJava = new HashMap();
+        Param_QueryInfoItemHashMapJava.putAll(Param_QueryInfoList[index]);
+        // Append converted Java HashMap to Java List
+        Param_QueryInfoListJava.push(
+          Param_QueryInfoItemHashMapJava
+        );
+      }
+
+      var queryResp = dynamoDB.Query_GetItems(
+        Param_TableName,
+        Param_QueryInfoListJava,
+        Param_GlobalSecondaryIndex
       );
+
+      return JSON.parse(queryResp);
+
     }
-
-    var queryResp = dynamoDB.Query_GetItems(
-      Param_TableName,
-      Param_QueryInfoListJava,
-      Param_GlobalSecondaryIndex
-    );
-
-    return JSON.parse(queryResp);
-
-  }
-  """
-* def queryResult = call getItemsQuery
-* def result = queryResult
-* print result
+    """
+  * def queryResult = call getItemsQuery
+  * def result = queryResult
+  * print result
 
 @ValidateItemViaQuery
 Scenario: Validate DynamoDB Item via Query
-#* print '-------------------Dynamo DB Feature and Item Count-------------'
-* def getItemsQuery =
-  """
-  function()
-  {
-    var HashMap = Java.type('java.util.HashMap');
-    var Param_QueryInfoListJava = [];
-    for(var index in Param_QueryInfoList){
-      // Convert J04 Object into Java HashMap
-      var Param_QueryInfoItemHashMapJava = new HashMap();
-      Param_QueryInfoItemHashMapJava.putAll(Param_QueryInfoList[index]);
-      // Append converted Java HashMap to Java List
-      Param_QueryInfoListJava.push(
-        Param_QueryInfoItemHashMapJava
+  #* print '-------------------Dynamo DB Feature and Item Count-------------'
+  * def getItemsQuery =
+    """
+    function()
+    {
+      var HashMap = Java.type('java.util.HashMap');
+      var Param_QueryInfoListJava = [];
+      for(var index in Param_QueryInfoList){
+        // Convert J04 Object into Java HashMap
+        var Param_QueryInfoItemHashMapJava = new HashMap();
+        Param_QueryInfoItemHashMapJava.putAll(Param_QueryInfoList[index]);
+        // Append converted Java HashMap to Java List
+        Param_QueryInfoListJava.push(
+          Param_QueryInfoItemHashMapJava
+        );
+      }
+
+      var queryResp = dynamoDB.Query_GetItems(
+        Param_TableName,
+        Param_QueryInfoListJava,
+        Param_GlobalSecondaryIndex
       );
+
+      return JSON.parse(queryResp[0]);
+
     }
-
-    var queryResp = dynamoDB.Query_GetItems(
-      Param_TableName,
-      Param_QueryInfoListJava,
-      Param_GlobalSecondaryIndex
-    );
-
-    return JSON.parse(queryResp[0]);
-
-  }
-  """
-* def queryResult = call getItemsQuery
-* print queryResult
-* def getMatchResult = 
+    """
+  * def queryResult = call getItemsQuery
+  * print queryResult
+  * def getMatchResult = 
     """
       function() {
         var matchRes = karate.match('queryResult contains Param_ExpectedResponse');
@@ -132,10 +141,12 @@ Scenario: Validate DynamoDB Item via Query
           karate.log('Initial matching failed');
           for(var key in queryResult) {
             var thisRes = '';
+            var path = '$.' + key;
             expectedValue = Param_ExpectedResponse[key];
             actualValue = queryResult[key];
             if(key == 'assetMetadata' || key == 'seasonMetadata' || key == 'seriesMetadata') {
               for(var metadataKey in actualValue) {
+                path = '$.' + key + '.' + metadataKey;
                 expectedMetadataValue = expectedValue[metadataKey];
                 actualMetadataValue = actualValue[metadataKey];
                 if(typeof(actualMetadataValue) == 'object') {
@@ -143,6 +154,7 @@ Scenario: Validate DynamoDB Item via Query
                   karate.log(actualMetadataValue);
                   if(actualMetadataValue.length > 0) {
                     for(var dataKey in actualMetadataValue) {
+                      path = '$.' + key + '.' + metadataKey + '.' + dataKey;
                       expectedDataField = expectedMetadataValue[dataKey];
                       actualDataField = actualMetadataValue[dataKey];
                       thisRes = karate.match('actualDataField contains expectedDataField');
@@ -171,6 +183,7 @@ Scenario: Validate DynamoDB Item via Query
             }
             matchRes = thisRes;
             if(!matchRes['pass']) {
+              matchRes['path'] = path;
               break;
             }
           }
@@ -178,37 +191,55 @@ Scenario: Validate DynamoDB Item via Query
         return matchRes;
       }
     """
-* def result = call getMatchResult
-* print result
+  * def matchResult = call getMatchResult
+  * def result =
+    """
+      {
+        "response": #(queryResult),
+        "message": #(matchResult.message),
+        "pass": #(matchResult.pass),
+        "path": #(matchResult.path)
+      }
+    """
+  * print result
 
 @ItemCountScan
 Scenario: Get Item Count of Table with Scan
-#* print '-------------------Dynamo DB Feature and Item Count-------------'
-* def getItemCountScan =
+  #* print '-------------------Dynamo DB Feature and Item Count-------------'
+  * def getItemCountScan =
+      """
+      function()
+      {
+          return dynamoDB.Scan_GetTableItemCount(
+            Param_TableName,
+            Param_Atr1,
+            Param_Atrvalue1,
+            Param_Operator
+          );
+      }
+      """
+  * def itemList = call getItemCountScan
+  * print itemList
+  * def itemCount = itemList.length
+  * def matchResult = karate.match(itemCount, Param_ExpectedItemCount)
+  * def result =
     """
-    function()
-    {
-        return dynamoDB.Scan_GetTableItemCount(
-          Param_TableName,
-          Param_Atr1,
-          Param_Atrvalue1,
-          Param_Operator
-        );
-    }
+      {
+        "response": #(itemList),
+        "message": #(matchResult.message),
+        "pass": #(matchResult.pass),
+        "path": #(matchResult.path)
+      }
     """
-* def itemList = call getItemCountScan
-* print itemList
-* def itemCount = itemList.length
-* def result = karate.match(itemCount, Param_ExpectedItemCount)
-* print result
-#* print '----------------Actual Item Count------------'+temp
-#* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
+  * print result
+  #* print '----------------Actual Item Count------------'+temp
+  #* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
 
 @ValidatePassedItem
 Scenario: Get Item Count of Table with Scan
-#* print '-------------------Dynamo DB Validate Item-------------'
-#* print '-----------------Expected from Json---------------'+Param_TechMetaDataExpected
-* def ItemCount =
+  #* print '-------------------Dynamo DB Validate Item-------------'
+  #* print '-----------------Expected from Json---------------'+Param_TechMetaDataExpected
+  * def ItemCount =
     """
     function()
     {
@@ -219,9 +250,9 @@ Scenario: Get Item Count of Table with Scan
         Param_TechMetaDataExpected);
     }
     """
-* def temp = call ItemCount
-* print temp
-#* print '----------------Temp in ValidatePassedItem------------'+temp
+  * def temp = call ItemCount
+  * print temp
+  #* print '----------------Temp in ValidatePassedItem------------'+temp
 
 
 @GetItemMAMAssetInfo
@@ -251,10 +282,12 @@ Scenario: Get Item Count of Table with Scan
           karate.log('Initial matching failed');
           for(var key in scanResult) {
             var thisRes = '';
+            var path = '$.' + key;
             expectedValue = Expected_MAMAssetInfo_Entry[key];
             actualValue = scanResult[key];
             if(key == 'assetMetadata' || key == 'seasonMetadata' || key == 'seriesMetadata') {
               for(var metadataKey in actualValue) {
+                path = '$.' + key + '.' + metadataKey;
                 expectedMetadataValue = expectedValue[metadataKey];
                 actualMetadataValue = actualValue[metadataKey];
                 if(typeof(actualMetadataValue) == 'object') {
@@ -262,6 +295,7 @@ Scenario: Get Item Count of Table with Scan
                   karate.log(actualMetadataValue);
                   if(actualMetadataValue.length > 0) {
                     for(var dataKey in actualMetadataValue) {
+                      path = '$.' + key + '.' + metadataKey + '.' + dataKey;
                       expectedDataField = expectedMetadataValue[dataKey];
                       actualDataField = actualMetadataValue[dataKey];
                       thisRes = karate.match('actualDataField contains expectedDataField');
@@ -290,6 +324,7 @@ Scenario: Get Item Count of Table with Scan
             }
             matchRes = thisRes;
             if(!matchRes['pass']) {
+              matchRes['path'] = path;
               break;
             }
           }
@@ -297,55 +332,64 @@ Scenario: Get Item Count of Table with Scan
         return matchRes;
       }
     """
-  * def result = call getMatchResult
+  * def matchResult = call getMatchResult
+  * def result =
+    """
+      {
+        "response": #(scanResult),
+        "message": #(matchResult.message),
+        "pass": #(matchResult.pass),
+        "path": #(matchResult.path)
+      }
+    """
   * print result
 
 @ScanGetItem
 Scenario: Get Item Count of Table with Scan
-#* print '-------------------Dynamo DB Get Item-------------'
-* def ItemCount =
-    """
-    function()
-    {
-      return dynamoDB.Scan_DB_GetSingleItem(
-        Param_TableName,
-        Param_ScanAttr,
-        Param_ScanVal,
-        ''
-      );
-    }
-    """
-* def QueryJson = call ItemCount
-* print QueryJson
-* def ItemResponse = get[0] QueryJson
-#* print '-------------ActualResponse-----------'+ItemResponse
-#* print '-------------ExpectedResponse-----------'+QueryJsonExpected
-#* match ItemResponse contains '#(QueryJsonExpected)'
-* match ItemResponse contains QueryJsonExpected
-#* match QueryJsonExpected contains ItemResponse
+  #* print '-------------------Dynamo DB Get Item-------------'
+  * def ItemCount =
+      """
+      function()
+      {
+        return dynamoDB.Scan_DB_GetSingleItem(
+          Param_TableName,
+          Param_ScanAttr,
+          Param_ScanVal,
+          ''
+        );
+      }
+      """
+  * def QueryJson = call ItemCount
+  * print QueryJson
+  * def ItemResponse = get[0] QueryJson
+  #* print '-------------ActualResponse-----------'+ItemResponse
+  #* print '-------------ExpectedResponse-----------'+QueryJsonExpected
+  #* match ItemResponse contains '#(QueryJsonExpected)'
+  * match ItemResponse contains QueryJsonExpected
+  #* match QueryJsonExpected contains ItemResponse
 
 @ValidateWochitPayload
-Scenario: Get Item Count of Table with Scan
-#* print '-------------------Dynamo DB Get Item-------------'
-* def ItemCount =
-    """
-    function()
-    {
-      return dynamoDB.Scan_WochitRendition(
-        Param_TableName,
-        Param_ScanAttr1,
-        Param_ScanVal1,
-        Param_ScanAttr2,
-        Param_ScanVal2
-      );
-    }
-    """
-* def QueryJson = call ItemCount
-* print QueryJson
-* def ItemResponse = get[0] QueryJson
-* match ItemResponse contains Param_Expected_Status
-* match ItemResponse contains Param_Expected_Item_AspectRatio_TemplateID
-* match ItemResponse contains Param_Expected_VideoUpdates
+  Scenario: Get Item Count of Table with Scan
+  #* print '-------------------Dynamo DB Get Item-------------'
+  * def ItemCount =
+      """
+      function()
+      {
+        return dynamoDB.Scan_WochitRendition(
+          Param_TableName,
+          Param_ScanAttr1,
+          Param_ScanVal1,
+          Param_ScanAttr2,
+          Param_ScanVal2
+        );
+      }
+      """
+  * def QueryJson = call ItemCount
+  * print QueryJson
+  * def ItemResponse = get[0] QueryJson
+  * match ItemResponse contains Param_Expected_Status
+  * match ItemResponse contains Param_Expected_Item_AspectRatio_TemplateID
+  * match ItemResponse contains Param_Expected_VideoUpdates
 
 #-----TBI
 #* print '-------------ActualResponse-----------'+ItemResponse
@@ -382,10 +426,12 @@ Scenario: Get Item Count of Table with Scan
           karate.log('Initial matching failed');
           for(var key in scanResult) {
             var thisRes = '';
+            var path = '$.' + key;
             expectedValue = Expected_WochitRendition_Entry[key];
             actualValue = scanResult[key];
             if(key == 'videoUpdates') {
               for(var videoUpdatesKey in actualValue) {
+                path = '$.' + key + '.' + videoUpdatesKey;
                 actualVideoField = actualValue[videoUpdatesKey];
                 expectedVideoField = expectedValue[videoUpdatesKey];
                 thisRes = karate.match('actualVideoField contains expectedVideoField');
@@ -400,6 +446,7 @@ Scenario: Get Item Count of Table with Scan
             karate.log(key + ': ' + thisRes);
             matchRes = thisRes;
             if(!matchRes['pass']) {
+              matchRes['path'] = path;
               break;
             }
           }
@@ -407,7 +454,16 @@ Scenario: Get Item Count of Table with Scan
         return matchRes;
       }
     """
-  * def result = call getMatchResult
+  * def matchResult = call getMatchResult
+  * def result =
+    """
+      {
+        "response": #(scanResult),
+        "message": #(matchResult.message),
+        "pass": #(matchResult.pass),
+        "path": #(matchResult.path)
+      }
+    """
   * print result
 
 
@@ -436,12 +492,14 @@ Scenario: Get Item Count of Table with Scan
           karate.log('Initial matching failed');
           for(var key in scanResult) {
             var thisRes = '';
+            var path = '$.' + key;
             expectedValue = Expected_WochitMapping_Entry[key];
             actualValue = scanResult[key];
             thisRes = karate.match('actualValue contains expectedValue');
             karate.log(key + ': ' + thisRes);
             matchRes = thisRes;
             if(!matchRes['pass']) {
+              matchRes['path'] = path;
               break;
             }
           }
@@ -449,7 +507,16 @@ Scenario: Get Item Count of Table with Scan
         return matchRes;
       }
     """
-  * def result = call getMatchResult
+  * def matchResult = call getMatchResult
+  * def result =
+    """
+      {
+        "response": #(scanResult),
+        "message": #(matchResult.message),
+        "pass": #(matchResult.pass),
+        "path": #(matchResult.path)
+      }
+    """
   * print result
 
 @WaitUntilDBUpdate
