@@ -1,4 +1,4 @@
-@DPLUS @E2E @Regression @Norway @parallel=false  
+@JESS @DPLUS @E2E @Regression @Norway @parallel=false  
 Feature:  Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
 
 Background:

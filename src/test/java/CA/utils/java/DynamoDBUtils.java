@@ -16,6 +16,8 @@ import java.util.TimeZone;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import com.amazonaws.ClientConfiguration;
+import com.amazonaws.retry.PredefinedRetryPolicies;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
@@ -52,19 +54,55 @@ public class DynamoDBUtils {
     public DynamoDB dynamoDB;
     public Index index;
 
+
+    /**
+    *   Creates a ClientConfiguration object for DynamoDB
+    *   
+    *   @return     ClientConfiguration object
+    */
+    private static ClientConfiguration createDynamoDBClientConfiguration() {
+        int connectionTimeout = 2000;
+        int clientExecutionTimeout = 2000;
+        int requestTimeout = 2000;
+        int socketTimeout = 2000;
+        int maxErrorRetries = 5;
+        int maxConnections = 1;
+
+        ClientConfiguration clientConfiguration = new ClientConfiguration()
+               .withConnectionTimeout(connectionTimeout)
+                .withClientExecutionTimeout(clientExecutionTimeout)
+                .withRequestTimeout(requestTimeout)
+                .withSocketTimeout(socketTimeout)
+                .withMaxConnections(maxConnections)
+                .withRetryPolicy(PredefinedRetryPolicies
+                        .getDynamoDBDefaultRetryPolicyWithCustomMaxRetries(maxErrorRetries));
+
+        // ClientConfiguration.getClientConfiguration(clientConfiguration);
+
+        return clientConfiguration;
+    }
+
     public DynamoDBUtils(String region) {
         dynamoDB = initObject(region);
     }
 
     public DynamoDB initObject(String region)
     {
-        //System.out.println("----------Property of Region in DynamoDBUtiuls COnstructoir----------"+ System.getProperty("karate.region"));
         if(region.contentEquals("Nordic"))
         {
-            client = AmazonDynamoDBClientBuilder.standard().withRegion("eu-west-1").build();    
+
+            client = AmazonDynamoDBClientBuilder
+                        .standard()
+                        .withRegion("eu-west-1")
+                        .withClientConfiguration(createDynamoDBClientConfiguration())
+                        .build();    
         } else if (region.contentEquals("APAC"))
         {
-            client = AmazonDynamoDBClientBuilder.standard().withRegion("ap-southeast-1").build();    
+            client = AmazonDynamoDBClientBuilder
+                        .standard()
+                        .withRegion("ap-southeast-1")
+                        .withClientConfiguration(createDynamoDBClientConfiguration())
+                        .build();    
         }
         return new DynamoDB(client);
     }   

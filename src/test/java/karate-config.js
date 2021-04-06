@@ -1,5 +1,8 @@
 function() {  
 
+  // Global configurations
+  karate.configure('connectTimeout', 1000);
+
   try {
     karate.read('classpath:target/test-classes/Results.json')
   } catch (err) {
@@ -25,9 +28,7 @@ function() {
     var AWSUtils = new AWSUtilsClass();
     secretsData = AWSUtils.getSecrets(envConfig.Common.SecretsManager.secretName, envConfig.Common.SecretsManager.region);
   } catch (err) {
-    karate.log('Problem encountered while fetching data from Secrets Manager');
-    karate.log(err);
-    karate.abort();
+    karate.fail('Problem encountered while fetching data from Secrets Manager\n' + err);
   }
 
   var config = {
