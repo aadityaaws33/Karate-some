@@ -205,14 +205,19 @@ public class AWSUtils {
     try {
         getSecretValueResult = client.getSecretValue(getSecretValueRequest);
     } catch (DecryptionFailureException e) {
+        System.err.println(e.getMessage());
         throw e;
     } catch (InternalServiceErrorException e) {
+        System.err.println(e.getMessage());        
         throw e;
     } catch (InvalidParameterException e) {
+        System.err.println(e.getMessage());
         throw e;
     } catch (InvalidRequestException e) {
+        System.err.println(e.getMessage());
         throw e;
     } catch (ResourceNotFoundException e) {
+        System.err.println(e.getMessage());
         throw e;
     }
 
@@ -262,15 +267,16 @@ public class AWSUtils {
   }
 
 
-  public byte[] hashSHA256(String data) {
+  public byte[] hashSHA256(String data) throws NoSuchAlgorithmException {
     MessageDigest digest = null;
     try {
       digest = MessageDigest.getInstance("SHA-256");
     } catch (NoSuchAlgorithmException e) {
       System.err.println(e.getMessage());
+      throw e;
     }
-    byte[] encodedHash = digest.digest(data.getBytes(StandardCharsets.UTF_8));
-    return encodedHash;
+    byte[] output = digest.digest(data.getBytes(StandardCharsets.UTF_8));
+    return output;
   }
 
   public String getCurrentDateTime(String format) {
