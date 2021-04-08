@@ -1,7 +1,7 @@
 {
   "qa": {
     "AllStdBoltOn": {
-      "ExpectedMAMAssetInfoCount": 4,
+      "ExpectedMAMAssetInfoCount": 6,
       "ExpectedWocRenditionCount": 4,
       "ExpectedWochitMappingCount": 4
     }

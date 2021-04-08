@@ -11,7 +11,7 @@
         "key": "Dplus.Video.Endboard.FlexiDuration"
       },
       {
-        "value": "#notnull",
+        "value": "#ignore",
         "key": "Dplus.Video.Endboard.Keyart"
       },
       {

@@ -1,7 +1,7 @@
 {
   "qa": {
     "9x16StdBoltOnNoStrap": {
-      "ExpectedMAMAssetInfoCount": 4,
+      "ExpectedMAMAssetInfoCount": 3,
       "ExpectedWocRenditionCount": 1,
       "ExpectedWochitMappingCount": 1
     }
