@@ -1,1 +1,8 @@
 /target/
+.classpath
+.project
+.idea
+.settings
+.vscode
+.DS_Store
+log/*
