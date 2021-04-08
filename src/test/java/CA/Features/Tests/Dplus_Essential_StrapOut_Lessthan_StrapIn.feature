@@ -217,6 +217,7 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Trigger Rend
   * call Pause 60000
 
 Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Item Counts - MAM Asset Info
+  * call Pause 1000
   * def scenarioName = "validateMAM"
   * def ExpectedMAMAssetInfoCount = 0
   * def ExpectedTitle = RandomCTA + ' ' + Iconik_AssetName
@@ -257,6 +258,7 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Ite
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
 Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Item Counts - Wochit Rendition
+  * call Pause 1000
   * def scenarioName = "validateWochitRenditionCount"
   * def ExpectedWocRenditionCount = 0
   * def ExpectedTitle = RandomCTA + ' ' + Iconik_AssetName
@@ -285,6 +287,7 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Ite
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
 Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Wochit Mapping Table Failure
+  * call Pause 1000
   * def scenarioName = 'validateWochitMappingFailure'
   * def RenditionFileName = RandomCTA + ' ' + Iconik_AssetName
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
@@ -312,6 +315,7 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Woc
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
 Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Update Asset Name to Original
+  * call Pause 1000
   * def UpdateAssetNamePayload =
     """
       {
