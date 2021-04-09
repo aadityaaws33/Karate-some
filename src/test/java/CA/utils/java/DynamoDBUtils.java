@@ -61,10 +61,10 @@ public class DynamoDBUtils {
     *   @return     ClientConfiguration object
     */
     private static ClientConfiguration createDynamoDBClientConfiguration() {
-        int connectionTimeout = 2000;
-        int clientExecutionTimeout = 2000;
-        int requestTimeout = 2000;
-        int socketTimeout = 2000;
+        int connectionTimeout = 10000;
+        int clientExecutionTimeout = 30000;
+        int requestTimeout = 10000;
+        int socketTimeout = 10000;
         int maxErrorRetries = 5;
         int maxConnections = 1;
 
@@ -286,6 +286,7 @@ public class DynamoDBUtils {
         } catch (final Exception e) {
             System.err.println("Unable to Query the table:");
             System.err.println(e.getMessage());
+            getitemJsonList.add(e.getMessage());
         }
 
         // System.out.println(getitemJsonList);
@@ -373,6 +374,7 @@ public class DynamoDBUtils {
         } catch (final Exception e) {
             System.err.println("Unable to scan the table:");
             System.err.println(e.getMessage());
+            getitemJsonList.add(e.getMessage());
         }
 
         // System.out.println("--------------Size of Scan---------" +
@@ -409,6 +411,7 @@ public class DynamoDBUtils {
         } catch (final Exception e) {
             System.err.println("Unable to scan the table:");
             System.err.println(e.getMessage());
+            getitemJsonList.add(e.getMessage());
         }
 
         // System.out.println("--------------Size of Scan---------" +
@@ -445,6 +448,7 @@ public class DynamoDBUtils {
         } catch (final Exception e) {
             System.err.println("Unable to scan the table:");
             System.err.println(e.getMessage());
+            getitemJsonList.add(e.getMessage());
         }
 
         // System.out.println("--------------Size of Scan---------" +
@@ -483,6 +487,7 @@ public class DynamoDBUtils {
         } catch (final Exception e) {
             System.err.println("Unable to scan the table:");
             System.err.println(e.getMessage());
+            getitemJsonList.add(e.getMessage());
         }
 
         // System.out.println("--------------Size of Scan---------" +
@@ -543,6 +548,7 @@ public class DynamoDBUtils {
         } catch (final Exception e) {
             System.err.println("Unable to scan the table:");
             System.err.println(e.getMessage());
+            getitemJsonList.add(e.getMessage());
         }
 
         //System.out.println("--------------Size of Scan---------" + getitemJsonList.size());

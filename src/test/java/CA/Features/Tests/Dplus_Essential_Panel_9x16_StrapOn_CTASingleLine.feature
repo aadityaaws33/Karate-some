@@ -217,7 +217,6 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Trigg
   * call Pause 60000
     
 Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Item Counts - MAM Asset Info
-  * call Pause 1000
   * def scenarioName = "validateMAM"
   # * def ExpectedMAMAssetInfoCount = 5
   * def ValidateItemCountViaQueryParams = 
@@ -257,7 +256,6 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Valid
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
 Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Item Counts - Wochit Rendition
-  * call Pause 1000
   * def scenarioName = "validateWochitRenditionCount"
   # * def ExpectedWocRenditionCount = 3
   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
@@ -286,7 +284,6 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Valid
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
 Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Item Counts - Wochit Mapping
-  * call Pause 1000
   * def scenarioName = "validateWochitMappingCount"
   # * def ExpectedWochitMappingCount = 3
   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
@@ -333,7 +330,6 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Valid
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
 Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Wochit Renditions Table for <ASPECTRATIO>
-  * call Pause 1000
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitRendition_Entry = read(currentTCPath + '/Output/Expected_WochitRendition_Entry.json')
@@ -365,7 +361,6 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
     | validateWochitRenditionTestData |
 
 Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
-  * call Pause 1000
   * def scenarioName = 'validateTechnicalMetadata'
   * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
   * def ValidateItemViaQueryParams = 
@@ -413,7 +408,6 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
     | validateTechnicalMetadataTestData |
 
 Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
-  * call Pause 1000
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
@@ -473,7 +467,6 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
   * configure abortedStepsShouldPass = true
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------
-  * call Pause 1000
   * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
@@ -539,7 +532,6 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
   * configure abortedStepsShouldPass = true
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------  
-  * call Pause 1000
   * def scenarioName = 'validateS3AssetExists' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def ValidateItemViaQueryParams = 
