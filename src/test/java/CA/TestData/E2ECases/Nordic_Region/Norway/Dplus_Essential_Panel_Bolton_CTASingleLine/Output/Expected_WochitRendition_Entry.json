@@ -20,7 +20,7 @@
       },
       {
         "key": "Dplus.Video.Endboard.Keyart",
-        "value": "#ignore"
+        "value": "#notnull"
       },
       {
         "key": "Dplus.Video.Endboard.Selector",

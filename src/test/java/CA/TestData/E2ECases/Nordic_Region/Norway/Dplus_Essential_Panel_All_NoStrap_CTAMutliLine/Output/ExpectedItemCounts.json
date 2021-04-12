@@ -1,22 +1,22 @@
 {
   "qa": {
     "AllStdBoltOnNoStrap": {
-      "ExpectedMAMAssetInfoCount": 6,
-      "ExpectedWocRenditionCount": 4,
+      "ExpectedMAMAssetInfoCount": 2,
+      "ExpectedWochitRenditionCount": 4,
       "ExpectedWochitMappingCount": 4
     }
   },
   "preprod": {
     "AllStdBoltOnNoStrap": {
-      "ExpectedMAMAssetInfoCount": 4,
-      "ExpectedWocRenditionCount": 4,
+      "ExpectedMAMAssetInfoCount": 2,
+      "ExpectedWochitRenditionCount": 4,
       "ExpectedWochitMappingCount": 4
     }
   },
   "prod": {
     "AllStdBoltOnNoStrap": {
-      "ExpectedMAMAssetInfoCount": 4,
-      "ExpectedWocRenditionCount": 4,
+      "ExpectedMAMAssetInfoCount": 2,
+      "ExpectedWochitRenditionCount": 4,
       "ExpectedWochitMappingCount": 4
     }
   } 

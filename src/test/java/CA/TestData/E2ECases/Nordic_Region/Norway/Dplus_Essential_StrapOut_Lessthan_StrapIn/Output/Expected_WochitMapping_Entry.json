@@ -8,5 +8,7 @@
   "modifiedBy": "#notnull",
   "sourceAssetName": "#(RenditionFileName)",
   "userName": "#? CheckIconikUserNameAttr(_)",
-  "wochitRenditionStatus": "FAILED"
+  "iconikUserName": "#? CheckIconikUserNameAttr(_)",
+  "wochitRenditionStatus": "FAILED",
+  "renditionStatus": "FAILED"
 }

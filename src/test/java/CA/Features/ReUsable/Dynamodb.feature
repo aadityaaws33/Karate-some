@@ -69,9 +69,56 @@ Scenario: Validate DynamoDB Item Count via Query
   #* print '----------------Actual Item Count------------'+temp
   #* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
 
+@FilterQueryResults
+Scenario: Filter Results generated from Querying DynamoDB
+  * def filterResults =
+    """
+      function()
+      {
+        for(var index in Param_FilterNestedInfoList) {
+          var queryResults = [];
+          var infoName = Param_FilterNestedInfoList[index].infoName;
+          var infoValue = Param_FilterNestedInfoList[index].infoValue;
+          var infoComparator = Param_FilterNestedInfoList[index].infoComparator;
+
+          if(infoName.contains('.')) {
+            var infoFilter = infoName.split('.').pop();
+            infoName = infoName.replace('.' + infoFilter, '');
+            var thisPath = "$." + infoName + "[?(@." + infoFilter + " contains '" + infoValue + "')]";
+            karate.log(thisPath);
+            for(i in Param_QueryResults) {
+              var filteredValue = karate.jsonPath(Param_QueryResults[i], thisPath);
+              if(filteredValue.length > 0) {
+                queryResults.push(Param_QueryResults[i]);
+              }
+            }
+          } else {
+            for(i in Param_QueryResults) {
+              karate.log(Param_QueryResults[i][infoName]);
+              if(!Param_QueryResults[i][infoName]) {
+                karate.log(karate.pretty(Param_QueryResults[i]));
+                karate.fail('Empty key-value pair! Key: ' + infoName + ' has value: ' + Param_QueryResults[i][infoName]);
+              }
+              if(Param_QueryResults[i][infoName].contains(infoValue)) {
+                queryResults.push(Param_QueryResults[i]);
+              }
+            }
+          }
+          Param_QueryResults = queryResults;    
+          if(queryResults.length < 1)  {
+            karate.log('No results found for ' + karate.pretty(Param_FilterNestedInfoList));
+            break;
+          }      
+        }
+
+        return queryResults;
+      }
+    """
+  * def result = call filterResults
+  * print result
+
 @GetItemsViaQuery
 Scenario: Get DynamoDB Item(s) via Query
-  #* print '-------------------Dynamo DB Feature and Item Count-------------'
   * def getItemsQuery =
     """
     function()
@@ -94,13 +141,16 @@ Scenario: Get DynamoDB Item(s) via Query
         Param_GlobalSecondaryIndex
       );
 
+      if(!queryResp.length < 0)  {
+        karate.log('No results found for ' + karate.pretty(Param_QueryInfoList));
+        return queryResp;
+      }
       return JSON.parse(queryResp);
 
     }
     """
-  * def queryResult = call getItemsQuery
-  * def result = queryResult
-  * print result
+  * def result = call getItemsQuery
+  # * print result
 
 @ValidateItemViaQuery
 Scenario: Validate DynamoDB Item via Query
@@ -127,64 +177,78 @@ Scenario: Validate DynamoDB Item via Query
         Param_GlobalSecondaryIndex
       );
 
+      if(!queryResp.length < 0)  {
+        karate.log('No results found for ' + karate.pretty(Param_QueryInfoList));
+        return queryResp;
+      }
+
       return JSON.parse(queryResp[0]);
 
     }
     """
   * def queryResult = call getItemsQuery
-  * print queryResult
+  # * print queryResult
   * def getMatchResult = 
     """
       function() {
-        var matchRes = karate.match('queryResult contains Param_ExpectedResponse');
-        if(!matchRes['pass']) {
-          karate.log('Initial matching failed');
-          for(var key in queryResult) {
-            var thisRes = '';
-            var path = '$.' + key;
-            expectedValue = Param_ExpectedResponse[key];
-            actualValue = queryResult[key];
-            if(key == 'assetMetadata' || key == 'seasonMetadata' || key == 'seriesMetadata') {
-              for(var metadataKey in actualValue) {
-                path = '$.' + key + '.' + metadataKey;
-                expectedMetadataValue = expectedValue[metadataKey];
-                actualMetadataValue = actualValue[metadataKey];
-                if(typeof(actualMetadataValue) == 'object') {
-                  karate.log(metadataKey + ' TYPE: ' + typeof(actualMetadataValue));
-                  karate.log(actualMetadataValue);
-                  if(actualMetadataValue.length > 0) {
-                    for(var dataKey in actualMetadataValue) {
-                      path = '$.' + key + '.' + metadataKey + '.' + dataKey;
-                      expectedDataField = expectedMetadataValue[dataKey];
-                      actualDataField = actualMetadataValue[dataKey];
-                      thisRes = karate.match('actualDataField contains expectedDataField');
-                      karate.log(key,'[',metadataKey,']','[',dataKey,']', thisRes);
-                      if(!thisRes['pass']) {
-                        break;
+        if (queryResult.length < 1) {
+          var matchRes = {
+            message: 'No records found',
+            pass: false,
+            path: null
+          }
+        }
+        else {
+          var matchRes = karate.match('queryResult contains Param_ExpectedResponse');
+          if(!matchRes['pass']) {
+            karate.log('Initial matching failed');
+            for(var key in queryResult) {
+              var thisRes = '';
+              var path = '$.' + key;
+              expectedValue = Param_ExpectedResponse[key];
+              actualValue = queryResult[key];
+              if(key == 'assetMetadata' || key == 'seasonMetadata' || key == 'seriesMetadata') {
+                for(var metadataKey in actualValue) {
+                  path = '$.' + key + '.' + metadataKey;
+                  expectedMetadataValue = expectedValue[metadataKey];
+                  actualMetadataValue = actualValue[metadataKey];
+                  if(typeof(actualMetadataValue) == 'object') {
+                    karate.log(metadataKey + ' TYPE: ' + typeof(actualMetadataValue));
+                    karate.log(actualMetadataValue);
+                    if(actualMetadataValue.length > 0) {
+                      for(var dataKey in actualMetadataValue) {
+                        path = '$.' + key + '.' + metadataKey + '.' + dataKey;
+                        expectedDataField = expectedMetadataValue[dataKey];
+                        actualDataField = actualMetadataValue[dataKey];
+                        thisRes = karate.match('actualDataField contains expectedDataField');
+                        karate.log(key,'[',metadataKey,']','[',dataKey,']', thisRes);
+                        if(!thisRes['pass']) {
+                          break;
+                        }
+                      }
+                    } else {
+                      thisRes = {
+                        message: 'Skipping empty object',
+                        pass: true
                       }
                     }
                   } else {
-                    thisRes = {
-                      message: 'Skipping empty object',
-                      pass: true
-                    }
+                    thisRes = karate.match('actualMetadataValue contains expectedMetadataValue');
+                    karate.log(key,'[',metadataKey,']', thisRes);
                   }
-                } else {
-                  thisRes = karate.match('actualMetadataValue contains expectedMetadataValue');
-                  karate.log(key,'[',metadataKey,']', thisRes);
+                  if(!thisRes['pass']) {
+                    break;
+                  }
                 }
-                if(!thisRes['pass']) {
-                  break;
-                }
+              } else {
+                thisRes = karate.match('actualValue contains expectedValue');
+                karate.log(key, thisRes);
               }
-            } else {
-              thisRes = karate.match('actualValue contains expectedValue');
-              karate.log(key, thisRes);
-            }
-            matchRes = thisRes;
-            if(!matchRes['pass']) {
-              matchRes['path'] = path;
-              break;
+              matchRes = thisRes;
+              if(!matchRes['pass']) {
+                matchRes['path'] = path;
+                break;
+              }
             }
           }
         }
@@ -360,7 +424,7 @@ Scenario: Get Item Count of Table with Scan
       }
       """
   * def QueryJson = call ItemCount
-  * print QueryJson
+  # * print QueryJson
   * def ItemResponse = get[0] QueryJson
   #* print '-------------ActualResponse-----------'+ItemResponse
   #* print '-------------ExpectedResponse-----------'+QueryJsonExpected
@@ -385,7 +449,7 @@ Scenario: Get Item Count of Table with Scan
       }
       """
   * def QueryJson = call ItemCount
-  * print QueryJson
+  # * print QueryJson
   * def ItemResponse = get[0] QueryJson
   * match ItemResponse contains Param_Expected_Status
   * match ItemResponse contains Param_Expected_Item_AspectRatio_TemplateID
@@ -400,54 +464,48 @@ Scenario: Get Item Count of Table with Scan
 #-----TBI
 
 @ValidateWochitRenditionPayload
-Scenario: Get Item Count of Table with Scan
-  #* print '-------------------Dynamo DB Get Item-------------'
-  * def scanWochitRendition =
-    """
-      function()
-      {
-        var result = dynamoDB.Scan_DB_WochitRendition(
-          Param_TableName,
-          Param_ScanAttr1,
-          Param_ScanVal1,
-          Param_ScanAttr2,
-          Param_ScanVal2
-        );
-        return JSON.parse(result[0]);
-      }
-    """
-  * def scanResult = call scanWochitRendition
-  * print scanResult
+Scenario: Validate Wochit Rendition Payload
   * def getMatchResult = 
     """
       function() {
-        var matchRes = karate.match('scanResult contains Expected_WochitRendition_Entry');
-        if(!matchRes['pass']) {
-          karate.log('Initial matching failed');
-          for(var key in scanResult) {
-            var thisRes = '';
-            var path = '$.' + key;
-            expectedValue = Expected_WochitRendition_Entry[key];
-            actualValue = scanResult[key];
-            if(key == 'videoUpdates') {
-              for(var videoUpdatesKey in actualValue) {
-                path = '$.' + key + '.' + videoUpdatesKey;
-                actualVideoField = actualValue[videoUpdatesKey];
-                expectedVideoField = expectedValue[videoUpdatesKey];
-                thisRes = karate.match('actualVideoField contains expectedVideoField');
-                karate.log(key + '[' + videoUpdatesKey + ']: ' + thisRes);
-                if(!thisRes['pass']) {
+        if(Param_Actual_WochitRendition_Entry.length < 1){
+          var matchRes = {
+            message: 'No records found',
+            pass: false,
+            path: null
+          }
+        } else {
+          for(var index in Param_Actual_WochitRendition_Entry){
+            var thisActualRes = Param_Actual_WochitRendition_Entry[index];
+            var matchRes = karate.match('Param_Actual_WochitRendition_Entry contains Param_Expected_WochitRendition_Entry');
+            if(!matchRes['pass']) {
+              karate.log('Initial matching failed');
+              for(var key in thisActualRes) {
+                var thisRes = '';
+                var path = '$.' + key;
+                expectedValue = Param_Expected_WochitRendition_Entry[key];
+                actualValue = thisActualRes[key];
+                if(key == 'videoUpdates') {
+                  for(var videoUpdatesKey in actualValue) {
+                    path = '$.' + key + '.' + videoUpdatesKey;
+                    actualVideoField = actualValue[videoUpdatesKey];
+                    expectedVideoField = expectedValue[videoUpdatesKey];
+                    thisRes = karate.match('actualVideoField contains expectedVideoField');
+                    karate.log(key + '[' + videoUpdatesKey + ']: ' + thisRes);
+                    if(!thisRes['pass']) {
+                      break;
+                    }
+                  }
+                } else {
+                  thisRes = karate.match('actualValue contains expectedValue');
+                }
+                karate.log(key + ': ' + thisRes);
+                matchRes = thisRes;
+                if(!matchRes['pass']) {
+                  matchRes['path'] = path;
                   break;
                 }
               }
-            } else {
-              thisRes = karate.match('actualValue contains expectedValue');
-            }
-            karate.log(key + ': ' + thisRes);
-            matchRes = thisRes;
-            if(!matchRes['pass']) {
-              matchRes['path'] = path;
-              break;
             }
           }
         }
@@ -458,49 +516,45 @@ Scenario: Get Item Count of Table with Scan
   * def result =
     """
       {
-        "response": #(scanResult),
+        "response": #(Param_Actual_WochitRendition_Entry),
         "message": #(matchResult.message),
         "pass": #(matchResult.pass),
         "path": #(matchResult.path)
       }
     """
-  * print result
+  # * print result
 
 
 @ValidateWochitMappingPayload
-Scenario: Get Item Count of Table with Scan
-  #* print '-------------------Dynamo DB Get Item-------------'
-  * def scanWochitMapping =
-      """
-      function()
-      {
-          var result = dynamoDB.Scan_DB_WochitMapping(
-            Param_TableName,
-            Param_ScanAttr1,
-            Param_ScanVal1
-          );
-          return JSON.parse(result[0]);
-      }
-      """
-  * def scanResult = call scanWochitMapping
-  * print scanResult
+Scenario: Validate Wochit Mapping Payload
   * def getMatchResult = 
     """
       function() {
-        var matchRes = karate.match('scanResult contains Expected_WochitMapping_Entry');
-        if(!matchRes['pass']) {
-          karate.log('Initial matching failed');
-          for(var key in scanResult) {
-            var thisRes = '';
-            var path = '$.' + key;
-            expectedValue = Expected_WochitMapping_Entry[key];
-            actualValue = scanResult[key];
-            thisRes = karate.match('actualValue contains expectedValue');
-            karate.log(key + ': ' + thisRes);
-            matchRes = thisRes;
+        if(Param_Actual_WochitMapping_Entry.length < 1){
+          var matchRes = {
+            message: 'No records found',
+            pass: false,
+            path: null
+          }
+        }
+        else {
+          for(var index in Param_Actual_WochitMapping_Entry){
+            var thisActualRes = Param_Actual_WochitMapping_Entry[index];
+            var matchRes = karate.match('Param_Actual_WochitMapping_Entry contains Param_Expected_WochitMapping_Entry');
             if(!matchRes['pass']) {
-              matchRes['path'] = path;
-              break;
+              karate.log('Initial matching failed');
+              for(var key in thisActualRes) {
+                var thisRes = '';
+                var path = '$.' + key;
+                expectedValue = Param_Expected_WochitMapping_Entry[key];
+                actualValue = thisActualRes[key];
+                thisRes = karate.match('actualValue contains expectedValue');
+                matchRes = thisRes;
+                if(!matchRes['pass']) {
+                  matchRes['path'] = path;
+                  break;
+                }
+              }
             }
           }
         }
@@ -511,13 +565,12 @@ Scenario: Get Item Count of Table with Scan
   * def result =
     """
       {
-        "response": #(scanResult),
+        "response": #(Param_Actual_WochitMapping_Entry),
         "message": #(matchResult.message),
         "pass": #(matchResult.pass),
         "path": #(matchResult.path)
       }
     """
-  * print result
 
 @WaitUntilDBUpdate
 Scenario: Wait for DB Update

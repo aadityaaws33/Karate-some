@@ -65,7 +65,7 @@ Background:
   # Scenario Outline Examples End
   # Expected Item Counts Start
   * def ExpectedMAMAssetInfoCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][MetadataSet]['ExpectedMAMAssetInfoCount']
-  * def ExpectedWocRenditionCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][MetadataSet]['ExpectedWocRenditionCount']
+  * def ExpectedWochitRenditionCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][MetadataSet]['ExpectedWochitRenditionCount']
   * def ExpectedWochitMappingCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][MetadataSet]['ExpectedWochitMappingCount']
   # Expected Item Counts End
   # S3 Stuff
@@ -217,7 +217,7 @@ Scenario: Nordic_Norway_Linear_All_Post_NO - Trigger Rendition
   * call Pause 60000
     
 Scenario: Nordic_Norway_Linear_All_Post_NO - Validate Item Counts - MAM Asset Info
-  * def scenarioName = "validateMAM"
+  * def scenarioName = "validateMAMAssetCount"
   # * def ExpectedMAMAssetInfoCount = 5
   * def ValidateItemCountViaQueryParams = 
     """
@@ -257,7 +257,7 @@ Scenario: Nordic_Norway_Linear_All_Post_NO - Validate Item Counts - MAM Asset In
 
 Scenario: Nordic_Norway_Linear_All_Post_NO - Validate Item Counts - Wochit Rendition
   * def scenarioName = "validateWochitRenditionCount"
-  # * def ExpectedWocRenditionCount = 3
+  # * def ExpectedWochitRenditionCount = 3
   * def ExpectedTitle = RandomCTA
   * def itemCountScanParams = 
     """
@@ -266,7 +266,7 @@ Scenario: Nordic_Norway_Linear_All_Post_NO - Validate Item Counts - Wochit Rendi
         Param_Atr1: 'videoUpdates.title',
         Param_Atrvalue1: #(ExpectedTitle),
         Param_Operator: 'contains',
-        Param_ExpectedItemCount: #(ExpectedWocRenditionCount),
+        Param_ExpectedItemCount: #(ExpectedWochitRenditionCount),
         AWSregion: #(AWSregion)
       }    
     """

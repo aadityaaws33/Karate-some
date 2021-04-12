@@ -2,21 +2,21 @@
   "qa": {
     "AllWOEndboard": {
       "ExpectedMAMAssetInfoCount": 3,
-      "ExpectedWocRenditionCount": 2,
+      "ExpectedWochitRenditionCount": 2,
       "ExpectedWochitMappingCount": 2
     }
   },
   "preprod": {
     "AllWOEndboard": {
       "ExpectedMAMAssetInfoCount": 3,
-      "ExpectedWocRenditionCount": 2,
+      "ExpectedWochitRenditionCount": 2,
       "ExpectedWochitMappingCount": 2
     }
   },
   "prod": {
     "AllWOEndboard": {
       "ExpectedMAMAssetInfoCount": 3,
-      "ExpectedWocRenditionCount": 2,
+      "ExpectedWochitRenditionCount": 2,
       "ExpectedWochitMappingCount": 2
     }
   } 
