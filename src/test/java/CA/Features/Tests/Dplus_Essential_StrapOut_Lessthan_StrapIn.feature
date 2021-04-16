@@ -9,7 +9,7 @@ Background:
   * def MetadataSet = 'StrapOutLessthanStrapIn'
   * def AWSregion = EnvData[Country]['AWSregion']
   * def WochitMappingTableName = EnvData[Country]['WochitMappingTableName']
-  * def WochitMappingTableGSI = 'wochitRenditionStatus-createdAt-Index'
+  * def WochitMappingTableGSI = 'wochitRenditionStatus-createdAt-index'
   * def WochitRenditionTableName = EnvData[Country]['WochitRenditionTableName']
   * def WochitRenditionTableGSI = EnvData[Country]['WochitRenditionTableGSI']
   * def MAMAssetsInfoTableName = EnvData[Country]['MAMAssetsInfoTableName']
