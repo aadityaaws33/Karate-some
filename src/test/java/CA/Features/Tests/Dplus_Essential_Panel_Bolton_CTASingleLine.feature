@@ -11,6 +11,7 @@ Background:
   * def WochitMappingTableName = EnvData[Country]['WochitMappingTableName']
   * def WochitMappingTableGSI = EnvData[Country]['WochitMappingTableGSI']
   * def WochitRenditionTableName = EnvData[Country]['WochitRenditionTableName']
+  * def WochitRenditionTableGSI = EnvData[Country]['WochitRenditionTableGSI']
   * def MAMAssetsInfoTableName = EnvData[Country]['MAMAssetsInfoTableName']
   # Iconik Stuff Start
   * def Iconik_EpisodeVersionID = EnvData[Country]['Iconik_EpisodeVersionID']
@@ -65,7 +66,7 @@ Background:
   # Scenario Outline Examples End
   # Expected Item Counts Start
   * def ExpectedMAMAssetInfoCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][MetadataSet]['ExpectedMAMAssetInfoCount']
-  * def ExpectedWocRenditionCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][MetadataSet]['ExpectedWocRenditionCount']
+  * def ExpectedWochitRenditionCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][MetadataSet]['ExpectedWochitRenditionCount']
   * def ExpectedWochitMappingCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][MetadataSet]['ExpectedWochitMappingCount']
   # Expected Item Counts End
   # S3 Stuff
@@ -175,7 +176,7 @@ Background:
 #     """
 #   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Trigger Rendition
+Scenario: Dplus_Essential_Panel_Bolton_CTASingleLine - Trigger Rendition
   * def scenarioName = 'triggerRendition'
   * def getRenditionRequestMetadataValues =
     """
@@ -216,10 +217,10 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Trigger Ren
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   * call Pause 60000
     
-Scenario: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Validate Item Counts - MAM Asset Info
-  * def scenarioName = "validateMAM"
-  # * def ExpectedMAMAssetInfoCount = 5
-  * def ValidateItemCountViaQueryParams = 
+Scenario: Dplus_Essential_Panel_Bolton_CTASingleLine - Validate Item Counts - MAM Asset Info
+  * def scenarioName = "validateMAMAssetCount"
+  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
+  * def GetItemsViaQueryParams = 
     """
       {
         Param_TableName: #(MAMAssetsInfoTableName),
@@ -230,6 +231,12 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Validate It
             infoComparator: '=',
             infoType: 'key'
           },
+          {
+            infoName: 'createdAt',
+            infoValue: #(ExpectedDate.result),
+            infoComparator: 'begins',
+            infoType: 'filter'
+          }
           {
             infoName: 'assetTitle',
             infoValue: #(Iconik_AssetName),
@@ -242,7 +249,19 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Validate It
         AWSregion: #(AWSregion)
       }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateItemCountViaQuery') ValidateItemCountViaQueryParams
+  * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') GetItemsViaQueryParams
+  * def matchResult = karate.match(QueryResults.result.length, ExpectedMAMAssetInfoCount)
+  * def result =
+    """
+      {
+        result:      {
+          "response": #(QueryResults.result),
+          "message": #(matchResult.message),
+          "pass": #(matchResult.pass),
+          "path": 'null'
+        }
+      }
+    """
   * def updateParams = 
     """
       { 
@@ -255,22 +274,59 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Validate It
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Validate Item Counts - Wochit Rendition
+Scenario: Dplus_Essential_Panel_Bolton_CTASingleLine - Validate Item Counts - Wochit Rendition
   * def scenarioName = "validateWochitRenditionCount"
-  # * def ExpectedWocRenditionCount = 3
   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
-  * def itemCountScanParams = 
+  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
+  * def GetItemsViaQueryParams = 
     """
       {
         Param_TableName: #(WochitRenditionTableName),
-        Param_Atr1: 'videoUpdates.title',
-        Param_Atrvalue1: #(ExpectedTitle),
-        Param_Operator: 'contains',
-        Param_ExpectedItemCount: #(ExpectedWocRenditionCount),
+        Param_QueryInfoList: [
+          {
+            infoName: 'assetType',
+            infoValue: 'VIDEO',
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'createdAt',
+            infoValue: #(ExpectedDate.result),
+            infoComparator: 'begins',
+            infoType: 'key'
+          }
+        ],
+        Param_GlobalSecondaryIndex: #(WochitRenditionTableGSI),
         AWSregion: #(AWSregion)
-      }    
+      }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ItemCountScan') itemCountScanParams
+  * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') GetItemsViaQueryParams
+  * def FilterQueryResultsParams =
+    """
+      {
+        Param_QueryResults: #(QueryResults.result),
+        Param_FilterNestedInfoList: [
+          {
+            infoName: 'videoUpdates.title',
+            infoValue: #(ExpectedTitle),
+            infoComparator: 'contains'
+          }        
+        ]
+      }
+    """
+  * def FilteredQueryResults = call read(FeatureFilePath+'/Dynamodb.feature@FilterQueryResults') FilterQueryResultsParams
+  * def matchResult = karate.match(FilteredQueryResults.result.length, ExpectedWochitRenditionCount)
+  * def result =
+    """
+      {
+        result:      {
+          "response": #(FilteredQueryResults.result),
+          "message": #(matchResult.message),
+          "pass": #(matchResult.pass),
+          "path": 'null'
+        }
+      }
+    """
   * def updateParams = 
     """
       { 
@@ -283,11 +339,11 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Validate It
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Validate Item Counts - Wochit Mapping
+Scenario: Dplus_Essential_Panel_Bolton_CTASingleLine - Validate Item Counts - Wochit Mapping
   * def scenarioName = "validateWochitMappingCount"
-  # * def ExpectedWochitMappingCount = 3
   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
-  * def ValidateItemCountViaQueryParams = 
+  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
+  * def GetItemsViaQueryParams = 
     """
       {
         Param_TableName: #(WochitMappingTableName),
@@ -296,6 +352,12 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Validate It
             infoName: 'mamAssetInfoReferenceId',
             infoValue: #(Iconik_AssetID),
             infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'createdAt',
+            infoValue: #(ExpectedDate.result),
+            infoComparator: 'begins',
             infoType: 'key'
           },
           {
@@ -316,7 +378,20 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Validate It
         AWSregion: #(AWSregion)
       }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateItemCountViaQuery') ValidateItemCountViaQueryParams
+  * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') GetItemsViaQueryParams
+  * def matchResult = karate.match(QueryResults.result.length, ExpectedWochitRenditionCount)
+  * def result =
+    """
+      {
+        result:      {
+          "response": #(QueryResults.result),
+          "message": #(matchResult.message),
+          "pass": #(matchResult.pass),
+          "path": 'null'
+        }
+      }
+    """
+
   * def updateParams = 
     """
       { 
@@ -329,23 +404,56 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Validate It
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Validate Wochit Renditions Table for <ASPECTRATIO>
+Scenario Outline: Dplus_Essential_Panel_Bolton_CTASingleLine - Validate Wochit Renditions Table for <ASPECTRATIO>
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitRendition_Entry = read(currentTCPath + '/Output/Expected_WochitRendition_Entry.json')
-  * def validateRenditionPayloadParams =
+  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
+  * def GetItemsViaQueryParams = 
     """
       {
         Param_TableName: #(WochitRenditionTableName),
-        Param_ScanAttr1: 'videoUpdates.title',
-        Param_ScanVal1: #(RenditionFileName),
-        Param_ScanAttr2:'aspectRatio',
-        Param_ScanVal2: <ScanVal>,
-        Expected_WochitRendition_Entry: #(Expected_WochitRendition_Entry),
+        Param_QueryInfoList: [
+          {
+            infoName: 'assetType',
+            infoValue: 'VIDEO',
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'createdAt',
+            infoValue: #(ExpectedDate.result),
+            infoComparator: 'begins',
+            infoType: 'key'
+          }
+        ],
+        Param_GlobalSecondaryIndex: #(WochitRenditionTableGSI),
         AWSregion: #(AWSregion)
       }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateWochitRenditionPayload') validateRenditionPayloadParams
+  * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') GetItemsViaQueryParams
+  * def FilterQueryResultsParams =
+    """
+      {
+        Param_QueryResults: #(QueryResults.result),
+        Param_FilterNestedInfoList: [
+          {
+            infoName: 'videoUpdates.title',
+            infoValue: #(RenditionFileName),
+            infoComparator: 'contains'
+          }        
+        ]
+      }
+    """
+  * def FilteredQueryResults = call read(FeatureFilePath+'/Dynamodb.feature@FilterQueryResults') FilterQueryResultsParams
+  * def ValidateWochitRenditionPayloadParams =
+    """
+      {
+        Param_Actual_WochitRendition_Entry: #(FilteredQueryResults.result),
+        Param_Expected_WochitRendition_Entry: #(Expected_WochitRendition_Entry),
+      }
+    """
+  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateWochitRenditionPayload') ValidateWochitRenditionPayloadParams
   * def updateParams = 
     """
       { 
@@ -360,9 +468,10 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Val
   Examples:
     | validateWochitRenditionTestData |
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
+Scenario Outline: Dplus_Essential_Panel_Bolton_CTASingleLine - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
   * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
+  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
   * def ValidateItemViaQueryParams = 
     """
       {
@@ -373,6 +482,12 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Val
             infoValue: #(Iconik_AssetID),
             infoComparator: '=',
             infoType: 'key'
+          },
+          {
+            infoName: 'createdAt',
+            infoValue: #(ExpectedDate.result),
+            infoComparator: 'begins',
+            infoType: 'filter'
           },
           {
             infoName: 'assetTitle',
@@ -407,10 +522,11 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Val
   Examples:
     | validateTechnicalMetadataTestData |
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Dplus_Essential_Panel_Bolton_CTASingleLine - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
+  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
   * def ValidateItemViaQueryParams = 
     """
       {
@@ -422,6 +538,12 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - PRO
             infoComparator: '=',
             infoType: 'key'
           },
+          {
+            infoName: 'createdAt',
+            infoValue: #(ExpectedDate.result),
+            infoComparator: 'begins',
+            infoType: 'key'
+          },  
           {
             infoName: 'renditionFileName',
             infoValue: #(RenditionFileName),
@@ -462,7 +584,7 @@ Scenario: Hard wait for PROCESSING to FINISH
   # ---------
   * call Pause 60000*4
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Dplus_Essential_Panel_Bolton_CTASingleLine - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
@@ -470,6 +592,7 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - FIN
   * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
+  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
   * def retries = 15
   * def ValidateItemViaQueryParams = 
     """
@@ -482,6 +605,12 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - FIN
             infoComparator: '=',
             infoType: 'key'
           },
+          {
+            infoName: 'createdAt',
+            infoValue: #(ExpectedDate.result),
+            infoComparator: 'begins',
+            infoType: 'key'
+          },     
           {
             infoName: 'renditionFileName',
             infoValue: #(RenditionFileName),
@@ -527,13 +656,14 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - FIN
   Examples:
     | validateWochitMappingIsFiledMovedTestData |
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Validate if <ASPECTRATIO> Asset exists
+Scenario Outline: Dplus_Essential_Panel_Bolton_CTASingleLine - Validate if <ASPECTRATIO> Asset exists
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------  
   * def scenarioName = 'validateS3AssetExists' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
   * def ValidateItemViaQueryParams = 
     """
       {
@@ -543,6 +673,12 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Val
             infoName: 'mamAssetInfoReferenceId',
             infoValue: #(Iconik_AssetID),
             infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'createdAt',
+            infoValue: #(ExpectedDate.result),
+            infoComparator: 'begins',
             infoType: 'key'
           },
           {

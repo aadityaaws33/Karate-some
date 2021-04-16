@@ -1,4 +1,4 @@
-@DPLUS @E2E @Regression @Norway @parallel=false  
+@JESS @DPLUS @E2E @Regression @Norway @parallel=false  
 Feature:  Dplus_Essential_StrapOut_Lessthan_StrapIn
 
 Background:
@@ -11,6 +11,7 @@ Background:
   * def WochitMappingTableName = EnvData[Country]['WochitMappingTableName']
   * def WochitMappingTableGSI = 'wochitRenditionStatus-createdAt-Index'
   * def WochitRenditionTableName = EnvData[Country]['WochitRenditionTableName']
+  * def WochitRenditionTableGSI = EnvData[Country]['WochitRenditionTableGSI']
   * def MAMAssetsInfoTableName = EnvData[Country]['MAMAssetsInfoTableName']
   # Iconik Stuff Start
   * def Iconik_EpisodeVersionID = EnvData[Country]['Iconik_EpisodeVersionID']
@@ -214,10 +215,10 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Trigger Rend
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  * call Pause 60000
+  * call Pause 10000
 
 Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Item Counts - MAM Asset Info
-  * def scenarioName = "validateMAM"
+  * def scenarioName = "validateMAMAssetCount"
   * def ExpectedMAMAssetInfoCount = 0
   * def ExpectedTitle = RandomCTA + ' ' + Iconik_AssetName
   * def ValidateItemCountViaQueryParams = 
@@ -258,20 +259,58 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Ite
 
 Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Item Counts - Wochit Rendition
   * def scenarioName = "validateWochitRenditionCount"
-  * def ExpectedWocRenditionCount = 0
+  * def ExpectedWochitRenditionCount = 0
   * def ExpectedTitle = RandomCTA + ' ' + Iconik_AssetName
-  * def itemCountScanParams = 
+  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
+  * def GetItemsViaQueryParams = 
     """
       {
         Param_TableName: #(WochitRenditionTableName),
-        Param_Atr1: 'videoUpdates.title',
-        Param_Atrvalue1: #(ExpectedTitle),
-        Param_Operator: 'contains',
-        Param_ExpectedItemCount: #(ExpectedWocRenditionCount),
+        Param_QueryInfoList: [
+          {
+            infoName: 'assetType',
+            infoValue: 'VIDEO',
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'createdAt',
+            infoValue: #(ExpectedDate.result),
+            infoComparator: 'begins',
+            infoType: 'key'
+          }
+        ],
+        Param_GlobalSecondaryIndex: #(WochitRenditionTableGSI),
         AWSregion: #(AWSregion)
-      }    
+      }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ItemCountScan') itemCountScanParams
+  * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') GetItemsViaQueryParams
+  * def FilterQueryResultsParams =
+    """
+      {
+        Param_QueryResults: #(QueryResults.result),
+        Param_FilterNestedInfoList: [
+          {
+            infoName: 'videoUpdates.title',
+            infoValue: #(ExpectedTitle),
+            infoComparator: 'contains'
+          }        
+        ]
+      }
+    """
+  * def FilteredQueryResults = call read(FeatureFilePath+'/Dynamodb.feature@FilterQueryResults') FilterQueryResultsParams
+  * def matchResult = karate.match(FilteredQueryResults.result.length, ExpectedWochitRenditionCount)
+  * def result =
+    """
+      {
+        result:      {
+          "response": #(FilteredQueryResults.result.length),
+          "message": #(matchResult.message),
+          "pass": #(matchResult.pass),
+          "path": 'null'
+        }
+      }
+    """
   * def updateParams = 
     """
       { 
@@ -288,17 +327,44 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Woc
   * def scenarioName = 'validateWochitMappingFailure'
   * def RenditionFileName = RandomCTA + ' ' + Iconik_AssetName
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
-  * def ValidateItemViaScanParams =
+  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
+  * def GetItemsViaQueryParams = 
     """
       {
         Param_TableName: #(WochitMappingTableName),
-        Param_ScanAttr1: 'sourceAssetName',
-        Param_ScanVal1: #(RenditionFileName),
-        Expected_WochitRendition_Entry: #(Expected_WochitMapping_Entry),
+        Param_QueryInfoList: [
+          {
+            infoName: 'wochitRenditionStatus',
+            infoValue: 'FAILED',
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'createdAt',
+            infoValue: #(ExpectedDate.result),
+            infoComparator: 'begins',
+            infoType: 'key'
+          },
+          {
+            infoName: 'sourceAssetName',
+            infoValue: #(RenditionFileName),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          }   
+        ],
+        Param_GlobalSecondaryIndex: #(WochitMappingTableGSI),
         AWSregion: #(AWSregion)
       }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateWochitMappingPayload') ValidateItemViaScanParams
+  * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') GetItemsViaQueryParams
+  * def ValidateWochitMappingPayloadParams =
+    """
+      {
+        Param_Actual_WochitMapping_Entry: #(QueryResults.result),
+        Param_Expected_WochitMapping_Entry: #(Expected_WochitMapping_Entry),
+      }
+    """
+  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateWochitMappingPayload') ValidateWochitMappingPayloadParams
   * def updateParams = 
     """
       { 

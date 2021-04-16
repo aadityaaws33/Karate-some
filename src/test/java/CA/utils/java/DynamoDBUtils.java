@@ -61,10 +61,10 @@ public class DynamoDBUtils {
     *   @return     ClientConfiguration object
     */
     private static ClientConfiguration createDynamoDBClientConfiguration() {
-        int connectionTimeout = 10000;
-        int clientExecutionTimeout = 30000;
-        int requestTimeout = 10000;
-        int socketTimeout = 10000;
+        int connectionTimeout = 60000;
+        int clientExecutionTimeout = 60000;
+        int requestTimeout = 60000;
+        int socketTimeout = 60000;
         int maxErrorRetries = 5;
         int maxConnections = 1;
 
