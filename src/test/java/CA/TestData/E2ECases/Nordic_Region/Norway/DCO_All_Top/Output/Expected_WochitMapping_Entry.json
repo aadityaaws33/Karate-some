@@ -1,0 +1,18 @@
+{
+  "country": "DCO",
+  "modifiedAt": "#notnull",
+  "isRenditionMoved": #(ISRENDITIONMOVED),
+  "wochitRenditionStatus": "#ignore",
+  "renditionStatus": #(RENDITIONSTATUS),
+  "userName": "#? CheckIconikUserNameAttr(_)",
+  "iconikUserName": "#? CheckIconikUserNameAttr(_)",
+  "assetType": "IMAGE",
+  "createdAt": "#notnull",
+  "wochitRenditionReferenceId": "#notnull",
+  "renditionAssetId": "#notnull",
+  "createdBy": "#notnull",
+  "modifiedBy": "#notnull",
+  "ID": "#notnull",
+  "outputCollectionId": "#notnull",
+  "renditionFileName": "#(RenditionFileName)"
+}

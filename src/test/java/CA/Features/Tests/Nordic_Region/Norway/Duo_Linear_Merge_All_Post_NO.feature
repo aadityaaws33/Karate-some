@@ -1,4 +1,4 @@
-@thisE2E @Regression @DuoLinear @Norway @parallel=false  
+@Regression @DuoLinear @Norway @parallel=false  
 Feature:  Duo_Linear_Merge_All_Post_NO
 
 Background:
@@ -148,33 +148,6 @@ Background:
         karate.call(FeatureFilePath + '/Results.feature@updateFinalResults', { updateFinalResultParams: updateFinalResultParams });
       }
     """
-
-# Scenario: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Update Season 
-#   * def scenarioName = 'updateSeason'
-#   * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
-#   * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
-#   * def Season_expectedResponse = read(currentTCPath+'/Output/ExpectedSeasonResponse.json')
-#   * def updateSeasonParams =
-#     """
-#       {
-#         URL: '#(Iconik_UpdateSeasonURL)',
-#         Query: '#(UpdateSeasonquery)', 
-#         ExpectedResponse: #(Season_expectedResponse),
-#       }
-#     """
-#   * def result = call read(FeatureFilePath+'/UpdateSeason.feature') updateSeasonParams
-#   * print result
-#   * def updateParams = 
-#     """
-#       { 
-#         tcName: #(TCName),
-#         scenarioName: #(scenarioName),
-#         result: #(result.result),
-#         tcResultReadPath: #(tcResultReadPath),
-#         tcResultWritePath: #(tcResultWritePath)
-#       }
-#     """
-#   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
 Scenario: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Trigger Rendition
   * def scenarioName = 'triggerRendition'
@@ -523,6 +496,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Wochit R
     | validateWochitRenditionTestData |
 
 Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
+  * call Pause 1000
   * def scenarioName = 'validateTechnicalMetadata'
   * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
   * def ValidateItemViaQueryParams = 
@@ -647,10 +621,10 @@ Scenario: Hard wait for PROCESSING to FINISH
 
 Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
-  * call Pause 1000
   * configure abortedStepsShouldPass = true
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------
+  * call Pause 1000
   * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
   * def generateRenditionFileName =
     """
@@ -733,10 +707,10 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - FINISHED - Valida
 
 Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate if <ASPECTRATIO> Asset exists
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
-  * call Pause 1000
   * configure abortedStepsShouldPass = true
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------  
+  * call Pause 1000
   * def scenarioName = 'validateS3AssetExists' + <ASPECTRATIO>
   * def generateRenditionFileName =
     """

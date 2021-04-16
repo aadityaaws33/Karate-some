@@ -1,0 +1,19 @@
+{
+    "metadata_values": {
+        "ResolutionsRequired": {
+            "field_values": [
+                {
+                    "label": "320x600",
+                    "value": "320x600"
+                }
+            ]
+        },
+        "Alignment": {
+            "field_values": [
+                {
+                    "value": "T"
+                }
+            ]
+        }
+    }
+}

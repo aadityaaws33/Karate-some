@@ -19,5 +19,6 @@
     "Iconik_TriggerRenditionCustomActionListURL": "https://app.iconik.io/API/assets/v1/custom_actions/",
     "Iconik_GetAppTokenInfoURL": "https://app.iconik.io/API/auth/v1/auth/simple/login/",
     "Iconik_AssetAPIURL": "https://app.iconik.io/API/assets/v1/assets",
+    "Iconik_AssetMetadataAPIURL": "https://app.iconik.io/API/metadata/v1/assets",
     "Iconik_AppTokenName": "Creative Automation Preprod"
 }

@@ -149,33 +149,6 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Update Asset
   * call read(FeatureFilePath+'/Iconik.feature@RenameAsset') updateAssetNameParams
   * call Pause 1000
 
-# Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Update Season 
-#   * def scenarioName = 'updateSeason'
-#   * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
-#   * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
-#   * def Season_expectedResponse = read(currentTCPath+'/Output/ExpectedSeasonResponse.json')
-#   * def updateSeasonParams =
-#     """
-#       {
-#         URL: '#(Iconik_UpdateSeasonURL)',
-#         Query: '#(UpdateSeasonquery)', 
-#         ExpectedResponse: #(Season_expectedResponse),
-#       }
-#     """
-#   * def result = call read(FeatureFilePath+'/UpdateSeason.feature') updateSeasonParams
-#   * print result
-#   * def updateParams = 
-#     """
-#       { 
-#         tcName: #(TCName),
-#         scenarioName: #(scenarioName),
-#         result: #(result.result),
-#         tcResultReadPath: #(tcResultReadPath),
-#         tcResultWritePath: #(tcResultWritePath)
-#       }
-#     """
-#   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-
 Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Trigger Rendition
   * def scenarioName = 'triggerRendition'
   * def getRenditionRequestMetadataValues =

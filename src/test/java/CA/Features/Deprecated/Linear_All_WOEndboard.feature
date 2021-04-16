@@ -359,7 +359,7 @@ Scenario Outline: Nordic_Norway_Linear_All_WOEndboard - Validate Wochit Renditio
   Examples:
     | validateWochitRenditionTestData |
 
-Scenario Outline: Nordic_Norway_Linear_All_WOEndboard - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
+Scenario Outline: Nordic_Norway_Linear_All_WOEndboard - Validate MAM Asset Info table entry for Composite View ID:  <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
   * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
   * def ValidateItemViaQueryParams = 
@@ -406,7 +406,7 @@ Scenario Outline: Nordic_Norway_Linear_All_WOEndboard - Validate Technical Metad
   Examples:
     | validateTechnicalMetadataTestData |
 
-Scenario Outline: Nordic_Norway_Linear_All_WOEndboard - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Norway_Linear_All_WOEndboard - PROCESSING - Validate Wochit Mapping table entry for Aspect Ratio: <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
@@ -461,7 +461,7 @@ Scenario: Hard wait for PROCESSING to FINISH
   # ---------
   * call Pause 60000*4
 
-Scenario Outline: Nordic_Norway_Linear_All_WOEndboard - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Norway_Linear_All_WOEndboard - FINISHED - Validate Wochit Mapping table entry for Aspect Ratio: <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}

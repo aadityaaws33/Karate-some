@@ -2,7 +2,8 @@
     "AWSregion": "Nordic",
     "Iconik_MetadataViewID": {
         "Dplus": "360bf3a0-6b68-11eb-8ea1-0a580a3e4b1f",
-        "DuoLinear": "16547c24-8794-11eb-a8e0-0a580a3c45c5"
+        "DuoLinear": "16547c24-8794-11eb-a8e0-0a580a3c45c5",
+        "DCO": "353bd266-8d13-11eb-91a2-0a580a3c2d23"
     },
     "Iconik_AssetID": {
         "Dplus": {
@@ -12,12 +13,16 @@
             "StrapOutLessthanStrapIn": "74012c02-902a-11eb-993f-0a580a3e41dc"
         },
         "DuoLinear": {
-            "All": "fb3876d6-6ff9-11eb-9ea3-0a580a3c47bf",
+            "All": "5c990e16-ae27-11eb-9407-0a580a3c4709"
+        },
+        "DCO": {
+            "AllTop": "348d4f3a-a8ce-11eb-8e9d-0a580a3d9319"
         }
     },
     "Iconik_TriggerRenditionCustomActionID": {
         "Dplus": "082577e8-701a-11eb-8ab2-0a580a3f8d4b",
         "DuoLinear": "852f5fc8-06b2-11eb-8676-0a580a3f8f42",
+        "DCO": "03986772-8d2e-11eb-99b9-0a580a3e772a"
     },
     "Iconik_AssetName": {
         "Dplus": {
@@ -27,7 +32,10 @@
             "StrapOutLessthanStrapIn": "Prod NO Dplus StrapOutLessthanStrapIn.mp4"
         },
         "DuoLinear": {
-            "All": "Prod NO DuoLinear All.mp4",
+            "All": "Prod NO DuoLinear All.mp4"
+        },
+        "DCO": {
+            "AllTop": "Prod NO All Top.png"
         }
     },
     "Iconik_SeasonCollectionID": "6dc6b6a2-3861-11eb-a2f5-0a580a3c1042",

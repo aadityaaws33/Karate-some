@@ -193,7 +193,7 @@ Scenario: Validate DynamoDB Item via Query
       function() {
         if (queryResult.length < 1) {
           var matchRes = {
-            message: 'No records found',
+            message: 'No records found. ' + queryResult,
             pass: false,
             path: null
           }
@@ -470,7 +470,7 @@ Scenario: Validate Wochit Rendition Payload
       function() {
         if(Param_Actual_WochitRendition_Entry.length < 1){
           var matchRes = {
-            message: 'No records found',
+            message: 'No records found.',
             pass: false,
             path: null
           }
@@ -485,7 +485,7 @@ Scenario: Validate Wochit Rendition Payload
                 var path = '$.' + key;
                 expectedValue = Param_Expected_WochitRendition_Entry[key];
                 actualValue = thisActualRes[key];
-                if(key == 'videoUpdates') {
+                if(key == 'videoUpdates' || key == 'dcoFillCropRequest') {
                   for(var videoUpdatesKey in actualValue) {
                     path = '$.' + key + '.' + videoUpdatesKey;
                     actualVideoField = actualValue[videoUpdatesKey];
@@ -532,7 +532,7 @@ Scenario: Validate Wochit Mapping Payload
       function() {
         if(Param_Actual_WochitMapping_Entry.length < 1){
           var matchRes = {
-            message: 'No records found',
+            message: 'No records found.',
             pass: false,
             path: null
           }

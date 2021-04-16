@@ -1,0 +1,30 @@
+{
+  "dev": {
+    "AllTop": {
+      "ExpectedMAMAssetInfoCount": 1,
+      "ExpectedWochitRenditionCount": 13,
+      "ExpectedWochitMappingCount": 13
+    }
+  },
+  "qa": {
+    "AllTop": {
+      "ExpectedMAMAssetInfoCount": 1,
+      "ExpectedWochitRenditionCount": 13,
+      "ExpectedWochitMappingCount": 13
+    }
+  },
+  "preprod": {
+    "AllTop": {
+      "ExpectedMAMAssetInfoCount": 1,
+      "ExpectedWochitRenditionCount": 13,
+      "ExpectedWochitMappingCount": 13
+    }
+  },
+  "prod": {
+    "AllTop": {
+      "ExpectedMAMAssetInfoCount": 1,
+      "ExpectedWochitRenditionCount": 13,
+      "ExpectedWochitMappingCount": 13
+    }
+  } 
+}

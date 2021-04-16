@@ -1,0 +1,26 @@
+{
+  "modifiedAt": "#notnull",
+  "userName": "#? CheckIconikUserNameAttr(_)",
+  "iconikUserName": "#? CheckIconikUserNameAttr(_)",
+  "title": "#(RenditionFileName)",
+  "dcoFillCropRequest": {
+    "targetHeight": "#? parseInt(_) == ExpectedHeight",
+    "title": "#? (_).contains(RenditionFileName)",
+    "alignment": "T",
+    "url": "#notnull",
+    "targetWidth": "#? parseInt(_) == ExpectedWidth"
+  },
+  "assetType": "IMAGE",
+  "createdAt": "#notnull",
+  "createdBy": "#notnull",
+  "renditionStatus": "#notnull",
+  "width": 0,
+  "modifiedBy": "#notnull",
+  "ID": "#notnull",
+  "height": 0,
+  "dcoImageFillCropResponse": {
+    "id": "#notnull",
+    "url": "#notnull",
+    "status": "SUCCESS"
+  }
+}
