@@ -7,28 +7,28 @@ Background:
   * def Country = 'Norway'
   * def EpisodeMetadataType = 'Dplus'
   * def MetadataSet = 'StrapOutLessthanStrapIn'
-  * def AWSregion = EnvData[Country]['AWSregion']
-  * def WochitMappingTableName = EnvData[Country]['WochitMappingTableName']
+  * def AWSregion = EnvConfig[Country]['AWSregion']
+  * def WochitMappingTableName = EnvConfig[Country]['WochitMappingTableName']
   * def WochitMappingTableGSI = 'wochitRenditionStatus-createdAt-index'
-  * def WochitRenditionTableName = EnvData[Country]['WochitRenditionTableName']
-  * def WochitRenditionTableGSI = EnvData[Country]['WochitRenditionTableGSI']
-  * def MAMAssetsInfoTableName = EnvData[Country]['MAMAssetsInfoTableName']
+  * def WochitRenditionTableName = EnvConfig[Country]['WochitRenditionTableName']
+  * def WochitRenditionTableGSI = EnvConfig[Country]['WochitRenditionTableGSI']
+  * def MAMAssetsInfoTableName = EnvConfig[Country]['MAMAssetsInfoTableName']
   # Iconik Stuff Start
-  * def Iconik_EpisodeVersionID = EnvData[Country]['Iconik_EpisodeVersionID']
-  * def Iconik_EpisodeMetadataObjectID = EnvData[Country]['Iconik_EpisodeMetadataObjectID']
-  * def Iconik_AssetID = EnvData[Country]['Iconik_AssetID'][EpisodeMetadataType][MetadataSet]
-  * def Iconik_SeasonCollectionID = EnvData[Country]['Iconik_SeasonCollectionID']
-  * def Iconik_TriggerRenditionCustomActionID = EnvData[Country]['Iconik_TriggerRenditionCustomActionID'][EpisodeMetadataType]
-  * def Iconik_TechnicalMetadataID = EnvData[Country]['Iconik_TechnicalMetadataID']
-  * def Iconik_TechnicalMetadataObjectID = EnvData[Country]['Iconik_TechnicalMetadataObjectID']
-  * def Iconik_AssetName = EnvData[Country]['Iconik_AssetName'][EpisodeMetadataType][MetadataSet]
-  * def Iconik_SystemDomainID = EnvData[Country]['Iconik_SystemDomainID']
-  * def Iconik_UpdateSeasonURL =  EnvData[Country]['Iconik_UpdateSeasonURL']
-  * def Iconik_UserId = EnvData['Common']['Iconik_UserId'][TargetTag]
-  * def Iconik_TriggerRenditionCustomActionListURL = EnvData['Common']['Iconik_TriggerRenditionCustomActionListURL']
-  * def Iconik_GetAppTokenInfoURL = EnvData['Common']['Iconik_GetAppTokenInfoURL']
-  * def Iconik_AssetAPIURL = EnvData['Common']['Iconik_AssetAPIURL']
-  * def Iconik_AppTokenName = EnvData['Common']['Iconik_AppTokenName']
+  * def Iconik_EpisodeVersionID = EnvConfig[Country]['Iconik_EpisodeVersionID']
+  * def Iconik_EpisodeMetadataObjectID = EnvConfig[Country]['Iconik_EpisodeMetadataObjectID']
+  * def Iconik_AssetID = EnvConfig[Country]['Iconik_AssetID'][EpisodeMetadataType][MetadataSet]
+  * def Iconik_SeasonCollectionID = EnvConfig[Country]['Iconik_SeasonCollectionID']
+  * def Iconik_TriggerRenditionCustomActionID = EnvConfig[Country]['Iconik_TriggerRenditionCustomActionID'][EpisodeMetadataType]
+  * def Iconik_TechnicalMetadataID = EnvConfig[Country]['Iconik_TechnicalMetadataID']
+  * def Iconik_TechnicalMetadataObjectID = EnvConfig[Country]['Iconik_TechnicalMetadataObjectID']
+  * def Iconik_AssetName = EnvConfig[Country]['Iconik_AssetName'][EpisodeMetadataType][MetadataSet]
+  * def Iconik_SystemDomainID = EnvConfig[Country]['Iconik_SystemDomainID']
+  * def Iconik_UpdateSeasonURL =  EnvConfig[Country]['Iconik_UpdateSeasonURL']
+  * def Iconik_UserId = EnvConfig['Common']['Iconik_UserId'][TargetTag]
+  * def Iconik_TriggerRenditionCustomActionListURL = EnvConfig['Common']['Iconik_TriggerRenditionCustomActionListURL']
+  * def Iconik_GetAppTokenInfoURL = EnvConfig['Common']['Iconik_GetAppTokenInfoURL']
+  * def Iconik_AssetAPIURL = EnvConfig['Common']['Iconik_AssetAPIURL']
+  * def Iconik_AppTokenName = EnvConfig['Common']['Iconik_AppTokenName']
   * def Iconik_AdminEmail = eval("SecretsData['Iconik-AdminEmail" + TargetEnv + "']")
   * def Iconik_AdminPassword = eval("SecretsData['Iconik-AdminPassword" + TargetEnv + "']")
   * def Iconik_GetAppTokenInfoPayload = 
@@ -60,9 +60,9 @@ Background:
   * def currentTCPath = 'classpath:CA/TestData/E2ECases/' + AWSregion + '_Region/' + Country + '/' + TCName
   * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
   # S3 Stuff
-  * def AssetBucketName = EnvData['Common']['S3']['AssetBucketName']
-  * def RenditionsFolderName = EnvData['Common']['S3']['RenditionsFolderName']
-  * def S3Region = EnvData['Common']['S3']['Region']
+  * def AssetBucketName = EnvConfig['Common']['S3']['AssetBucketName']
+  * def RenditionsFolderName = EnvConfig['Common']['S3']['RenditionsFolderName']
+  * def S3Region = EnvConfig['Common']['S3']['Region']
   # S3 Stuff End
   # NEW
   * def GetAppTokenInfoParams =

@@ -1,0 +1,53 @@
+{
+    "AWSregion": "Nordic",
+    "Iconik_AssetID": {
+        "Dplus": {
+            "AllStdBoltOn": "a9e89f42-3861-11eb-8015-0a580a3e003c",
+            "AllStdBoltOnNoStrap": "90f28452-87c7-11eb-ba09-0a580a3d1a0f",
+            "9x16StdBoltOnNoStrap": "93e917f8-8c7b-11eb-8058-0a580a3e006e",
+            "StrapOutLessthanStrapIn": "051c89f8-902a-11eb-af0b-0a580a3d6669"
+        },
+        "DplusWithoutEndboard": {},
+        "DplusEndboardOnly": {},
+        "Duo": {
+            "All": "4b8b3f1c-5bc1-11eb-bbbc-0a580a3c6e0b",
+            "9x16": "c3d263da-5ed5-11eb-a234-0a580a3c10a3"
+        },
+        "Linear": {
+            "All": "389636ca-6ff6-11eb-99ce-0a580a3c0c42",
+            "9x16": "",
+            "9x16NoTag": "fe797c96-77d8-11eb-a3b6-0a580a3c8b6a",
+            "AllWOEndboard": "25187b36-74b9-11eb-87fb-0a580a3c8a7d"
+        }
+    },
+    "Iconik_TriggerRenditionCustomActionID": {
+        "Dplus": "9188ff1a-1f33-11eb-a049-0a580a3e4e61",
+        "Duo": "6195fe32-701b-11eb-b044-0a580a3f6041",
+        "Linear": "6195fe32-701b-11eb-b044-0a580a3f6041"
+    },
+    "Iconik_AssetName": {
+        "Dplus": {
+            "AllStdBoltOn": "Preprod NO Dplus All Std Bolt-on.mp4",
+            "AllStdBoltOnNoStrap": "Preprod NO Dplus All Std Bolt-on No-Strap.mp4",
+            "9x16StdBoltOnNoStrap": "Preprod NO Dplus 9x16 Std Bolt-on.mp4",
+            "StrapOutLessthanStrapIn": "Preprod NO Dplus StrapOutLessthanStrapIn.mp4"
+        },
+        "Duo": {
+            "All": "Preprod NO Duo All.mp4",
+            "9x16": "Preprod NO Duo 9x16.mp4"
+        },
+        "Linear": {
+            "All": "Preprod NO Linear All.mp4",
+            "9x16": "",
+            "9x16NoTag": "Preprod NO Linear 9x16 NoTag.mov",
+            "AllWOEndboard": "Preprod NO Linear All WOEndboard.mp4"
+        }
+    },
+    "Iconik_SeasonCollectionID": "6dc6b6a2-3861-11eb-a2f5-0a580a3c1042",
+    "Iconik_UpdateSeasonURL": "https://app.iconik.io/API/metadata/v1/collections/6dc6b6a2-3861-11eb-a2f5-0a580a3c1042/views/f9fda03c-c65a-11ea-9040-0a580a3c0e49/",
+    "WochitMappingTableName": "CA_WOCHIT_MAPPING_EU-preprod",
+    "WochitMappingTableGSI": "mamAssetInfoReferenceId-createdAt-index",
+    "WochitRenditionTableName": "CA_WOCHIT_RENDITIONS_EU-preprod",
+    "WochitRenditionTableGSI": "assetType-createdAt-index",
+    "MAMAssetsInfoTableName": "CA_MAM_ASSETS_INFO_EU-preprod"
+}

@@ -1,33 +1,33 @@
-@JESS @DPLUS @E2E @Regression @Norway @parallel=false  
-Feature:  Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
+@DPLUS @E2E @Regression @Norway @parallel=false  
+Feature:  Dplus_Essential_Panel_Bolton_CTASingleLine
 
 Background:
   # NEW
-  * def TCName = 'Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine'
+  * def TCName = 'Dplus_Essential_Panel_Bolton_CTASingleLine'
   * def Country = 'Norway'
   * def EpisodeMetadataType = 'Dplus'
-  * def MetadataSet = '9x16StdBoltOnNoStrap'
-  * def AWSregion = EnvData[Country]['AWSregion']
-  * def WochitMappingTableName = EnvData[Country]['WochitMappingTableName']
-  * def WochitMappingTableGSI = EnvData[Country]['WochitMappingTableGSI']
-  * def WochitRenditionTableName = EnvData[Country]['WochitRenditionTableName']
-  * def WochitRenditionTableGSI = EnvData[Country]['WochitRenditionTableGSI']
-  * def MAMAssetsInfoTableName = EnvData[Country]['MAMAssetsInfoTableName']
+  * def MetadataSet = 'AllStdBoltOn'
+  * def AWSregion = EnvConfig[Country]['AWSregion']
+  * def WochitMappingTableName = EnvConfig[Country]['WochitMappingTableName']
+  * def WochitMappingTableGSI = EnvConfig[Country]['WochitMappingTableGSI']
+  * def WochitRenditionTableName = EnvConfig[Country]['WochitRenditionTableName']
+  * def WochitRenditionTableGSI = EnvConfig[Country]['WochitRenditionTableGSI']
+  * def MAMAssetsInfoTableName = EnvConfig[Country]['MAMAssetsInfoTableName']
   # Iconik Stuff Start
-  * def Iconik_EpisodeVersionID = EnvData[Country]['Iconik_EpisodeVersionID']
-  * def Iconik_EpisodeMetadataObjectID = EnvData[Country]['Iconik_EpisodeMetadataObjectID']
-  * def Iconik_AssetID = EnvData[Country]['Iconik_AssetID'][EpisodeMetadataType][MetadataSet]
-  * def Iconik_SeasonCollectionID = EnvData[Country]['Iconik_SeasonCollectionID']
-  * def Iconik_TriggerRenditionCustomActionID = EnvData[Country]['Iconik_TriggerRenditionCustomActionID'][EpisodeMetadataType]
-  * def Iconik_TechnicalMetadataID = EnvData[Country]['Iconik_TechnicalMetadataID']
-  * def Iconik_TechnicalMetadataObjectID = EnvData[Country]['Iconik_TechnicalMetadataObjectID']
-  * def Iconik_AssetName = EnvData[Country]['Iconik_AssetName'][EpisodeMetadataType][MetadataSet]
-  * def Iconik_SystemDomainID = EnvData[Country]['Iconik_SystemDomainID']
-  * def Iconik_UpdateSeasonURL =  EnvData[Country]['Iconik_UpdateSeasonURL']
-  * def Iconik_UserId = EnvData['Common']['Iconik_UserId'][TargetTag]
-  * def Iconik_TriggerRenditionCustomActionListURL = EnvData['Common']['Iconik_TriggerRenditionCustomActionListURL']
-  * def Iconik_GetAppTokenInfoURL = EnvData['Common']['Iconik_GetAppTokenInfoURL']
-  * def Iconik_AppTokenName = EnvData['Common']['Iconik_AppTokenName']
+  * def Iconik_EpisodeVersionID = EnvConfig[Country]['Iconik_EpisodeVersionID']
+  * def Iconik_EpisodeMetadataObjectID = EnvConfig[Country]['Iconik_EpisodeMetadataObjectID']
+  * def Iconik_AssetID = EnvConfig[Country]['Iconik_AssetID'][EpisodeMetadataType][MetadataSet]
+  * def Iconik_SeasonCollectionID = EnvConfig[Country]['Iconik_SeasonCollectionID']
+  * def Iconik_TriggerRenditionCustomActionID = EnvConfig[Country]['Iconik_TriggerRenditionCustomActionID'][EpisodeMetadataType]
+  * def Iconik_TechnicalMetadataID = EnvConfig[Country]['Iconik_TechnicalMetadataID']
+  * def Iconik_TechnicalMetadataObjectID = EnvConfig[Country]['Iconik_TechnicalMetadataObjectID']
+  * def Iconik_AssetName = EnvConfig[Country]['Iconik_AssetName'][EpisodeMetadataType][MetadataSet]
+  * def Iconik_SystemDomainID = EnvConfig[Country]['Iconik_SystemDomainID']
+  * def Iconik_UpdateSeasonURL =  EnvConfig[Country]['Iconik_UpdateSeasonURL']
+  * def Iconik_UserId = EnvConfig['Common']['Iconik_UserId'][TargetTag]
+  * def Iconik_TriggerRenditionCustomActionListURL = EnvConfig['Common']['Iconik_TriggerRenditionCustomActionListURL']
+  * def Iconik_GetAppTokenInfoURL = EnvConfig['Common']['Iconik_GetAppTokenInfoURL']
+  * def Iconik_AppTokenName = EnvConfig['Common']['Iconik_AppTokenName']
   * def Iconik_AdminEmail = eval("SecretsData['Iconik-AdminEmail" + TargetEnv + "']")
   * def Iconik_AdminPassword = eval("SecretsData['Iconik-AdminPassword" + TargetEnv + "']")
   * def Iconik_GetAppTokenInfoPayload = 
@@ -70,9 +70,9 @@ Background:
   * def ExpectedWochitMappingCount = read(currentTCPath + '/Output/ExpectedItemCounts.json')[TargetEnv][MetadataSet]['ExpectedWochitMappingCount']
   # Expected Item Counts End
   # S3 Stuff
-  * def AssetBucketName = EnvData['Common']['S3']['AssetBucketName']
-  * def RenditionsFolderName = EnvData['Common']['S3']['RenditionsFolderName']
-  * def S3Region = EnvData['Common']['S3']['Region']
+  * def AssetBucketName = EnvConfig['Common']['S3']['AssetBucketName']
+  * def RenditionsFolderName = EnvConfig['Common']['S3']['RenditionsFolderName']
+  * def S3Region = EnvConfig['Common']['S3']['Region']
   # S3 Stuff End
   # NEW
   * def GetAppTokenInfoParams =
@@ -128,13 +128,13 @@ Background:
   * def Random_String_Generator = 
     """
       function(){ 
-        var pause = 1000;
+        var pause = 3000;
         karate.log('Pausing for ' + pause + ' milliseconds');
         java.lang.Thread.sleep(pause);
         return java.lang.System.currentTimeMillis() 
       }
     """
-  * callonce Pause 1000
+  * callonce Pause 3000
   * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
   * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
@@ -149,7 +149,7 @@ Background:
       }
     """
 
-# Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Update Season 
+# Scenario: Nordic_Norway_Dplus_Essential_Panel_Bolton_CTASingleLine - Update Season 
 #   * def scenarioName = 'updateSeason'
 #   * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
 #   * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
@@ -176,7 +176,7 @@ Background:
 #     """
 #   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Trigger Rendition
+Scenario: Dplus_Essential_Panel_Bolton_CTASingleLine - Trigger Rendition
   * def scenarioName = 'triggerRendition'
   * def getRenditionRequestMetadataValues =
     """
@@ -217,7 +217,7 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Trigg
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   * call Pause 60000
     
-Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Item Counts - MAM Asset Info
+Scenario: Dplus_Essential_Panel_Bolton_CTASingleLine - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAMAssetCount"
   * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
   * def GetItemsViaQueryParams = 
@@ -274,7 +274,7 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Valid
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Item Counts - Wochit Rendition
+Scenario: Dplus_Essential_Panel_Bolton_CTASingleLine - Validate Item Counts - Wochit Rendition
   * def scenarioName = "validateWochitRenditionCount"
   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
   * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
@@ -339,7 +339,7 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Valid
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Item Counts - Wochit Mapping
+Scenario: Dplus_Essential_Panel_Bolton_CTASingleLine - Validate Item Counts - Wochit Mapping
   * def scenarioName = "validateWochitMappingCount"
   * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
   * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
@@ -404,7 +404,7 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Valid
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Wochit Renditions Table for <ASPECTRATIO>
+Scenario Outline: Dplus_Essential_Panel_Bolton_CTASingleLine - Validate Wochit Renditions Table for <ASPECTRATIO>
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitRendition_Entry = read(currentTCPath + '/Output/Expected_WochitRendition_Entry.json')
@@ -468,7 +468,7 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
   Examples:
     | validateWochitRenditionTestData |
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
+Scenario Outline: Dplus_Essential_Panel_Bolton_CTASingleLine - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
   * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
   * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
@@ -522,7 +522,7 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
   Examples:
     | validateTechnicalMetadataTestData |
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Dplus_Essential_Panel_Bolton_CTASingleLine - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
@@ -584,7 +584,7 @@ Scenario: Hard wait for PROCESSING to FINISH
   # ---------
   * call Pause 60000*4
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Dplus_Essential_Panel_Bolton_CTASingleLine - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
@@ -656,7 +656,7 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
   Examples:
     | validateWochitMappingIsFiledMovedTestData |
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate if <ASPECTRATIO> Asset exists
+Scenario Outline: Dplus_Essential_Panel_Bolton_CTASingleLine - Validate if <ASPECTRATIO> Asset exists
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}

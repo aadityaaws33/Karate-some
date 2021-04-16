@@ -19,9 +19,15 @@ function() {
     }
   }
 
-  var envData = read('classpath:env.json');
-  var envConfig = envData[targetEnv];
-  
+  var configDir = 'classpath:CA/Config/' + targetEnv;
+  var CommonData = read(configDir + '/' + 'Common.json');
+  var NorwayData = read(configDir + '/' + 'Norway.json') || {};
+
+  var envConfig = {
+    Common: CommonData,
+    Norway: NorwayData
+  };
+ 
   var secretsData = null;
   try {
     var AWSUtilsClass = Java.type('AWSUtils.AWSUtils');
@@ -34,7 +40,7 @@ function() {
   var config = {
     TargetEnv: targetEnv,
     TargetTag: targetTag,
-    EnvData: envData[targetEnv],
+    EnvConfig: envConfig,
     SecretsData: secretsData
   };
   

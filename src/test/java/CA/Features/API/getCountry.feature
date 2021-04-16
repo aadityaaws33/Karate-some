@@ -11,8 +11,8 @@ Background:
   * def currentTCPath = 'classpath:CA/TestData/APICases/' + apiName
   * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
   # End
-  * def appSyncURL = EnvData['AppSync']['URL']
-  * def apiKey = EnvData['AppSync']['X-Api-Key']
+  * def appSyncURL = EnvConfig['Common']['AppSync']['URL']
+  * def apiKey = EnvConfig['Common']['AppSync']['X-Api-Key']
   * def ExpectedResponse = read(currentTCPath + '/response.json')
   * def HTTPRequest = read(currentTCPath + '/request.json')
   * def HTTPHeaders =
