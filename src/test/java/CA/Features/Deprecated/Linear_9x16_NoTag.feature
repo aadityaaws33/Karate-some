@@ -22,7 +22,6 @@ Background:
   * def Iconik_TechnicalMetadataObjectID = EnvConfig[Country]['Iconik_TechnicalMetadataObjectID']
   * def Iconik_AssetName = EnvConfig[Country]['Iconik_AssetName'][EpisodeMetadataType][MetadataSet]
   * def Iconik_SystemDomainID = EnvConfig[Country]['Iconik_SystemDomainID']
-  * def Iconik_UpdateSeasonURL =  EnvConfig[Country]['Iconik_UpdateSeasonURL']
   * def Iconik_UserId = EnvConfig['Common']['Iconik_UserId'][TargetTag]
   * def Iconik_TriggerRenditionCustomActionListURL = EnvConfig['Common']['Iconik_TriggerRenditionCustomActionListURL']
   * def Iconik_GetAppTokenInfoURL = EnvConfig['Common']['Iconik_GetAppTokenInfoURL']

@@ -34,7 +34,7 @@ function() {
     var AWSUtils = new AWSUtilsClass();
     secretsData = AWSUtils.getSecrets(envConfig.Common.SecretsManager.secretName, envConfig.Common.SecretsManager.region);
   } catch (err) {
-    karate.fail('Problem encountered while fetching data from Secrets Manager\n' + err);
+    karate.fail('Problem encountered while fetching data from Secrets Manager.\nReason: ' + err);
   }
 
   var config = {

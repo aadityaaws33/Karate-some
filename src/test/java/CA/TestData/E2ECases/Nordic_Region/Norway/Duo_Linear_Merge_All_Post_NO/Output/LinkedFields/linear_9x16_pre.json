@@ -1,0 +1,14 @@
+[
+    {
+        "value": "#(RandomCTA)",
+        "key": "Duo.EndPage.LinearCTA"
+    },
+    {
+        "value": "#(RandomCalloutText)",
+        "key": "Duo.EndPage.LinearCTALabel"
+    },
+    {
+        "value": "FEM",
+        "key": "Duo.EndPage.LogoLine1"
+    }
+]

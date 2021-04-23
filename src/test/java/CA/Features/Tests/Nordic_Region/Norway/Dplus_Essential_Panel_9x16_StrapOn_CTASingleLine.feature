@@ -1,4 +1,4 @@
-@DCO @Regression @Norway @parallel=false  
+@DPLUS @Regression @Norway @parallel=false  
 Feature:  Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
 
 Background:
@@ -17,13 +17,13 @@ Background:
   * def Iconik_EpisodeVersionID = EnvConfig[Country]['Iconik_EpisodeVersionID']
   * def Iconik_EpisodeMetadataObjectID = EnvConfig[Country]['Iconik_EpisodeMetadataObjectID']
   * def Iconik_AssetID = EnvConfig[Country]['Iconik_AssetID'][EpisodeMetadataType][MetadataSet]
+  * def Iconik_MetadataViewID = EnvConfig[Country]['Iconik_MetadataViewID'][EpisodeMetadataType]
   * def Iconik_SeasonCollectionID = EnvConfig[Country]['Iconik_SeasonCollectionID']
   * def Iconik_TriggerRenditionCustomActionID = EnvConfig[Country]['Iconik_TriggerRenditionCustomActionID'][EpisodeMetadataType]
   * def Iconik_TechnicalMetadataID = EnvConfig[Country]['Iconik_TechnicalMetadataID']
   * def Iconik_TechnicalMetadataObjectID = EnvConfig[Country]['Iconik_TechnicalMetadataObjectID']
   * def Iconik_AssetName = EnvConfig[Country]['Iconik_AssetName'][EpisodeMetadataType][MetadataSet]
   * def Iconik_SystemDomainID = EnvConfig[Country]['Iconik_SystemDomainID']
-  * def Iconik_UpdateSeasonURL =  EnvConfig[Country]['Iconik_UpdateSeasonURL']
   * def Iconik_UserId = EnvConfig['Common']['Iconik_UserId'][TargetTag]
   * def Iconik_TriggerRenditionCustomActionListURL = EnvConfig['Common']['Iconik_TriggerRenditionCustomActionListURL']
   * def Iconik_GetAppTokenInfoURL = EnvConfig['Common']['Iconik_GetAppTokenInfoURL']

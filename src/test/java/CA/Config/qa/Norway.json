@@ -1,5 +1,9 @@
 {
     "AWSregion": "Nordic",
+    "Iconik_MetadataViewID": {
+        "Dplus": "82d99850-5edd-11eb-b3d3-0a580a3e4e3e",
+        "DuoLinear": "7a5629ce-669d-11eb-a28e-0a580a3f5fca"
+    },
     "Iconik_AssetID": {
         "Dplus": {
             "AllStdBoltOn": "5ed9bb38-53d9-11eb-8af8-0a580a3c2c12",
@@ -7,21 +11,13 @@
             "9x16StdBoltOnNoStrap": "58e41d84-8c75-11eb-989d-0a580a3c0efe",
             "StrapOutLessthanStrapIn": "782b2132-8d4d-11eb-b50d-0a580a3f5f60"
         },
-        "Duo": {
+        "DuoLinear": {
             "All": "e2531296-5aed-11eb-8941-0a580a3c10a3",
-            "9x16": "d4780bca-5af4-11eb-a8e7-0a580a3c8a02"
-        },
-        "Linear": {
-            "All": "d2e1d2bc-6f37-11eb-8b62-0a580a3e4b2b",
-            "9x16": "",
-            "9x16NoTag": "3f895b92-7730-11eb-bd6a-0a580a3c47bf",
-            "AllWOEndboard": "ba1b66ea-7251-11eb-99ce-0a580a3c0c42"
         }
     },
     "Iconik_TriggerRenditionCustomActionID": {
         "Dplus": "b6f0466a-6794-11eb-bf73-0a580a3e4b2b",
-        "Duo": "837bb6a8-8e21-11eb-9b88-0a580a3c2ca6",
-        "Linear": "837bb6a8-8e21-11eb-9b88-0a580a3c2ca6"
+        "DuoLinear": "837bb6a8-8e21-11eb-9b88-0a580a3c2ca6",
     },
     "Iconik_AssetName": {
         "Dplus": {
@@ -30,8 +26,8 @@
             "9x16StdBoltOnNoStrap": "QA NO Dplus 9x16 Std Bolt-on.mp4",
             "StrapOutLessthanStrapIn": "QA NO Dplus StrapOutLessthanStrapIn.mp4"
         },
-        "Duo": {
-            "All": "QA NO Duo All.mp4",
+        "DuoLinear": {
+            "All": "QA NO DuoLinear All.mp4",
             "9x16": "QA NO Duo 9x16.mp4"
         },
         "Linear": {

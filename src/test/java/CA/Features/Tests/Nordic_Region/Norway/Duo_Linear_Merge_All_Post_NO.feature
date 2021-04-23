@@ -1,12 +1,12 @@
-@JESS @DPLUS @E2E @Regression @Norway @parallel=false  
-Feature:  Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
+@DuoLinear @Norway @parallel=false  
+Feature:  Duo_Linear_Merge_All_Post_NO
 
 Background:
   # NEW
-  * def TCName = 'Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine'
+  * def TCName = 'Duo_Linear_Merge_All_Post_NO'
   * def Country = 'Norway'
-  * def EpisodeMetadataType = 'Dplus'
-  * def MetadataSet = '9x16StdBoltOnNoStrap'
+  * def EpisodeMetadataType = 'DuoLinear'
+  * def MetadataSet = 'All'
   * def AWSregion = EnvConfig[Country]['AWSregion']
   * def WochitMappingTableName = EnvConfig[Country]['WochitMappingTableName']
   * def WochitMappingTableGSI = EnvConfig[Country]['WochitMappingTableGSI']
@@ -17,13 +17,13 @@ Background:
   * def Iconik_EpisodeVersionID = EnvConfig[Country]['Iconik_EpisodeVersionID']
   * def Iconik_EpisodeMetadataObjectID = EnvConfig[Country]['Iconik_EpisodeMetadataObjectID']
   * def Iconik_AssetID = EnvConfig[Country]['Iconik_AssetID'][EpisodeMetadataType][MetadataSet]
+  * def Iconik_MetadataViewID = EnvConfig[Country]['Iconik_MetadataViewID'][EpisodeMetadataType]
   * def Iconik_SeasonCollectionID = EnvConfig[Country]['Iconik_SeasonCollectionID']
   * def Iconik_TriggerRenditionCustomActionID = EnvConfig[Country]['Iconik_TriggerRenditionCustomActionID'][EpisodeMetadataType]
   * def Iconik_TechnicalMetadataID = EnvConfig[Country]['Iconik_TechnicalMetadataID']
   * def Iconik_TechnicalMetadataObjectID = EnvConfig[Country]['Iconik_TechnicalMetadataObjectID']
   * def Iconik_AssetName = EnvConfig[Country]['Iconik_AssetName'][EpisodeMetadataType][MetadataSet]
   * def Iconik_SystemDomainID = EnvConfig[Country]['Iconik_SystemDomainID']
-  * def Iconik_UpdateSeasonURL =  EnvConfig[Country]['Iconik_UpdateSeasonURL']
   * def Iconik_UserId = EnvConfig['Common']['Iconik_UserId'][TargetTag]
   * def Iconik_TriggerRenditionCustomActionListURL = EnvConfig['Common']['Iconik_TriggerRenditionCustomActionListURL']
   * def Iconik_GetAppTokenInfoURL = EnvConfig['Common']['Iconik_GetAppTokenInfoURL']
@@ -128,13 +128,13 @@ Background:
   * def Random_String_Generator = 
     """
       function(){ 
-        var pause = 1000;
+        var pause = 7000;
         karate.log('Pausing for ' + pause + ' milliseconds');
         java.lang.Thread.sleep(pause);
         return java.lang.System.currentTimeMillis() 
       }
     """
-  * callonce Pause 1000
+  * callonce Pause 7000
   * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
   * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
@@ -149,7 +149,7 @@ Background:
       }
     """
 
-# Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Update Season 
+# Scenario: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Update Season 
 #   * def scenarioName = 'updateSeason'
 #   * def UpdateSeasonquery = read(currentTCPath+'/Input/SeasonRequest.json')
 #   * replace UpdateSeasonquery.SeriesTitle = RandomSeriesTitle
@@ -176,7 +176,7 @@ Background:
 #     """
 #   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Trigger Rendition
+Scenario: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Trigger Rendition
   * def scenarioName = 'triggerRendition'
   * def getRenditionRequestMetadataValues =
     """
@@ -217,7 +217,7 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Trigg
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   * call Pause 60000
     
-Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Item Counts - MAM Asset Info
+Scenario: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAMAssetCount"
   * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
   * def GetItemsViaQueryParams = 
@@ -274,9 +274,9 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Valid
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Item Counts - Wochit Rendition
+Scenario: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Item Counts - Wochit Rendition
   * def scenarioName = "validateWochitRenditionCount"
-  * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
+  * def ExpectedTitle = RandomCTA
   * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
   * def GetItemsViaQueryParams = 
     """
@@ -339,9 +339,9 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Valid
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Item Counts - Wochit Mapping
-  * def scenarioName = "validateWochitMappingCount"
-  * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
+Scenario: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Item Counts - Wochit Mapping
+ * def scenarioName = "validateWochitMappingCount"
+  * def ExpectedTitle = RandomCTA
   * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
   * def GetItemsViaQueryParams = 
     """
@@ -404,9 +404,62 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Valid
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Wochit Renditions Table for <ASPECTRATIO>
+Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Wochit Renditions Table for <ASPECTRATIO>
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
-  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def generateRenditionFileName =
+  """
+    function(fnameprefix) {
+      var finalRenditionFileName = fnameprefix.replace('CTA', RandomCTA);
+      finalRenditionFileName = finalRenditionFileName.replace('COT', RandomCalloutText);
+
+      return finalRenditionFileName
+    }
+  """
+  * def RenditionFileName = call generateRenditionFileName <FNAMEPREFIX>
+  * def getCalloutText =
+    """
+      function(renditionFileName) {
+        var finalCalloutText = RandomCalloutText;
+        if(renditionFileName.contains('PREMIERE')) {
+          finalCalloutText = 'PREMIERE'
+        }
+        return finalCalloutText;
+      }
+    """
+  * def RandomCalloutText = call getCalloutText RenditionFileName
+  * def getLinkedFieldsList =
+    """
+      function(renditionFileName) {
+        var templateName = '';
+        if(renditionFileName.contains('duo')) {
+          templateName += 'duo_';
+        }
+        else if(renditionFileName.contains('linear')) {
+          templateName += 'linear_';
+        }
+        else {
+          karate.fail(renditionName + ' is not a Duo/Linear tempalte!');
+        }
+
+        if(renditionFileName.contains('9x16')) {
+          templateName += '9x16_';
+        }
+        else {
+          templateName += 'All_';
+        }
+
+        if(renditionFileName.contains('pre')) {
+          templateName += 'pre.json'
+        }
+        else {
+          templateName += 'post.json'
+        }
+
+        var linkedFieldsList = karate.read(currentTCPath + '/Output/LinkedFields/' + templateName);
+        return linkedFieldsList;
+      }
+    """
+  * def Expected_Linked_Fields = call getLinkedFieldsList RenditionFileName
   * def Expected_WochitRendition_Entry = read(currentTCPath + '/Output/Expected_WochitRendition_Entry.json')
   * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
   * def GetItemsViaQueryParams = 
@@ -431,7 +484,7 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
         AWSregion: #(AWSregion)
       }
     """
-  * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') GetItemsViaQueryParams
+  * def QueryResults = callonce read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') GetItemsViaQueryParams
   * def FilterQueryResultsParams =
     """
       {
@@ -468,10 +521,9 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
   Examples:
     | validateWochitRenditionTestData |
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
+Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
   * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
-  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
   * def ValidateItemViaQueryParams = 
     """
       {
@@ -482,12 +534,6 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
             infoValue: #(Iconik_AssetID),
             infoComparator: '=',
             infoType: 'key'
-          },
-          {
-            infoName: 'createdAt',
-            infoValue: #(ExpectedDate.result),
-            infoComparator: 'begins',
-            infoType: 'filter'
           },
           {
             infoName: 'assetTitle',
@@ -522,11 +568,30 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
   Examples:
     | validateTechnicalMetadataTestData |
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
-  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def generateRenditionFileName =
+  """
+    function(fnameprefix) {
+      var finalRenditionFileName = fnameprefix.replace('CTA', RandomCTA);
+      finalRenditionFileName = finalRenditionFileName.replace('COT', RandomCalloutText);
+
+      return finalRenditionFileName
+    }
+  """
+  * def RenditionFileName = call generateRenditionFileName <FNAMEPREFIX>
+  * def getCalloutText =
+    """
+      function(renditionFileName) {
+        var finalCalloutText = RandomCalloutText;
+        if(renditionFileName.contains('PREMIERE')) {
+          finalCalloutText = 'PREMIERE'
+        }
+        return finalCalloutText;
+      }
+    """
+  * def RandomCalloutText = call getCalloutText RenditionFileName
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
-  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
   * def ValidateItemViaQueryParams = 
     """
       {
@@ -538,12 +603,6 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
             infoComparator: '=',
             infoType: 'key'
           },
-          {
-            infoName: 'createdAt',
-            infoValue: #(ExpectedDate.result),
-            infoComparator: 'begins',
-            infoType: 'key'
-          },  
           {
             infoName: 'renditionFileName',
             infoValue: #(RenditionFileName),
@@ -584,15 +643,14 @@ Scenario: Hard wait for PROCESSING to FINISH
   # ---------
   * call Pause 60000*4
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------
   * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
-  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCTA
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
-  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
   * def retries = 15
   * def ValidateItemViaQueryParams = 
     """
@@ -605,12 +663,6 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
             infoComparator: '=',
             infoType: 'key'
           },
-          {
-            infoName: 'createdAt',
-            infoValue: #(ExpectedDate.result),
-            infoComparator: 'begins',
-            infoType: 'key'
-          },     
           {
             infoName: 'renditionFileName',
             infoValue: #(RenditionFileName),
@@ -656,14 +708,13 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
   Examples:
     | validateWochitMappingIsFiledMovedTestData |
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate if <ASPECTRATIO> Asset exists
+Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate if <ASPECTRATIO> Asset exists
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------  
   * def scenarioName = 'validateS3AssetExists' + <ASPECTRATIO>
-  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
-  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
+  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCTA
   * def ValidateItemViaQueryParams = 
     """
       {
@@ -673,12 +724,6 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
             infoName: 'mamAssetInfoReferenceId',
             infoValue: #(Iconik_AssetID),
             infoComparator: '=',
-            infoType: 'key'
-          },
-          {
-            infoName: 'createdAt',
-            infoValue: #(ExpectedDate.result),
-            infoComparator: 'begins',
             infoType: 'key'
           },
           {

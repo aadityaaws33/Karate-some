@@ -1,0 +1,18 @@
+[
+    {
+        "value": "#(RandomCTA)",
+        "key": "Duo.EndPage.LinearCTA"
+    },
+    {
+        "value": "#(RandomCalloutText)",
+        "key": "Duo.EndPage.LinearCTALabel"
+    },
+    {
+        "value": "Se gratis på",
+        "key": "Duo.EndPage.DplayCTA"
+    },
+    {
+        "value": "FEM",
+        "key": "Duo.EndPage.LogoLine1"
+    }
+]
