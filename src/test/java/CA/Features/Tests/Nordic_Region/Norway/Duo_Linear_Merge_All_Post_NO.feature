@@ -405,6 +405,7 @@ Scenario: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Item Counts - Wo
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
 Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Wochit Renditions Table for <ASPECTRATIO>
+  * call Pause 1000
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
   * def generateRenditionFileName =
   """
@@ -569,6 +570,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Technica
     | validateTechnicalMetadataTestData |
 
 Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+  * call Pause 1000
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   * def generateRenditionFileName =
   """
@@ -645,6 +647,7 @@ Scenario: Hard wait for PROCESSING to FINISH
 
 Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
+  * call Pause 1000
   * configure abortedStepsShouldPass = true
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------
@@ -710,6 +713,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - FINISHED - Valida
 
 Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate if <ASPECTRATIO> Asset exists
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
+  * call Pause 1000
   * configure abortedStepsShouldPass = true
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------  
