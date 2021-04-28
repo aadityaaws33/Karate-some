@@ -141,7 +141,7 @@ Scenario: Get DynamoDB Item(s) via Query
         Param_GlobalSecondaryIndex
       );
 
-      if(!queryResp.length < 0)  {
+      if(queryResp.length < 1)  {
         karate.log('No results found for ' + karate.pretty(Param_QueryInfoList));
         return queryResp;
       }
@@ -177,7 +177,7 @@ Scenario: Validate DynamoDB Item via Query
         Param_GlobalSecondaryIndex
       );
 
-      if(!queryResp.length < 0)  {
+      if(queryResp.length < 1)  {
         karate.log('No results found for ' + karate.pretty(Param_QueryInfoList));
         return queryResp;
       }
