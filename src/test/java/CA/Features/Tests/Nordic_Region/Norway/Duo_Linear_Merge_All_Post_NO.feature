@@ -1,4 +1,4 @@
-@DuoLinear @Norway @parallel=false  
+@Regression @DuoLinear @Norway @parallel=false  
 Feature:  Duo_Linear_Merge_All_Post_NO
 
 Background:
