@@ -6,7 +6,7 @@
   "asset_ids": ["#(Iconik_AssetID)"],
   "collection_ids": ["#(Iconik_SeasonCollectionID)"],
   "saved_search_ids": [],
-  "metadata_view_id": "82d99850-5edd-11eb-b3d3-0a580a3e4e3e",
+  "metadata_view_id": "#(Iconik_MetadataViewID)",
   "metadata_values": #(RenditionRequestMetadataValues),
   "auth_token": "#(Iconik_AuthToken)"
 }
