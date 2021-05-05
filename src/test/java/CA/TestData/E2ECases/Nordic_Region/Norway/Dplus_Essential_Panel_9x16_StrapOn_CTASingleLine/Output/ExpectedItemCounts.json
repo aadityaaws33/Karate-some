@@ -1,23 +1,30 @@
 {
+  "dev": {
+    "9x16StdBoltOnWithStrap": {
+      "ExpectedMAMAssetInfoCount": 1,
+      "ExpectedWochitRenditionCount": 1,
+      "ExpectedWochitMappingCount": 1
+    }
+  },
   "qa": {
-    "9x16StdBoltOnNoStrap": {
+    "9x16StdBoltOnWithStrap": {
       "ExpectedMAMAssetInfoCount": 1,
       "ExpectedWochitRenditionCount": 1,
       "ExpectedWochitMappingCount": 1
     }
   },
   "preprod": {
-    "9x16StdBoltOnNoStrap": {
+    "9x16StdBoltOnWithStrap": {
       "ExpectedMAMAssetInfoCount": 1,
       "ExpectedWochitRenditionCount": 1,
       "ExpectedWochitMappingCount": 1
     }
   },
   "prod": {
-    "9x16StdBoltOnNoStrap": {
+    "9x16StdBoltOnWithStrap": {
       "ExpectedMAMAssetInfoCount": 1,
       "ExpectedWochitRenditionCount": 1,
       "ExpectedWochitMappingCount": 1
     }
-  } 
+  }
 }

@@ -1,4 +1,116 @@
 {
+    "dev": {
+        "All": [
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-duo_9x16_post-FEM-CTA-Se gratis på'",
+                "ASPECTRATIO": "'DUO POST 9x16'",
+                "TEMPLATEID": "602dd83ff5f9a21ba44b13e8",
+                "ScanVal": "ASPECT_9_16"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-duo_4x5_post-FEM-CTA-Se gratis på'",
+                "ASPECTRATIO": "'DUO POST 4x5'",
+                "TEMPLATEID": "602dd60bf5f9a21ba44b13e5",
+                "ScanVal": "ASPECT_4_5"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-duo_16x9_post-FEM-CTA-Se gratis på'",
+                "ASPECTRATIO": "'DUO POST 16x9'",
+                "TEMPLATEID": "602dd5835661eb313d7044d8",
+                "ScanVal": "ASPECT_16_9"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-duo_9x16_pre-FEM-PREMIERE-CTA-Se gratis på'",
+                "ASPECTRATIO": "'DUO PRE 9x16'",
+                "TEMPLATEID": "602dd4985661eb313d7044d6",
+                "ScanVal": "ASPECT_9_16"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-duo_9x16_pre-FEM-COT-CTA-Se gratis på'",
+                "ASPECTRATIO": "'DUO PRE 9x16'",
+                "TEMPLATEID": "602dd4985661eb313d7044d6",
+                "ScanVal": "ASPECT_9_16"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-duo_4x5_pre-FEM-COT-CTA-Se gratis på'",
+                "ASPECTRATIO": "'DUO PRE 4x5'",
+                "TEMPLATEID": "602dcec231045863805eff9f",
+                "ScanVal": "ASPECT_4_5"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-duo_4x5_pre-FEM-PREMIERE-CTA-Se gratis på'",
+                "ASPECTRATIO": "'DUO PRE 4x5'",
+                "TEMPLATEID": "602dcec231045863805eff9f",
+                "ScanVal": "ASPECT_4_5"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-duo_16x9_pre-FEM-PREMIERE-CTA-Se gratis på'",
+                "ASPECTRATIO": "'DUO PRE 16x9'",
+                "TEMPLATEID": "602dc9b831045863805eff9b",
+                "ScanVal": "ASPECT_16_9"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-duo_16x9_pre-FEM-COT-CTA-Se gratis på'",
+                "ASPECTRATIO": "'DUO PRE 16x9'",
+                "TEMPLATEID": "602dc9b831045863805eff9b",
+                "ScanVal": "ASPECT_16_9"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-linear_9x16_post-FEM-CTA'",
+                "ASPECTRATIO": "'LINEAR POST 9x16'",
+                "TEMPLATEID": "5ea6774c1066736b896c449e",
+                "ScanVal": "ASPECT_9_16"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-linear_4x5_post-FEM-CTA'",
+                "ASPECTRATIO": "'LINEAR POST 4x5'",
+                "TEMPLATEID": "5ea676d227c3040ebef56147",
+                "ScanVal": "ASPECT_4_5"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-linear_16x9_post-FEM-CTA'",
+                "ASPECTRATIO": "'LINEAR POST 16x9'",
+                "TEMPLATEID": "5ea6761627c3040ebef56143",
+                "ScanVal": "ASPECT_16_9"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-linear_9x16_pre-FEM-COT-CTA'",
+                "ASPECTRATIO": "'LINEAR PRE 9x16'",
+                "TEMPLATEID": "5ea676f81066736b896c449c",
+                "ScanVal": "ASPECT_9_16"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-linear_9x16_pre-FEM-PREMIERE-CTA'",
+                "ASPECTRATIO": "'LINEAR PRE 9x16'",
+                "TEMPLATEID": "5ea676f81066736b896c449c",
+                "ScanVal": "ASPECT_9_16"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-linear_4x5_pre-FEM-COT-CTA'",
+                "ASPECTRATIO": "'LINEAR PRE 4x5'",
+                "TEMPLATEID": "5ea6766c27c3040ebef56145",
+                "ScanVal": "ASPECT_4_5"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-linear_4x5_pre-FEM-PREMIERE-CTA'",
+                "ASPECTRATIO": "'LINEAR PRE 4x5'",
+                "TEMPLATEID": "5ea6766c27c3040ebef56145",
+                "ScanVal": "ASPECT_4_5"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-linear_16x9_pre-FEM-PREMIERE-CTA'",
+                "ASPECTRATIO": "'LINEAR PRE 16x9'",
+                "TEMPLATEID": "5ea6759427c3040ebef56141",
+                "ScanVal": "ASPECT_16_9"
+            },
+            {
+                "FNAMEPREFIX": "'Dev NO DuoLinear All-linear_16x9_pre-FEM-COT-CTA'",
+                "ASPECTRATIO": "'LINEAR PRE 16x9'",
+                "TEMPLATEID": "5ea6759427c3040ebef56141",
+                "ScanVal": "ASPECT_16_9"
+            }
+        ]
+    },
     "qa": {
         "All": [
             {

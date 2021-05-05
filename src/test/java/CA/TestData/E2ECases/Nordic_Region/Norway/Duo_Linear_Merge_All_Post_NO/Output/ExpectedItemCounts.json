@@ -1,4 +1,11 @@
 {
+  "dev": {
+    "All": {
+      "ExpectedMAMAssetInfoCount": 1,
+      "ExpectedWochitRenditionCount": 18,
+      "ExpectedWochitMappingCount": 18
+    }
+  },
   "qa": {
     "All": {
       "ExpectedMAMAssetInfoCount": 1,

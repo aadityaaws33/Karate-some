@@ -1,4 +1,11 @@
 {
+  "dev": {
+    "AllStdBoltOn": [
+      {
+        "COMPOSITEVIEWID": "82d99850-5edd-11eb-b3d3-0a580a3e4e3e|e88341e8-5ecd-11eb-aad2-0a580a3f8d9e"
+      }
+    ]
+  },
   "qa": {
     "AllStdBoltOn": [
       {

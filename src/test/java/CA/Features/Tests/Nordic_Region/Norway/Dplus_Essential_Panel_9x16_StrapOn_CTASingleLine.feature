@@ -6,7 +6,7 @@ Background:
   * def TCName = 'Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine'
   * def Country = 'Norway'
   * def EpisodeMetadataType = 'Dplus'
-  * def MetadataSet = '9x16StdBoltOnNoStrap'
+  * def MetadataSet = '9x16StdBoltOnWithStrap'
   * def AWSregion = EnvConfig[Country]['AWSregion']
   * def WochitMappingTableName = EnvConfig[Country]['WochitMappingTableName']
   * def WochitMappingTableGSI = EnvConfig[Country]['WochitMappingTableGSI']

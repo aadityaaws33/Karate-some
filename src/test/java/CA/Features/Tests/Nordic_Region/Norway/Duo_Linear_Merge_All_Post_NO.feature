@@ -1,4 +1,4 @@
-@Regression @DuoLinear @Norway @parallel=false  
+@thisE2E @Regression @DuoLinear @Norway @parallel=false  
 Feature:  Duo_Linear_Merge_All_Post_NO
 
 Background:
@@ -652,7 +652,27 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - FINISHED - Valida
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------
   * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
-  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCTA
+  * def generateRenditionFileName =
+    """
+      function(fnameprefix) {
+        var finalRenditionFileName = fnameprefix.replace('CTA', RandomCTA);
+        finalRenditionFileName = finalRenditionFileName.replace('COT', RandomCalloutText);
+
+        return finalRenditionFileName
+      }
+    """
+  * def RenditionFileName = call generateRenditionFileName <FNAMEPREFIX>
+  * def getCalloutText =
+    """
+      function(renditionFileName) {
+        var finalCalloutText = RandomCalloutText;
+        if(renditionFileName.contains('PREMIERE')) {
+          finalCalloutText = 'PREMIERE'
+        }
+        return finalCalloutText;
+      }
+    """
+  * def RandomCalloutText = call getCalloutText RenditionFileName
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
   * def retries = 15
   * def ValidateItemViaQueryParams = 
@@ -718,7 +738,27 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate if <ASPE
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------  
   * def scenarioName = 'validateS3AssetExists' + <ASPECTRATIO>
-  * def RenditionFileName = <FNAMEPREFIX>+'-'+RandomCTA
+  * def generateRenditionFileName =
+    """
+      function(fnameprefix) {
+        var finalRenditionFileName = fnameprefix.replace('CTA', RandomCTA);
+        finalRenditionFileName = finalRenditionFileName.replace('COT', RandomCalloutText);
+
+        return finalRenditionFileName
+      }
+    """
+  * def RenditionFileName = call generateRenditionFileName <FNAMEPREFIX>
+  * def getCalloutText =
+    """
+      function(renditionFileName) {
+        var finalCalloutText = RandomCalloutText;
+        if(renditionFileName.contains('PREMIERE')) {
+          finalCalloutText = 'PREMIERE'
+        }
+        return finalCalloutText;
+      }
+    """
+  * def RandomCalloutText = call getCalloutText RenditionFileName
   * def ValidateItemViaQueryParams = 
     """
       {

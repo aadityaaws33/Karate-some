@@ -1,6 +1,17 @@
 {
+  "dev": {
+    "9x16StdBoltOnWithStrap": [
+      {
+        "FNAMEPREFIX": "'Dev NO Dplus 9x16 Std Bolt-on-dplus_standard_bolton_9x16'",
+        "ASPECTRATIO": "'9x16'",
+        "WOCHITRENDITIONSTATUS": "PROCESSING",
+        "ISRENDITIONMOVED": "false",
+        "RENDITIONSTATUS": "PROCESSING"
+      }
+    ]
+  },
   "qa": {
-    "9x16StdBoltOnNoStrap": [
+    "9x16StdBoltOnWithStrap": [
       {
         "FNAMEPREFIX": "'QA NO Dplus 9x16 Std Bolt-on-dplus_standard_bolton_9x16'",
         "ASPECTRATIO": "'9x16'",
@@ -11,7 +22,7 @@
     ]
   },
   "preprod": {
-    "9x16StdBoltOnNoStrap": [
+    "9x16StdBoltOnWithStrap": [
       {
         "FNAMEPREFIX": "'Preprod NO Dplus 9x16 Std Bolt-on-dplus_standard_bolton_9x16'",
         "ASPECTRATIO": "'9x16'",
@@ -22,7 +33,7 @@
     ]
   },
   "prod": {
-    "9x16StdBoltOnNoStrap": [
+    "9x16StdBoltOnWithStrap": [
       {
         "FNAMEPREFIX": "'Prod NO Dplus 9x16 Std Bolt-on-dplus_standard_bolton_9x16'",
         "ASPECTRATIO": "'9x16'",

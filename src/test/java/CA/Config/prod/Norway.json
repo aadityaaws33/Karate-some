@@ -8,7 +8,7 @@
         "Dplus": {
             "AllStdBoltOn": "c6df0f0e-8790-11eb-8caf-0a580a3e476f",
             "AllStdBoltOnNoStrap": "03de3dc6-87c8-11eb-a434-0a580a3d6669",
-            "9x16StdBoltOnNoStrap": "240b6772-8c82-11eb-860f-0a580a3e4ca7",
+            "9x16StdBoltOnWithStrap": "240b6772-8c82-11eb-860f-0a580a3e4ca7",
             "StrapOutLessthanStrapIn": "74012c02-902a-11eb-993f-0a580a3e41dc"
         },
         "DuoLinear": {
@@ -23,7 +23,7 @@
         "Dplus": {
             "AllStdBoltOn": "Prod NO Dplus All Std Bolt-on.mp4",
             "AllStdBoltOnNoStrap": "Prod NO Dplus All Std Bolt-on No-Strap.mp4",
-            "9x16StdBoltOnNoStrap": "Prod NO Dplus 9x16 Std Bolt-on.mp4",
+            "9x16StdBoltOnWithStrap": "Prod NO Dplus 9x16 Std Bolt-on.mp4",
             "StrapOutLessthanStrapIn": "Prod NO Dplus StrapOutLessthanStrapIn.mp4"
         },
         "DuoLinear": {

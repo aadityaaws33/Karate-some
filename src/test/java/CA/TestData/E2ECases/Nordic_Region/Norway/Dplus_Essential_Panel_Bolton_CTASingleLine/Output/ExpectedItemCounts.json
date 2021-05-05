@@ -1,4 +1,11 @@
 {
+  "dev": {
+    "AllStdBoltOn": {
+      "ExpectedMAMAssetInfoCount": 1,
+      "ExpectedWochitRenditionCount": 4,
+      "ExpectedWochitMappingCount": 4
+    }
+  },
   "qa": {
     "AllStdBoltOn": {
       "ExpectedMAMAssetInfoCount": 1,

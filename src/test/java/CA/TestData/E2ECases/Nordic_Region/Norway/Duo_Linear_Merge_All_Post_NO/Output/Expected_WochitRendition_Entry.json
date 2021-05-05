@@ -11,12 +11,12 @@
       {
         "itemType": "VIDEO_SEGMENT",
         "volumeControl": {
-          "bgMusic": "0.0",
-          "video": "1.0"
+          "bgMusic": "#notnull",
+          "video": "#notnull"
         },
         "videoUrl": "#notnull",
-        "segmentEndTime": "30.0",
-        "segmentStartTime": "0.0"
+        "segmentEndTime": "#notnull",
+        "segmentStartTime": "#notnull"
       }
     ]
   },
