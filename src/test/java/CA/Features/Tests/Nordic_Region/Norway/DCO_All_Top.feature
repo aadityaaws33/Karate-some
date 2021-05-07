@@ -245,7 +245,7 @@ Scenario: Nordic_Norway_DCO_All_Top - Trigger Rendition
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  * call Pause TargetTag.contains('E2E')?90000:60000
+  * call Pause 60000*4
     
 Scenario: Nordic_Norway_DCO_All_Top - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAMAssetCount"
@@ -546,7 +546,7 @@ Scenario Outline: Nordic_Norway_DCO_All_Top - Validate MAM Asset Info table entr
     | validateTechnicalMetadataTestData |
 
 Scenario Outline: Nordic_Norway_DCO_All_Top - PROCESSING - Validate Wochit Mapping table entry for Aspect Ratio: <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
-  * call Pause 1000
+  * call Pause 6000
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
   * def RenditionFileName = RandomCTA + ' ' + <FNAMEPREFIX>
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')

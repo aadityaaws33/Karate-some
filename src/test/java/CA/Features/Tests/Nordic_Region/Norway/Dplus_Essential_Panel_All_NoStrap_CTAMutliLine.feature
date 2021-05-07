@@ -215,7 +215,7 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_All_NoStrap_CTAMutliLine - Trigger
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  * call Pause 60000
+  * call Pause 60000*4
     
 Scenario: Nordic_Norway_Dplus_Essential_Panel_All_NoStrap_CTAMutliLine - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAMAssetCount"

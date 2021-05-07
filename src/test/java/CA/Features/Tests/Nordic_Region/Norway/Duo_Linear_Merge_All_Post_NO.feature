@@ -188,7 +188,7 @@ Scenario: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Trigger Rendition
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  * call Pause 60000
+  * call Pause 60000*4
     
 Scenario: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAMAssetCount"

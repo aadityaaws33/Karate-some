@@ -16,16 +16,15 @@
   "preprod": {
     "AllTop": [
       {
-        "COMPOSITEVIEWID": "360bf3a0-6b68-11eb-8ea1-0a580a3e4b1f|a1e16e4e-6b67-11eb-9839-0a580a3c65a7"
+        "COMPOSITEVIEWID": "353bd266-8d13-11eb-91a2-0a580a3c2d23"
       }
     ]
   },
   "prod": {
     "AllTop": [
       {
-        "COMPOSITEVIEWID": "360bf3a0-6b68-11eb-8ea1-0a580a3e4b1f|a1e16e4e-6b67-11eb-9839-0a580a3c65a7"
+        "COMPOSITEVIEWID": "353bd266-8d13-11eb-91a2-0a580a3c2d23"
       }
     ]
   }
 }
-
