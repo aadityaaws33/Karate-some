@@ -6,7 +6,7 @@
   "ID": "#notnull",
   "modifiedAt": "#notnull",
   "modifiedBy": "#notnull",
-  "sourceAssetName": "#(RenditionFileName)",
+  "sourceAssetName": "#(ExpectedTitle)",
   "userName": "#? CheckIconikUserNameAttr(_)",
   "iconikUserName": "#? CheckIconikUserNameAttr(_)",
   "wochitRenditionStatus": "FAILED",

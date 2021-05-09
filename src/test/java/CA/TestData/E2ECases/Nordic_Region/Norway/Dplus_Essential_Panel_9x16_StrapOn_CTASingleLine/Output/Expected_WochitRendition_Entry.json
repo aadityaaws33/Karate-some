@@ -71,7 +71,7 @@
         "key": "Dplus.Video.Endboard.Callout"
       }
     ],
-    "title": "#(RenditionFileName)",
+    "title": "#(ExpectedTitle)",
     "timelineItems": [
       {
         "itemType": "VIDEO_SEGMENT",

@@ -6,7 +6,7 @@
   "iconikUserName": "#? CheckIconikUserNameAttr(_)",
   "videoUpdates": {
     "linkedFields": #(Expected_Linked_Fields),
-    "title": "#(RenditionFileName)",
+    "title": "#(ExpectedTitle)",
     "timelineItems": [
       {
         "itemType": "VIDEO_SEGMENT",

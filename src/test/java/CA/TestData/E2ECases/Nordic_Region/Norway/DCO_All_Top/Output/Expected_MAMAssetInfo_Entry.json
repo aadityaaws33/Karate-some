@@ -7,12 +7,12 @@
     },
     "ID": "#(COMPOSITEVIEWID)",
     "name": "DCO Images Asset Metadata ",
-    "objectFilePath": "#(RenditionFileName)",
+    "objectFilePath": "#(ExpectedTitle)",
     "objectId": "#(Iconik_AssetID)",
-    "objectName": "#(RenditionFileName)",
+    "objectName": "#(ExpectedTitle)",
     "objectType": "assets"
   },
-  "assetTitle": "#(RenditionFileName)",
+  "assetTitle": "#(ExpectedTitle)",
   "assetType": "IMAGE",
   "compositeViewsId": "#(COMPOSITEVIEWID)",
   "country": "DCO",
@@ -33,7 +33,7 @@
     "ID": "#notnull",
     "name": "Asset Metadata",
     "objectId": "#(Iconik_AssetID)",
-    "objectName": "#(RenditionFileName)",
+    "objectName": "#(ExpectedTitle)",
     "objectType": "assets"
   },
   "userName": "#? CheckIconikUserNameAttr(_)"

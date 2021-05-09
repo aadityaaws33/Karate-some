@@ -14,5 +14,5 @@
   "modifiedBy": "#notnull",
   "ID": "#notnull",
   "outputCollectionId": "#notnull",
-  "renditionFileName": "#(RenditionFileName)"
+  "renditionFileName": "#(ExpectedTitle)"
 }

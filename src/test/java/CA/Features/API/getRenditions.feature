@@ -8,8 +8,8 @@ Background:
   # ---------
   * def apiName = 'getRenditions'
   # Paths
-  * def currentTCPath = 'classpath:CA/TestData/APICases/' + apiName
-  * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
+  * def currentTestDataPath = 'classpath:CA/TestData/APICases/' + apiName
+  * def FeatureFilePath = 'classpath:CA/Features/ReUsable/Methods'
   # End
   * def appSyncURL = EnvConfig['Common']['AppSync']['URL']
   * def apiKey = EnvConfig['Common']['AppSync']['X-Api-Key']
@@ -17,12 +17,12 @@ Background:
 Scenario: CA-BE-00002 [Field check] getRenditions has no null fields
   * def country = 'NORWAY'
   * def filters = null
-  * def baseFromDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: -7 }
-  * def baseToDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
+  * def baseFromDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: -7 }
+  * def baseToDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
   * def fromDate = baseFromDate.result + 'T00:00:00.000Z'
   * def toDate = baseToDate.result + 'T23:59:59.999Z'
-  * def ExpectedResponse = read(currentTCPath + '/renditionEntry.json')
-  * def HTTPRequest = read(currentTCPath + '/request.json')
+  * def ExpectedResponse = read(currentTestDataPath + '/renditionEntry.json')
+  * def HTTPRequest = read(currentTestDataPath + '/request.json')
   * def HTTPHeaders =
     """
       {
@@ -39,11 +39,11 @@ Scenario: CA-BE-00002 [Field check] getRenditions has no null fields
 Scenario: CA-BE-00003 [Filter Country] getRenditions gives correct country
   * def country = 'NORWAY'
   * def filters = null
-  * def baseFromDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: -7 }
-  * def baseToDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
+  * def baseFromDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: -7 }
+  * def baseToDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
   * def fromDate = baseFromDate.result + 'T00:00:00.000Z'
   * def toDate = baseToDate.result + 'T23:59:59.999Z'
-  * def HTTPRequest = read(currentTCPath + '/request.json')
+  * def HTTPRequest = read(currentTestDataPath + '/request.json')
   * def HTTPHeaders =
     """
       {
@@ -60,11 +60,11 @@ Scenario: CA-BE-00003 [Filter Country] getRenditions gives correct country
 Scenario: CA-BE-00004 [Filter Dates] getRenditions gives correct dates
   * def country = 'NORWAY'
   * def filters = null
-  * def baseFromDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: -7 }
-  * def baseToDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
+  * def baseFromDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: -7 }
+  * def baseToDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
   * def fromDate = baseFromDate.result + 'T00:00:00.000Z'
   * def toDate = baseToDate.result + 'T23:59:59.999Z'
-  * def HTTPRequest = read(currentTCPath + '/request.json')
+  * def HTTPRequest = read(currentTestDataPath + '/request.json')
   * def HTTPHeaders =
     """
       {
@@ -72,7 +72,7 @@ Scenario: CA-BE-00004 [Filter Dates] getRenditions gives correct dates
         X-Api-Key: #(apiKey)
       }
     """
-  * def createExpectedDateList = call read(FeatureFilePath + '/Common.feature@CreateDateList') { offset: -7 }
+  * def createExpectedDateList = call read(FeatureFilePath + '/Date.feature@CreateDateList') { offset: -7 }
   * def expectedDateList = createExpectedDateList.result
   * print expectedDateList
   * def isDateContains =
@@ -119,11 +119,11 @@ Scenario: CA-BE-00005 [Filter Rendition Status] getRenditions gives correct rend
         assetType: null
       }
     """
-  * def baseFromDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: -7 }
-  * def baseToDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
+  * def baseFromDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: -7 }
+  * def baseToDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
   * def fromDate = baseFromDate.result + 'T00:00:00.000Z'
   * def toDate = baseToDate.result + 'T23:59:59.999Z'
-  * def HTTPRequest = read(currentTCPath + '/request.json')
+  * def HTTPRequest = read(currentTestDataPath + '/request.json')
   * def HTTPHeaders =
     """
       {
@@ -149,11 +149,11 @@ Scenario: CA-BE-00006 [Filter Media Type] getRenditions gives correct media type
         wochitRenditionStatus: null
       }
     """
-  * def baseFromDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: -7 }
-  * def baseToDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
+  * def baseFromDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: -7 }
+  * def baseToDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
   * def fromDate = baseFromDate.result + 'T00:00:00.000Z'
   * def toDate = baseToDate.result + 'T23:59:59.999Z'
-  * def HTTPRequest = read(currentTCPath + '/request.json')
+  * def HTTPRequest = read(currentTestDataPath + '/request.json')
   * def HTTPHeaders =
     """
       {

@@ -1,4 +1,4 @@
-Feature: Common reusable functions
+Feature: Common ReUsable/Methods functions
 
 @GetDateWithOffset
 Scenario: Get Date in YYYY-MM-DD format with specified offset
@@ -28,7 +28,7 @@ Scenario: Create Date in YYYY-MM-DD format with specified offset
       function(offset) {
         var dateList = [];
         for(var i = 0; i > offset; i--) {
-          var thisDate = karate.call(FeatureFilePath + '/Common.feature@GetDateWithOffset', { offset: i})['result'];
+          var thisDate = karate.call(ResuableMethodsPath + '/Date.feature@GetDateWithOffset', { offset: i})['result'];
           dateList.push(thisDate);
         }
         return dateList

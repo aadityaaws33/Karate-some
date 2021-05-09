@@ -3,11 +3,14 @@ function() {
   // Global configurations
   karate.configure('connectTimeout', 1000);
 
+  // Custom Report
   try {
     karate.read('classpath:target/test-classes/Results.json')
   } catch (err) {
     karate.write([],'test-classes/Results.json');
   }
+  
+  // Environment configurations
   var targetEnv = karate.properties['karate.targetEnv'];
 
   var targetTag = karate.properties['karate.options'].split('@')[1];
@@ -28,6 +31,7 @@ function() {
     Norway: NorwayData
   };
  
+  // Secret Data configurations
   var secretsData = null;
   try {
     var AWSUtilsClass = Java.type('AWSUtils.AWSUtils');
@@ -37,6 +41,7 @@ function() {
     karate.fail('Problem encountered while fetching data from Secrets Manager.\nReason: ' + err);
   }
 
+  // Consolidation of configurations
   var config = {
     TargetEnv: targetEnv,
     TargetTag: targetTag,
@@ -44,6 +49,7 @@ function() {
     SecretsData: secretsData
   };
   
-  karate.log(config);
+  // Testing purposes only, avoid logging as it contains SECRET DATA
+  // karate.log(config);
   return config;
 }

@@ -79,7 +79,7 @@ class ExecHook implements ExecutionHook {
     StringBuilder contentBuilder = new StringBuilder();
     try {
       BufferedReader Results = new BufferedReader(new FileReader(Path + "/target/test-classes/Results.json"));
-      BufferedWriter bw = new BufferedWriter(new FileWriter(Path + "/target/test-classes/CA/utils/customReport/js/data.js"));
+      BufferedWriter bw = new BufferedWriter(new FileWriter(Path + "/target/test-classes/CA/Utils/customReport/js/data.js"));
       String line;
       bw.write("var data = ");
       while((line = Results.readLine()) != null) {

@@ -8,13 +8,13 @@ Background:
   # ---------
   * def apiName = 'getCountries'
   # Paths
-  * def currentTCPath = 'classpath:CA/TestData/APICases/' + apiName
-  * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
+  * def currentTestDataPath = 'classpath:CA/TestData/APICases/' + apiName
+  * def FeatureFilePath = 'classpath:CA/Features/ReUsable/Methods'
   # End
   * def appSyncURL = EnvConfig['Common']['AppSync']['URL']
   * def apiKey = EnvConfig['Common']['AppSync']['X-Api-Key']
-  * def ExpectedResponse = read(currentTCPath + '/response.json')
-  * def HTTPRequest = read(currentTCPath + '/request.json')
+  * def ExpectedResponse = read(currentTestDataPath + '/response.json')
+  * def HTTPRequest = read(currentTestDataPath + '/request.json')
   * def HTTPHeaders =
     """
       {

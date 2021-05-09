@@ -91,7 +91,7 @@
         }
       }
     ],
-    "title": "#(RenditionFileName)"
+    "title": "#(ExpectedTitle)"
   },
   "width": 0,
   "wochitResponse": {

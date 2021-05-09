@@ -1,4 +1,4 @@
-@JESS @DPLUS @E2E @Regression @Norway @parallel=false  
+@DPLUS @E2E @Regression @Norway @parallel=false  
 Feature:  Dplus_Essential_StrapOut_Lessthan_StrapIn
 
 Background:
@@ -57,8 +57,8 @@ Background:
   * def tcResultReadPath = 'classpath:target/' + tcResultWritePath
   * def finalResultWritePath = 'test-classes/Results.json'
   * def finalResultReadPath = 'classpath:target/' + finalResultWritePath
-  * def currentTCPath = 'classpath:CA/TestData/E2ECases/' + AWSregion + '_Region/' + Country + '/' + TCName
-  * def FeatureFilePath = 'classpath:CA/Features/ReUsable'
+  * def currentTestDataPath = 'classpath:CA/TestData/E2ECases/' + AWSregion + '_Region/' + Country + '/' + TCName
+  * def FeatureFilePath = 'classpath:CA/Features/ReUsable/Methods'
   # S3 Stuff
   * def AssetBucketName = EnvConfig['Common']['S3']['AssetBucketName']
   * def RenditionsFolderName = EnvConfig['Common']['S3']['RenditionsFolderName']
@@ -154,10 +154,10 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Trigger Rend
   * def getRenditionRequestMetadataValues =
     """
       function() {
-        var metadataValues = karate.read(currentTCPath + '/Input/EpisodeRequest.json');
+        var metadataValues = karate.read(currentTestDataPath + '/Input/EpisodeRequest.json');
         return metadataValues['metadata_values'];
         // if(TargetEnv == 'preprod' || TargetEnv == 'prod') {
-        //   var metadataValues = karate.read(currentTCPath + '/Input/EpisodeRequest.json');
+        //   var metadataValues = karate.read(currentTestDataPath + '/Input/EpisodeRequest.json');
         //   return metadataValues['metadata_values'];
         // } else {
         //   return null;
@@ -165,8 +165,8 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Trigger Rend
       }
     """
   * def RenditionRequestMetadataValues = call getRenditionRequestMetadataValues
-  * def RenditionRequestPayload = read(currentTCPath+'/Input/RenditionRequest.json')
-  * def Rendition_ExpectedResponse = read(currentTCPath+'/Output/ExpectedRenditionResponse.json')
+  * def RenditionRequestPayload = read(currentTestDataPath+'/Input/RenditionRequest.json')
+  * def Rendition_ExpectedResponse = read(currentTestDataPath+'/Output/ExpectedRenditionResponse.json')
   * def renditionParams = 
     """
       {
@@ -234,7 +234,7 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Ite
   * def scenarioName = "validateWochitRenditionCount"
   * def ExpectedWochitRenditionCount = 0
   * def ExpectedTitle = RandomCTA + ' ' + Iconik_AssetName
-  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
+  * def ExpectedDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
   * def GetItemsViaQueryParams = 
     """
       {
@@ -298,9 +298,9 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Ite
 
 Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Wochit Mapping Table Failure
   * def scenarioName = 'validateWochitMappingFailure'
-  * def RenditionFileName = RandomCTA + ' ' + Iconik_AssetName
-  * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
-  * def ExpectedDate = call read(FeatureFilePath + '/Common.feature@GetDateWithOffset') { offset: 0 }
+  * def ExpectedTitle = RandomCTA + ' ' + Iconik_AssetName
+  * def Expected_WochitMapping_Entry = read(currentTestDataPath + '/Output/Expected_WochitMapping_Entry.json')
+  * def ExpectedDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
   * def GetItemsViaQueryParams = 
     """
       {
@@ -320,7 +320,7 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Woc
           },
           {
             infoName: 'sourceAssetName',
-            infoValue: #(RenditionFileName),
+            infoValue: #(ExpectedTitle),
             infoComparator: 'contains',
             infoType: 'filter'
           }   

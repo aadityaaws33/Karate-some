@@ -1,4 +1,4 @@
-Feature: DynamoDB-related reusable functions
+Feature: DynamoDB-related ReUsable/Methods functions
 
 Background:
   * def Pause = function(pause){ java.lang.Thread.sleep(pause) }
