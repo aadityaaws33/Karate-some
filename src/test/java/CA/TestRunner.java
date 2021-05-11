@@ -2,18 +2,23 @@ package CA;
 
 import static org.testng.AssertJUnit.assertTrue;
 
-import com.intuit.karate.KarateOptions;
-import com.intuit.karate.Results;
-import com.intuit.karate.Runner;
 import java.io.File;
+// import java.lang.System;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
+
 import org.apache.commons.io.FileUtils;
 import org.testng.annotations.Test;
 
+import com.intuit.karate.KarateOptions;
+import com.intuit.karate.Results;
+import com.intuit.karate.Runner;
 import com.intuit.karate.core.ExecutionHook;
 import com.intuit.karate.core.Scenario;
 import com.intuit.karate.core.ScenarioContext;
@@ -48,7 +53,20 @@ public class TestRunner {
 
   @Test
   public void testParallel() {
-    Results results = Runner.path("classpath:CA").hook(new ExecHook()).parallel(1);
+    //Read environment variable "parallelThreads"
+    //Defaults to 4 parallel threads if not set
+    int envParallelThreads = 0;
+    try {
+      envParallelThreads =  Integer.parseInt(
+                              System.getenv("parallelThreads")
+                            );
+    } catch (NumberFormatException e) {
+      envParallelThreads = 4;
+    }
+
+    System.out.println("Parallel Threads: " + envParallelThreads);
+
+    Results results = Runner.path("classpath:CA").hook(new ExecHook()).parallel(envParallelThreads);
     generateReport(results.getReportDir());
     assertTrue(results.getErrorMessages(), results.getFailCount() == 0);
   }
