@@ -13,7 +13,8 @@
             "StrapOutLessthanStrapIn": "48689d16-ad56-11eb-8dc4-0a580a3c0e0f"
         },
         "DuoLinear": {
-            "All": "4869c16e-ad56-11eb-b3f8-0a580a3fc35e"
+            "All": "4869c16e-ad56-11eb-b3f8-0a580a3fc35e",
+            "AllWoEndboard": "8db62b56-b466-11eb-95e2-0a580a3fc35e"
         },
         "DCO": {
             "AllTop": "77342bb6-ae22-11eb-9a46-0a580a3e1365"
@@ -33,7 +34,7 @@
         },
         "DuoLinear": {
             "All": "Dev NO DuoLinear All.mp4",
-            "9x16": "Dev NO Duo 9x16.mp4"
+            "AllWoEndboard": "Dev NO DuoLinear All WOEndboard.mp4"
         },
         "DCO": {
             "AllTop": "Dev NO All Top.png"

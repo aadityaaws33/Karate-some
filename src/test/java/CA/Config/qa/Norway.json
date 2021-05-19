@@ -14,7 +14,7 @@
         },
         "DuoLinear": {
             "All": "e2531296-5aed-11eb-8941-0a580a3c10a3",
-            "9x16": "d4780bca-5af4-11eb-a8e7-0a580a3c8a02"
+            "AllWoEndboard": "8db3974c-b466-11eb-bfd8-0a580a3e1365"
         },
         "Linear": {
             "All": "d2e1d2bc-6f37-11eb-8b62-0a580a3e4b2b",
@@ -40,7 +40,7 @@
         },
         "DuoLinear": {
             "All": "QA NO DuoLinear All.mp4",
-            "9x16": "QA NO Duo 9x16.mp4"
+            "AllWoEndboard": "QA NO DuoLinear All WOEndboard.mp4"
         },
         "DCO": {
             "AllTop": "QA NO All Top.png"

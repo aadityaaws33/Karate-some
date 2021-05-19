@@ -1,0 +1,14 @@
+[
+    {
+        "key": "Duo.TopLine.SeriesTitle",
+        "value": "QA Series 1"
+    },
+    {
+        "key": "Duo.TopLine.LinearCTA",
+        "value": "#(RandomCTA)"
+    },
+    {
+        "key": "Duo.TopLine.Logo",
+        "value": "FEM"
+    }
+]

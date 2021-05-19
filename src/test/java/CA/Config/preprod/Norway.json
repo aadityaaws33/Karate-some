@@ -13,7 +13,8 @@
             "StrapOutLessthanStrapIn": "051c89f8-902a-11eb-af0b-0a580a3d6669"
         },
         "DuoLinear": {
-            "All": "37760cc4-ae27-11eb-813d-0a580a3cb9f0"
+            "All": "37760cc4-ae27-11eb-813d-0a580a3cb9f0",
+            "AllWoEndboard": "4585db28-b868-11eb-84e6-0a580a3c0e0f"
         },
         "DCO": {
             "AllTop": "782df754-a8cd-11eb-ab59-0a580a3fc397"
@@ -32,7 +33,8 @@
             "StrapOutLessthanStrapIn": "Preprod NO Dplus StrapOutLessthanStrapIn.mp4"
         },
         "DuoLinear": {
-            "All": "Preprod NO DuoLinear All.mp4"
+            "All": "Preprod NO DuoLinear All.mp4",
+            "AllWoEndboard": "Preprod NO DuoLinear All WOEndboard.mp4"
         },
         "DCO": {
             "AllTop": "Preprod NO All Top.png"

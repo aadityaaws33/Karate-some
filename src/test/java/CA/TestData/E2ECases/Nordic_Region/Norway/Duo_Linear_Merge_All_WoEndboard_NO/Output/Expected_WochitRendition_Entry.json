@@ -1,0 +1,41 @@
+{
+  "modifiedAt": "#notnull",
+  "aspectRatio": "#(ScanVal)",
+  "userName": "#notnull",
+  "templateId": "#(TEMPLATEID)",
+  "iconikUserName": "#? CheckIconikUserNameAttr(_)",
+  "videoUpdates": {
+    "linkedFields": #(Expected_Linked_Fields),
+    "title": "#(ExpectedTitle)",
+    "timelineItems": [
+      {
+        "itemType": "VIDEO_SEGMENT",
+        "volumeControl": {
+          "bgMusic": "#notnull",
+          "video": "#notnull"
+        },
+        "videoUrl": "#notnull",
+        "segmentEndTime": "#notnull",
+        "segmentStartTime": "#notnull"
+      }
+    ]
+  },
+  "assetType": "VIDEO",
+  "createdAt": "#notnull",
+  "createdBy": "#notnull",
+  "renditionStatus": "#notnull",
+  "width": "#notnull",
+  "modifiedBy": "#notnull",
+  "programmerName": "#notnull",
+  "ID": "#notnull",
+  "height": "#notnull",
+  "wochitResponse": {
+    "duration": "#notnull",
+    "errorMessage": " ",
+    "videoId": "#notnull",
+    "isMonitored": "#notnull",
+    "userId": "#notnull",
+    "videoState": "#notnull",
+    "statusCode": "#notnull"
+  }
+}

@@ -278,7 +278,8 @@ Scenario Outline: Nordic_Norway_DCO_All_Top - Validate Wochit Renditions Table f
     """
       function() {
         var matchResult = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
           var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
 
           var ValidateWochitRenditionPayloadParams = {
@@ -358,7 +359,8 @@ Scenario Outline: Nordic_Norway_DCO_All_Top - Validate MAM Asset Info table entr
     """
       function() {
         var matchResult = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
           matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
           karate.log('Result: ' + matchResult.result);
           if(matchResult.result.pass) {
@@ -425,7 +427,8 @@ Scenario Outline: Nordic_Norway_DCO_All_Top - PROCESSING - Validate Wochit Mappi
     """
       function() {
         var matchResult = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
           matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
           karate.log('Result: ' + matchResult.result);
           if(matchResult.result.pass) {
@@ -490,7 +493,8 @@ Scenario: Nordic_Norway_DCO_All_Top - Validate Item Counts - MAM Asset Info
     """
       function() {
         var matchResult = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
           var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
           matchResult = karate.match(QueryResults.result.length, ExpectedMAMAssetInfoCount);
           karate.log('Result: ' + matchResult);
@@ -554,7 +558,8 @@ Scenario: Nordic_Norway_DCO_All_Top - Validate Item Counts - Wochit Rendition
     """
       function() {
         var matchResult = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
           var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
           matchResult = karate.match(QueryResults.result.length, ExpectedWochitRenditionCount);
           karate.log('Result: ' + matchResult);
@@ -619,7 +624,8 @@ Scenario: Nordic_Norway_DCO_All_Top - Validate Item Counts - Wochit Mapping
     """
       function() {
         var matchResult = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
           var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
           matchResult = karate.match(QueryResults.result.length, ExpectedWochitMappingCount);
           karate.log('Result: ' + matchResult);
@@ -696,7 +702,7 @@ Scenario Outline: Nordic_Norway_DCO_All_Top - FINISHED - Validate Wochit Mapping
     """
       function() {
         var matchResult = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
           matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
           if(matchResult.result.pass) {
@@ -791,7 +797,7 @@ Scenario Outline: Nordic_Norway_DCO_All_Top - Validate if <ASPECTRATIO> Asset ex
     """
       function() {
         var matchResult = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
           // matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
           matchResult = validateS3ObjectExists();

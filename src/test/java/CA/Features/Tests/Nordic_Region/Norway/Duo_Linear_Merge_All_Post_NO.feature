@@ -1,4 +1,4 @@
-@Regression @DuoLinear @Norway @parallel=false  
+@E2E @Regression @DuoLinear @Norway @parallel=false  
 Feature:  Duo_Linear_Merge_All_Post_NO
 
 Background:
@@ -294,7 +294,8 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Wochit R
     """
       function() {
         var matchResult = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
           var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
 
           var FilterQueryResultsParams = {
@@ -380,7 +381,8 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Technica
     """
       function() {
         var matchResult = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
           matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
           karate.log('Result: ' + matchResult.result);
           if(matchResult.result.pass) {
@@ -467,7 +469,8 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - PROCESSING - Vali
     """
       function() {
         var matchResult = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
           matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
           karate.log('Result: ' + matchResult.result);
           if(matchResult.result.pass) {
@@ -545,7 +548,8 @@ Scenario: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Item Counts - MA
     """
       function() {
         var matchResult = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
           var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
           matchResult = karate.match(QueryResults.result.length, ExpectedMAMAssetInfoCount);
           karate.log('Result: ' + matchResult);
@@ -630,7 +634,8 @@ Scenario: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Item Counts - Wo
     """
       function() {
         var matchResult = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
           var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
 
           var FilterQueryResultsParams = {
@@ -727,7 +732,8 @@ Scenario: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Item Counts - Wo
     """
       function() {
         var matchResult = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
           var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
           matchResult = karate.match(QueryResults.result.length, ExpectedWochitRenditionCount);
           karate.log('Result: ' + matchResult);
@@ -817,7 +823,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - FINISHED - Valida
     """
       function() {
         var resp = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
           resp = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
           if(resp['result']['pass']) {
@@ -925,7 +931,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate if <ASPE
     """
       function() {
         var matchResult = null;
-        for(var i = 0; i < retries; i++) {
+        for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
           // matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
           matchResult = validateS3ObjectExists();

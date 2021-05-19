@@ -1,4 +1,4 @@
-@DPLUS @E2E @Regression @Norway @parallel=false  
+@E2E @Regression @Norway @parallel=false  
 Feature:  Dplus_Essential_StrapOut_Lessthan_StrapIn
 
 Background:

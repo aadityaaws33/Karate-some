@@ -1,0 +1,30 @@
+{
+  "dev": {
+    "AllWoEndboard": {
+      "ExpectedMAMAssetInfoCount": 1,
+      "ExpectedWochitRenditionCount": 12,
+      "ExpectedWochitMappingCount": 12
+    }
+  },
+  "qa": {
+    "AllWoEndboard": {
+      "ExpectedMAMAssetInfoCount": 1,
+      "ExpectedWochitRenditionCount": 12,
+      "ExpectedWochitMappingCount": 12
+    }
+  },
+  "preprod": {
+    "AllWoEndboard": {
+      "ExpectedMAMAssetInfoCount": 1,
+      "ExpectedWochitRenditionCount": 12,
+      "ExpectedWochitMappingCount": 12
+    }
+  },
+  "prod": {
+    "AllWoEndboard": {
+      "ExpectedMAMAssetInfoCount": 1,
+      "ExpectedWochitRenditionCount": 12,
+      "ExpectedWochitMappingCount": 12
+    }
+  } 
+}

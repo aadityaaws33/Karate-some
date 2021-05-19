@@ -1,12 +1,12 @@
-@E2E @Regression @Norway @parallel=false  
-Feature:  Dplus_Essential_Panel_Bolton_CTASingleLine
+@E2E @Regression @DuoLinear @Norway @parallel=false  
+Feature:  Duo_Linear_Merge_All_WoEndboard_NO
 
 Background:
   # NEW
-  * def TCName = 'Dplus_Essential_Panel_Bolton_CTASingleLine'
+  * def TCName = 'Duo_Linear_Merge_All_WoEndboard_NO'
   * def Country = 'Norway'
-  * def EpisodeMetadataType = 'Dplus'
-  * def MetadataSet = 'AllStdBoltOn'
+  * def EpisodeMetadataType = 'DuoLinear'
+  * def MetadataSet = 'AllWoEndboard'
   * def AWSregion = EnvConfig[Country]['AWSregion']
   * def WochitMappingTableName = EnvConfig[Country]['WochitMappingTableName']
   * def WochitMappingTableGSI = EnvConfig[Country]['WochitMappingTableGSI']
@@ -129,7 +129,7 @@ Background:
         java.lang.Thread.sleep(pause);
       }
     """
-  * callonce Pause 3000
+  * callonce Pause 7000
   * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
   * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
@@ -144,7 +144,7 @@ Background:
       }
     """
 
-Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Trigger Rendition
+Scenario: Nordic_Norway_Duo_Linear_Merge_All_WoEndboard_NO - Trigger Rendition
   * def scenarioName = 'triggerRendition'
   * def getRenditionRequestMetadataValues =
     """
@@ -183,10 +183,80 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Trigg
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+  # * call Pause 60000*4
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Wochit Renditions Table for <ASPECTRATIO>
+
+Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_WoEndboard_NO - Validate Wochit Renditions Table for <ASPECTRATIO>
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
-  * def ExpectedTitle = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def generateExpectedTitle =
+  """
+    function(fnameprefix) {
+      var finalExpectedTitle = fnameprefix.replace('CTA', RandomCTA);
+      finalExpectedTitle = finalExpectedTitle.replace('COT', RandomCalloutText);
+
+      return finalExpectedTitle
+    }
+  """
+  * def ExpectedTitle = call generateExpectedTitle <FNAMEPREFIX>
+  * def getCalloutText =
+    """
+      function(expectedTitle) {
+        var finalCalloutText = RandomCalloutText;
+        if(expectedTitle.contains('PREMIERE')) {
+          finalCalloutText = 'PREMIERE'
+        }
+        return finalCalloutText;
+      }
+    """
+  * def RandomCalloutText = call getCalloutText ExpectedTitle
+  * def getLinkedFieldsList =
+    """
+      function(expectedTitle) {
+        var templateName = '';
+        if(expectedTitle.contains('duo')) {
+          templateName += 'duo_';
+        }
+        else if(expectedTitle.contains('linear')) {
+          templateName += 'linear_';
+        }
+        else {
+          karate.fail(expectedTitle + ' is not a Duo/Linear tempalte!');
+        }
+
+        if(expectedTitle.contains('9x16')) {
+          templateName += '9x16_';
+        }
+        else {
+          templateName += 'All_';
+        }
+
+        if(expectedTitle.contains('pre')) {
+          templateName += 'pre_';
+        }
+        else if(expectedTitle.contains('post')) {
+          templateName += 'post_';
+        }
+        else {
+          templateName += 'woendboard_';
+        }
+
+        if(expectedTitle.contains('PREMIERE')) {
+          templateName += 'premiere';
+        }
+        else if(expectedTitle.contains('COT')) {
+          templateName += 'cot';
+        }
+        else {
+          templateName += 'nocot';
+        }
+
+        templateName += '.json';
+
+        var linkedFieldsList = karate.read(currentTCPath + '/Output/LinkedFields/' + templateName);
+        return linkedFieldsList;
+      }
+    """
+  * def Expected_Linked_Fields = call getLinkedFieldsList ExpectedTitle
   * def Expected_WochitRendition_Entry = read(currentTCPath + '/Output/Expected_WochitRendition_Entry.json')
   * def ExpectedDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
   * def GetItemsViaQueryParams = 
@@ -265,10 +335,9 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
   Examples:
     | validateWochitRenditionTestData |
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate MAM Asset Info table entry for Composite View ID:  <COMPOSITEVIEWID>
+Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_WoEndboard_NO - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
   * def Expected_MAMAssetInfo_Entry = read(currentTCPath + '/Output/Expected_MAMAssetInfo_Entry.json')
-  * def ExpectedDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
   * def ValidateItemViaQueryParams = 
     """
       {
@@ -279,12 +348,6 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
             infoValue: #(Iconik_AssetID),
             infoComparator: '=',
             infoType: 'key'
-          },
-          {
-            infoName: 'createdAt',
-            infoValue: #(ExpectedDate.result),
-            infoComparator: 'begins',
-            infoType: 'filter'
           },
           {
             infoName: 'assetTitle',
@@ -304,7 +367,6 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
         AWSregion: #(AWSregion)
       }
     """
-  # * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery') ValidateItemViaQueryParams
   * def retries = 15
   * def getResult =
     """
@@ -339,11 +401,30 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
   Examples:
     | validateTechnicalMetadataTestData |
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - PROCESSING - Validate Wochit Mapping table entry for Aspect Ratio: <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_WoEndboard_NO - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
-  * def ExpectedTitle = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def generateExpectedTitle =
+  """
+    function(fnameprefix) {
+      var finalExpectedTitle = fnameprefix.replace('CTA', RandomCTA);
+      finalExpectedTitle = finalExpectedTitle.replace('COT', RandomCalloutText);
+
+      return finalExpectedTitle
+    }
+  """
+  * def ExpectedTitle = call generateExpectedTitle <FNAMEPREFIX>
+  * def getCalloutText =
+    """
+      function(renditionFileName) {
+        var finalCalloutText = RandomCalloutText;
+        if(renditionFileName.contains('PREMIERE')) {
+          finalCalloutText = 'PREMIERE'
+        }
+        return finalCalloutText;
+      }
+    """
+  * def RandomCalloutText = call getCalloutText ExpectedTitle
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
-  * def ExpectedDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
   * def ValidateItemViaQueryParams = 
     """
       {
@@ -355,12 +436,6 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
             infoComparator: '=',
             infoType: 'key'
           },
-          {
-            infoName: 'createdAt',
-            infoValue: #(ExpectedDate.result),
-            infoComparator: 'begins',
-            infoType: 'key'
-          },  
           {
             infoName: 'renditionFileName',
             infoValue: #(ExpectedTitle),
@@ -413,8 +488,8 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
     | validateWochitMappingProcessingTestData |
-
-Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Item Counts - MAM Asset Info
+    
+Scenario: Nordic_Norway_Duo_Linear_Merge_All_WoEndboard_NO - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAMAssetCount"
   * def ExpectedDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
   * def GetItemsViaQueryParams = 
@@ -446,19 +521,6 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Valid
         AWSregion: #(AWSregion)
       }
     """
-  # * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') GetItemsViaQueryParams
-  # * def matchResult = karate.match(QueryResults.result.length, ExpectedMAMAssetInfoCount)
-  # * def result =
-  #   """
-  #     {
-  #       result:      {
-  #         "response": #(QueryResults.result),
-  #         "message": #(matchResult.message),
-  #         "pass": #(matchResult.pass),
-  #         "path": 'null'
-  #       }
-  #     }
-  #   """
   * def retries = 15
   * def getResult =
     """
@@ -492,9 +554,9 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Valid
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Item Counts - Wochit Rendition
+Scenario: Nordic_Norway_Duo_Linear_Merge_All_WoEndboard_NO - Validate Item Counts - Wochit Rendition
   * def scenarioName = "validateWochitRenditionCount"
-  * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
+  * def ExpectedTitle = RandomCTA
   * def ExpectedDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
   * def GetItemsViaQueryParams = 
     """
@@ -518,33 +580,6 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Valid
         AWSregion: #(AWSregion)
       }
     """
-  # * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') GetItemsViaQueryParams
-  # * def FilterQueryResultsParams =
-  #   """
-  #     {
-  #       Param_QueryResults: #(QueryResults.result),
-  #       Param_FilterNestedInfoList: [
-  #         {
-  #           infoName: 'videoUpdates.title',
-  #           infoValue: #(ExpectedTitle),
-  #           infoComparator: 'contains'
-  #         }        
-  #       ]
-  #     }
-  #   """
-  # * def FilteredQueryResults = call read(FeatureFilePath+'/Dynamodb.feature@FilterQueryResults') FilterQueryResultsParams
-  # * def matchResult = karate.match(FilteredQueryResults.result.length, ExpectedWochitRenditionCount)
-  # * def result =
-  #   """
-  #     {
-  #       result:      {
-  #         "response": #(FilteredQueryResults.result),
-  #         "message": #(matchResult.message),
-  #         "pass": #(matchResult.pass),
-  #         "path": 'null'
-  #       }
-  #     }
-  #   """
   * def retries = 15
   * def getResult =
     """
@@ -591,9 +626,9 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Valid
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
 
-Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Item Counts - Wochit Mapping
-  * def scenarioName = "validateWochitMappingCount"
-  * def ExpectedTitle = RandomCalloutText+'-'+RandomCTA
+Scenario: Nordic_Norway_Duo_Linear_Merge_All_WoEndboard_NO - Validate Item Counts - Wochit Mapping
+ * def scenarioName = "validateWochitMappingCount"
+  * def ExpectedTitle = RandomCTA
   * def ExpectedDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
   * def GetItemsViaQueryParams = 
     """
@@ -630,19 +665,6 @@ Scenario: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Valid
         AWSregion: #(AWSregion)
       }
     """
-  # * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') GetItemsViaQueryParams
-  # * def matchResult = karate.match(QueryResults.result.length, ExpectedWochitRenditionCount)
-  # * def result =
-  #   """
-  #     {
-  #       result:      {
-  #         "response": #(QueryResults.result),
-  #         "message": #(matchResult.message),
-  #         "pass": #(matchResult.pass),
-  #         "path": 'null'
-  #       }
-  #     }
-  #   """
   * def retries = 15
   * def getResult =
     """
@@ -683,15 +705,35 @@ Scenario: Hard wait for PROCESSING to FINISH
   # ---------
   * call Pause 60000*4
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - FINISHED - Validate Wochit Mapping table entry for Aspect Ratio: <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
+Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_WoEndboard_NO - FINISHED - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------
   * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
-  * def ExpectedTitle = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
+  * def generateExpectedTitle =
+    """
+      function(fnameprefix) {
+        var finalExpectedTitle = fnameprefix.replace('CTA', RandomCTA);
+        finalExpectedTitle = finalExpectedTitle.replace('COT', RandomCalloutText);
+
+        return finalExpectedTitle
+      }
+    """
+  * def ExpectedTitle = call generateExpectedTitle <FNAMEPREFIX>
+  * def getCalloutText =
+    """
+      function(renditionFileName) {
+        var finalCalloutText = RandomCalloutText;
+        if(renditionFileName.contains('PREMIERE')) {
+          finalCalloutText = 'PREMIERE'
+        }
+        return finalCalloutText;
+      }
+    """
+  * def RandomCalloutText = call getCalloutText ExpectedTitle
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
-  * def ExpectedDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
+  * def retries = 15
   * def ValidateItemViaQueryParams = 
     """
       {
@@ -704,12 +746,6 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
             infoType: 'key'
           },
           {
-            infoName: 'createdAt',
-            infoValue: #(ExpectedDate.result),
-            infoComparator: 'begins',
-            infoType: 'key'
-          },     
-          {
             infoName: 'renditionFileName',
             infoValue: #(ExpectedTitle),
             infoComparator: 'contains',
@@ -721,7 +757,6 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
         AWSregion: #(AWSregion)
       }
     """
-  * def retries = 15
   * def getResult = 
     """
       function() {
@@ -735,7 +770,6 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
             karate.log('Failed. Sleeping for 1 minute.');
             java.lang.Thread.sleep(60*1000);
           }
-
         }
         return resp;
       }
@@ -755,14 +789,33 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
   Examples:
     | validateWochitMappingIsFiledMovedTestData |
 
-Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate if <ASPECTRATIO> Asset exists
+Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_WoEndboard_NO - Validate if <ASPECTRATIO> Asset exists
   # RUN ONLY IN E2E, DO NOT RUN IN REGRESSION
   * configure abortedStepsShouldPass = true
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------  
   * def scenarioName = 'validateS3AssetExists' + <ASPECTRATIO>
-  * def ExpectedTitle = <FNAMEPREFIX>+'-'+RandomCalloutText+'-'+RandomCTA
-  * def ExpectedDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
+  * def generateExpectedTitle =
+    """
+      function(fnameprefix) {
+        var finalExpectedTitle = fnameprefix.replace('CTA', RandomCTA);
+        finalExpectedTitle = finalExpectedTitle.replace('COT', RandomCalloutText);
+
+        return finalExpectedTitle
+      }
+    """
+  * def ExpectedTitle = call generateExpectedTitle <FNAMEPREFIX>
+  * def getCalloutText =
+    """
+      function(renditionFileName) {
+        var finalCalloutText = RandomCalloutText;
+        if(renditionFileName.contains('PREMIERE')) {
+          finalCalloutText = 'PREMIERE'
+        }
+        return finalCalloutText;
+      }
+    """
+  * def RandomCalloutText = call getCalloutText ExpectedTitle
   * def ValidateItemViaQueryParams = 
     """
       {
@@ -772,12 +825,6 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
             infoName: 'mamAssetInfoReferenceId',
             infoValue: #(Iconik_AssetID),
             infoComparator: '=',
-            infoType: 'key'
-          },
-          {
-            infoName: 'createdAt',
-            infoValue: #(ExpectedDate.result),
-            infoComparator: 'begins',
             infoType: 'key'
           },
           {
@@ -792,14 +839,14 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
       }
     """
   * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') ValidateItemViaQueryParams
-  * def FullRenditionFileName = QueryResults.result[0]['renditionFileName'] + '.mp4'
-  * print FullRenditionFileName
+  * def FullExpectedTitle = QueryResults.result[0]['renditionFileName'] + '.mp4'
+  * print FullExpectedTitle
   * def validateS3ObjectExists =
     """
       function() {
         var AWSUtilsClass = Java.type('AWSUtils.AWSUtils');
         var AWSUtils = new AWSUtilsClass();
-        var FullObjectKey = RenditionsFolderName + '/' + FullRenditionFileName;
+        var FullObjectKey = RenditionsFolderName + '/' + FullExpectedTitle;
         karate.log('Full Object Key: ' + FullObjectKey);
 
         var isExist = AWSUtils.isS3ObjectExists(
