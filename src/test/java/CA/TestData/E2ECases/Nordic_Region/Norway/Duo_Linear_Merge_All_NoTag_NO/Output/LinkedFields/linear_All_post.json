@@ -1,0 +1,24 @@
+[
+    {
+        "value": "5",
+        "key": "Duo.EndPage.Duration"
+    },
+    {
+        "value": "#(RandomCTA)",
+        "key": "Duo.EndPage.LinearCTA"
+    },
+    {
+        "key": "Duo.TopLine.SeriesTitle"
+    },
+    {
+        "key": "Duo.TopLine.LinearCTA"
+    },
+    {
+        "value": "FEM",
+        "key": "Duo.TopLine.Logo"
+    },
+    {
+        "value": "FEM",
+        "key": "Duo.EndPage.LogoLine2"
+    }
+]

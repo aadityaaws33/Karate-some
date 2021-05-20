@@ -1,0 +1,32 @@
+[
+    {
+        "value": "5",
+        "key": "Duo.EndPage.Duration"
+    },
+    {
+        "value": "#(RandomCTA)",
+        "key": "Duo.EndPage.LinearCTA"
+    },
+    {
+        "key": "Duo.TopLine.SeriesTitle"
+    },
+    {
+        "key": "Duo.TopLine.LinearCTA"
+    },
+    {
+        "value": "#(RandomCalloutText)",
+        "key": "Duo.EndPage.LinearCTALabel"
+    },
+    {
+        "value": "Se gratis på",
+        "key": "Duo.EndPage.DplayCTA"
+    },
+    {
+        "value": "FEM",
+        "key": "Duo.EndPage.LogoLine1"
+    },
+    {
+        "value": "FEM",
+        "key": "Duo.TopLine.Logo"
+    }
+]

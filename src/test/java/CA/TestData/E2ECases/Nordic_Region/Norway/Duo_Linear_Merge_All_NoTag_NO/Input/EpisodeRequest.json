@@ -1,0 +1,94 @@
+{
+    "metadata_values": {
+        "no_duo_TemplateType_MultiSelect": {
+            "field_values": [
+                {
+                    "label": "Linear Pre Launch",
+                    "value": "Linear_Pre_launch"
+                },
+                {
+                    "label": "Linear Post Launch",
+                    "value": "Linear_Post_Launch"
+                },
+                {
+                    "label": "Duo Post Launch",
+                    "value": "Duo_Post_Launch"
+                },
+                {
+                    "label": "Duo Pre Launch",
+                    "value": "Duo_Pre_Launch"
+                }
+            ]
+        },
+        "no-duo-OutputAspectRatio": {
+            "field_values": [
+                {
+                    "label": "4x5",
+                    "value": "4x5"
+                },
+                {
+                    "label": "16x9",
+                    "value": "16x9"
+                }
+            ]
+        },
+        "no-duo-CtaTag": {
+            "field_values": [
+                {
+                    "value": "#(RandomCTA)"
+                }
+            ]
+        },
+        "no-duo-PreEndboard-templateCategory": {
+            "field_values": [
+                {
+                    "label": "PREMIERE",
+                    "value": "PREMIERE"
+                }
+            ]
+        },
+        "no-duo-PreEndboard-templateCategory-text": {
+            "field_values": [
+                {
+                    "value": "#(RandomCalloutText)"
+                }
+            ]
+        },
+        "no-duo-CtaEndboard": {
+            "field_values": [
+                {
+                    "value": "#(RandomCTA)"
+                }
+            ]
+        },
+        "no-duo-DplayCtaEndboard-multi": {
+            "field_values": [
+                {
+                    "label": "Se gratis på",
+                    "value": "Se gratis på"
+                }
+            ]
+        },
+        "no-duo-EndboardDuration": {
+            "field_values": [
+                {
+                    "value": "5"
+                }
+            ]
+        },
+        "no-duo-isNoTagRequired": {
+            "field_values": [
+                {
+                    "value": "true"
+                }
+            ]
+        },
+        "no-duo-isWOEndboardRequired": {
+            "field_values": [
+                {
+                    "value": "false"
+                }
+            ]
+        }
+    }
+}

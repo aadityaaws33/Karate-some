@@ -14,7 +14,8 @@
         },
         "DuoLinear": {
             "All": "4869c16e-ad56-11eb-b3f8-0a580a3fc35e",
-            "AllWoEndboard": "8db62b56-b466-11eb-95e2-0a580a3fc35e"
+            "AllWoEndboard": "8db62b56-b466-11eb-95e2-0a580a3fc35e",
+            "AllNoTag": "11bf29a4-b870-11eb-b8e3-0a580a3de83a"
         },
         "DCO": {
             "AllTop": "77342bb6-ae22-11eb-9a46-0a580a3e1365"
@@ -34,7 +35,8 @@
         },
         "DuoLinear": {
             "All": "Dev NO DuoLinear All.mp4",
-            "AllWoEndboard": "Dev NO DuoLinear All WOEndboard.mp4"
+            "AllWoEndboard": "Dev NO DuoLinear All WOEndboard.mp4",
+            "AllNoTag": "Dev NO DuoLinear All NoTag.mp4"
         },
         "DCO": {
             "AllTop": "Dev NO All Top.png"
