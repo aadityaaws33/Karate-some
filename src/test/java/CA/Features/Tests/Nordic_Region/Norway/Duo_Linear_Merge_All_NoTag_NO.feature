@@ -1,4 +1,4 @@
-@JESS @E2E @Regression @DuoLinear @Norway @parallel=false  
+@E2E @Regression @DuoLinear @Norway @parallel=false  
 Feature:  Duo_Linear_Merge_All_NoTag_NO
 
 Background:
@@ -130,17 +130,26 @@ Background:
       }
     """
   * callonce Pause 8000
-  * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
+  * def one = callonce read(FeatureFilePath + '/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
-  * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
+  * def two = callonce read(FeatureFilePath + '/RandomGenerator.feature@CallOutText')
   * def RandomCalloutText = two.RandomCalloutText
-  * def three = callonce read(FeatureFilePath+'/RandomGenerator.feature@CTA')
+  * def three = callonce read(FeatureFilePath + '/RandomGenerator.feature@CTA')
   * def RandomCTA = three.RandomCTA
   * print RandomSeriesTitle, RandomCalloutText, RandomCTA
   * configure afterFeature = 
     """
       function() {
         karate.call(FeatureFilePath + '/Results.feature@updateFinalResults', { updateFinalResultParams: updateFinalResultParams });
+      }
+    """
+  * def generateExpectedTitle =
+    """
+      function(fnameprefix) {
+        var finalExpectedTitle = fnameprefix.replace('CTA', RandomCTA);
+        finalExpectedTitle = finalExpectedTitle.replace('COT', RandomCalloutText);
+
+        return finalExpectedTitle
       }
     """
 
@@ -171,7 +180,7 @@ Scenario: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Trigger Rendition
         IconikCredentials: #(IconikCredentials)
       }
     """
-  * def result = call read(FeatureFilePath+'/Iconik.feature@TriggerRendition') renditionParams
+  * def result = call read(FeatureFilePath + '/Iconik.feature@TriggerRendition') renditionParams
   * def updateParams = 
     """
       { 
@@ -188,15 +197,6 @@ Scenario: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Trigger Rendition
 
 Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Wochit Renditions Table for <ASPECTRATIO>
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
-  * def generateExpectedTitle =
-  """
-    function(fnameprefix) {
-      var finalExpectedTitle = fnameprefix.replace('CTA', RandomCTA);
-      finalExpectedTitle = finalExpectedTitle.replace('COT', RandomCalloutText);
-
-      return finalExpectedTitle
-    }
-  """
   * def ExpectedTitle = call generateExpectedTitle <FNAMEPREFIX>
   * def getCalloutText =
     """
@@ -278,7 +278,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Wochit 
         var matchResult = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
+          var QueryResults = karate.call(FeatureFilePath + '/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
 
           var FilterQueryResultsParams = {
             Param_QueryResults: QueryResults.result,
@@ -291,15 +291,15 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Wochit 
             ]
           }
 
-          var FilteredQueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@FilterQueryResults', FilterQueryResultsParams);
+          var FilteredQueryResults = karate.call(FeatureFilePath + '/Dynamodb.feature@FilterQueryResults', FilterQueryResultsParams);
           
           var ValidateWochitRenditionPayloadParams = {
             Param_Actual_WochitRendition_Entry: FilteredQueryResults.result,
             Param_Expected_WochitRendition_Entry: Expected_WochitRendition_Entry
           };
 
-          matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateWochitRenditionPayload', ValidateWochitRenditionPayloadParams);
-          karate.log('Result: ' + matchResult.result);
+          matchResult = karate.call(FeatureFilePath + '/Dynamodb.feature@ValidateWochitRenditionPayload', ValidateWochitRenditionPayloadParams);
+          // karate.log('Result: ' + matchResult.result);
           if(matchResult.result.pass) {
             break;
           } else {
@@ -324,6 +324,96 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Wochit 
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
     | validateWochitRenditionTestData |
+
+Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Placeholders for <ASPECTRATIO> exists
+  * def scenarioName = 'validatePlaceholder' + <ASPECTRATIO>
+  * def ExpectedTitle = call generateExpectedTitle <FNAMEPREFIX>
+  * def ExpectedDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
+  * def GetItemsViaQueryParams = 
+    """
+      {
+          Param_TableName: #(WochitMappingTableName),
+          Param_QueryInfoList: [
+            {
+              infoName: 'mamAssetInfoReferenceId',
+              infoValue: #(Iconik_AssetID),
+              infoComparator: '=',
+              infoType: 'key'
+            },
+            {
+              infoName: 'createdAt',
+              infoValue: #(ExpectedDate.result),
+              infoComparator: 'begins',
+              infoType: 'key'
+            },  
+            {
+              infoName: 'renditionFileName',
+              infoValue: #(ExpectedTitle),
+              infoComparator: 'contains',
+              infoType: 'filter'
+            },
+            {
+              infoName: 'seasonCollectionId',
+              infoValue: #(Iconik_SeasonCollectionID),
+              infoComparator: 'contains',
+              infoType: 'filter'
+            }
+         ],
+         Param_GlobalSecondaryIndex: #(WochitMappingTableGSI),
+         AWSregion: #(AWSregion)
+       }
+     """
+  * def retries = 15
+  * def getResult =
+    """
+      function() {
+        var QueryResult = null;
+        for(var i = 0; i < retries; ++i) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
+          QueryResult = karate.call(FeatureFilePath + '/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
+          var matchResult = karate.match(QueryResult.result.length, 1);
+          // karate.log('Result: ' + matchResult.result);
+          if(matchResult.pass) {
+            break;
+          } else {
+            karate.log('Failed. Sleeping for 10s.');
+            java.lang.Thread.sleep(10*1000);
+          }
+        }
+        return QueryResult;
+      }
+    """
+  * def QueryResults = call getResult
+  * print QueryResults.result
+  * def RenditionAssetID = QueryResults.result[0]['renditionAssetId']
+  * def FullRenditionFileName = QueryResults.result[0]['renditionFileName']
+  * def ExpectedPlaceholderAssetData = read(currentTCPath + '/Output/ExpectedPlaceholderAssetData.json')
+  * print ExpectedPlaceholderAssetData
+  * def GetAssetDataURL = Iconik_AssetAPIURL + '/' + RenditionAssetID
+  * print GetAssetDataURL
+  * def GetAssetDataParams =
+    """
+      {
+        URL: #(GetAssetDataURL)
+      }
+    """
+  * def AssetData = call read(FeatureFilePath + '/Iconik.feature@GetAssetData') GetAssetDataParams
+  * print AssetData.result
+  * def result = karate.match('AssetData.result contains ExpectedPlaceholderAssetData')
+  * print result
+  * def updateParams = 
+    """
+      { 
+        tcName: #(TCName), 
+        scenarioName: #(scenarioName), 
+        result: #(result), 
+        tcResultReadPath: #(tcResultReadPath), 
+        tcResultWritePath: #(tcResultWritePath) 
+      }
+    """
+  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+  Examples:
+    | validateWochitMappingIsFiledMovedTestData |
 
 Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Technical Metadata for Sort Key <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
@@ -364,8 +454,8 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Technic
         var matchResult = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
-          karate.log('Result: ' + matchResult.result);
+          matchResult = karate.call(FeatureFilePath + '/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
+          // karate.log('Result: ' + matchResult.result);
           if(matchResult.result.pass) {
             break;
           } else {
@@ -393,15 +483,6 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Technic
 
 Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - PROCESSING - Validate Wochit Mapping Table for Aspect Ratio <ASPECTRATIO> [wochitRenditionStatus: <RENDITIONSTATUS> - isRenditionMoved: <ISRENDITIONMOVED>]
   * def scenarioName = 'validateWochitMappingProcessing' + <ASPECTRATIO>
-  * def generateExpectedTitle =
-  """
-    function(fnameprefix) {
-      var finalExpectedTitle = fnameprefix.replace('CTA', RandomCTA);
-      finalExpectedTitle = finalExpectedTitle.replace('COT', RandomCalloutText);
-
-      return finalExpectedTitle
-    }
-  """
   * def ExpectedTitle = call generateExpectedTitle <FNAMEPREFIX>
   * def getCalloutText =
     """
@@ -444,7 +525,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - PROCESSING - Val
         AWSregion: #(AWSregion)
       }
     """
-  # * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery') ValidateItemViaQueryParams
+  # * def result = call read(FeatureFilePath + '/Dynamodb.feature@ValidateItemViaQuery') ValidateItemViaQueryParams
   * def retries = 15
   * def getResult =
     """
@@ -452,8 +533,8 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - PROCESSING - Val
         var matchResult = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
-          karate.log('Result: ' + matchResult.result);
+          matchResult = karate.call(FeatureFilePath + '/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
+          // karate.log('Result: ' + matchResult.result);
           if(matchResult.result.pass) {
             break;
           } else {
@@ -518,7 +599,7 @@ Scenario: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Item Counts - M
         var matchResult = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
+          var QueryResults = karate.call(FeatureFilePath + '/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
           matchResult = karate.match(QueryResults.result.length, ExpectedMAMAssetInfoCount);
           karate.log('Result: ' + matchResult);
           if(matchResult.pass) {
@@ -577,7 +658,7 @@ Scenario: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Item Counts - W
         var matchResult = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
+          var QueryResults = karate.call(FeatureFilePath + '/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
 
           var FilterQueryResultsParams = {
             Param_QueryResults: QueryResults.result,
@@ -590,7 +671,7 @@ Scenario: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Item Counts - W
             ]
           }
 
-          var FilteredQueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@FilterQueryResults', FilterQueryResultsParams);
+          var FilteredQueryResults = karate.call(FeatureFilePath + '/Dynamodb.feature@FilterQueryResults', FilterQueryResultsParams);
           matchResult = karate.match(FilteredQueryResults.result.length, ExpectedWochitRenditionCount);
           karate.log(matchResult);
           if(matchResult.pass) {
@@ -662,7 +743,7 @@ Scenario: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Item Counts - W
         var matchResult = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
+          var QueryResults = karate.call(FeatureFilePath + '/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
           matchResult = karate.match(QueryResults.result.length, ExpectedWochitRenditionCount);
           karate.log('Result: ' + matchResult);
           if(matchResult.pass) {
@@ -701,15 +782,6 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - FINISHED - Valid
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------
   * def scenarioName = 'validateWochitMappingIsFiledMoved' + <ASPECTRATIO>
-  * def generateExpectedTitle =
-    """
-      function(fnameprefix) {
-        var finalExpectedTitle = fnameprefix.replace('CTA', RandomCTA);
-        finalExpectedTitle = finalExpectedTitle.replace('COT', RandomCalloutText);
-
-        return finalExpectedTitle
-      }
-    """
   * def ExpectedTitle = call generateExpectedTitle <FNAMEPREFIX>
   * def getCalloutText =
     """
@@ -753,7 +825,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - FINISHED - Valid
         var resp = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          resp = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
+          resp = karate.call(FeatureFilePath + '/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
           if(resp['result']['pass']) {
             break;
           } else {
@@ -785,15 +857,6 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate if <ASP
   * eval if (!TargetTag.contains('E2E')) {karate.abort()}
   # ---------  
   * def scenarioName = 'validateS3AssetExists' + <ASPECTRATIO>
-  * def generateExpectedTitle =
-    """
-      function(fnameprefix) {
-        var finalExpectedTitle = fnameprefix.replace('CTA', RandomCTA);
-        finalExpectedTitle = finalExpectedTitle.replace('COT', RandomCalloutText);
-
-        return finalExpectedTitle
-      }
-    """
   * def ExpectedTitle = call generateExpectedTitle <FNAMEPREFIX>
   * def getCalloutText =
     """
@@ -828,7 +891,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate if <ASP
         AWSregion: #(AWSregion)
       }
     """
-  * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') ValidateItemViaQueryParams
+  * def QueryResults = call read(FeatureFilePath + '/Dynamodb.feature@GetItemsViaQuery') ValidateItemViaQueryParams
   * def FullExpectedTitle = QueryResults.result[0]['renditionFileName'] + '.mp4'
   * print FullExpectedTitle
   * def validateS3ObjectExists =
@@ -860,7 +923,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate if <ASP
         var matchResult = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          // matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
+          // matchResult = karate.call(FeatureFilePath + '/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
           matchResult = validateS3ObjectExists();
           karate.log(matchResult)
           if(matchResult.pass) {

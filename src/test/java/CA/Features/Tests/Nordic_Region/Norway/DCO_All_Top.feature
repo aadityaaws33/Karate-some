@@ -130,11 +130,11 @@ Background:
       }
     """
   * callonce Pause 6000
-  * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
+  * def one = callonce read(FeatureFilePath + '/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
-  * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
+  * def two = callonce read(FeatureFilePath + '/RandomGenerator.feature@CallOutText')
   * def RandomCalloutText = two.RandomCalloutText
-  * def three = callonce read(FeatureFilePath+'/RandomGenerator.feature@CTA')
+  * def three = callonce read(FeatureFilePath + '/RandomGenerator.feature@CTA')
   * def RandomCTA = three.RandomCTA
   * print RandomSeriesTitle, RandomCalloutText, RandomCTA
   * configure afterFeature = 
@@ -159,7 +159,7 @@ Scenario: Nordic_Norway_DCO_All_Top - Update Asset Name to Unique
         UpdateAssetNamePayload: #(UpdateAssetNamePayload)
       }
     """
-  * call read(FeatureFilePath+'/Iconik.feature@RenameAsset') updateAssetNameParams
+  * call read(FeatureFilePath + '/Iconik.feature@RenameAsset') updateAssetNameParams
 
 Scenario: Nordic_Norway_DCO_All_Top - Update Asset Metadata 
   * def scenarioName = 'updateAssetMetadata'
@@ -173,7 +173,7 @@ Scenario: Nordic_Norway_DCO_All_Top - Update Asset Metadata
         ExpectedResponse: #(ExpectedUpdateAssetMetadataResponse),
       }
     """
-  * def result = call read(FeatureFilePath+'/Iconik.feature@UpdateAssetMetadata') updateAssetMetadataParams
+  * def result = call read(FeatureFilePath + '/Iconik.feature@UpdateAssetMetadata') updateAssetMetadataParams
   * def UpdateAssetMetadataPayload = read(currentTCPath+'/Input/FinalUpdateDCOImagesMetadataRequest.json')
   * def ExpectedUpdateAssetMetadataResponse = read(currentTCPath+'/Output/FinalExpectedUpdateAssetMetadataResponse.json')
   * def updateAssetMetadataParams =
@@ -184,7 +184,7 @@ Scenario: Nordic_Norway_DCO_All_Top - Update Asset Metadata
         ExpectedResponse: #(ExpectedUpdateAssetMetadataResponse),
       }
     """
-  * def result = call read(FeatureFilePath+'/Iconik.feature@UpdateAssetMetadata') updateAssetMetadataParams
+  * def result = call read(FeatureFilePath + '/Iconik.feature@UpdateAssetMetadata') updateAssetMetadataParams
   * def updateParams = 
     """
       { 
@@ -224,7 +224,7 @@ Scenario: Nordic_Norway_DCO_All_Top - Trigger Rendition
         IconikCredentials: #(IconikCredentials)
       }
     """
-  * def result = call read(FeatureFilePath+'/Iconik.feature@TriggerRendition') renditionParams
+  * def result = call read(FeatureFilePath + '/Iconik.feature@TriggerRendition') renditionParams
   * def updateParams = 
     """
       { 
@@ -280,15 +280,15 @@ Scenario Outline: Nordic_Norway_DCO_All_Top - Validate Wochit Renditions Table f
         var matchResult = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
+          var QueryResults = karate.call(FeatureFilePath + '/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
 
           var ValidateWochitRenditionPayloadParams = {
             Param_Actual_WochitRendition_Entry: QueryResults.result,
             Param_Expected_WochitRendition_Entry: Expected_WochitRendition_Entry
           };
 
-          matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateWochitRenditionPayload', ValidateWochitRenditionPayloadParams);
-          karate.log('Result: ' + matchResult.result);
+          matchResult = karate.call(FeatureFilePath + '/Dynamodb.feature@ValidateWochitRenditionPayload', ValidateWochitRenditionPayloadParams);
+          // karate.log('Result: ' + matchResult.result);
           if(matchResult.result.pass) {
             break;
           } else {
@@ -313,6 +313,91 @@ Scenario Outline: Nordic_Norway_DCO_All_Top - Validate Wochit Renditions Table f
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
     | validateWochitRenditionTestData |
+
+
+Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine - Validate Placeholders for <ASPECTRATIO> exists
+  * def scenarioName = 'validatePlaceholder' + <ASPECTRATIO>
+  * def ExpectedTitle = RandomCTA + ' ' + <FNAMEPREFIX>
+  * def ExpectedDate = call read(FeatureFilePath + '/Date.feature@GetDateWithOffset') { offset: 0 }
+  * def GetItemsViaQueryParams = 
+    """
+      {
+        Param_TableName: #(WochitMappingTableName),
+        Param_QueryInfoList: [
+          {
+            infoName: 'country',
+            infoValue: #(EpisodeMetadataType),
+            infoComparator: '=',
+            infoType: 'key'
+          },
+          {
+            infoName: 'createdAt',
+            infoValue: #(ExpectedDate.result),
+            infoComparator: 'begins',
+            infoType: 'key'
+          },
+          {
+            infoName: 'renditionFileName',
+            infoValue: #(ExpectedTitle),
+            infoComparator: 'contains',
+            infoType: 'filter'
+          }
+        ],
+        Param_GlobalSecondaryIndex: #(WochitMappingTableGSI),
+        AWSregion: #(AWSregion)
+      }
+     """
+  * def retries = 15
+  * def getResult =
+    """
+      function() {
+        var QueryResult = null;
+        for(var i = 0; i < retries; ++i) {
+          karate.log('Try #' + (i+1) + ' of ' + retries);
+          QueryResult = karate.call(FeatureFilePath + '/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
+          var matchResult = karate.match(QueryResult.result.length, 1);
+          // karate.log('Result: ' + matchResult.result);
+          if(matchResult.pass) {
+            break;
+          } else {
+            karate.log('Failed. Sleeping for 10s.');
+            java.lang.Thread.sleep(10*1000);
+          }
+        }
+        return QueryResult;
+      }
+    """
+  * def QueryResults = call getResult
+  * print QueryResults.result
+  * def RenditionAssetID = QueryResults.result[0]['renditionAssetId']
+  * def FullRenditionFileName = QueryResults.result[0]['renditionFileName']
+  * def ExpectedPlaceholderAssetData = read(currentTCPath + '/Output/ExpectedPlaceholderAssetData.json')
+  * print ExpectedPlaceholderAssetData
+  * def GetAssetDataURL = Iconik_AssetAPIURL + '/' + RenditionAssetID
+  * print GetAssetDataURL
+  * def GetAssetDataParams =
+    """
+      {
+        URL: #(GetAssetDataURL)
+      }
+    """
+  * def AssetData = call read(FeatureFilePath + '/Iconik.feature@GetAssetData') GetAssetDataParams
+  * print AssetData.result
+  * def result = karate.match('AssetData.result contains ExpectedPlaceholderAssetData')
+  * print result
+  * def updateParams = 
+    """
+      { 
+        tcName: #(TCName), 
+        scenarioName: #(scenarioName), 
+        result: #(result), 
+        tcResultReadPath: #(tcResultReadPath), 
+        tcResultWritePath: #(tcResultWritePath) 
+      }
+    """
+  * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
+  Examples:
+    | validateWochitMappingIsFiledMovedTestData |
 
 Scenario Outline: Nordic_Norway_DCO_All_Top - Validate MAM Asset Info table entry for Composite View ID:  <COMPOSITEVIEWID>
   * def scenarioName = 'validateTechnicalMetadata'
@@ -361,8 +446,8 @@ Scenario Outline: Nordic_Norway_DCO_All_Top - Validate MAM Asset Info table entr
         var matchResult = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
-          karate.log('Result: ' + matchResult.result);
+          matchResult = karate.call(FeatureFilePath + '/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
+          // karate.log('Result: ' + matchResult.result);
           if(matchResult.result.pass) {
             break;
           } else {
@@ -429,8 +514,8 @@ Scenario Outline: Nordic_Norway_DCO_All_Top - PROCESSING - Validate Wochit Mappi
         var matchResult = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
-          karate.log('Result: ' + matchResult.result);
+          matchResult = karate.call(FeatureFilePath + '/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
+          // karate.log('Result: ' + matchResult.result);
           if(matchResult.result.pass) {
             break;
           } else {
@@ -495,7 +580,7 @@ Scenario: Nordic_Norway_DCO_All_Top - Validate Item Counts - MAM Asset Info
         var matchResult = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
+          var QueryResults = karate.call(FeatureFilePath + '/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
           matchResult = karate.match(QueryResults.result.length, ExpectedMAMAssetInfoCount);
           karate.log('Result: ' + matchResult);
           if(matchResult.pass) {
@@ -560,7 +645,7 @@ Scenario: Nordic_Norway_DCO_All_Top - Validate Item Counts - Wochit Rendition
         var matchResult = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
+          var QueryResults = karate.call(FeatureFilePath + '/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
           matchResult = karate.match(QueryResults.result.length, ExpectedWochitRenditionCount);
           karate.log('Result: ' + matchResult);
           if(matchResult.pass) {
@@ -626,7 +711,7 @@ Scenario: Nordic_Norway_DCO_All_Top - Validate Item Counts - Wochit Mapping
         var matchResult = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          var QueryResults = karate.call(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
+          var QueryResults = karate.call(FeatureFilePath + '/Dynamodb.feature@GetItemsViaQuery', GetItemsViaQueryParams);
           matchResult = karate.match(QueryResults.result.length, ExpectedWochitMappingCount);
           karate.log('Result: ' + matchResult);
           if(matchResult.pass) {
@@ -704,7 +789,7 @@ Scenario Outline: Nordic_Norway_DCO_All_Top - FINISHED - Validate Wochit Mapping
         var matchResult = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
+          matchResult = karate.call(FeatureFilePath + '/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
           if(matchResult.result.pass) {
             break;
           } else {
@@ -767,7 +852,7 @@ Scenario Outline: Nordic_Norway_DCO_All_Top - Validate if <ASPECTRATIO> Asset ex
         AWSregion: #(AWSregion)
       }
     """
-  * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') ValidateItemViaQueryParams
+  * def QueryResults = call read(FeatureFilePath + '/Dynamodb.feature@GetItemsViaQuery') ValidateItemViaQueryParams
   * def FullRenditionFileName = QueryResults.result[0]['renditionFileName'] + '.png'
   * print FullRenditionFileName
   * def validateS3ObjectExists =
@@ -799,7 +884,7 @@ Scenario Outline: Nordic_Norway_DCO_All_Top - Validate if <ASPECTRATIO> Asset ex
         var matchResult = null;
         for(var i = 0; i < retries; ++i) {
           karate.log('Try #' + (i+1) + ' of ' + retries);
-          // matchResult = karate.call(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
+          // matchResult = karate.call(FeatureFilePath + '/Dynamodb.feature@ValidateItemViaQuery', ValidateItemViaQueryParams);
           matchResult = validateS3ObjectExists();
           karate.log(matchResult)
           if(matchResult.pass) {
@@ -845,4 +930,4 @@ Scenario: Nordic_Norway_DCO_All_Top - Update Asset Name to Original
         UpdateAssetNamePayload: #(UpdateAssetNamePayload)
       }
     """
-  * call read(FeatureFilePath+'/Iconik.feature@RenameAsset') updateAssetNameParams
+  * call read(FeatureFilePath + '/Iconik.feature@RenameAsset') updateAssetNameParams

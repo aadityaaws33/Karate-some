@@ -115,3 +115,13 @@ Scenario: Update AssetMetadata & validate response
     """
   * def result = call getMatchResult
   * print result
+
+@GetAssetData
+Scenario: Get Asset Data
+  * print URL
+  * url URL
+  * header Auth-Token = Iconik_AuthToken
+  * header App-ID = Iconik_AppID
+  * method get
+  * def result = response
+  * print result

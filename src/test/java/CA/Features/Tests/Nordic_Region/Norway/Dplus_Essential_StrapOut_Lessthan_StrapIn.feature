@@ -116,11 +116,11 @@ Background:
       }
     """
   * callonce Pause 4000
-  * def one = callonce read(FeatureFilePath+'/RandomGenerator.feature@SeriesTitle')
+  * def one = callonce read(FeatureFilePath + '/RandomGenerator.feature@SeriesTitle')
   * def RandomSeriesTitle = one.RandomSeriesTitle
-  * def two = callonce read(FeatureFilePath+'/RandomGenerator.feature@CallOutText')
+  * def two = callonce read(FeatureFilePath + '/RandomGenerator.feature@CallOutText')
   * def RandomCalloutText = two.RandomCalloutText
-  * def three = callonce read(FeatureFilePath+'/RandomGenerator.feature@CTA')
+  * def three = callonce read(FeatureFilePath + '/RandomGenerator.feature@CTA')
   * def RandomCTA = three.RandomCTA
   * print RandomSeriesTitle, RandomCalloutText, RandomCTA
   * configure afterFeature = 
@@ -146,7 +146,7 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Update Asset
         UpdateAssetNamePayload: #(UpdateAssetNamePayload)
       }
     """
-  * call read(FeatureFilePath+'/Iconik.feature@RenameAsset') updateAssetNameParams
+  * call read(FeatureFilePath + '/Iconik.feature@RenameAsset') updateAssetNameParams
   * call Pause 1000
 
 Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Trigger Rendition
@@ -176,7 +176,7 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Trigger Rend
         IconikCredentials: #(IconikCredentials)
       }
     """
-  * def result = call read(FeatureFilePath+'/Iconik.feature@TriggerRendition') renditionParams
+  * def result = call read(FeatureFilePath + '/Iconik.feature@TriggerRendition') renditionParams
   * def updateParams = 
     """
       { 
@@ -217,7 +217,7 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Ite
         AWSregion: #(AWSregion)
       }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateItemCountViaQuery') ValidateItemCountViaQueryParams
+  * def result = call read(FeatureFilePath + '/Dynamodb.feature@ValidateItemCountViaQuery') ValidateItemCountViaQueryParams
   * def updateParams = 
     """
       { 
@@ -257,7 +257,7 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Ite
         AWSregion: #(AWSregion)
       }
     """
-  * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') GetItemsViaQueryParams
+  * def QueryResults = call read(FeatureFilePath + '/Dynamodb.feature@GetItemsViaQuery') GetItemsViaQueryParams
   * def FilterQueryResultsParams =
     """
       {
@@ -271,7 +271,7 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Ite
         ]
       }
     """
-  * def FilteredQueryResults = call read(FeatureFilePath+'/Dynamodb.feature@FilterQueryResults') FilterQueryResultsParams
+  * def FilteredQueryResults = call read(FeatureFilePath + '/Dynamodb.feature@FilterQueryResults') FilterQueryResultsParams
   * def matchResult = karate.match(FilteredQueryResults.result.length, ExpectedWochitRenditionCount)
   * def result =
     """
@@ -329,7 +329,7 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Woc
         AWSregion: #(AWSregion)
       }
     """
-  * def QueryResults = call read(FeatureFilePath+'/Dynamodb.feature@GetItemsViaQuery') GetItemsViaQueryParams
+  * def QueryResults = call read(FeatureFilePath + '/Dynamodb.feature@GetItemsViaQuery') GetItemsViaQueryParams
   * def ValidateWochitMappingPayloadParams =
     """
       {
@@ -337,7 +337,7 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Woc
         Param_Expected_WochitMapping_Entry: #(Expected_WochitMapping_Entry),
       }
     """
-  * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateWochitMappingPayload') ValidateWochitMappingPayloadParams
+  * def result = call read(FeatureFilePath + '/Dynamodb.feature@ValidateWochitMappingPayload') ValidateWochitMappingPayloadParams
   * def updateParams = 
     """
       { 
@@ -365,4 +365,4 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Update Asset
         UpdateAssetNamePayload: #(UpdateAssetNamePayload)
       }
     """
-  * call read(FeatureFilePath+'/Iconik.feature@RenameAsset') updateAssetNameParams
+  * call read(FeatureFilePath + '/Iconik.feature@RenameAsset') updateAssetNameParams
