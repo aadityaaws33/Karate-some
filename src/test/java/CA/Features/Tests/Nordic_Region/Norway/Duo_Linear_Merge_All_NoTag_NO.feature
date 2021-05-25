@@ -271,7 +271,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Wochit 
         AWSregion: #(AWSregion)
       }
     """
-  * def retries = 3
+  * def retries = 15
   * def getResult =
     """
       function() {
@@ -357,7 +357,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Technic
         AWSregion: #(AWSregion)
       }
     """
-  * def retries = 3
+  * def retries = 15
   * def getResult =
     """
       function() {
@@ -445,7 +445,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - PROCESSING - Val
       }
     """
   # * def result = call read(FeatureFilePath+'/Dynamodb.feature@ValidateItemViaQuery') ValidateItemViaQueryParams
-  * def retries = 3
+  * def retries = 15
   * def getResult =
     """
       function() {
@@ -511,7 +511,7 @@ Scenario: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Item Counts - M
         AWSregion: #(AWSregion)
       }
     """
-  * def retries = 3
+  * def retries = 15
   * def getResult =
     """
       function() {
@@ -570,7 +570,7 @@ Scenario: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Item Counts - W
         AWSregion: #(AWSregion)
       }
     """
-  * def retries = 3
+  * def retries = 15
   * def getResult =
     """
       function() {
@@ -655,7 +655,7 @@ Scenario: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate Item Counts - W
         AWSregion: #(AWSregion)
       }
     """
-  * def retries = 3
+  * def retries = 15
   * def getResult =
     """
       function() {
@@ -723,7 +723,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - FINISHED - Valid
     """
   * def RandomCalloutText = call getCalloutText ExpectedTitle
   * def Expected_WochitMapping_Entry = read(currentTCPath + '/Output/Expected_WochitMapping_Entry.json')
-  * def retries = 3
+  * def retries = 15
   * def ValidateItemViaQueryParams = 
     """
       {
@@ -853,7 +853,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_NoTag_NO - Validate if <ASP
         return finalResult;
       }
     """
-  * def retries = 3
+  * def retries = 15
   * def getResult = 
     """
       function() {
