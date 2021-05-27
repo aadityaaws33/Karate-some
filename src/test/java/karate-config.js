@@ -1,7 +1,8 @@
 function() {  
 
   // Global configurations
-  karate.configure('connectTimeout', 1000);
+  karate.configure('connectTimeout', 10000);
+  karate.configure('retry',{ count:4, interval:2000});
 
   // Custom Report
   try {
