@@ -24,7 +24,6 @@ Scenario: Get Rendition URL from custom action list via Iconik API
   And header Auth-Token = Iconik_AuthToken
   And header App-ID = Iconik_AppID
   When method get
-  * print response
   Then def result = call getRenditionHTTPInfo response
 
 @GetAppTokenInfo
@@ -43,7 +42,6 @@ Scenario: Get Authentication Token from Application Token via Iconik API
   And header Content-Type = 'application/json'
   And request GetAppTokenInfoPayload
   When method post
-  * print response
   Then def result = call getAppTokenInfo response
 
 @TriggerRendition
@@ -125,3 +123,24 @@ Scenario: Get Asset Data
   * method get
   * def result = response
   * print result
+
+@SearchForAssets
+Scenario: Search for Assets
+  Given url URL
+  When header Auth-Token = Iconik_AuthToken
+  And header App-ID = Iconik_AppID
+  And request Query
+  And method post
+  Then status 200
+  * def result = response
+
+@DeleteAsset
+Scenario: Delete Asset
+  Given url URL
+  When header Auth-Token = Iconik_AuthToken
+  And header App-ID = Iconik_AppID
+  And request Query
+  And method post
+  Then status 204
+  * def result = response
+  # * print result

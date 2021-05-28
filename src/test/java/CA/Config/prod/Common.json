@@ -18,5 +18,7 @@
     "Iconik_GetAppTokenInfoURL": "https://app.iconik.io/API/auth/v1/auth/simple/login/",
     "Iconik_AssetAPIURL": "https://app.iconik.io/API/assets/v1/assets",
     "Iconik_AssetMetadataAPIURL": "https://app.iconik.io/API/metadata/v1/assets",
+    "Iconik_DeleteAssetAPIURL": "https://app.iconik.io/API/assets/v1/delete_queue/assets",
+    "Iconik_SearchAPIURL": "https://app.iconik.io/API/search/v1/search/?per_page=100",
     "Iconik_AppTokenName": "Creative Automation Prod"
 }

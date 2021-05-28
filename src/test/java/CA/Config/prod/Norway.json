@@ -43,6 +43,7 @@
         }
     },
     "Iconik_SeasonCollectionID": "6dc6b6a2-3861-11eb-a2f5-0a580a3c1042",
+    "Iconik_VideoOutputsCollectionID": "653f8772-a7bd-11eb-9f87-0a580a313352",
     "Iconik_UpdateSeasonURL": "https://app.iconik.io/API/metadata/v1/collections/6dc6b6a2-3861-11eb-a2f5-0a580a3c1042/views/f9fda03c-c65a-11ea-9040-0a580a3c0e49/",
     "WochitMappingTableName": "CA_WOCHIT_MAPPING_EU-prod",
     "WochitMappingTableGSI": "mamAssetInfoReferenceId-createdAt-index",
