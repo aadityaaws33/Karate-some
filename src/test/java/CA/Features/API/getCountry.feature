@@ -1,4 +1,5 @@
-@APIRegression @parallel=false  
+@APIRegression
+# @parallel=false    
 Feature:  CA AppSync GraphQL Query: getCountries
 
 Background:

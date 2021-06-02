@@ -5,7 +5,7 @@
         "FNAMEPREFIX": "'Dev NO Dplus 9x16 Std Bolt-on-dplus_standard_bolton_9x16'",
         "ASPECTRATIO": "'9x16'",
         "WOCHITRENDITIONSTATUS": "FINISHED",
-        "ISRENDITIONMOVED": "true",
+        "ISRENDITIONMOVED": "false",
         "RENDITIONSTATUS": "COMPLETED"
       }
     ]
@@ -16,7 +16,7 @@
         "FNAMEPREFIX": "'QA NO Dplus 9x16 Std Bolt-on-dplus_standard_bolton_9x16'",
         "ASPECTRATIO": "'9x16'",
         "WOCHITRENDITIONSTATUS": "FINISHED",
-        "ISRENDITIONMOVED": "true",
+        "ISRENDITIONMOVED": "false",
         "RENDITIONSTATUS": "COMPLETED"
       }
     ]
@@ -27,7 +27,7 @@
         "FNAMEPREFIX": "'Preprod NO Dplus 9x16 Std Bolt-on-dplus_standard_bolton_9x16'",
         "ASPECTRATIO": "'9x16'",
         "WOCHITRENDITIONSTATUS": "FINISHED",
-        "ISRENDITIONMOVED": "true",
+        "ISRENDITIONMOVED": "false",
         "RENDITIONSTATUS": "COMPLETED"
       }
     ]
@@ -38,7 +38,7 @@
         "FNAMEPREFIX": "'Prod NO Dplus 9x16 Std Bolt-on-dplus_standard_bolton_9x16'",
         "ASPECTRATIO": "'9x16'",
         "WOCHITRENDITIONSTATUS": "FINISHED",
-        "ISRENDITIONMOVED": "true",
+        "ISRENDITIONMOVED": "false",
         "RENDITIONSTATUS": "COMPLETED"
       }
     ]

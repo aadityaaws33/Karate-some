@@ -128,6 +128,9 @@ public class AWSUtils {
       System.err.println(e.getMessage());
       output = e.getMessage();
     }
+
+    s3.shutdown();
+
     return output;
   }
 
@@ -158,18 +161,24 @@ public class AWSUtils {
       System.err.println(e.getErrorMessage());
       output = e.getErrorMessage();
     }
+
+    AppSync.shutdown();
+
     return output;
   }
 
   public ObjectMetadata getS3ObjectMetadata(String BucketName, String ObjectKey, String S3Region) {
     final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(S3Region).build();
     ObjectMetadata metadata = s3.getObjectMetadata(BucketName, ObjectKey);
+    s3.shutdown();
+
     return metadata;
   }
 
   public Date getS3ObjectLastModified(String BucketName, String ObjectKey, String Region) {
     ObjectMetadata metadata = getS3ObjectMetadata(BucketName, ObjectKey, Region);
     Date date = metadata.getLastModified();
+
     return date;
   }
 
@@ -229,6 +238,8 @@ public class AWSUtils {
     }
 
     Map<String, String> output = convertJSONStringToMap(secret);
+    client.shutdown();
+    
     return output;  
   }
 

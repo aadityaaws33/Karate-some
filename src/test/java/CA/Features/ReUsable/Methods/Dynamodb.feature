@@ -9,7 +9,14 @@ Background:
         return new dynamoDBUtilsClass(thisAWSregion)
       }
     """
-  * def dynamoDB = callonce initializeDynamoDBObject AWSregion
+  # * def dynamoDB = callonce initializeDynamoDBObject AWSregion
+  * def dynamoDB = call initializeDynamoDBObject AWSregion
+  * configure afterFeature =
+    """
+      function() {
+        dynamoDB.shutdown();
+      }
+    """
     
 @TruncateTable
 Scenario: Truncate Table
@@ -65,7 +72,7 @@ Scenario: Validate DynamoDB Item Count via Query
         "path": #(matchResult.path)
       }
     """
-  * print result
+  # * print result
   #* print '----------------Actual Item Count------------'+temp
   #* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
 
@@ -115,7 +122,7 @@ Scenario: Filter Results generated from Querying DynamoDB
       }
     """
   * def result = call filterResults
-  * print result
+  # * print result
 
 @GetItemsViaQuery
 Scenario: Get DynamoDB Item(s) via Query
@@ -265,7 +272,7 @@ Scenario: Validate DynamoDB Item via Query
         "path": #(matchResult.path)
       }
     """
-  * print result
+  # * print result
 
 @ItemCountScan
 Scenario: Get Item Count of Table with Scan
@@ -295,7 +302,7 @@ Scenario: Get Item Count of Table with Scan
         "path": #(matchResult.path)
       }
     """
-  * print result
+  # * print result
   #* print '----------------Actual Item Count------------'+temp
   #* print '---------------Expected Item Count-----------'+Param_ExpectedItemCount
 
@@ -406,7 +413,7 @@ Scenario: Get Item Count of Table with Scan
         "path": #(matchResult.path)
       }
     """
-  * print result
+  # * print result
 
 @ScanGetItem
 Scenario: Get Item Count of Table with Scan

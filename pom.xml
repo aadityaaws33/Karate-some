@@ -9,11 +9,11 @@
  
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>11</java.version>
+        <java.version>14</java.version>
         <maven.compiler.version>3.6.0</maven.compiler.version>
         <karate.version>0.9.6</karate.version>
         <cucumber.reporting.version>3.15.0</cucumber.reporting.version>
-        <!-- <cucumber.reporting.version>5.3.1</cucumber.reporting.version> -->
+        <!-- <cucumber.reporting.version>5.5.3</cucumber.reporting.version> -->
     </properties>    
 
     <dependencyManagement>
@@ -128,7 +128,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.10</version>
                 <configuration>
-                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                    <argLine>-Dfile.encoding=UTF-8 -Xms2G -Xmx6G</argLine>
                 </configuration>
             </plugin>
             <plugin>

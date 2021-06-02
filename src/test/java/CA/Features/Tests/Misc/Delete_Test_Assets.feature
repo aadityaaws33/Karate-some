@@ -4,6 +4,16 @@ Feature: Delete test assets after all the executions have finished
 Background:
     * def Countries = [ 'Norway' ]
     # --- Functions
+    * def setSearchKeyword =
+        """
+            function() {
+                try {
+                    return SearchKeyword
+                } catch(e) {
+                    return 'CTA'
+                }
+            }
+        """
     * def getCollectionIDs = 
         """
            function(data) {
@@ -87,9 +97,10 @@ Background:
     * def IconikAuthenticationInfo = callonce read(FeatureFilePath + '/Iconik.feature@GetAppTokenInfo') GetAppTokenInfoParams
     * def Iconik_AuthToken = IconikAuthenticationInfo.result.Iconik_AuthToken
     * def Iconik_AppID = IconikAuthenticationInfo.result.Iconik_AppID
-    
+
+@DeleteDCOImageTestAssets
 Scenario: Delete all DCO Image Test Assets
-    * def SearchKeyword = 'CTA'
+    * def SearchKeyword = call setSearchKeyword
     * def SearchFields = [ 'id' ]
     * def deleteAssetList = call getAssetIDs Iconik_SeasonCollectionIDs
     * def DeleteAssetParams =
@@ -97,14 +108,15 @@ Scenario: Delete all DCO Image Test Assets
         {
             URL: #(Iconik_DeleteAssetAPIURL),
             Query: {
-            ids: #(deleteAssetList)
+                ids: #(deleteAssetList)
             }
         }
         """
     * call read(FeatureFilePath + '/Iconik.feature@DeleteAsset') DeleteAssetParams
 
-Scenario: Delete all DCO Image Test Assets
-    * def SearchKeyword = 'CTA'
+@DeleteVideoOutputsTestAssets
+Scenario: Delete all Video-Outputs Test Assets
+    * def SearchKeyword = call setSearchKeyword
     * def SearchFields = [ 'id' ]
     * def deleteAssetList = call getAssetIDs Iconik_VideoOutputsCollectionIDs
     * def DeleteAssetParams =
@@ -112,7 +124,7 @@ Scenario: Delete all DCO Image Test Assets
         {
             URL: #(Iconik_DeleteAssetAPIURL),
             Query: {
-            ids: #(deleteAssetList)
+                ids: #(deleteAssetList)
             }
         }
         """

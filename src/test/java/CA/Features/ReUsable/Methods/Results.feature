@@ -26,10 +26,11 @@ Scenario: Check if any of the previous scenarios failed, abort test if any
         }
       }
     """
-  * call shouldContinue placeholderParams
+  * call shouldContinue customReportplaceholderParams
 
 @updateResult
 Scenario: Update Test Results to Results.json
+  * def retries = 15
   * def updateResults = 
     """
       function(objectInfo) {
@@ -48,17 +49,18 @@ Scenario: Update Test Results to Results.json
           karate.fail('Unknown result object: ' + passedResult);
         }
         
-        var results = karate.read(tcResultReadPath);
-        karate.log('before:' + results);
-        for(var resultSet in results) {
-          var thisResultSet = results[resultSet];
-          if(thisResultSet['name'] == tcName) {
-            thisResultSet[scenarioName] = tcResult;
+        for(var i = 0; i < retries; ++i) {
+          try {
+            var results = karate.read(tcResultReadPath);
+            results[scenarioName] = tcResult;
+            karate.log('Current TC Results:' + karate.pretty(results));
+            karate.write(karate.pretty(results), tcResultWritePath);
             break;
+          } catch(e) {
+            karate.log('Something went wrong: ' + e);
           }
         }
-        karate.log('after:' + results);
-        karate.write(karate.pretty(results), tcResultWritePath);
+
         if(tcResult == 'Fail') {
           karate.fail(TCName + '-' + scenarioName + ': ' + karate.pretty(passedResult));
         }
@@ -75,30 +77,14 @@ Scenario: Create placeholder in Results.json
         var tcResultWritePath = objectInfo.tcResultWritePath;
         var tcName = objectInfo.tcName;
         var tcValidationType = objectInfo.tcValidationType;
-        var results = [];
-        try {
-          results = karate.read(tcResultReadPath);
-        } catch(err) {
-          results = [];
-        }
-        var hasTCplaceholder = false;
-        for(var resultSet in results) {
-          if(results[resultSet]['name'] == tcName) {
-            hasTCplaceholder = true;
-            break;
-          }
-        }
-        if(!hasTCplaceholder) {
-          var placeholder = {
+        var results = {
             name: tcName,
             tableName: tcValidationType
-          }
-          karate.appendTo(results, placeholder);
-          karate.write(karate.pretty(results), tcResultWritePath);
         }
+        karate.write(karate.pretty(results), tcResultWritePath);
       }
     """
-  * call setResultPlaceholder placeholderParams
+  * call setResultPlaceholder customReportplaceholderParams
 
 @updateFinalResults
 Scenario: Update Results.json with TC Results

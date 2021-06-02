@@ -10,7 +10,7 @@
     "deleted_by_user": "#ignore",
     "external_id":  "#(FullRenditionFileName)",
     "id": "#(RenditionAssetID)",
-    "is_online": false,
+    "is_online": true,
     "status": "#ignore",
     "title": "#(FullRenditionFileName)",
     "type": "#(ExpectedAssetDataType)",
@@ -21,7 +21,7 @@
         "created_by_user": "#notnull",
         "date_created": "#notnull",
         "id": "#notnull",
-        "is_online": false,
+        "is_online": true,
         "status": "#ignore",
         "transcribe_status": "N/A"
       }

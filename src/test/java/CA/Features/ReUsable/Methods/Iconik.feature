@@ -1,6 +1,9 @@
 Feature: Iconik functionalities
 
-@GetRenditionHTTPInfo
+Background:
+  * def thisFile = 'classpath:CA/Features/ReUsable/Methods/Iconik.feature'
+
+@GetRenditionHTTPInfo @report=false
 Scenario: Get Rendition URL from custom action list via Iconik API
   * def getRenditionHTTPInfo =
     """
@@ -26,7 +29,7 @@ Scenario: Get Rendition URL from custom action list via Iconik API
   When method get
   Then def result = call getRenditionHTTPInfo response
 
-@GetAppTokenInfo
+@GetAppTokenInfo @report=false
 Scenario: Get Authentication Token from Application Token via Iconik API
   * def getAppTokenInfo =
     """
@@ -77,7 +80,7 @@ Scenario: Update AssetMetadata & validate response
   * header App-ID = Iconik_AppID
   * request Query
   * method put
-  * print response
+  # * print response
   * def getMatchResult = 
     """
       function() {
@@ -112,35 +115,95 @@ Scenario: Update AssetMetadata & validate response
       }
     """
   * def result = call getMatchResult
-  * print result
+  # * print result
+
+@ExecuteHTTPRequest
+Scenario: Execute an HTTP request to Iconik
+  Given url thisURL
+  And header Auth-Token = Iconik_AuthToken
+  And header App-ID = Iconik_AppID
+  When request thisQuery
+  And method thisMethod
+  Then assert responseStatus == thisStatus
+  * def result = response
 
 @GetAssetData
 Scenario: Get Asset Data
-  * print URL
-  * url URL
-  * header Auth-Token = Iconik_AuthToken
-  * header App-ID = Iconik_AppID
-  * method get
-  * def result = response
-  * print result
+  * def GetAssetDataParams = 
+    """
+      {
+        thisURL: #(URL),
+        thisQuery: #(Query),
+        thisMethod: get,
+        thisStatus: 200
+      }
+    """
+  * def resp = call read(thisFile + '@ExecuteHTTPRequest') GetAssetDataParams
+  * def result = resp.result
 
 @SearchForAssets
 Scenario: Search for Assets
-  Given url URL
-  When header Auth-Token = Iconik_AuthToken
-  And header App-ID = Iconik_AppID
-  And request Query
-  And method post
-  Then status 200
-  * def result = response
+  * def SearchForAssetParams = 
+    """
+      {
+        thisURL: #(URL),
+        thisQuery: #(Query),
+        thisMethod: post,
+        thisStatus: 200
+      }
+    """
+  * def resp = call read(thisFile + '@ExecuteHTTPRequest') SearchForAssetParams
+  * def result = resp.result
 
 @DeleteAsset
 Scenario: Delete Asset
-  Given url URL
-  When header Auth-Token = Iconik_AuthToken
-  And header App-ID = Iconik_AppID
-  And request Query
-  And method post
-  Then status 204
-  * def result = response
-  # * print result
+  * def DeleteAssetParams = 
+    """
+      {
+        thisURL: #(URL),
+        thisQuery: #(Query),
+        thisMethod: post,
+        thisStatus: 204
+      }
+    """
+  * def resp = call read(thisFile + '@ExecuteHTTPRequest') DeleteAssetParams
+  * def result = resp.result
+
+@GetAssetACL
+Scenario: Get Asset User Group ACL
+  * def GetAssetACLParams =
+    """
+      {
+        thisURL: #(URL),
+        thisQuery: null,
+        thisMethod: get,
+        thisStatus: 200
+      }
+    """
+  * def resp = call read(thisFile + '@ExecuteHTTPRequest') GetAssetACLParams
+  * def result = resp.result
+
+@ValidatePlaceholderExists
+Scenario: Check if placeholder exists
+  * def GetAssetDataParams =
+    """
+      {
+        URL: #(GetAssetDataURL)
+      }
+    """
+  * def AssetData = call read(FeatureFilePath + '/Iconik.feature@GetAssetData') GetAssetDataParams
+  # * print AssetData.result
+  * def result = karate.match('AssetData.result contains ExpectedAssetData')
+  * print result
+
+@ValidateACLExists
+Scenario: Check if ACL exists in an assetId
+  * def GetAssetsUserGroupACLParams = 
+    """
+      {
+        URL: #(GetAssetACLURL),
+      }
+    """
+  * def AssetACL = call read(FeatureFilePath + '/Iconik.feature@GetAssetACL') GetAssetsUserGroupACLParams
+  * def result = karate.match('AssetACL.result contains ExpectedAssetACL')
+  * print result

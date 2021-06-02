@@ -5,15 +5,15 @@
     "custom_keyframe": null,
     "custom_poster": null,
     "date_created": "#notnull",
-    "date_deleted": null,
+    "date_deleted": "#ignore",
     "date_modified": "#notnull",
-    "deleted_by_user": null,
+    "deleted_by_user": "#ignore",
     "external_id":  "#(FullRenditionFileName)",
     "id": "#(RenditionAssetID)",
     "is_online": false,
-    "status": "ACTIVE",
+    "status": "#ignore",
     "title": "#(FullRenditionFileName)",
-    "type": "PLACEHOLDER",
+    "type": "#(ExpectedAssetDataType)",
     "versions": [
       {
         "analyze_status": "N/A",
@@ -22,7 +22,7 @@
         "date_created": "#notnull",
         "id": "#notnull",
         "is_online": false,
-        "status": "ACTIVE",
+        "status": "#ignore",
         "transcribe_status": "N/A"
       }
     ]

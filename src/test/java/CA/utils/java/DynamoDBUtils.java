@@ -54,6 +54,13 @@ public class DynamoDBUtils {
     public DynamoDB dynamoDB;
     public Index index;
 
+    /**
+     * Closes a dynamoDB instance and releases resources
+     * @return None
+     */
+    private void shutdown() {
+        dynamoDB.shutdown();
+    }
 
     /**
     *   Creates a ClientConfiguration object for DynamoDB
