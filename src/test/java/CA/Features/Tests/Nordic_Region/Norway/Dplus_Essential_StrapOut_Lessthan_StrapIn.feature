@@ -1,4 +1,4 @@
-@E2E @Regression @Norway @parallel=false  
+@E2E @Regression @Norway @parallel=false @Edge
 Feature:  Dplus_Essential_StrapOut_Lessthan_StrapIn
 
 Background:
@@ -188,7 +188,7 @@ Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Trigger Rend
       }
     """
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
-  * call Pause 10000
+  * call Pause 20000
 
 Scenario: Nordic_Norway_Dplus_Essential_StrapOut_Lessthan_StrapIn - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAMAssetCount"
