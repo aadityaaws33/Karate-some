@@ -294,11 +294,11 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_WoEndboard_NO - Validate Pl
           // karate.log(PlaceholderACLCheckResult);
           // var result = PlaceholderCheckResult.result.pass &&  PlaceholderACLCheckResult.result.pass;
           if(!PlaceholderCheckResult.result.pass) {
-            finalResult.message.append(PlacehodlerCheckResult.result.message);
+            finalResult.message.push(PlacehodlerCheckResult.result.message);
             finalResult.pass = false;
           }
           if(!PlaceholderACLCheckResult.result.pass) {
-            finalResult.message.append(PlaceholderACLCheckResult.result.message);
+            finalResult.message.push(PlaceholderACLCheckResult.result.message);
             finalResult.pass = false;
           }
           
@@ -986,11 +986,11 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_WoEndboard_NO - Validate As
           // karate.log(PlaceholderACLCheckResult);
           // var result = PlaceholderCheckResult.result.pass &&  PlaceholderACLCheckResult.result.pass;
           if(!PlaceholderCheckResult.result.pass) {
-            finalResult.message.append(PlacehodlerCheckResult.result.message);
+            finalResult.message.push(PlacehodlerCheckResult.result.message);
             finalResult.pass = false;
           }
           if(!PlaceholderACLCheckResult.result.pass) {
-            finalResult.message.append(PlaceholderACLCheckResult.result.message);
+            finalResult.message.push(PlaceholderACLCheckResult.result.message);
             finalResult.pass = false;
           }
           
