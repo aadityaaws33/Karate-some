@@ -49,5 +49,8 @@
     "WochitMappingTableGSI": "mamAssetInfoReferenceId-createdAt-index",
     "WochitRenditionTableName": "CA_WOCHIT_RENDITIONS_EU-preprod",
     "WochitRenditionTableGSI": "assetType-createdAt-index",
-    "MAMAssetsInfoTableName": "CA_MAM_ASSETS_INFO_EU-preprod"
+    "MAMAssetsInfoTableName": "CA_MAM_ASSETS_INFO_EU-preprod",
+    "CAIconikConfigTableName": "CA_ICONIK_CONFIG_EU-preprod",
+    "CAIconikConfigACLIDNORWAY": "IC_0001",
+    "CAIconikConfigACLIDDCO": "IC_0006"
 }

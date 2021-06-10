@@ -18,7 +18,7 @@
             "AllNoTag": "c33938c2-b920-11eb-8567-0a580a3c4709"
         },
         "DCO": {
-            "AllTop": "04db7e2c-b46f-11eb-98ff-0a580a3e478f"
+            "AllTop": "85ec365e-cd89-11eb-b067-0a580a3e8c28"
         }
     },
     "Iconik_TriggerRenditionCustomActionID": {
@@ -49,5 +49,8 @@
     "WochitMappingTableGSI": "mamAssetInfoReferenceId-createdAt-index",
     "WochitRenditionTableName": "CA_WOCHIT_RENDITIONS_EU-prod",
     "WochitRenditionTableGSI": "assetType-createdAt-index",
-    "MAMAssetsInfoTableName": "CA_MAM_ASSETS_INFO_EU-prod"
+    "MAMAssetsInfoTableName": "CA_MAM_ASSETS_INFO_EU-prod",
+    "CAIconikConfigTableName": "CA_ICONIK_CONFIG_EU-preprod",
+    "CAIconikConfigACLIDNORWAY": "IC_0001",
+    "CAIconikConfigACLIDDCO": "IC_0006"
 }

@@ -11,7 +11,23 @@ Background:
   * def TCValidationType = 'videoValidation' //videoValidation or imageValidation. Used for custom report table
   * def WochitMappingTableGSI = EnvConfig[Country]['WochitMappingTableGSI']
   * callonce read('classpath:CA/Features/ReUsable/Scenarios/Background.feature') { WaitTime: 5000 }
+  * configure afterFeature = 
+    """
+        function() {
+            karate.call(FeatureFilePath + '/Results.feature@updateFinalResults', { updateFinalResultParams: updateFinalResultParams });
 
+            //Trigger Auto-deletion
+            var method = '@DeleteDCOImageTestAssets';
+            if(EpisodeMetadataType != 'DCO') {
+                method = '@DeleteVideoOutputsTestAssets';
+            }
+            var DeleteAssetParams = {
+                SearchKeyword: RandomCTA
+            }
+            karate.call('classpath:CA/Features/Tests/Misc/Delete_Test_Assets.feature' + method, DeleteAssetParams);
+        }
+    """
+    
 @parallel=false
 Scenario: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Trigger Rendition
   * def scenarioName = 'triggerRendition'
@@ -280,7 +296,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Placehol
           // karate.log(PlaceholderACLCheckResult);
           // var result = PlaceholderCheckResult.result.pass &&  PlaceholderACLCheckResult.result.pass;
           if(!PlaceholderCheckResult.result.pass) {
-            finalResult.message.push(PlacehodlerCheckResult.result.message);
+            finalResult.message.push(PlaceholderCheckResult.result.message);
             finalResult.pass = false;
           }
           if(!PlaceholderACLCheckResult.result.pass) {
@@ -993,7 +1009,7 @@ Scenario Outline: Nordic_Norway_Duo_Linear_Merge_All_Post_NO - Validate Associat
           // karate.log(PlaceholderACLCheckResult);
           // var result = PlaceholderCheckResult.result.pass &&  PlaceholderACLCheckResult.result.pass;
           if(!PlaceholderCheckResult.result.pass) {
-            finalResult.message.push(PlacehodlerCheckResult.result.message);
+            finalResult.message.push(PlaceholderCheckResult.result.message);
             finalResult.pass = false;
           }
           if(!PlaceholderACLCheckResult.result.pass) {

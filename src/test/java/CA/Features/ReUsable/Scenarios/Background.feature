@@ -184,19 +184,3 @@ Scenario: Background
                 return finalExpectedTitle
             }
         """
-    * configure afterFeature = 
-        """
-            function() {
-                karate.call(FeatureFilePath + '/Results.feature@updateFinalResults', { updateFinalResultParams: updateFinalResultParams });
-
-                //Trigger Auto-deletion
-                var method = '@DeleteDCOImageTestAssets';
-                if(EpisodeMetadataType != 'DCO') {
-                    method = '@DeleteVideoOutputsTestAssets';
-                }
-                var DeleteAssetParams = {
-                    SearchKeyword: RandomCTA
-                }
-                karate.call('classpath:CA/Features/Tests/Misc/Delete_Test_Assets.feature' + method, DeleteAssetParams);
-            }
-        """

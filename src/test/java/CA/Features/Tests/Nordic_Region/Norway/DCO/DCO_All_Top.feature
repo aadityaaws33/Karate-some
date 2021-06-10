@@ -10,6 +10,22 @@ Background:
   * def TCValidationType = 'imageValidation' //videoValidation or imageValidation. Used for custom report table
   * def WochitMappingTableGSI = 'country-createdAt-index'
   * callonce read('classpath:CA/Features/ReUsable/Scenarios/Background.feature') { WaitTime: 6000 }
+  * configure afterFeature = 
+    """
+        function() {
+            karate.call(FeatureFilePath + '/Results.feature@updateFinalResults', { updateFinalResultParams: updateFinalResultParams });
+
+            //Trigger Auto-deletion
+            var method = '@DeleteDCOImageTestAssets';
+            if(EpisodeMetadataType != 'DCO') {
+                method = '@DeleteVideoOutputsTestAssets';
+            }
+            var DeleteAssetParams = {
+                SearchKeyword: RandomCTA
+            }
+            karate.call('classpath:CA/Features/Tests/Misc/Delete_Test_Assets.feature' + method, DeleteAssetParams);
+        }
+    """
 
 @parallel=false
 Scenario: Nordic_Norway_DCO_All_Top - Update Asset Name to Unique
@@ -111,24 +127,6 @@ Scenario: Nordic_Norway_DCO_All_Top - Trigger Rendition
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   * call Pause 5000
 
-@parallel=false
-Scenario: Nordic_Norway_DCO_All_Top - Update Asset Name to Original
-  * def UpdateAssetNamePayload =
-    """
-      {
-        title: "#(Iconik_AssetName)"
-      }
-    """
-  * def Iconik_UpdatedAssetURL = Iconik_AssetAPIURL + '/'+ Iconik_AssetID
-  * def updateAssetNameParams =
-    """
-      {
-        URL: "#(Iconik_UpdatedAssetURL)",
-        UpdateAssetNamePayload: #(UpdateAssetNamePayload)
-      }
-    """
-  * call read(FeatureFilePath + '/Iconik.feature@RenameAsset') updateAssetNameParams
-  * call Pause 2000
 @parallel=false
 Scenario Outline: Nordic_Norway_DCO_All_Top - Validate Wochit Renditions Table for <ASPECTRATIO>
   * def scenarioName = 'validateWochitRendition' + <ASPECTRATIO>
@@ -302,7 +300,7 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
           var PlaceholderACLCheckResult = karate.call(FeatureFilePath + '/Iconik.feature@ValidateACLExists', ValidateACLExistsParams);
           // karate.log(PlaceholderACLCheckResult);
           if(!PlaceholderCheckResult.result.pass) {
-            finalResult.message.push(PlacehodlerCheckResult.result.message);
+            finalResult.message.push(PlaceholderCheckResult.result.message);
             finalResult.pass = false;
           }
           if(!PlaceholderACLCheckResult.result.pass) {
@@ -479,6 +477,25 @@ Scenario Outline: Nordic_Norway_DCO_All_Top - PROCESSING - Validate Wochit Mappi
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
     | validateWochitMappingProcessingTestData |
+
+@parallel=false
+Scenario: Nordic_Norway_DCO_All_Top - Update Asset Name to Original
+  * def UpdateAssetNamePayload =
+    """
+      {
+        title: "#(Iconik_AssetName)"
+      }
+    """
+  * def Iconik_UpdatedAssetURL = Iconik_AssetAPIURL + '/'+ Iconik_AssetID
+  * def updateAssetNameParams =
+    """
+      {
+        URL: "#(Iconik_UpdatedAssetURL)",
+        UpdateAssetNamePayload: #(UpdateAssetNamePayload)
+      }
+    """
+  * call read(FeatureFilePath + '/Iconik.feature@RenameAsset') updateAssetNameParams
+  * call Pause 2000
 
 Scenario: Nordic_Norway_DCO_All_Top - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAMAssetCount"
@@ -955,7 +972,7 @@ Scenario Outline: Nordic_Norway_Dplus_Essential_Panel_9x16_StrapOn_CTASingleLine
           // karate.log(PlaceholderACLCheckResult);
           // var result = PlaceholderCheckResult.result.pass &&  PlaceholderACLCheckResult.result.pass;
           if(!PlaceholderCheckResult.result.pass) {
-            finalResult.message.push(PlacehodlerCheckResult.result.message);
+            finalResult.message.push(PlaceholderCheckResult.result.message);
             finalResult.pass = false;
           }
           if(!PlaceholderACLCheckResult.result.pass) {
