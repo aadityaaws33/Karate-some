@@ -15,6 +15,38 @@ Background:
         function() {
             karate.call(FeatureFilePath + '/Results.feature@updateFinalResults', { updateFinalResultParams: updateFinalResultParams });
 
+            //Rename DCO Asset to original asset name
+            var Iconik_UpdateAssetURL = Iconik_AssetAPIURL + '/'+ Iconik_AssetID;
+            var UpdateAssetNamePayload = {
+              title: Iconik_AssetName
+            }
+            var updateAssetNameParams = {
+              URL: Iconik_UpdateAssetURL,
+              UpdateAssetNamePayload: UpdateAssetNamePayload
+            }
+            var GetAssetDataURL = Iconik_AssetAPIURL + '/' + Iconik_AssetID;
+            var GetAssetDataParams = {
+              URL: GetAssetDataURL
+            }
+            // retry mechanism
+            var retries = 15;
+            var renameSuccess = false;
+            for(var i = 0; i < retries; i++) {
+              karate.call(FeatureFilePath + '/Iconik.feature@RenameAsset', updateAssetNameParams);
+              Pause(15000);
+              var AssetData = karate.call(FeatureFilePath + '/Iconik.feature@GetAssetData', GetAssetDataParams);
+              if(AssetData.result.title == Iconik_AssetName) {
+                karate.log('Successfully renamed asset to original after ' + (i+1) + ' retries.');
+                renameSuccess = true;
+                break;
+              } else {
+                karate.log('try #' + (i+1) + ': Failed to rename asset. Retrying in 15 seconds.');
+              }
+            }
+            if(!renameSuccess) {
+              karate.fail('Failed to rename asset to original after ' + retries + ' retries.');
+            }
+
             //Trigger Auto-deletion
             var method = '@DeleteDCOImageTestAssets';
             if(EpisodeMetadataType != 'DCO') {
@@ -27,7 +59,7 @@ Background:
         }
     """
 
-@parallel=false
+@parallel=false @RENAME
 Scenario: Nordic_Norway_DCO_All_Top - Update Asset Name to Unique
   * def thisAssetTitle = RandomCTA + ' ' + Iconik_AssetName
   * def UpdateAssetNamePayload =
@@ -36,15 +68,43 @@ Scenario: Nordic_Norway_DCO_All_Top - Update Asset Name to Unique
         title: "#(thisAssetTitle)"
       }
     """
-  * def Iconik_UpdatedAssetURL = Iconik_AssetAPIURL + '/'+ Iconik_AssetID
+  * def Iconik_UpdateAssetURL = Iconik_AssetAPIURL + '/'+ Iconik_AssetID
   * def updateAssetNameParams =
     """
       {
-        URL: "#(Iconik_UpdatedAssetURL)",
+        URL: "#(Iconik_UpdateAssetURL)",
         UpdateAssetNamePayload: #(UpdateAssetNamePayload)
       }
     """
-  * call read(FeatureFilePath + '/Iconik.feature@RenameAsset') updateAssetNameParams
+  # * call read(FeatureFilePath + '/Iconik.feature@RenameAsset') updateAssetNameParams
+  * def GetAssetDataURL = Iconik_AssetAPIURL + '/' + Iconik_AssetID
+  * def GetAssetDataParams =
+    """
+      {
+        URL: #(GetAssetDataURL)
+      }
+    """
+  * def retries = 15
+  * def renameAsset =
+    """
+      function() {
+        for(var i = 0; i < retries; i++) {
+          karate.call(FeatureFilePath + '/Iconik.feature@RenameAsset', updateAssetNameParams);
+          Pause(5000);
+          var AssetData = karate.call(FeatureFilePath + '/Iconik.feature@GetAssetData', GetAssetDataParams);
+          if(AssetData.result.title == thisAssetTitle) {
+            karate.log(AssetData.result);
+            karate.log('Successfully renamed asset to unique after ' + (i+1) + ' retries.');
+            renameSuccess = true;
+            return;
+          } else {
+            karate.log('try #' + (i+1) + ': Failed to rename asset. Retrying in 5seconds.');
+          }
+        }
+        karate.fail('Failed to rename asset after ' + retries + ' retries.');
+      }
+    """
+  * renameAsset()
   * call Pause 2000
 
 @parallel=false
@@ -477,25 +537,6 @@ Scenario Outline: Nordic_Norway_DCO_All_Top - PROCESSING - Validate Wochit Mappi
   * call read(FeatureFilePath + '/Results.feature@updateResult') { updateParams: #(updateParams) })
   Examples:
     | validateWochitMappingProcessingTestData |
-
-@parallel=false
-Scenario: Nordic_Norway_DCO_All_Top - Update Asset Name to Original
-  * def UpdateAssetNamePayload =
-    """
-      {
-        title: "#(Iconik_AssetName)"
-      }
-    """
-  * def Iconik_UpdatedAssetURL = Iconik_AssetAPIURL + '/'+ Iconik_AssetID
-  * def updateAssetNameParams =
-    """
-      {
-        URL: "#(Iconik_UpdatedAssetURL)",
-        UpdateAssetNamePayload: #(UpdateAssetNamePayload)
-      }
-    """
-  * call read(FeatureFilePath + '/Iconik.feature@RenameAsset') updateAssetNameParams
-  * call Pause 2000
 
 Scenario: Nordic_Norway_DCO_All_Top - Validate Item Counts - MAM Asset Info
   * def scenarioName = "validateMAMAssetCount"
