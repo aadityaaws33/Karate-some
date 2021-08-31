@@ -16,7 +16,7 @@ Scenario: Check if any of the previous scenarios failed, abort test if any
           if(thisResultSet['name'] == tcName) {
             for(var key in thisResultSet) {
               if(thisResultSet[key] == 'Fail') {
-                karate.callSingle(ResuableMethodsPath + '/Results.feature@updateFinalResults', {updateFinalResultParams: objectInfo});
+                karate.callSingle(FeatureFilePath + '/Results.feature@updateFinalResults', {updateFinalResultParams: objectInfo});
                 karate.log('Previous scenario failed');
                 karate.abort();
                 break;

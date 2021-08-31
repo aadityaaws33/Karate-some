@@ -1,4 +1,4 @@
-@E2E @Regression
+@E2E @Regression @Dplus
 # @parallel=false  
 Feature:  Dplus_Essential_Panel_All_NoStrap_CTAMutliLine
 

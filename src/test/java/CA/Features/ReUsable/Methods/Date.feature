@@ -28,7 +28,7 @@ Scenario: Create Date in YYYY-MM-DD format with specified offset
       function(offset) {
         var dateList = [];
         for(var i = 0; i > offset; i--) {
-          var thisDate = karate.call(ResuableMethodsPath + '/Date.feature@GetDateWithOffset', { offset: i})['result'];
+          var thisDate = karate.call(FeatureFilePath + '/Date.feature@GetDateWithOffset', { offset: i})['result'];
           dateList.push(thisDate);
         }
         return dateList
