@@ -2,52 +2,47 @@ function() {
 
   // Global configurations
   karate.configure('connectTimeout', 10000);
-  karate.configure('retry',{ count:4, interval:2000});
-
-  // Custom Report
-  try {
-    karate.read('classpath:target/test-classes/Results.json')
-  } catch (err) {
-    karate.write([],'test-classes/Results.json');
-  }
+  karate.configure('retry', { count:4, interval:2000});
+  // karate.configure('report', { showLog: true, showAllSteps: false});
   
   // Environment configurations
   var targetEnv = karate.properties['karate.targetEnv'];
+  var testUser = java.lang.System.getenv('TestUser');
+  
+  var AdminEmail = java.lang.System.getenv('IconikAdminEmail'); 
+  var AdminPassword = java.lang.System.getenv('IconikAdminPassword'); 
+
+  if(!AdminEmail || !AdminPassword) {
+    karate.fail('[FAILED] No AdminEmail/AdminPassword acquired! Please check your environment variables!');
+  }
 
   var targetTag = karate.properties['karate.options'].split('@')[1];
-  if(targetTag != 'E2E' && targetTag != 'Regression') {
-    if(targetTag.contains('E2E')) {
-      targetTag = 'E2E'
-    } else {
-      targetTag = 'Regression';
-    }
-  }
+  // if(targetTag != 'E2E' && targetTag != 'Regression') {
+  //   if(targetTag.contains('E2E')) {
+  //     targetTag = 'E2E'
+  //   } else {
+  //     targetTag = 'Regression';
+  //   }
+  // }
 
   var configDir = 'classpath:CA/Config/' + targetEnv;
-  var CommonData = read(configDir + '/' + 'Common.json');
-  var NorwayData = read(configDir + '/' + 'Norway.json') || {};
 
+  var CommonData = read(configDir + '/' + 'Common.json');
+  
+  CommonData.Iconik.AdminEmail = AdminEmail;
+  CommonData.Iconik.AdminPassword = AdminPassword;
+  CommonData.Iconik.TestUser = testUser;
+  
   var envConfig = {
-    Common: CommonData,
-    Norway: NorwayData
+    Common: CommonData
   };
  
-  // Secret Data configurations
-  var secretsData = null;
-  try {
-    var AWSUtilsClass = Java.type('AWSUtils.AWSUtils');
-    var AWSUtils = new AWSUtilsClass();
-    secretsData = AWSUtils.getSecrets(envConfig.Common.SecretsManager.secretName, envConfig.Common.SecretsManager.region);
-  } catch (err) {
-    karate.fail('Problem encountered while fetching data from Secrets Manager.\nReason: ' + err);
-  }
 
   // Consolidation of configurations
   var config = {
     TargetEnv: targetEnv,
     TargetTag: targetTag,
     EnvConfig: envConfig,
-    SecretsData: secretsData
   };
   
   // Testing purposes only, avoid logging as it contains SECRET DATA

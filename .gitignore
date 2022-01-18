@@ -7,3 +7,6 @@
 .DS_Store
 log/*
 target*
+THIS.log
+test.log
+RESULT.log

@@ -1,25 +1,46 @@
 {
+    "AWSRegion": "Nordic",
     "SecretsManager": {
-        "secretName": "ca-creds-prodtenant",
+        "secretName": "ca-creds",
         "region": "ap-southeast-1"
     },
-    "S3": {
-        "AssetBucketName": "creative-automation-store",
-        "RenditionsFolderName": "output-renditions",
-        "Region": "Nordic"
+    "S3": {},
+    "DynamoDB": {
+        "Username": {
+            "QA_AUTOMATION_USER": "QA_AUTOMATION_USER",
+            "iconik-prod-admin@discovery.com": "Admin"
+        },
+        "WochitRendition": {
+            "TableName": "CA_WOCHIT_RENDITIONS_EU-prod",
+            "GSI": "assetType-createdAt-index"
+        },
+        "WochitMapping": {
+            "TableName": "CA_WOCHIT_MAPPING_EU-prod",
+            "GSI": "mamAssetInfoReferenceId-createdAt-index"
+        },
+        "MAMAssetInfo": {
+            "TableName": "CA_MAM_ASSETS_INFO_EU-prod",
+            "GSI": ""
+        }
     },
-    "Iconik_AuthToken": "eyJhbGciOiJIUzI1NiIsImlhdCI6MTYwNjcwNjc2MiwiZXhwIjoxOTIyMTY2NzYyfQ.eyJpZCI6ImM2MjYyOTUwLTMyYmItMTFlYi1hNDlkLTBhNTgwYTNlMDAxNSJ9.FrH-5CeQr_GDfZxf3rt4Ia9Cskp0xlWPoSumw_4qLfY",
-    "Iconik_AppID": "c34de33a-32bb-11eb-8e0b-0a580a3f5f18",
-    "Iconik_UserId": {
-        "Regression": "custom-qa-user-id",
-        "E2E": "d9e86e9e-a553-11ea-a2f8-0a580a3ebce5"
-    },
-    "Iconik_TriggerRenditionCustomActionListURL": "https://app.iconik.io/API/assets/v1/custom_actions/",
-    "Iconik_GetAppTokenInfoURL": "https://app.iconik.io/API/auth/v1/auth/simple/login/",
-    "Iconik_AssetAPIURL": "https://app.iconik.io/API/assets/v1/assets",
-    "Iconik_AssetMetadataAPIURL": "https://app.iconik.io/API/metadata/v1/assets",
-    "Iconik_DeleteAssetAPIURL": "https://app.iconik.io/API/assets/v1/delete_queue/assets",
-    "Iconik_SearchAPIURL": "https://app.iconik.io/API/search/v1/search/?per_page=100",
-    "Iconik_GetAssetACLAPIURL": "https://app.iconik.io/API/acls/v1/acl/assets",
-    "Iconik_AppTokenName": "Creative Automation Prod"
+    "Iconik": {
+        "AppTokenName": "Creative Automation Prod",
+        "URL": {
+            "GetAppTokenAPI": "https://app.iconik.io/API/auth/v1/auth/simple/login/",
+            "AssetDataAPI": "https://app.iconik.io/API/assets/v1",
+            "DeleteQueueAPI": "https://app.iconik.io/API/assets/v1/delete_queue",
+            "SearchAPI": "https://app.iconik.io/API/search/v1/search/?page=1&per_page=150",
+            "CustomActionsAPI": "https://app.iconik.io/API/assets/v1/custom_actions"
+        },
+        "UserId": {
+            "QA_AUTOMATION_USER": "QA_AUTOMATION_USER",
+            "iconik-prod-admin@discovery.com": "d9e86e9e-a553-11ea-a2f8-0a580a3ebce5"
+        },
+        "Triggers": {
+            "Netherlands" : {
+                "NonPartnerTriggerName": "NL SoMe Trigger",
+                "NonPartnerMetadataViewName": "NL Phase 2 SoMe Metadata"
+            }
+        }
+    }
 }
