@@ -207,7 +207,7 @@ Scenario: Validate DynamoDB Item via Query
           var temp = queryResult;
           for(var i in queryResult) {
             testVar = queryResult[i];
-            var thisRes = karate.match('testVar deep contains Param_ExpectedResponse');
+            var thisRes = karate.match('testVar contains deep Param_ExpectedResponse');
             if(!thisRes.pass) {
               finalResult.message = finalResult.message.concat(thisRes.message);
               karate.log(finalResult);

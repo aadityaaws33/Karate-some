@@ -19,7 +19,7 @@ Scenario: Validate Wochit Rendition Records
                         thisRenditionStatus = 'PROCESSING';
                     }
 
-                    var thisTemplateID = InputMetadata.TemplateID;
+                    var thisTemplateID = InputMetadata.TemplateID[TargetEnv];
 
                     // Format: <TITLE>|<STRAPTYPE>|<BACKGROUND COLOUR>
                     var dataSplit = ExpectedRenditionFileNames[i].split('|');
@@ -183,7 +183,7 @@ Scenario: Validate Wochit Rendition Records
                         Param_GlobalSecondaryIndex: Config.DynamoDBConfig.WochitRendition.GSI,
                         Param_ExpectedResponse: expectedRecord,
                         AWSRegion: Config.AWSRegion,
-                        Retries: 60,
+                        Retries: 90,
                         RetryDuration: 10000,
                         WriteToFile: true,
                         WritePath: OutputWritePath + '/DynamoDBRecords/WochitRenditionRecord' + i + '.json',
@@ -214,13 +214,13 @@ Scenario: Validate Wochit Rendition Records
                             }                           
                         }
                         if(!isSame) {
-                            var msg = thisRecord.Identifier + ' - Reason: Record Not Found';
+                            var msg = thisRecord.Identifier + ' - ' + thisResult.message;
                             result.pass = false;
                             result.unvalidatedFilenames.push(msg);
                             karate.log('[' + thisTCMetadata.TCName + '] - Wochit Rendition Payload: Validation Failed - ' + msg);
                         }
                     } else {
-                        var msg = thisRecord.Identifier + ' - Reason: Record Not Found';
+                        var msg = thisRecord.Identifier + ' - ' + thisResult.message;
                         result.pass = false;
                         result.unvalidatedFilenames.push(msg);
                         karate.log('[' + thisTCMetadata.TCName + '] - Wochit Rendition Payload: Validation Failed - ' + msg);
@@ -262,4 +262,4 @@ Scenario: Load Expected Records - Replace all variables in JSON automatically
 
 @Compare
 Scenario: Compare
-    * def result = karate.match(Actual, Expected)
+    * def result = karate.match('Actual contains deep Expected')

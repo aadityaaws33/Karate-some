@@ -1,4 +1,4 @@
-@Regression
+@Regression @NLNonPartner
 Feature: Netherlands Phase 2 Non-Partner Rendition
 
 Scenario Outline: Netherlands Phase 2 Non-partner Testing for <DURATION>s Video
@@ -22,15 +22,20 @@ Scenario Outline: Netherlands Phase 2 Non-partner Testing for <DURATION>s Video
                     SomeCTA: 'binnenkort',
                     CustomStrapOutroCTA: 'TEST AUTOMATION SHOW STRAP OUTRO',
                     LegalText: 'Legal Text',
-                    TemplateID: '619dcc43a4c6857058c001a1',
+                    TemplateID: {
+                        qa: '619dcc43a4c6857058c001a1',
+                        prod: '619de7d2a4c6857058c001ba'
+                    },
                     Partner: 'NONE'
                 },
                 IconikMetadata: {
                     IconikCustomActionTitle: {
-                        qa: 'QA - SoMe - NL Trigger'
+                        qa: 'QA - SoMe - NL Trigger',
+                        prod: 'NL SoMe Trigger'
                     },
                     IconikMetadataViewName: {
-                        qa: 'NL Phase 2 SoMe Metadata'
+                        qa: 'NL Phase 2 SoMe Metadata',
+                        prod: 'NL Phase 2 SoMe Metadata'
                     },
                     IconikMediaType: 'Show',
                     IconikCollectionName: 'SOME QA AUTOMATION',
@@ -63,7 +68,7 @@ Scenario Outline: Netherlands Phase 2 Non-partner Testing for <DURATION>s Video
     * karate.call(ReUsableFeaturesPath + '/Steps/ValidateWochitMappingRecords.feature', { thisOutputWritePath: OutputWritePath, thisOutputReadPath: OutputReadPath })
 
     Examples:
-        |DURATION| ICONIK SOURCE ASSET NAME | ICONIK ASPECT RATIOS | WAIT TIME |
-        | 15     | NL_SOME_SHOW_AUTOMATION  | 16x9                 | 0         |
-        | 25     | NL_SOME_SHOW_AUTOMATION  | 1x1                  | 10000     |
-        | 30     | NL_SOME_SHOW_AUTOMATION  | 9x16                 | 20000     |
+        | WAIT TIME | ICONIK SOURCE ASSET NAME | DURATION | ICONIK ASPECT RATIOS | 
+        | 0         | NL_SOME_SHOW_AUTOMATION  |  15      | 16x9                 | 
+        | 0         | NL_SOME_SHOW_AUTOMATION  |  25      | 1x1                  | 
+        | 0         | NL_SOME_SHOW_AUTOMATION  |  30      | 9x16                 | 

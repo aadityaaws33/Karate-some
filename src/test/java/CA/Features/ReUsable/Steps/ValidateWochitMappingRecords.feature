@@ -106,7 +106,7 @@ Scenario: Wochit Mapping Record Validation
                         Param_GlobalSecondaryIndex: Config.DynamoDBConfig.WochitMapping.GSI,
                         Param_ExpectedResponse: expectedRecord,
                         AWSRegion: Config.AWSRegion,
-                        Retries: 60,
+                        Retries: 90,
                         RetryDuration: 10000,
                         WriteToFile: true,
                         WritePath: OutputWritePath + '/DynamoDBRecords/WochitMappingRecord' + i + '.json',

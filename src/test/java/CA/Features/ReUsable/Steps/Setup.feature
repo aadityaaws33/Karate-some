@@ -54,12 +54,18 @@ Scenario: Setup - Global Generic Variables & Methods
                     karate.abort();
                 }
 
-                // CUSTOM ACTION DATA
-                IconikMetadata.IconikCustomActionID = customActionData.response.id;
-                IconikMetadata.IconikCustomActionMetadataView = customActionData.response.metadata_view;
-                IconikMetadata.IconikCustomActionHTTPMethod = customActionData.response.type;
-                IconikMetadata.IconikCustomActionContext = customActionData.response.context;
-                IconikMetadata.IconikCustomActionURL = customActionData.response.url;
+                try {
+                    // CUSTOM ACTION DATA
+                    IconikMetadata.IconikCustomActionID = customActionData.response.id;
+                    IconikMetadata.IconikCustomActionMetadataView = customActionData.response.metadata_view;
+                    IconikMetadata.IconikCustomActionHTTPMethod = customActionData.response.type;
+                    IconikMetadata.IconikCustomActionContext = customActionData.response.context;
+                    IconikMetadata.IconikCustomActionURL = customActionData.response.url;
+                } catch(e) {
+                    karate.fail('[FAILED] Setup - Get Custom Action Data: NULL value in IconikMetadata - ' + e);
+                    karate.log(karate.pretty(customActionData.response));
+                    karate.abort();
+                }
 
                 for(var i in IconikMetadata) {
                     if(IconikMetadata[i] == null) {

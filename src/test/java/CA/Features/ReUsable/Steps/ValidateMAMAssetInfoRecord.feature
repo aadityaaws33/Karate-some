@@ -37,7 +37,7 @@ Scenario: Main
                 Param_GlobalSecondaryIndex: '',
                 Param_ExpectedResponse: #(ExpectedMAMAssetRecord),
                 AWSRegion: #(thisTCMetadata.Config.AWSRegion),
-                Retries: 60,
+                Retries: 90,
                 RetryDuration: 10000,
                 WriteToFile: true,
                 WritePath: #(OutputWritePath + '/DynamoDBRecords/MAMAssetInfoRecord.json'),

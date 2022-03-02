@@ -1,7 +1,7 @@
-@Regression
+@Regression @MegogoBG
 Feature: Netherlands Phase 2 Non-Partner Rendition
 
-Scenario Outline: Netherlands Phase 2 Non-partner Testing for <DURATION>s Video
+Scenario Outline: Netherlands Phase 2 Partner MEGOGO BG Testing for <DURATION>s Video
     * def TCMetadata = 
         """
             {
@@ -22,15 +22,20 @@ Scenario Outline: Netherlands Phase 2 Non-partner Testing for <DURATION>s Video
                     SomeCTA: 'binnenkort',
                     CustomStrapOutroCTA: 'TEST AUTOMATION SHOW STRAP OUTRO',
                     LegalText: 'Legal Text',
-                    TemplateID: '619db0a529f511256af70cbc',
+                    TemplateID: {
+                        qa: '619db0a529f511256af70cbc',
+                        prod: '61a4743029f511256af717f9',
+                    },
                     Partner: 'MegogoBG'
                 },
                 IconikMetadata: {
                     IconikCustomActionTitle: {
-                        qa: 'QA - SoMe - NL Megogo BG Trigger'
+                        qa: 'QA - SoMe - NL Megogo BG Trigger',
+                        prod: 'Ingest Model Megogo BG trigger'
                     },
                     IconikMetadataViewName: {
-                        qa: 'NL Phase 2 Partner Metadata - Megogo'
+                        qa: 'NL Phase 2 Partner Metadata - Megogo',
+                        prod: 'NL Phase 2 Partner Metadata - Megogo'
                     },
                     IconikMediaType: 'Film',
                     IconikCollectionName: 'SOME QA AUTOMATION',
@@ -63,7 +68,7 @@ Scenario Outline: Netherlands Phase 2 Non-partner Testing for <DURATION>s Video
     * karate.call(ReUsableFeaturesPath + '/Steps/ValidateWochitMappingRecords.feature', { thisOutputWritePath: OutputWritePath, thisOutputReadPath: OutputReadPath })
 
     Examples:
-        | WAIT TIME | DURATION | ICONIK SOURCE ASSET NAME | ICONIK ASPECT RATIOS |
-        | 30000     | 15       | MEGOGOBG_SOME_FILM       | 16x9                 |
-        | 40000     | 25       | MEGOGOBG_SOME_FILM       | 1x1                  |
-        | 50000     | 30       | MEGOGOBG_SOME_FILM       | 9x16                 |
+        | WAIT TIME | ICONIK SOURCE ASSET NAME | DURATION |ICONIK ASPECT RATIOS |
+        | 5000      | MEGOGOBG_SOME_FILM       | 15       |16x9                 |
+        | 5000      | MEGOGOBG_SOME_FILM       | 25       |1x1                  |
+        | 5000      | MEGOGOBG_SOME_FILM       | 30       |9x16                 |

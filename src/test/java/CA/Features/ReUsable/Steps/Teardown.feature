@@ -24,7 +24,7 @@ Scenario: Delete MAM Asset Info Records
             {
                 Param_TableName: #(WochitRenditionTableConfig.TableName),
                 Param_DeleteItemAttributeList: [],
-                Retries: 60,
+                Retries: 90,
                 RetryDuration: 1000,
                 AWSRegion: #(AWRegion)
             }
@@ -55,7 +55,7 @@ Scenario: Delete MAM Asset Info Records
             {
                 Param_TableName: #(WochitMappingTableConfig.TableName),
                 Param_DeleteItemAttributeList: [],
-                Retries: 60,
+                Retries: 90,
                 RetryDuration: 1000,
                 AWSRegion: #(AWRegion)
             }
@@ -99,7 +99,7 @@ Scenario: Delete MAM Asset Info Records
                         attributeType: 'key'
                     },
                 ],
-                Retries: 60,
+                Retries: 90,
                 RetryDuration: 1000,
                 AWSRegion: #(AWRegion)
             }
