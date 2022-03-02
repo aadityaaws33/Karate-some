@@ -35,12 +35,6 @@
         "UserId": {
             "QA_AUTOMATION_USER": "QA_AUTOMATION_USER",
             "rohan_mundkur@discovery.com": "db01ddf8-1d57-11ea-9366-0a580a3f8f79"
-        },
-        "Triggers": {
-            "Netherlands" : {
-                "NonPartnerTriggerName": "QA - SoMe - NL Trigger",
-                "NonPartnerMetadataViewName": "NL Phase 2 SoMe Metadata"
-            }
         }
     }
 }

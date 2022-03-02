@@ -7,7 +7,7 @@ Background:
 @ValidateMAMAssetInfoRecord
 Scenario: Main
     # SEARCH AND VALIDATE MAM ASSET INFO RECORD
-    * def ExpectedMAMAssetRecord = karate.read(ResourcesPath + '/E2ECases/' + thisTCMetadata.InputMetadata.Country +  '/Expected/MAMAssetInfoRecord.json')
+    * def ExpectedMAMAssetRecord = karate.read(ResourcesPath + '/E2ECases/' + thisTCMetadata.InputMetadata.Market +  '/Expected/MAMAssetInfoRecord.json')
     * karate.log(ExpectedMAMAssetRecord)
     * karate.write(karate.pretty(ExpectedMAMAssetRecord), OutputWritePath + '/DynamoDBRecords/MAMAssetInfoRecord-Expected.json')
     * def ValidateItemViaQueryParams =
@@ -23,7 +23,7 @@ Scenario: Main
                     },
                     {
                         attributeName: 'createdAt',
-                        attributeValue: '#(ExpectedDate)',
+                        attributeValue: '#(thisTCMetadata.Expected.Date)',
                         attributeComparator: '>=',
                         attributeType: 'filter'
                     },
@@ -37,7 +37,7 @@ Scenario: Main
                 Param_GlobalSecondaryIndex: '',
                 Param_ExpectedResponse: #(ExpectedMAMAssetRecord),
                 AWSRegion: #(thisTCMetadata.Config.AWSRegion),
-                Retries: 120,
+                Retries: 60,
                 RetryDuration: 10000,
                 WriteToFile: true,
                 WritePath: #(OutputWritePath + '/DynamoDBRecords/MAMAssetInfoRecord.json'),
@@ -48,4 +48,4 @@ Scenario: Main
     * def validationResult = karate.call(ReUsableFeaturesPath + '/StepDefs/DynamoDB.feature@ValidateItemViaQuery',  ValidateItemViaQueryParams).result
     * thisTCMetadata.Expected.MAMAssetID = thisTCMetadata.IconikMetadata.IconikAssetId
     * updateThisTCMetadata(thisTCMetadata)
-    * validationResult.pass == true? karate.log('[PASSED] MAM Asset Info Record Validation - ' + thisTCMetadata.TCName) : karate.fail('[FAILED] MAM Asset Info Record Validation - ' + thisTCMetadata.TCName + ': ' + karate.pretty(validateItemViaQueryResponse.message))
+    * validationResult.pass == true? karate.log('[PASSED] MAM Asset Info Record Validation - ' + thisTCMetadata.TCName) : karate.fail('[FAILED] MAM Asset Info Record Validation - ' + thisTCMetadata.TCName + ': ' + karate.pretty(validationResult.message))

@@ -71,13 +71,26 @@ Scenario: Get All Rendition Filenames
                     karate.fail('CONFIGURATION ERROR: VIDEOS WITH LESS THAN 10s DURATION CAN ONLY HAVE NO STRAP!');
                 }
                 
-                var renditionFileNamesStraps = combineToRenditionFileName(straps, renditionFileNames, 'bar');
+                // ALL STRAPS THAT ARE NOT 'No Strap'
+                var renditionFileNamesStraps = [];
 
-                if(hasNoStrap) {
-                    var renditionFileNames = combineToRenditionFileName(['No Strap'], renditionFileNames, 'name+bar');
+                if(InputMetadata.Partner != 'NONE') {
+                    renditionFileNamesStraps = combineToRenditionFileName([InputMetadata.Partner], renditionFileNames)
                 }
-                renditionFileNames = renditionFileNames.concat(renditionFileNamesStraps);
+                
+                renditionFileNamesStraps = combineToRenditionFileName(straps, renditionFileNamesStraps, 'bar');
 
+                // 'No Strap'
+                if(hasNoStrap) {
+                    renditionFileNames = combineToRenditionFileName(['No Strap'], renditionFileNames);
+                    if(InputMetadata.Partner != 'NONE') {
+                        renditionFileNames = combineToRenditionFileName([InputMetadata.Partner], renditionFileNames);
+                    }
+                    renditionFileNames = combineToRenditionFileName(['No Strap'], renditionFileNames, 'bar');
+                }
+  
+                renditionFileNames = renditionFileNames.concat(renditionFileNamesStraps);
+                
                 if('ColourSchemes' in InputMetadata) {
                     var colourSchemes = splitAttributeEntries(InputMetadata.ColourSchemes);
                     renditionFileNames = combineToRenditionFileName(colourSchemes, renditionFileNames, 'bar');

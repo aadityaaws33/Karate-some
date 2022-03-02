@@ -300,17 +300,18 @@ Scenario: Build Iconik Rendition Request
             function(TCMetadata) {
                 var IconikRenditionRequest = karate.read(ResourcesPath + TCMetadata.IconikMetadata.IconikRenditionRequestResourcePath);
                 var countryCode = {
-                    Netherlands: 'nl',
-                    Norway: 'no',
-                    Sweden: 'se',
-                    Denmark: 'dk'
+                    'Netherlands': 'nl',
+                    'Norway': 'no',
+                    'Sweden': 'se',
+                    'Denmark': 'dk',
+                    'EMEA PayTv': 'nl'
                 }
 
                 IconikRenditionRequest.metadata_values['dplus-some-AspectRatio'].field_values = buildAspectRatioFieldValues(TCMetadata.InputMetadata.IconikAspectRatios);
                 IconikRenditionRequest.metadata_values['dplus-some-ColourScheme'].field_values = buildColourSchemeFieldValues(TCMetadata.InputMetadata.ColourSchemes);
                 IconikRenditionRequest.metadata_values['dplus-some-StrapType'].field_values = buildStrapTypeFieldValues(TCMetadata.InputMetadata.StrapTypes);
                 IconikRenditionRequest.metadata_values['dplus-some-TitleCardType'].field_values = buildTitleCardTypeFieldValues(TCMetadata.InputMetadata.TitleCardTypes);
-                IconikRenditionRequest.metadata_values[countryCode[TCMetadata.InputMetadata.Country] + '-dplus-some-CTA'].field_values = buildSomeCTAFieldValues(TCMetadata.InputMetadata.SomeCTA);
+                IconikRenditionRequest.metadata_values[countryCode[TCMetadata.InputMetadata.Market] + '-dplus-some-CTA'].field_values = buildSomeCTAFieldValues(TCMetadata.InputMetadata.SomeCTA);
 
 
                 return IconikRenditionRequest
@@ -320,12 +321,6 @@ Scenario: Build Iconik Rendition Request
 
 @TriggerRendition
 Scenario: Trigger Rendition
-    * def result =
-        """
-            {
-
-            }
-        """
     * def TriggerRenditionParams =
         """
         {

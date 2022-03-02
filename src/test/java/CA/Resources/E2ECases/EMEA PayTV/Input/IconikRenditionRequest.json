@@ -1,0 +1,78 @@
+{
+	"user_id": "#(TCMetadata.Config.IconikConfig.UserId[TCMetadata.Config.IconikConfig.TestUser])",
+	"context": "#(TCMetadata.IconikMetadata.IconikCustomActionContext)",
+	"action_id": "#(TCMetadata.IconikMetadata.IconikCustomActionID)",
+	"saved_search_ids": [],
+	"metadata_view_id": "#(TCMetadata.IconikMetadata.IconikCustomActionMetadataView)",
+	"collection_ids": [],
+	"asset_ids": [
+		"#(TCMetadata.IconikMetadata.IconikAssetId)"
+	],
+	"metadata_values": {
+		"dplus-some-AspectRatio": {
+			"field_values": []
+		},
+		"dplus-some-ColourScheme": {
+			"field_values": []
+		},
+		"dplus-some-StrapType": {
+			"field_values": []
+		},
+		"dplus-some-StrapInTime": {
+			"field_values": [
+				{
+					"value": "#(TCMetadata.InputMetadata.StrapInTime)"
+				}
+			]
+		},
+		"dplus-some-StrapOutTime": {
+			"field_values": [
+				{
+					"value": "#(TCMetadata.InputMetadata.StrapOutTime)"
+				}
+			]
+		},
+		"dplus-some-TitleCardType": {
+			"field_values": []
+		},
+		"dplus-some-CustomTitle": {
+			"field_values": [
+				{
+					"value": "#(TCMetadata.InputMetadata.CustomTitle)"
+				}
+			]
+		},
+		"dplus-some-Original": {
+			"field_values": [
+				{
+					"value": "#(TCMetadata.InputMetadata.Original)"
+				}
+			]
+		},
+		"dplus-some-PromotionalLine": {
+			"field_values": [
+				{
+					"value": "#(TCMetadata.InputMetadata.PromotionalLine)"
+				}
+			]
+		},
+		"nl-dplus-some-CTA": {
+			"field_values": []
+		},
+		"dplus-some-CustomCTA": {
+			"field_values": [
+				{
+					"value": "#(TCMetadata.InputMetadata.CustomStrapOutroCTA)"
+				}
+			]
+		},
+		"dplus-some-LegalText": {
+			"field_values": [
+				{
+					"value": "#(TCMetadata.InputMetadata.LegalText)"
+				}
+			]
+		}
+	},
+	"auth_token": "#(TCMetadata.Config.IconikConfig.IconikAuthenticationData.AuthToken)"
+}

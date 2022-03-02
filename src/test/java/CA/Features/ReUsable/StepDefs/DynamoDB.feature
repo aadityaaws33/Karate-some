@@ -180,7 +180,7 @@ Scenario: Validate DynamoDB Item via Query
       );
 
       if(queryResp.length < 1)  {
-        karate.log('[' + TCName + '] No results found for ' + karate.pretty(Param_QueryAttributeList));
+        karate.log('[' + TCName + '] No results found for ' + Param_TableName + ' - ' + karate.pretty(Param_QueryAttributeList));
         //karate.log('No results found for ' + Param_QueryAttributeList);
         return queryResp;
       }

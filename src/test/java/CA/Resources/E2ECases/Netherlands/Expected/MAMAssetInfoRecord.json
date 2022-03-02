@@ -1,7 +1,7 @@
 {
     "templateType": "SO_ME",
     "marketMetadata": {
-        "objectName": "#(TCMetadata.InputMetadata.Country)",
+        "objectName": "#(TCMetadata.InputMetadata.Market)",
         "objectId": "#notnull",
         "objectType": "collections"
     },
@@ -38,14 +38,14 @@
             "dplus-some-TitleCardType": "#(TCMetadata.InputMetadata.TitleCardTypes)",
             "nl-dplus-some-CTA": "#(TCMetadata.InputMetadata.SomeCTA != null?TCMetadata.InputMetadata.SomeCTA: '#null')"
         },
-        "name": "#(TCMetadata.IconikMetadata.IconikMetadataViewName)",
+        "name": "#(TCMetadata.IconikMetadata.IconikMetadataViewName[TargetEnv])",
         "objectName": "#(TCMetadata.IconikMetadata.IconikSourceAssetName)",
         "ID": "#(TCMetadata.IconikMetadata.IconikCustomActionMetadataView)",
         "objectId": "#(TCMetadata.IconikMetadata.IconikAssetId)",
         "objectType": "assets"
     },
     "assetType": "#(TCMetadata.IconikMetadata.IconikAssetType)",
-    "market": "#(TCMetadata.InputMetadata.Country.toUpperCase())",
+    "market": "#(TCMetadata.InputMetadata.Market.toUpperCase())",
     "createdAt": "#notnull",
     "onlyNoTagRequired": 0,
     "mediaAssetCollectionId": "#notnull",

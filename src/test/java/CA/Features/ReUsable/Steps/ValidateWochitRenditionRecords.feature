@@ -30,17 +30,15 @@ Scenario: Validate Wochit Rendition Records
                     // ASPECT_16_9-
                     // Generic Text On Background
                     // -CTA
+                    // -No Strap [not always]
                     // -MegogoBG
                     // -edfbb.mp4
                     var titleSplit = dataSplit[0].split('-');
                     var thisTitleCardType = titleSplit[2];
                     var thisCTA = titleSplit[3];
 
-                    var thisPartner = null
-                    if(titleSplit.length > 4) {
-                        thisPartner = titleSplit[4];
-                    }
-
+                    var thisPartner = InputMetadata.Partner;
+                    
                     var thisOriginalLine = 'off';
                     if(InputMetadata.Original == 'true') {
                         thisOriginalLine = 'on';
@@ -53,21 +51,30 @@ Scenario: Validate Wochit Rendition Records
 
                     var thisOutroType = 'No Endboard';
                     if(thisTitleCardType != 'No Endboard') {
-                        if(InputMetadata.SomeCTA == null && InputMetadata.CustomStrapOutroCTA == null) {
-                            thisOutroType = 'SHo Standard No CTA';
-                        } else if(InputMetadata.SomeCTA != null || InputMetadata.CustomStrapOutroCTA != null) {
-                            thisOutroType = 'SHo Standard'
+                        if(thisPartner == 'NONE' || thisPartner == null) {
+                            if(InputMetadata.SomeCTA == null && InputMetadata.CustomStrapOutroCTA == null) {
+                                thisOutroType = 'SHo Standard No CTA';
+                            } else if(InputMetadata.SomeCTA != null || InputMetadata.CustomStrapOutroCTA != null) {
+                                thisOutroType = 'SHo Standard'
+                            }
+                        } else {
+                            if(InputMetadata.SomeCTA == null && InputMetadata.CustomStrapOutroCTA == null) {
+                                thisOutroType = 'SHo Ingest Model No CTA';
+                            } else if(InputMetadata.SomeCTA != null || InputMetadata.CustomStrapOutroCTA != null) {
+                                thisOutroType = 'SHo Ingest Model'
+                            }
                         }
                     }
 
                     var GenreTrainTexts = {
-                        Finland: 'Dokumentit + Urheilu + Reality + Rikos + Moottorit',
-                        Norway: 'Sport + Dokumentarer + Humor + Reality + Krim',
-                        Sweden: 'Dokumentärer + Reality + Sport + Humor + Crime',
-                        Denmark: 'Dokumentarer + Serier + Sport + Reality + Krimi',
-                        Netherlands: 'Documentaries + Reality + Sport + Love + True Crime'
+                        'Finland': 'Dokumentit + Urheilu + Reality + Rikos + Moottorit',
+                        'Norway': 'Sport + Dokumentarer + Humor + Reality + Krim',
+                        'Sweden': 'Dokumentärer + Reality + Sport + Humor + Crime',
+                        'Denmark': 'Dokumentarer + Serier + Sport + Reality + Krimi',
+                        'Netherlands': 'Documentaries + Reality + Sport + Love + True Crime',
+                        'EMEA PayTv': 'Documentaries + Reality + Sport + Love + True Crime'
                     }
-                    var thisGenreTrainText = GenreTrainTexts[InputMetadata.Country];
+                    var thisGenreTrainText = GenreTrainTexts[InputMetadata.Market];
 
                     var thisBackgroundColour = dataSplit[2];
                     
@@ -82,7 +89,7 @@ Scenario: Validate Wochit Rendition Records
                     }
 
                     var thisAffiliateLogo = ' ';
-                    if(thisPartner != null) {
+                    if(thisPartner != 'NONE') {
                         thisAffiliateLogo = '#notnull';
                     }
 
@@ -176,7 +183,7 @@ Scenario: Validate Wochit Rendition Records
                         Param_GlobalSecondaryIndex: Config.DynamoDBConfig.WochitRendition.GSI,
                         Param_ExpectedResponse: expectedRecord,
                         AWSRegion: Config.AWSRegion,
-                        Retries: 120,
+                        Retries: 60,
                         RetryDuration: 10000,
                         WriteToFile: true,
                         WritePath: OutputWritePath + '/DynamoDBRecords/WochitRenditionRecord' + i + '.json',
@@ -232,7 +239,7 @@ Scenario: Validate Wochit Rendition Records
                 return result
             }
         """
-    * def validationResult = validateWochitRenditionRecords(ExpectedWochitRenditionRecords, thisTCMetadata.Config, ExpectedDate)
+    * def validationResult = validateWochitRenditionRecords(ExpectedWochitRenditionRecords, thisTCMetadata.Config, thisTCMetadata.Expected.Date)
     * validationResult.pass == true? karate.log('[PASSED] Wochit Rendition Records Validation - ' + thisTCMetadata.TCName) : karate.fail('[FAILED] Wochit Rendition Results - ' + thisTCMetadata.TCName + ': ' + karate.pretty(validationResult))
 
 @LoadExpectedRecord
@@ -240,7 +247,7 @@ Scenario: Load Expected Records - Replace all variables in JSON automatically
     * def loadExpectedRecord =
         """
             function() {
-                var thisExpectedRecord = karate.read(ResourcesPath + '/E2ECases/' + thisTCMetadata.InputMetadata.Country + '/Expected/WochitRenditionRecord.json');
+                var thisExpectedRecord = karate.read(ResourcesPath + '/E2ECases/' + thisTCMetadata.InputMetadata.Market + '/Expected/WochitRenditionRecord.json');
                 try {
                     karate.log('Wochit Response Detected.');
                     thisExpectedRecord.wochitResponse = WochitResponse;

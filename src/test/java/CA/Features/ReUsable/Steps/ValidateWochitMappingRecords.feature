@@ -15,11 +15,11 @@ Scenario: Wochit Mapping Record Validation
 
                     var thisRenditionFileName = ExpectedRenditionFileNames[i] + '.mp4';
                     
-                    var thisSeasonCollectionID = '#notnull';
-                    var thisSeriesName = '#null';
+                    var thisSeasonCollectionID = '#null';
+                    var thisSeriesName = '#notnull';
                     if(thisRenditionFileName.toLowerCase().contains('show')) {
                         thisSeasonCollectionID = '#notnull';
-                        thisSeriesName = '#notnull';
+                        
                     }
 
                     var thisUsername = Config.DynamoDBConfig.Username[Config.IconikConfig.TestUser];
@@ -32,7 +32,7 @@ Scenario: Wochit Mapping Record Validation
                         thisIsRenditionMoved = 'false';
                     }
 
-                    var thisMarket = InputMetadata.Country.toUpperCase();
+                    var thisMarket = InputMetadata.Market.toUpperCase();
                     var thisMAMAssetInfoReferenceID = IconikMetadata.IconikAssetId;
 
                     var thisPartner = InputMetadata.Partner;
@@ -52,6 +52,9 @@ Scenario: Wochit Mapping Record Validation
                     }
                     var thisExpectedRecord = karate.call(thisFile + '@LoadExpectedRecord', thisExpectedRecordParams).result;
                     
+                    if(!thisRenditionFileName.toLowerCase().contains('show')) {
+                        delete thisExpectedRecord['seasonCollectionId'];
+                    }
                     var thisRecord = {
                         Identifier: thisRenditionFileName,
                         Expected: thisExpectedRecord
@@ -103,7 +106,7 @@ Scenario: Wochit Mapping Record Validation
                         Param_GlobalSecondaryIndex: Config.DynamoDBConfig.WochitMapping.GSI,
                         Param_ExpectedResponse: expectedRecord,
                         AWSRegion: Config.AWSRegion,
-                        Retries: 120,
+                        Retries: 60,
                         RetryDuration: 10000,
                         WriteToFile: true,
                         WritePath: OutputWritePath + '/DynamoDBRecords/WochitMappingRecord' + i + '.json',
@@ -138,7 +141,7 @@ Scenario: Wochit Mapping Record Validation
                 return result;
             }
         """
-    * def validationResult = validateWochitMappingRecords(ExpectedWochitMappingRecords, thisTCMetadata.Config, thisTCMetadata.IconikMetadata, ExpectedDate, thisTCMetadata.TCName)
+    * def validationResult = validateWochitMappingRecords(ExpectedWochitMappingRecords, thisTCMetadata.Config, thisTCMetadata.IconikMetadata, thisTCMetadata.Expected.Date, thisTCMetadata.TCName)
     * validationResult.pass == true? karate.log('[PASSED] Wochit Mapping Records Validation - ' + thisTCMetadata.TCName) : karate.fail('[FAILED] Wochit Mapping Records Validation - ' + thisTCMetadata.TCName + ': ' + karate.pretty(validationResult))
 
 @LoadExpectedRecord
@@ -146,7 +149,7 @@ Scenario: Load Expected Records - Replace all variables in JSON automatically
     * def loadExpectedRecord =
         """
             function(thisTCMetadata) {
-                var thisExpectedRecord = karate.read(ResourcesPath + '/E2ECases/' + thisTCMetadata.InputMetadata.Country + '/Expected/WochitMappingRecord.json');
+                var thisExpectedRecord = karate.read(ResourcesPath + '/E2ECases/' + thisTCMetadata.InputMetadata.Market + '/Expected/WochitMappingRecord.json');
 
                 return thisExpectedRecord
             }

@@ -5,12 +5,12 @@ Scenario Outline: Netherlands Phase 2 Non-partner Testing for <DURATION>s Video
     * def TCMetadata = 
         """
             {
-                TCName: 'Netherlands_Phase2_NonPartner_<DURATION>s',
+                TCName: 'EMEAPayTv_MegogoBG_Phase2_<DURATION>s',
                 InputMetadata: {
-                    Market: 'Netherlands',
+                    Market: 'EMEA PayTv',
                     Phase: 2,
                     Type: 'Show',
-                    IconikAspectRatios: '<ICONIK ASPECT RATIOS>',
+                    IconikAspectRatios: <ICONIK ASPECT RATIOS>,
                     ColourSchemes: 'DARK BLUE|TURQUOISE',
                     StrapTypes: 'Standard Logo, CTA & Title|No Strap',
                     StrapInTime: '1',
@@ -22,21 +22,21 @@ Scenario Outline: Netherlands Phase 2 Non-partner Testing for <DURATION>s Video
                     SomeCTA: 'binnenkort',
                     CustomStrapOutroCTA: 'TEST AUTOMATION SHOW STRAP OUTRO',
                     LegalText: 'Legal Text',
-                    TemplateID: '619dcc43a4c6857058c001a1',
-                    Partner: 'NONE'
+                    TemplateID: '619db0a529f511256af70cbc',
+                    Partner: 'MegogoBG'
                 },
                 IconikMetadata: {
                     IconikCustomActionTitle: {
-                        qa: 'QA - SoMe - NL Trigger'
+                        qa: 'QA - SoMe - NL Megogo BG Trigger'
                     },
                     IconikMetadataViewName: {
-                        qa: 'NL Phase 2 SoMe Metadata'
+                        qa: 'NL Phase 2 Partner Metadata - Megogo'
                     },
-                    IconikMediaType: 'Show',
+                    IconikMediaType: 'Film',
                     IconikCollectionName: 'SOME QA AUTOMATION',
                     IconikSourceAssetName: #('<ICONIK SOURCE ASSET NAME>' + '_' + TargetEnv.toUpperCase() + '_' + '<DURATION>' + '.mp4'),
                     IconikAssetType: 'VIDEO',
-                    IconikRenditionRequestResourcePath: '/E2ECases/Netherlands/Input/IconikRenditionRequest.json'
+                    IconikRenditionRequestResourcePath: '/E2ECases/EMEA PayTv/Input/IconikRenditionRequest.json'
                 }
             }
         """
@@ -45,8 +45,8 @@ Scenario Outline: Netherlands Phase 2 Non-partner Testing for <DURATION>s Video
         """
             {
                 GenerateRandomString: true,
-                RandomString: '1645525424634',
-                ExpectedDate: '2022-02-22',
+                RandomString: '1646125393211',
+                ExpectedDate: '2022-03-01',
                 WaitTime: <WAIT TIME>
             }
         """
@@ -63,7 +63,7 @@ Scenario Outline: Netherlands Phase 2 Non-partner Testing for <DURATION>s Video
     * karate.call(ReUsableFeaturesPath + '/Steps/ValidateWochitMappingRecords.feature', { thisOutputWritePath: OutputWritePath, thisOutputReadPath: OutputReadPath })
 
     Examples:
-        |DURATION| ICONIK SOURCE ASSET NAME | ICONIK ASPECT RATIOS | WAIT TIME |
-        | 15     | NL_SOME_SHOW_AUTOMATION  | 16x9                 | 0         |
-        | 25     | NL_SOME_SHOW_AUTOMATION  | 1x1                  | 10000     |
-        | 30     | NL_SOME_SHOW_AUTOMATION  | 9x16                 | 20000     |
+        | WAIT TIME | DURATION | ICONIK SOURCE ASSET NAME | ICONIK ASPECT RATIOS |
+        | 30000     | 15       | MEGOGOBG_SOME_FILM       | 16x9                 |
+        | 40000     | 25       | MEGOGOBG_SOME_FILM       | 1x1                  |
+        | 50000     | 30       | MEGOGOBG_SOME_FILM       | 9x16                 |

@@ -4,6 +4,7 @@ Feature: Test Setup
 Scenario: Setup - Global Generic Variables & Methods
     # ---- Functions ----
     * def Pause = function(pause){ karate.log('Pausing for ' + pause + 'ms.'); java.lang.Thread.sleep(pause) }
+    * Pause(WaitTime)
     * def updateThisTCMetadata =
         """
             function(TCMetadata) {
@@ -45,19 +46,27 @@ Scenario: Setup - Global Generic Variables & Methods
                     URL: IconikConfig.URL.CustomActionsAPI,
                     IconikAuthToken: iconikAuthToken,
                     IconikAppID: iconikAppID,
-                    CustomActionTitle: IconikMetadata.IconikCustomActionTitle
+                    CustomActionTitle: IconikMetadata.IconikCustomActionTitle[TargetEnv]
                 } 
                 var customActionData = karate.call(ReUsableFeaturesPath + '/StepDefs/Iconik.feature@GetCustomActionData', GetCustomActionDataParams).result
                 if(customActionData.pass == false) {
                     karate.fail('[FAILED] Setup - Get Custom Action Data: ' + karate.pretty(customActionData.message))
+                    karate.abort();
                 }
 
                 // CUSTOM ACTION DATA
+                IconikMetadata.IconikCustomActionID = customActionData.response.id;
                 IconikMetadata.IconikCustomActionMetadataView = customActionData.response.metadata_view;
                 IconikMetadata.IconikCustomActionHTTPMethod = customActionData.response.type;
                 IconikMetadata.IconikCustomActionContext = customActionData.response.context;
                 IconikMetadata.IconikCustomActionURL = customActionData.response.url;
 
+                for(var i in IconikMetadata) {
+                    if(IconikMetadata[i] == null) {
+                        karate.fail('[FAILED] Setup - Get Custom Action Data: NULL value in IconikMetadata - ' + karate.pretty(IconikMetadata));
+                        karate.abort();
+                    }
+                }
                 karate.log('[PASSED] Setup - Get Custom Action Data');
 
                 // ASSET DATA
@@ -69,7 +78,8 @@ Scenario: Setup - Global Generic Variables & Methods
                 }
                 var searchForAssetData = karate.call(ReUsableFeaturesPath + '/StepDefs/Iconik.feature@SearchForAssetData', SearchForAssetDataParams).result
                 if(searchForAssetData.pass == false) {
-                    karate.fail('[FAILED] Setup - Search for Asset Data: ' + karate.pretty(searchForAssetData.message))
+                    karate.fail('[FAILED] Setup - Search for Asset Data: ' + karate.pretty(searchForAssetData.message));
+                    karate.abort();
                 }
                 karate.log('[PASSED] Setup - Search for Asset Data');
 
