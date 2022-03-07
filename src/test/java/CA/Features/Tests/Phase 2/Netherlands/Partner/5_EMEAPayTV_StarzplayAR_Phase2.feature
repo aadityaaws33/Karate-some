@@ -1,47 +1,47 @@
-@Regression @NLNonPartner
+@Regression @StarzplayAR
 Feature: Netherlands Phase 2 Non-Partner Rendition
 # TOTAL: 48 Renditions
-Scenario Outline: Netherlands Phase 2 Non-partner Testing for <DURATION>s Video
+Scenario Outline: Netherlands Phase 2 Partner STARZPLAY AR Testing for <DURATION>s Video
     * def TCMetadata = 
         """
             {
-                TCName: 'Netherlands_Phase2_NonPartner_<DURATION>s',
+                TCName: 'EMEAPayTv_StarzplayAR_Phase2_<DURATION>s',
                 InputMetadata: {
-                    Market: 'Netherlands',
+                    Market: 'EMEA PayTv',
                     Phase: 2,
                     Type: 'Show',
-                    IconikAspectRatios: '<ICONIK ASPECT RATIOS>',
+                    IconikAspectRatios: <ICONIK ASPECT RATIOS>,
                     ColourSchemes: 'DARK BLUE',
-                    StrapTypes: 'Standard Logo, CTA & Title|No Strap',
+                    StrapTypes: 'Standard Logo, CTA & Title',
                     StrapInTime: '1',
                     StrapOutTime: '9',
                     TitleCardTypes: 'Generic Text On Background|Title Art Over Key Art',
                     CustomTitle: 'Test_Automation_Netherlands_P2_NonPartner',
                     Original: 'true',
                     PromotionalLine: 'Promo Line',
-                    SomeCTA: 'binnenkort',
+                    SomeCTA: 'STARZPLAY SOME CTA',
                     CustomStrapOutroCTA: 'TEST AUTOMATION SHOW STRAP OUTRO',
                     LegalText: 'Legal Text',
                     TemplateID: {
-                        qa: '619dcc43a4c6857058c001a1',
-                        prod: '619de7d2a4c6857058c001ba'
+                        qa: '619dba528290d6283ecc372a',
+                        prod: '61a474ca8290d6283ecc41e5',
                     },
-                    Partner: 'NONE'
+                    Partner: 'StarzplayAR'
                 },
                 IconikMetadata: {
                     IconikCustomActionTitle: {
-                        qa: 'QA - SoMe - NL Trigger',
-                        prod: 'NL SoMe Trigger'
+                        qa: 'QA - SoMe - NL Starzplay AR Trigger',
+                        prod: 'Ingest Model Starzplay AR trigger'
                     },
                     IconikMetadataViewName: {
-                        qa: 'NL Phase 2 SoMe Metadata',
-                        prod: 'NL Phase 2 SoMe Metadata'
+                        qa: 'NL Phase 2 Partner Metadata - Starzplay AR',
+                        prod: 'NL Phase 2 Partner Metadata - Starzplay AR'
                     },
-                    IconikMediaType: 'Show',
+                    IconikMediaType: 'Film',
                     IconikCollectionName: 'SOME QA AUTOMATION',
                     IconikSourceAssetName: #('<ICONIK SOURCE ASSET NAME>' + '_' + TargetEnv.toUpperCase() + '_' + '<DURATION>' + '.mp4'),
                     IconikAssetType: 'VIDEO',
-                    IconikRenditionRequestResourcePath: '/E2ECases/Netherlands/Input/IconikRenditionRequest.json'
+                    IconikRenditionRequestResourcePath: '/E2ECases/EMEA PayTv/Input/IconikRenditionRequest.json'
                 }
             }
         """
@@ -50,8 +50,8 @@ Scenario Outline: Netherlands Phase 2 Non-partner Testing for <DURATION>s Video
         """
             {
                 GenerateRandomString: true,
-                RandomString: '1648009605267',
-                ExpectedDate: '2022-03-23',
+                RandomString: '1648446956578',
+                ExpectedDate: '2022-03-28',
                 WaitTime: <WAIT TIME>
             }
         """
@@ -68,7 +68,7 @@ Scenario Outline: Netherlands Phase 2 Non-partner Testing for <DURATION>s Video
     * karate.call(ReUsableFeaturesPath + '/Steps/ValidateWochitMappingRecords.feature', { thisOutputWritePath: OutputWritePath, thisOutputReadPath: OutputReadPath })
 
     Examples:
-        | WAIT TIME | ICONIK SOURCE ASSET NAME | DURATION | ICONIK ASPECT RATIOS | 
-        | 0         | NL_SOME_SHOW_AUTOMATION  |  15      | 16x9                 | 
-        | 0         | NL_SOME_SHOW_AUTOMATION  |  25      | 1x1                  | 
-        | 0         | NL_SOME_SHOW_AUTOMATION  |  30      | 9x16                 | 
+        | WAIT TIME | ICONIK SOURCE ASSET NAME | DURATION |  ICONIK ASPECT RATIOS |
+        | 20000     | STARZPLAYAR_SOME_FILM        |  15       | 16x9                 |
+        | 20000     | STARZPLAYAR_SOME_FILM        |  25       | 1x1                  |
+        | 20000     | STARZPLAYAR_SOME_FILM        |  30       | 9x16                 |

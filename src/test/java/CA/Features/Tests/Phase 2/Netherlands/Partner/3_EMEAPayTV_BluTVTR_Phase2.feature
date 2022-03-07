@@ -1,6 +1,6 @@
 @Regression @BluTVTR
 Feature: Netherlands Phase 2 Non-Partner Rendition
-
+# TOTAL: 48 Renditions
 Scenario Outline: Netherlands Phase 2 Partner BLUTV TR Testing for <DURATION>s Video
     * def TCMetadata = 
         """
@@ -11,7 +11,7 @@ Scenario Outline: Netherlands Phase 2 Partner BLUTV TR Testing for <DURATION>s V
                     Phase: 2,
                     Type: 'Show',
                     IconikAspectRatios: <ICONIK ASPECT RATIOS>,
-                    ColourSchemes: 'DARK BLUE|TURQUOISE',
+                    ColourSchemes: 'DARK BLUE',
                     StrapTypes: 'Standard Logo, CTA & Title|No Strap',
                     StrapInTime: '1',
                     StrapOutTime: '9',

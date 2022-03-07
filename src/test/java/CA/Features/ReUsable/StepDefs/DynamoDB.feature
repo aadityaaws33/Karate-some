@@ -172,7 +172,6 @@ Scenario: Validate DynamoDB Item via Query
         );
       }
 
-
       var queryResp = dynamoDB.Query_GetItems(
         Param_TableName,
         Param_QueryAttributeListJava,

@@ -8,7 +8,7 @@
     "DynamoDB": {
         "Username": {
             "QA_AUTOMATION_USER": "QA_AUTOMATION_USER",
-            "rohan_mundkur@discovery.com": "Iconik Dev"
+            "pradheepa_p@discovery.com": "Creative Automation Developer"
         },
         "WochitRendition": {
             "TableName": "CA_WOCHIT_RENDITIONS_EU-qa",
@@ -34,7 +34,7 @@
         },
         "UserId": {
             "QA_AUTOMATION_USER": "QA_AUTOMATION_USER",
-            "rohan_mundkur@discovery.com": "db01ddf8-1d57-11ea-9366-0a580a3f8f79"
+            "pradheepa_p@discovery.com": "47f99d36-a01b-11ec-b0a6-924f039d5f4f"
         }
     }
 }

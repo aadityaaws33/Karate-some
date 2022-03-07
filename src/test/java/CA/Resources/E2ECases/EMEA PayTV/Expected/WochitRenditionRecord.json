@@ -58,10 +58,6 @@
       "key": "Dplus.SoMe.Video.Outro.GenreTrainText"
       },
       {
-      "value": "#(BackgroundColour)",
-      "key": "Dplus.SoMe.Video.Outro.BackgroundColour"
-      },
-      {
       "value": "#(TitleArt)",
       "key": "Dplus.SoMe.Video.TitleCard.TitleArt"
       },

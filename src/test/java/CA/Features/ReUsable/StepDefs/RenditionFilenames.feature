@@ -77,19 +77,20 @@ Scenario: Get All Rendition Filenames
                 if(InputMetadata.Partner != 'NONE') {
                     renditionFileNamesStraps = combineToRenditionFileName([InputMetadata.Partner], renditionFileNames)
                 }
-                
+                karate.log('Straps: ' + karate.pretty(straps));
                 renditionFileNamesStraps = combineToRenditionFileName(straps, renditionFileNamesStraps, 'bar');
 
                 // 'No Strap'
+                var renditionFileNamesNoStraps = [];
                 if(hasNoStrap) {
-                    renditionFileNames = combineToRenditionFileName(['No Strap'], renditionFileNames);
+                    renditionFileNamesNoStraps = combineToRenditionFileName(['No Strap'], renditionFileNames);
                     if(InputMetadata.Partner != 'NONE') {
-                        renditionFileNames = combineToRenditionFileName([InputMetadata.Partner], renditionFileNames);
+                        renditionFileNamesNoStraps = combineToRenditionFileName([InputMetadata.Partner], renditionFileNames);
                     }
-                    renditionFileNames = combineToRenditionFileName(['No Strap'], renditionFileNames, 'bar');
+                    renditionFileNamesNoStraps = combineToRenditionFileName(['No Strap'], renditionFileNames, 'bar');
                 }
   
-                renditionFileNames = renditionFileNames.concat(renditionFileNamesStraps);
+                renditionFileNames = renditionFileNamesNoStraps.concat(renditionFileNamesStraps);
                 
                 if('ColourSchemes' in InputMetadata) {
                     var colourSchemes = splitAttributeEntries(InputMetadata.ColourSchemes);
