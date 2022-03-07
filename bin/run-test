@@ -19,6 +19,7 @@ do
 done    
 # EXECUTE
 echo "======================= ENV: ${ENV} ======================="
+mvn clean
 mvn clean test -Dkarate.options="-t @${TAG}" -Dkarate.targetEnv="${ENV}"
 cd "$THIS_CWD"
 
