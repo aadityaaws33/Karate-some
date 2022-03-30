@@ -91,14 +91,17 @@ Scenario: Setup - Global Generic Variables & Methods
 
                 // APPEND DATA TO TCMETADATA
                 IconikMetadata.IconikAssetId = searchForAssetData.response.id;
-
+                if(!IconikMetadata.IconikAssetId) {
+                    karate.fail('Cannot retrieve Iconik Asset ID!');
+                }
                 return IconikMetadata;
             }
         """
     * def getDBAspectRatios =
         """
             function(InputMetadata) {
-                var aspectRatios = InputMetadata.IconikAspectRatios.split('|')
+                //var aspectRatios = InputMetadata.IconikAspectRatios.split('|')
+                var aspectRatios = IconikARatios.split('|');
                 for(var i in aspectRatios) {
                     aspectRatios[i] = 'ASPECT_' + aspectRatios[i].replace('x', '_');
                 }
@@ -108,6 +111,7 @@ Scenario: Setup - Global Generic Variables & Methods
             }
         """
     # ---- Paths ----
+    * TCMetadata.TCName = TCNamePrefix + '_' + Duration
     * def ReUsableFeaturesPath = 'classpath:CA/Features/ReUsable'
     * def ResourcesPath = 'classpath:CA/Resources'
     * def OutputReadPath = 'classpath:CA/Output/' + TCMetadata.TCName
@@ -127,6 +131,8 @@ Scenario: Setup - Global Generic Variables & Methods
             }
         """
     * TCMetadata.Config = ThisConfig   
+    * TCMetadata.IconikMetadata.IconikSourceAssetName = IconikSrcAssetName + "_" + TargetEnv.toUpperCase() + "_" + Duration + ".mp4"
+    * TCMetadata.InputMetadata.IconikAspectRatios = IconikARatios
     * TCMetadata.InputMetadata = modifyInputMetadataWithRandomString(TCMetadata.InputMetadata, RandomString)
     * TCMetadata.InputMetadata = getDBAspectRatios(TCMetadata.InputMetadata)
     * TCMetadata.Config.IconikConfig.IconikAuthenticationData = karate.callSingle(ReUsableFeaturesPath + '/StepDefs/Iconik.feature@GetAppTokenData', { IconikConfig: TCMetadata.Config.IconikConfig }).result;

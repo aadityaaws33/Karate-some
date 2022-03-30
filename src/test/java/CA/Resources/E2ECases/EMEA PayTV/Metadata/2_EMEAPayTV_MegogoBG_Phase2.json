@@ -1,0 +1,40 @@
+{
+  "TCName": #(TCName),
+  "InputMetadata": {
+    "Market": "EMEA PayTv",
+    "Phase": 2,
+    "Type": "Show",
+    "IconikAspectRatios": #(IconikAspectRatios),
+    "ColourSchemes": "DARK BLUE",
+    "StrapTypes": "Standard Logo, CTA & Title|No Strap",
+    "StrapInTime": "1",
+    "StrapOutTime": "9",
+    "TitleCardTypes": "Generic Text On Background|Title Art Over Key Art",
+    "CustomTitle": "Test_Automation_Netherlands_P2_NonPartner",
+    "Original": "true",
+    "PromotionalLine": "Promo Line",
+    "SomeCTA": "binnenkort",
+    "CustomStrapOutroCTA": "TEST AUTOMATION SHOW STRAP OUTRO",
+    "LegalText": "Legal Text",
+    "TemplateID": {
+      "qa": "619db0a529f511256af70cbc",
+      "prod": "61a4743029f511256af717f9"
+    },
+    "Partner": "MegogoBG"
+  },
+  "IconikMetadata": {
+    "IconikCustomActionTitle": {
+      "qa": "QA - SoMe - NL Megogo BG Trigger",
+      "prod": "Ingest Model Megogo BG trigger"
+    },
+    "IconikMetadataViewName": {
+      "qa": "NL Phase 2 Partner Metadata - Megogo",
+      "prod": "NL Phase 2 Partner Metadata - Megogo"
+    },
+    "IconikMediaType": "Film",
+    "IconikCollectionName": "Test Assets",
+    "IconikSourceAssetName": #(IconikSourceAssetName),
+    "IconikAssetType": "VIDEO",
+    "IconikRenditionRequestResourcePath": "/E2ECases/EMEA PayTv/Input/IconikRenditionRequest.json"
+  }
+}
