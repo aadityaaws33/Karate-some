@@ -78,3 +78,33 @@ Scenario: Delete an S3 Object
             }
         """
     * def result = deleteS3Object()
+
+@DownloadTestAssets
+Scenario: Download Test Assets
+    * def downloadTestAssets =
+        """
+            function(TestAssets, AssetType) {
+                for(i in TestAssets) {
+                    var thisTestAsset = TestAssets[i];
+                    var thisDownloadFileName = thisTestAsset.replace('Assets/', '');
+                    if(AssetType == 'xml') {
+                        thisDownloadFileName = ExpectedDataFileName;
+                    }
+
+
+                    var DownloadS3ObjectParams = {
+                        S3BucketName: TestAssetsS3.Name,
+                        S3Key: TestAssetsS3.Key + '/' +  thisTestAsset,
+                        AWSRegion: TestAssetsS3.Region,
+                        DownloadPath: DownloadsPath,
+                        DownloadFilename: thisDownloadFileName,
+                    }
+                    var downloadFileStatus = karate.call(ReUsableFeaturesPath + '/StepDefs/S3.feature@DownloadS3Object', DownloadS3ObjectParams);
+                    karate.log(downloadFileStatus.result);
+                    
+                    return downloadFileStatus.result
+
+                }
+            }
+        """
+    * def result = downloadTestAssets(TestAssets, AssetType)

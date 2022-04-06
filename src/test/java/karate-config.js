@@ -44,8 +44,7 @@ function() {
     TargetTag: targetTag,
     EnvConfig: envConfig,
   };
-  
-  // Testing purposes only, avoid logging as it contains SECRET DATA
+
   // karate.log(config);
   return config;
 }

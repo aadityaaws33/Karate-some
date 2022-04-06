@@ -322,3 +322,39 @@ Scenario: Delete items from DynamoDB Table
     }
     """
   * def result = deleteItems()
+
+@FormDeleteDBRecordRequests
+Scenario: Form Delete DB Record Request Parameters
+  * def formDeleteDBRecordRequests =
+        """
+            function(TrailerData) {
+                var paramList = [];
+                for(var i in TrailerData) {
+                    var thisParam = {
+
+                        PrimaryPartitionKeyName: 'trailerId',
+                        PrimaryPartitionKeyValue: i,
+                    }
+                    paramList.push(thisParam);
+                }
+                if(WochitStage == 'preWochit') {
+                    var promoAssetStatus = ['Pending Asset Upload'];
+                } else {
+                    var promoAssetStatus = ['Completed', 'Processing'];
+                }
+                var finalParams = {
+                    itemParamList: paramList,
+                    TableName: OAPAssetDBTableName,
+                    GSI: 'promoAssetStatus-modifiedAt-Index',
+                    PromoAssetStatus: promoAssetStatus,
+                    PrimaryFilterKeyName: 'promoXMLName',
+                    PrimaryFilterKeyValue: ExpectedDataFileName,
+                    Retries: 5,
+                    RetryDuration: 5000,
+                    AWSRegion: AWSRegion
+                };
+
+                return finalParams;
+            }
+        """
+  * def result = formDeleteDBRecordRequests(TrailerData)
