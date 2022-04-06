@@ -1,4 +1,0 @@
-{
-	"query": "query GetCountries {getCountries}",
-	"variables": {}
-}

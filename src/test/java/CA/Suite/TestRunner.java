@@ -60,7 +60,8 @@ public class TestRunner {
                 if(thisResult.getError() != null) {
                     System.err.println("--------------------- FAILURE: ---------------------");
                     System.out.println("Failed Scenario: " + thisResult.getScenario());
-                    System.err.println("Failure Message: " + thisResult.getError());
+                    System.err.println("Failure Message(s):");
+                    System.err.println(thisResult.getError());
                 }
             }
         );
