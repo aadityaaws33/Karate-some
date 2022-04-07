@@ -1,0 +1,63 @@
+{
+    "templateType": "SO_ME",
+    "marketMetadata": {
+        "objectName": "#(thisTCMetadata.InputMetadata.Market)",
+        "objectId": "#notnull",
+        "objectType": "collections"
+    },
+    "technicalMetadata": {
+        "data": {
+            "Format": "MPEG-4|AVC|AAC",
+            "Approved": "##notnull",
+            "Duration": "#notnull",
+            "Height": "#notnull",
+            "Width": "#notnull",
+            "FileSize": "#notnull"
+        },
+        "name": "Asset Metadata",
+        "objectName": "#(thisTCMetadata.IconikMetadata.IconikSourceAssetName)",
+        "ID": "#notnull",
+        "objectId": "#(thisTCMetadata.IconikMetadata.IconikAssetId)",
+        "objectType": "assets"
+    },
+    "modifiedAt": "#notnull",
+    "userName": "#(thisTCMetadata.Config.DynamoDBConfig.Username[thisTCMetadata.Config.IconikConfig.TestUser])",
+    "iconikUserName": "#(thisTCMetadata.Config.IconikConfig.TestUser)",
+    "assetMetadata": {
+        "data": {
+            "dplus-some-AspectRatio": "#(thisTCMetadata.InputMetadata.DBAspectRatios)",
+            "dplus-some-CustomTitle": "#(thisTCMetadata.InputMetadata.CustomTitle)",
+            "dplus-some-CustomCTA": "#(thisTCMetadata.InputMetadata.CustomStrapOutroCTA != null?thisTCMetadata.InputMetadata.CustomStrapOutroCTA: '#null')",
+            "dplus-some-LegalText": "#(thisTCMetadata.InputMetadata.LegalText)",
+            "dplus-some-PromotionalLine": "#(thisTCMetadata.InputMetadata.PromotionalLine)",
+            "dplus-some-StrapType": "#(thisTCMetadata.InputMetadata.StrapTypes)",
+            "dplus-some-StrapInTime": "#(thisTCMetadata.InputMetadata.StrapInTime)",
+            "dplus-some-Original": "#(thisTCMetadata.InputMetadata.Original)",
+            "dplus-some-StrapOutTime": "#(thisTCMetadata.InputMetadata.StrapOutTime)",
+            "dplus-some-ColourScheme": "#(thisTCMetadata.InputMetadata.ColourSchemes)",
+            "dplus-some-TitleCardType": "#(thisTCMetadata.InputMetadata.TitleCardTypes)",
+            "nl-dplus-some-CTA": "#(thisTCMetadata.InputMetadata.SomeCTA != null?thisTCMetadata.InputMetadata.SomeCTA: '#null')"
+        },
+        "name": "#(thisTCMetadata.IconikMetadata.IconikMetadataViewName[TargetEnv])",
+        "objectName": "#(thisTCMetadata.IconikMetadata.IconikSourceAssetName)",
+        "ID": "#(thisTCMetadata.IconikMetadata.IconikCustomActionMetadataView)",
+        "objectId": "#(thisTCMetadata.IconikMetadata.IconikAssetId)",
+        "objectType": "assets"
+    },
+    "assetType": "#(thisTCMetadata.IconikMetadata.IconikAssetType)",
+    "market": "#(thisTCMetadata.InputMetadata.Market.toUpperCase())",
+    "createdAt": "#notnull",
+    "onlyNoTagRequired": 0,
+    "mediaAssetCollectionId": "#notnull",
+    "createdBy": "#notnull",
+    "assetId": "#(thisTCMetadata.IconikMetadata.IconikAssetId)",
+    "compositeViewsId": "#(thisTCMetadata.IconikMetadata.IconikCustomActionMetadataView)",
+    "assetTitle": "#(thisTCMetadata.IconikMetadata.IconikSourceAssetName)",
+    "modifiedBy": "#notnull",
+    "outputCollectionId": "#notnull",
+    "seriesMetadata": {
+        "objectName": "#notnull",
+        "objectId": "#notnull",
+        "objectType": "collections"
+    }
+}

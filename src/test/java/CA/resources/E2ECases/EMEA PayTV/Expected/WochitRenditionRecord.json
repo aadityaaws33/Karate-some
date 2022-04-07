@@ -1,0 +1,96 @@
+{
+  "modifiedAt": "#notnull",
+  "aspectRatio": "#(AspectRatio)",
+  "templateId": "#(TemplateID)",
+  "title": "#(Title)",
+  "videoUpdates": {
+    "linkedFields": [
+      {
+      "value": "#(TitleCardType)",
+      "key": "Dplus.SoMe.Video.TitleCard.TitleCardType"
+      },
+      {
+      "value": "#(StrapType)",
+      "key": "Dplus.SoMe.Video.Strap.StrapType"
+      },
+      {
+      "value": "#(OriginalLine)",
+      "key": "Dplus.SoMe.Video.TitleCard.OriginalLine"
+      },
+      {
+      "value": "#(CustomTitle)",
+      "key": "Dplus.SoMe.Video.TitleCard.Title"
+      },
+      {
+      "value": "#(PromotionalLine)",
+      "key": "Dplus.SoMe.Video.TitleCard.PromotionalLine"
+      },
+      {
+      "value": "#(LegalText)",
+      "key": "Dplus.SoMe.Video.Outro.LegalText"
+      },
+      {
+      "value": "#(StrapInTime)",
+      "key": "Dplus.SoMe.Video.Strap.InTiming"
+      },
+      {
+      "value": "#(StrapOutTime)",
+      "key": "Dplus.SoMe.Video.Strap.OutTiming"
+      },
+      {
+      "value": "#(CollectionName)",
+      "key": "Dplus.SoMe.Video.Strap.Title"
+      },
+      {
+      "value": "#(CTA)",
+      "key": "Dplus.SoMe.Video.Strap.CTA"
+      },
+      {
+      "value": "#(CTA)",
+      "key": "Dplus.SoMe.Video.Outro.CTAText"
+      },
+      {
+      "value": "#(OutroType)",
+      "key": "Dplus.SoMe.Video.Outro.OutroType"
+      },
+      {
+      "value": "#(GenreTrainText)",
+      "key": "Dplus.SoMe.Video.Outro.GenreTrainText"
+      },
+      {
+      "value": "#(TitleArt)",
+      "key": "Dplus.SoMe.Video.TitleCard.TitleArt"
+      },
+      {
+      "value": "#(KeyArt)",
+      "key": "Dplus.SoMe.Video.TitleCard.KeyArt"
+      },
+      {
+      "value": "#(AffiliateLogo)",
+      "key": "Dplus.SoMe.Video.Outro.AffiliateLogo"
+      }
+    ],
+    "title": "#(Title)",
+    "timelineItems": [
+      {
+      "itemType": "VIDEO_SEGMENT",
+      "volumeControl": {
+        "bgMusic": "0.0",
+        "video": "1.0"
+      },
+      "videoUrl": "#notnull",
+      "segmentEndTime": "#notnull",
+      "segmentStartTime": "#notnull"
+      }
+    ]
+  },
+  "assetType": "VIDEO",
+  "createdAt": "#notnull",
+  "createdBy": "#notnull",
+  "renditionStatus": "#(RenditionStatus)",
+  "width": 0,
+  "modifiedBy": "#notnull",
+  "programmerName": "#notnull",
+  "ID": "#notnull",
+  "height": 0
+}
