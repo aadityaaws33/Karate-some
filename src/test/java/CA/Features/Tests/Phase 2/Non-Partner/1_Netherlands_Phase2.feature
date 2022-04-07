@@ -16,7 +16,7 @@ Scenario Outline: Netherlands Phase 2 Non-partner Testing for <DURATION>s Video
                 TCNamePrefix: 'Netherlands_Phase2_NonPartner'
             }
         """
-    * call read('classpath:CA/Features/Reusable/Steps/Setup.feature') SetupParams
+    * call read('classpath:CA/Features/ReUsable/Steps/Setup.feature') SetupParams
     * configure afterFeature =
         """
             function() {

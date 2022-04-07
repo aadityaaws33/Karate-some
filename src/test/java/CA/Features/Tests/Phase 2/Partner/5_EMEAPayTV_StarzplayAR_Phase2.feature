@@ -16,7 +16,7 @@ Scenario Outline: Netherlands Phase 2 Partner STARZPLAY AR Testing for <DURATION
                 TCNamePrefix: 'EMEAPayTV_StarzplayAR_Phase2'
             }
         """
-    * call read('classpath:CA/Features/Reusable/Steps/Setup.feature') SetupParams
+    * call read('classpath:CA/Features/ReUsable/Steps/Setup.feature') SetupParams
     * configure afterFeature =
         """
             function() {
