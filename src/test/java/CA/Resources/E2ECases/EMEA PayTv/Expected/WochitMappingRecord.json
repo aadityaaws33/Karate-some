@@ -1,0 +1,22 @@
+{
+    "modifiedAt": "#notnull",
+    "seriesName": "#(SeriesName)",
+    "isRenditionMoved": "#(IsRenditionMoved)",
+    "wochitRenditionStatus": "#(WochitRenditionStatus)",
+    "userName": "#(Username)",
+    "iconikUserName": "#notnull",
+    "assetType": "VIDEO",
+    "market": "#(Market)",
+    "createdAt": "#notnull",
+    "wochitRenditionReferenceId": "#notnull",
+    "partner": "#(Partner)",
+    "createdBy": "#notnull",
+    "renditionAssetId": "#notnull",
+    "renditionStatus": "#(RenditionStatus)",
+    "modifiedBy": "#notnull",
+    "ID": "#notnull",
+    "seriesCollectionId": "#notnull",
+    "outputCollectionId": "#notnull",
+    "mamAssetInfoReferenceId": "#(MAMAssetInfoReferenceID)",
+    "renditionFileName": "#(RenditionFilename)"
+}
