@@ -79,7 +79,6 @@ Scenario: Search for Asset Data
                 facets_filters: [],
                 search_fields: [
                     "title",
-                    "files"
                 ],
                 include_fields: [
                     "id",
@@ -118,14 +117,14 @@ Scenario: Search for Asset Data
                     if(thisSearchAssetData.pass == false) {
                         return thisSearchAssetData;
                     }
-                    var thisPath = "$.objects[?(@.title == '" + IconikMetadata.IconikSourceAssetName + "')]";
+                    var thisPath = "$.objects[?(@.title == \"" + IconikMetadata.IconikSourceAssetName + "\")]";
                     var thisFilteredAssetData = karate.jsonPath(thisSearchAssetData.response, thisPath);
-                    var thisPath = "$.[?(@.files[0].directory_path contains '" + IconikMetadata.IconikMediaType + "')]";
-                    var thisFilteredAssetData = karate.jsonPath(thisFilteredAssetData, thisPath);
-                    karate.log(thisFilteredAssetData);
+                    // var thisPath = "$.[?(@.files[0].directory_path contains \"" + IconikMetadata.IconikMediaType + \""')]";
+                    // var thisPath = "$.*.files[?(@.directory_path contains \"" + IconikMetadata.IconikMediaType + "\")]";
+                    
                     if(thisFilteredAssetData.length == 0) {
                         if(thisSearchAssetData.response.next_url != null) {
-                            GetSearchAssetDataParams.thisURL = GetSearchAssetDataParams.thisURL.split('/v1')[0] + thisSearchAssetData.response.next_url;
+                            GetSearchAssetDataParams.thisURL = GetSearchAssetDataParams.thisURL.split('/API/search/v1')[0] + thisSearchAssetData.response.next_url;
                         } else {
                             thisSearchAssetData.response = thisFilteredAssetData;
                             return thisSearchAssetData;

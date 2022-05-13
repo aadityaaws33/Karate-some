@@ -17,13 +17,6 @@ function() {
   }
 
   var targetTag = karate.properties['karate.options'].split('@')[1];
-  // if(targetTag != 'E2E' && targetTag != 'Regression') {
-  //   if(targetTag.contains('E2E')) {
-  //     targetTag = 'E2E'
-  //   } else {
-  //     targetTag = 'Regression';
-  //   }
-  // }
 
   var configDir = 'classpath:CA/Config/' + targetEnv;
 
